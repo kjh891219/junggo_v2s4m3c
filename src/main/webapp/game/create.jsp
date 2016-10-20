@@ -15,28 +15,30 @@
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-
+<jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
  
 <DIV class='title'>상품등록</DIV>
  
 <DIV class='content'>
-<FORM name='frm' method='POST' action='./create.do'>
+<FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
   <fieldset>
     <ul>
        <li>
         <label class='label' for='category'>분류</label>
         <select name = 'category' id = 'category'>
          <option value = "ps4" selected="selected">PS4</option>
-         <option value = "nontendo">닌텐도</option>
+         <option value = "nintendo">닌텐도</option>
          <option value = "pc">PC</option>
          <option value = "xbox">xbox</option>
         </select>
       </li>
       <hr/>
       <li>
-       <label class='label' for='rname'>아이디</label>
-        <input type='text' name='rname' id='rname' value='user1' required="required">
+       <label class='label' for='nickname'>아이디</label>
+        <input type='text' name='nickname' id='nickname' value='투투' required="required">
+       <label class='label' for='userid'>아이디</label>
+        <input type='text' name='userid' id='userid' value='master' required="required">
         <label class='label' for='passwd'>패스워드</label>
         <input type='password' name='passwd' id='passwd' value='1234' required="required">
       </li>
@@ -44,8 +46,8 @@
       <li>
         <label class='label' for='email'>이메일</label>
         <input type='text' name='email' id='email' value='abc@naver.com' required="required">
-        <label class='label' for='tell'>전화번호</label>
-        <input type="tel" name='tell' id='tell' value='010-9999-9999'> 예) 010-0000-0000
+        <label class='label' for='tel'>전화번호</label>
+        <input type="text" name='tel' id='tel' value='010-9999-9999'> 예) 010-0000-0000
       </li>
       <hr/>
       <li>
@@ -59,8 +61,8 @@
       </li>
       <hr/>
       <li>
-        <label class='label' for='area'>지역</label>
-      <select name = 'area' id = 'area'>
+        <label class='label' for='region'>지역</label>
+      <select name = 'region' id = 'region'>
            <option value="서울" selected="selected">서울</option>
            <option value="인천">인천</option>
            <option value="대구">대구</option>
@@ -78,8 +80,8 @@
            <option value="cbook">충북</option>
            <option value="jeju">제주</option>
         </select>
-        <label class='label' for='state'>거래구분</label>
-        <select name = 'state' id = 'state'>
+        <label class='label' for='deal_code'>거래구분</label>
+        <select name = 'deal_code' id = 'deal_code'>
          <option value = "sell" selected="selected">팝니다</option>
          <option value = "done">판매완료</option>
          <option value = "buy">삽니다</option>
@@ -88,21 +90,19 @@
       </li>
        <hr/>
       <li>
-        <label class='label' for='purchtime'>구입시기</label>
-        <input type='text' name='purchtime' id='purchtime' value='2016년7월' required="required">
-        <label class='label' for='purchprice'>구입가격</label>
-        <input type='text' name='purchprice' id='purchprice' value='300000원' required="required">
+        <label class='label' for='purc_date'>구입시기</label>
+        <input type='text' name='purc_date' id='purc_date' value='2016년7월' required="required">
       </li>
        <hr/>
       <li>
-        <label class='label' for='goods'>상품구분</label>
-        <select name = 'goods' id = 'goods'>
+        <label class='label' for='product_code'>상품구분</label>
+        <select name = 'product_code' id = 'product_code'>
          <option value = "old" selected="selected">중고품</option>
          <option value = "new">신고품</option>
          <option value = "lastest">신상품</option>
         </select>
-        <label class='label' for='howdeal'>거래방식</label>
-        <select name = 'howdeal' id = 'howdeal'>
+        <label class='label' for='deal_way'>거래방식</label>
+        <select name = 'deal_way' id = 'deal_way'>
          <option value = "직거래" selected="selected">직거래</option>
          <option value = "택배">택배</option>
          <option value = "등기우편">등기우편</option>
@@ -111,10 +111,10 @@
        </li>
        <hr/>
       <li>
-        <label class='label' for='amount'>수량</label>
-        <input type='text'  name ='amount' id = 'amount' value='1' required="required">
-        <label class='label' for='price'>희망 가격</label>
-        <input type='text'  name ='price' id = 'price' value='270000원' required="required">
+        <label class='label' for='quantity'>수량</label>
+        <input type='text'  name ='quantity' id = 'quantity' value='1' required="required">
+        <label class='label' for='hprice'>희망 가격</label>
+        <input type='text'  name ='hprice' id = 'hprice' value='270000' required="required">
       </li>
        <hr/>
       <li>
@@ -135,6 +135,16 @@
          <option value = "svg">전략</option>
         </select>
       </li>
+       <li>  
+        <label for='file1'>Thumb 파일</label>
+        Preview(미리보기) 이미지 자동 생성됩니다.
+      </li>
+       <br>
+      <li>
+        <label for='file2MF'>업로드 파일</label>
+        <input type="file" name='file2MF' id='file2MF' size='40'>
+      </li>
+      <br>
       <hr/>
       <li class='right'>
         <button type="submit">가입</button>
@@ -146,7 +156,7 @@
 </DIV>
  
 <!-- -------------------------------------------- -->
-
+<jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 <!-- -------------------------------------------- -->
 </html> 

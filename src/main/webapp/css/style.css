@@ -32,17 +32,39 @@
 }
   */
   
+DIV.standout {
+    width: 13em;
+    height: 8em;
+    border: solid black 1em;
+    border-radius: 7.5em 5em }
+    
+p { width: 70px; height: 70px; border: solid 30px;
+    border-color: orange orange silver silver;
+    border-top-right-radius: 100%; 
+   width: 100px; height: 100px;
+   border: 12px solid blue; background-color: orange;
+   border-top-left-radius: 60px 90px;
+   border-bottom-right-radius: 60px 90px;
+   box-shadow: 64px 64px 12px 40px rgba(0,0,0,0.4),
+               12px 12px 0px 8px rgba(0,0,0,0.4) inset;
+}
   
 /* 전체 스타일 */
+        
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
   *{ 
     font-family: 'Nanum Gothic', serif;
     font-size: 15px;
     margin: 0px;
     padding: 0px;  
+    list-style: none;
   }
   
   a{
+   color:black;
+  }
+  
+  a.menu_style{
    color:white;
   }
   
@@ -57,6 +79,8 @@
   header{ 
     height: 35px; 
     background-color: #e6e6e6; 
+    
+    z-index: 2;
     font-family: 맑은 고딕;  
     text-align: center;
   }
@@ -86,9 +110,11 @@
    }
    
   #main_left {
+    height:100%;
     position:fixed; 
     top:0;
     left:0;
+    z-index: 3;
   }
   
   #main_left_left{
@@ -96,25 +122,52 @@
     height:100%;
     float:left;
     color:white;
-    background-color: #737373;
+    /* background-color: #737373; */
+  }
+  
+  .left_list_form {
+      margin-right:20px;
+      margin-top:100px;
   }
   
    #main_left_detail{
+      
       display:none;
       position:absolute;
       left:130px;
       width:130px;
-      height:100%;
       
       background-color:#575757;
    }
   
-  .left_list_form {
-    padding:10px;
-  }
   
   .left_list{
-    padding-bottom:8px;
+    position:relative;
+    margin-top:5px;
+    padding-top:5px;
+    padding-bottom:5px;
+    border:1px solid orange;
+    border-top-right-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    background-color:orange;
+    z-index: 1;
+  }
+  
+  
+  .menu_style {
+    margin-left:20px; 
+   
+  }
+  
+  .left_list_detail {
+    display:none;
+    position:relative;
+    top:-15px;
+    left:0px;
+    z-index: 0;
+    height:100px;
+    border-bottom-right-radius: 15px ;
+    background-color:orange;
   }
 
 /* index 안에 있는 태그 스타일 */
@@ -125,7 +178,6 @@
    
    nav ul li {
       list-style:none;
-      margin-left: 20px;
    }
    nav {
       margin-top:30px;

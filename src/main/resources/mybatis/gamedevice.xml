@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gamedevice">
+
+<insert id="create" parameterType="GameDeviceVO">
+
+INSERT INTO gamedevice(gdno,  category , nickname, passwd, deal_way, deal_code, 
+ product_code, hprice, region, tel, email, quantity, title, content,
+ purc_date, userid)  
+VALUES((SELECT NVL(MAX(gdno), 0) + 1 as gdno FROM gamedevice), #{category}, #{nickname}, #{passwd}, #{deal_way},
+ #{deal_code}, #{product_code},  #{hprice}, #{region}, #{tel}, #{email}, #{quantity}, #{title}, #{content},
+  #{purc_date}, #{userid})
+  </insert>
+  
+ <select id="list" resultType="GameDeviceVO">
+   SELECT gdno,  category , nickname, passwd, deal_way, deal_code, 
+   product_code, hprice, region, tel, email, quantity, title, content,
+   purc_date, wdate, cnt, userid
+   FROM gamedevice 
+   ORDER BY gdno ASC
+  </select>
+
+ <update id="update" parameterType="GameDeviceVO">
+ UPDATE gamedevice 
+ SET category = #{category} , nickname = #{nickname}, passwd = #{passwd}, deal_way = #{deal_way}, deal_code = #{deal_code}, 
+ product_code = #{product_code}, hprice = #{hprice}, region = #{region}, tel = #{tel}, email = #{email}, quantity = #{quantity}, 
+ title = #{title}, content = #{content}, purc_date = #{purc_date} 
+ WHERE gdno=#{gdno}
+</update>     
+   <select id="read" resultType="GameDeviceVO" parameterType="int">
+  SELECT gdno,  category , nickname, passwd, deal_way, deal_code, 
+  product_code, hprice, region, tel, email, quantity, title, content,
+  purc_date, wdate, cnt, userid
+  FROM gamedevice 
+   WHERE gdno= #{gdno}
+  </select> 
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM gamedevice
+    WHERE gdno = #{gdno}
+  </delete> 
+      
+      
+</mapper>

@@ -18,119 +18,82 @@
 <link href="./css/style.css" rel="Stylesheet" type="text/css">
 <script>
 $(document).ready(function(){
-   $('.left_list').mouseenter(function(){
-     $("#main_left_detail").show();
+   $('#left_list_1').click(function(){
+     $(".left_list_detail").slideUp();
+     $("#left_detail_1").slideDown(500);
      /* Toggle('on'); */
    })
-   $('#main_left_detail').mouseleave(function(){
-     $("#main_left_detail").hide();
+   $('#left_detail_1').mouseleave(function(){
+     $(".left_list_detail").slideUp();
    });
+   
+   $('#left_list_2').click(function(){
+     $(".left_list_detail").slideUp();
+     $("#left_detail_2").slideDown(500);
+     /* Toggle('on'); */
+   })
+   $('#left_detail_2').mouseleave(function(){
+     
+      $(".left_list_detail").slideUp();
+   });
+   
+   $('#left_list_3').click(function(){
+      $(".left_list_detail").slideUp();
+      $("#left_detail_3").slideDown(500);
+     /* Toggle('on'); */
+   })
+   $('#left_detail_3').mouseleave(function(){
+      $(".left_list_detail").slideUp();
+   });
+   
+   $('#left_list_4').click(function(){
+      $(".left_list_detail").slideUp();
+      $("#left_detail_4").slideDown(500);
+      /* Toggle('on'); */
+    })
+    $('#left_detail_4').mouseleave(function(){
+       $(".left_list_detail").slideUp();
+    });
+   
+   $('#left_list_5').click(function(){
+      $(".left_list_detail").slideUp();
+      $("#left_detail_5").slideDown(500);
+      /* Toggle('on'); */
+    })
+    $('#left_detail_5').mouseleave(function(){
+       $(".left_list_detail").slideUp();
+    });
+   
+   $('#left_list_6').click(function(){
+      $(".left_list_detail").slideUp();
+      $("#left_detail_6").slideDown(500);
+      /* Toggle('on'); */
+    })
+    $('#left_detail_6').mouseleave(function(){
+       $(".left_list_detail").slideUp();
+    });
+   
+   $('#left_list_7').click(function(){
+      $(".left_list_detail").slideUp();
+      $("#left_detail_7").slideDown(500);
+      /* Toggle('on'); */
+    })
+    $('#left_detail_7').mouseleave(function(){
+       $(".left_list_detail").slideUp();
+    });
+
+   $('#left_list_8').click(function(){
+      $(".left_list_detail").slideUp();
+      $("#left_detail_8").slideDown(500);
+      /* Toggle('on'); */
+    })
+    $('#left_detail_8').mouseleave(function(){
+       $(".left_list_detail").slideUp();
+    });
    
 });
 </script>
 <style type="text/css">
-
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
-  
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
-
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
-
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
- 
  
 </style>
 </head> 

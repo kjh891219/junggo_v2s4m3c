@@ -26,9 +26,9 @@
 <body leftmargin="0" topmargin="0">
 <jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
-     
  
     <div class='content_menu' style='width: 100%;'>
+    <A href='../usedcar/list.do'>게시판 목록</A> > 
     </div>
   
     <DIV class = 'content'>

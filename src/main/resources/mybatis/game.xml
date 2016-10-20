@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="game">
+
+<insert id="create" parameterType="GameVO">
+
+INSERT INTO game(gno,  category , nickname, passwd, deal_way, deal_code, 
+ product_code, hprice, region, tel, email, quantity, title, content,
+ purc_date, file1, file2, size2, lev, genre, userid)  
+VALUES((SELECT NVL(MAX(gno), 0) + 1 as gno FROM game), #{category}, #{nickname}, #{passwd}, #{deal_way},
+ #{deal_code}, #{product_code},  #{hprice}, #{region}, #{tel}, #{email}, #{quantity}, #{title}, #{content},
+  #{purc_date}, #{file1}, #{file2}, #{size2}, #{lev}, #{genre}, #{userid})
+  </insert>
+ <select id="list" resultType="GameVO">
+   SELECT gno,  category , nickname, passwd, deal_way, deal_code, 
+   product_code, hprice, region, tel, email, quantity, title, content,
+   purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid
+   FROM game 
+   ORDER BY gno ASC
+  </select>
+<update id="update" parameterType="GameVO">
+   UPDATE game 
+ SET category = #{category} , nickname = #{nickname}, passwd = #{passwd}, deal_way = #{deal_way}, deal_code = #{deal_code}, 
+ product_code = #{product_code}, hprice = #{hprice}, region = #{region}, tel = #{tel}, email = #{email}, quantity = #{quantity}, 
+ title = #{title}, content = #{content}, purc_date = #{purc_date}, file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, lev = #{lev}, genre = #{genre}
+ WHERE gno=#{gno}
+</update>     
+   <select id="read" resultType="GameVO" parameterType="int">
+   SELECT gno,  category , nickname, passwd, deal_way, deal_code, 
+   product_code, hprice, region, tel, email, quantity, title, content,
+   purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid
+  FROM game 
+   WHERE gno= #{gno}
+  </select> 
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM game
+    WHERE gno = #{gno}
+  </delete> 
+ 
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update game
+   set cnt = cnt +1
+   where gno= #{gno}
+   
+   </update>  
+      
+ <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM game 
+      <choose>
+                        <when test="col == 'title'">
+                           where title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           where content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           where category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+ </select>     
+      
+      
+  <!-- ********** 검색에 따른 변경 시작 ********** -->
+ <select id="list2" resultType="GameVO" parameterType="HashMap" >
+    SELECT gno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid, r
+    FROM(
+       SELECT gno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid, rownum as r     
+           FROM(
+             SELECT gno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid
+                 FROM game
+                       <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           WHERE category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY gno DESC
+             )
+    )
+    WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->
+  </select>  
+      
+      
+      
+</mapper>

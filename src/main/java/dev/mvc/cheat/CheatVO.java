@@ -1,25 +1,122 @@
 package dev.mvc.cheat;
-   
+import org.springframework.web.multipart.MultipartFile;
+
 public class CheatVO {
-  private int ctno;   
+  /** 게시글번호*/
+  private int ctno;
+  /** 제목 */
+  private String title;
+  /** 신고유형*/
   private String gubun;
+  /** 지역 */
   private String region;
+  /** 발생일 */
   private String occurday;
+  /** 피해금액*/
   private int buyprice;
+  /** 허위상품 신고자 정보*/
   private String cheatid;
   private String cheattel;
   private String cheatemail;
-  private int hit;
+  /** 조회수*/
+  private int cnt;
+  /** 내용*/
   private String content;
+  /** 등록자 정보*/
   private String email;
   private String tel;
-  private String rname;
+  private String userid;
+  private String nickname;
+  /** 비밀번호*/
   private String passwd;
-  private String rdate;
-  private String title;
+  /** 작성일자*/
+  private String wdate;
+  /** 첨부파일정보*/
+  /** 썸네일 이미지*/
+  private String file1 = "";
+  /** 업로드 파일 */
+  private String file2 = "";
+  /** 업로드된 파일 크기 */
+  private long size2 = 0;
   
+  /** Spring Framework에서 자동 주입되는 업로드 파일 객체,
+  실제 컬럼은 존재하지 않음. */  
+  private MultipartFile file2MF;
+  
+  /** size2의 컴마 저장 출력용 변수, 실제 컬럼은 존재하지 않음. */
+  private String size2Label; 
+  
+  public String getFile1() {
+    if (file1 == null){
+      file1 = "";
+    }
+    return file1;
+  }
+  public void setFile1(String file1) {
+    this.file1 = file1;
+  }
+
+  public long getSize2() {
+    return size2;
+  }
+
+  public void setSize2(long size2) {
+    this.size2 = size2;
+  }
+
+  public MultipartFile getFile2MF() {
+    return file2MF;
+  }
+
+  public void setFile2MF(MultipartFile file2mf) {
+    file2MF = file2mf;
+  }
+
+  public String getSize2Label() {
+    return size2Label;
+  }
+
+  public void setSize2Label(String size2Label) {
+    this.size2Label = size2Label;
+  }
+
+  public void setFile2(String file2) {
+    this.file2 = file2;
+  }
+
+  public String getFile2() {
+  if (file2 == null){
+   file2 = "";
+  }
+  return file2;
+  }
+  
+  public int getCnt() {
+    return cnt;
+  }
+  public void setCnt(int cnt) {
+    this.cnt = cnt;
+  }
+  public String getWdate() {
+    return wdate;
+  }
+  public void setWdate(String wdate) {
+    this.wdate = wdate;
+  }
+  public String getUserid() {
+    return userid;
+  }
+  public void setUserid(String userid) {
+    this.userid = userid;
+  }
+  public String getNickname() {
+    return nickname;
+  }
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
+  }
   public int getCtno() {
-    return ctno;  
+    return ctno;
   }
   public void setCtno(int ctno) {
     this.ctno = ctno;
@@ -50,7 +147,7 @@ public class CheatVO {
   }
   public String getCheatid() {
     return cheatid;
-  }    
+  }
   public void setCheatid(String cheatid) {
     this.cheatid = cheatid;
   }
@@ -66,12 +163,7 @@ public class CheatVO {
   public void setCheatemail(String cheatemail) {
     this.cheatemail = cheatemail;
   }
-  public int getHit() {
-    return hit;
-  }
-  public void setHit(int hit) {
-    this.hit = hit;
-  }
+  
   public String getContent() {
     return content;
   }
@@ -90,45 +182,14 @@ public class CheatVO {
   public void setTel(String tel) {
     this.tel = tel;
   }
-  public String getRname() {
-    return rname;
-  }
-  public void setRname(String rname) {
-    this.rname = rname;
-  }
+  
   public String getPasswd() {
     return passwd;
   }
   public void setPasswd(String passwd) {
     this.passwd = passwd;
   }
-  public String getRdate() {
-    return rdate;
-  }
-  public void setRdate(String rdate) {
-    this.rdate = rdate;
-  }
-  public CheatVO(){}
   
-  public CheatVO(int ctno, String gubun, String region, String occurday, int buyprice, String cheatid, String cheattel,
-      String cheatemail, int hit, String content, String email, String tel, String rname, String passwd, String rdate, String title) {
-    this.ctno = ctno;
-    this.gubun = gubun;
-    this.region = region;
-    this.occurday = occurday;
-    this.buyprice = buyprice;
-    this.cheatid = cheatid;
-    this.cheattel = cheattel;
-    this.cheatemail = cheatemail;
-    this.hit = hit;
-    this.content = content;
-    this.email = email;
-    this.tel = tel;
-    this.rname = rname;
-    this.passwd = passwd;
-    this.rdate = rdate;
-    this.title = title;
-  }
   public String getTitle() {
     return title;
   }
@@ -136,5 +197,6 @@ public class CheatVO {
     this.title = title;
   }
   
+  public CheatVO(){}
   
 }

@@ -69,28 +69,95 @@
       
       <ul>
        <li>
-        <label class='label' for='userid'>아이디</label>
-        <input type='text' name='userid' id='userid' value='' required="required">
+
          <label class='label' for='passwd'>비밀번호</label>
-        <input type='password' name='passwd' id='passwd' value='1234' required="required"><br><br>
+        <input type='password' name='passwd' id='passwd' value=' ${usedcarVO.passwd}' required="required"><br><br>
          <label class='label' for='nickname'>닉네임</label>
-        <input type='text' name='nickname' id='nickname' value='' required="required">
+        <input type='text' name='nickname' id='nickname' value=' ${usedcarVO.nickname} '  required="required">
        </li>
-        
-        <label for="title" class="col-xs-2 col-lg-2 control-label">글 제목</label>
-        <div class="col-xs-10 col-lg-10">
-          <input type='text' class="form-control" name='title' size='70' id='title' value='${usedcarVO.title}' required="required">
-        </div>
-      </div>   
-      <div class="form-group">   
-        <label for="content" class="col-xs-2 col-lg-2 control-label">내용</label>
+       
+       <li>
+        <label class='label' for='category'>카테고리 코드</label>
+        <select name='category' id='category'>
+          <option value="hyundai" selected="selected">HYUNDAI</option>
+          <option value="kia" >KIA</option>
+          <option value="chevrolet" >쉐보레</option>
+          <option value="benz" >BENZ</option>
+        </select>
+        <label class='label' for='deal_code'>거래구분 코드</label>
+        <select name='deal_code' id='deal_code'>
+          <option value="sale" selected="selected">팝니다</option>
+          <option value="buy">삽니다</option>
+        </select>
+      </li>
+       
+       <li>
+        <label class='label' for='region'>거래 지역</label>
+        <select name='region' id='region' >
+           <option value="서울" selected="selected">서울</option>
+           <option value="인천">인천</option>
+           <option value="대구">대구</option>
+           <option value="대전">대전</option>
+           <option value="광주">광주</option>
+           <option value="울산">울산</option>
+           <option value="부산">부산</option>
+           <option value="경기">경기</option>
+           <option value="강원">강원</option>
+           <option value="경북">경북</option>
+           <option value="경남">경남</option>
+           <option value="전북">전북</option>
+           <option value="전남">전남</option>
+           <option value="충남">충남</option>
+           <option value="충북">충북</option>
+           <option value="제주">제주</option>
+        </select>
+          <label class='label' for='deal_way'>거래방식</label>
+        <select name='deal_way' id='deal_way'>
+          <option value="field" selected="selected">현장거래</option>
+          <option value="delivery">택배</option>
+        </select>
+      </li>
+       
+        <li>
+        <label class='label' for='h_price'>희망가격</label>
+        <input type='text' name='h_price' id='h_price' value='${usedcarVO.h_price }' >
+      </li>
+      
+      <li>
+        <label class='label' for='purc_date'>구입시기</label>
+        <input type='text' name='purc_date' id='purc_date' value=' ${usedcarVO.purc_date }' >
+       
+       <label class='label' for='product_code'>거래방식</label>
+        <select name='product_code' id='product_code'>
+          <option value="old" selected="selected">중고</option>
+          <option value="new">신상</option>
+        </select>
+      </li>
+       
+       <li>
+        <label class='label' for='title'>제목</label>
+        <input type='text' name='title' id='title' size='50' value=' ${usedcarVO.title}' ' required="required">
+      </li>
+      
+      <li>
+      <label for="content" class="col-xs-2 col-lg-2 control-label">내용</label>
         <div class="col-xs-10 col-lg-10">
           <textarea class="form-control" name='content' id='content'  rows='10' style='width: 100%;'>${usedcarVO.content}</textarea>
         </div>
-      </div>   
-      <div id='file2Panel' class="form-group">
-        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일</label>
-        <div class="col-xs-10 col-lg-10">
+      </li>
+      
+      <li>
+      <label for="file2MF" >업로드 파일</label>
+        <div>
+          <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
+          <br>
+          Preview(미리보기) 이미지 자동 생성됩니다.
+        </div>
+      </li>
+      
+      <li>
+      <label for="content" >등록된 파일</label>
+        <div>
           <c:set var='file2' value="${fn:toLowerCase(usedcarVO.file2)}" />
           <c:choose>
             <c:when test="${fn:endsWith(file2, '.jpg')}">
@@ -107,15 +174,31 @@
             </c:when>
           </c:choose>
         </div>
-      </div>
-      <div class="form-group">   
-        <label for="file2MF" class="col-xs-2 col-lg-2 control-label">업로드 파일</label>
-        <div class="col-xs-10 col-lg-10">
-          <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
-          <br>
-          Preview(미리보기) 이미지 자동 생성됩니다.
+      </li>
+      
+        <li>
+        <label for='email'>E-mail</label><br>
+        <input type='email' name='email' id='email' required="required"  value = ' ${usedcarVO.email }' style='width: 35%;'>
+         <select name='email_dns'' id='email_dns'>
+          <option value='none' selected="selected">직접 입력</option>
+          <option value="daum.net" >daum.net</option>
+          <option value='gmail.com'>gmail.com</option>
+          <option value="naver.com" >naver.com</option>
+          <option value='nate.com'>nate.com</option>
+          <option value="google.com" >google.com</option>
+          <option value="nate.com" >nate.com</option>
+        </select>
+      </li>
+    <%--   
+      <li>
+        <label for='tel'>Tel</label><br>
+        <input type='text' name='tel' id='tel' size='14' value=' ${usedcarVO.tel } ' required="required">
+      </li> --%>
+      
+        </ul> 
         </div>
-      </div>  
+        
+
       <DIV style='text-align: right;'>
         <button type="submit">수정</button>
         <button type="button" onclick="location.href='./list.do?u_no= ${usedcarVO.u_no}'">목록[취소]</button>

@@ -1,6 +1,7 @@
 package dev.mvc.usedcar;
  
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.usedcar.UsedcarVO;
+import web.tool.Paging;
 import web.tool.SearchDTO;
 import web.tool.Tool;
 import web.tool.Upload;
@@ -45,21 +46,35 @@ return mav;
    * 
    * @return
    */
-  @RequestMapping(value = "/usedcar/list.do", method = RequestMethod.GET)
+ /* @RequestMapping(value = "/usedcar/list.do", method = RequestMethod.GET)
   public ModelAndView list() {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/usedcar/list"); //  /webapp/member/list.jsp
-    mav.addObject("list", usedcarDAO.list());
+   
+    List<UsedcarVO> list = usedcarDAO.list();
+    Iterator<UsedcarVO> iter = list.iterator();
+    while(iter.hasNext() == true){  // 다음 요소 검사
+      UsedcarVO vo = iter.next();  // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10)); // 문자열 10자 분리
+      vo.setWdate(vo.getWdate().substring(0, 10));  // 년월일
+      vo.setFile1(Tool.textLength(vo.getFile1(), 10));
+      vo.setFile2(Tool.textLength(vo.getFile2(), 10));
+      
+    }
+       
+    mav.addObject("list", list);
  
     return mav;
   }
+  */
   
   @RequestMapping(value = "/usedcar/read.do", method = RequestMethod.GET)
   public ModelAndView read(int u_no) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/usedcar/read");
+    usedcarDAO.increaseCnt(u_no);
     mav.addObject("usedcarVO", usedcarDAO.read(u_no));
- 
+    
     return mav;
   }
  
@@ -78,7 +93,7 @@ return mav;
     // System.out.println("--> create() POST called.");
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/usedcar/message");
-
+    
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
 
@@ -117,7 +132,7 @@ return mav;
      
     if (usedcarDAO.create(usedcarVO) == 1) {
       msgs.add("글을 등록했습니다.");
-      links.add("<button type='button' onclick=\"location.href='./create.do?blogcategoryno="
+      links.add("<button type='button' onclick=\"location.href='./create.do?u_no="
               + usedcarVO.getU_no() + "'\">계속 등록</button>");
     } else {
       msgs.add("글 등록에 실패했습니다.");
@@ -126,7 +141,7 @@ return mav;
     }
 
     links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
-    links.add("<button type='button' onclick=\"location.href='./list.do?blogcategoryno="
+    links.add("<button type='button' onclick=\"location.href='./list.do?u_no="
             + usedcarVO.getU_no() + "'\">목록</button>");
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
@@ -172,7 +187,7 @@ return mav;
     String file1 = "";
     String file2 = "";
  
-    String upDir = Tool.getRealPath(request, "/blog/storage");
+    String upDir = Tool.getRealPath(request, "/usedcar/storage");
     // <input type="file" name='file2MF' id='file2MF' size='40' >
     MultipartFile file2MF = usedcarVO.getFile2MF();
     UsedcarVO oldVO = usedcarDAO.read(usedcarVO.getU_no());
@@ -209,7 +224,7 @@ return mav;
     } else {
       msgs.add("게시판 수정에 실패 하셨습니다.");
       links.add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./list.do?blogcategoryno="
+      links.add("<button type='button' onclick=\"location.href='./list.do?u_no="
              + usedcarVO.getU_no() + "'\">목록</button>");
       mav.addObject("msgs", msgs);
       mav.addObject("links", links);
@@ -262,25 +277,108 @@ return mav;
     return mav;
   }
   
-   /**
-   * 글을 조회합니다
-   * @param u_no
-   * @return
+  
+  /**
+   *  별로 게시판 목록을 검색하여 출력합니다.
+   * 
+   * @param 
+   *          전체 목록에서 가져올 게시판 번호
+   * @param searchDTO 검색 정보         
+   * @return 추출된 게시판 목록
    */
-/*  @RequestMapping(value = "/usedcar/read.do", 
+  @RequestMapping(value = "/usedcar/list2.do", 
                              method = RequestMethod.GET)
-  public ModelAndView read(int u_no, SearchDTO searchDTO) {
+  public ModelAndView list2(
+                                        SearchDTO searchDTO,
+                                        HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/usedcar/read");
-    UsedcarVO usedcarVO = usedcarDAO.read(u_no);
+    mav.setViewName("/usedcar/list");
+
+    // HashMap hashMap = new HashMap();
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("col", searchDTO.getCol());
+    hashMap.put("word", searchDTO.getWord());
     
-   // String content = usedcarVO.getContent();
-    //content = Tool.convertChar(content); // 특수 문자 처리
-    //usedcarVO.setContent(content);
-    
-    mav.addObject("usedcarVO", usedcarVO);
+    List<UsedcarVO> list = usedcarDAO.list2(hashMap); // 검색
+    Iterator<UsedcarVO> iter = list.iterator();
+    while (iter.hasNext() == true) { // 다음 요소 검사
+      UsedcarVO vo = iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+      // vo.setFile1(Tool.textLength(10, vo.getFile1()));
+      // vo.setFile2(Tool.textLength(10, vo.getFile2()));
+      vo.setSize2Label(Tool.unit(vo.getSize2())); // MB 단위 변환
+    }
+    mav.addObject("list", list);
+
+    mav.addObject("root", request.getContextPath());
+    mav.addObject("totalRecord", usedcarDAO.count(hashMap)); // 검색된 레코드 갯수
     
     return mav;
-  }*/
+  }
+
+  
+  
+  
+  /**
+   * u_no 별로 게시판 목록을 검색+페이징하여 출력합니다.
+   * 
+   * @param u_no
+   *          전체 목록에서 가져올 게시판 번호
+   * @param searchDTO 검색 정보         
+   * @return 추출된 게시판 목록
+   */
+  @RequestMapping(value = "/usedcar/list.do", 
+                             method = RequestMethod.GET)
+  public ModelAndView list(
+                                        SearchDTO searchDTO,
+                                        HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/usedcar/list");
+    int totalRecord = 0;
+
+    // HashMap hashMap = new HashMap();
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("col", searchDTO.getCol());
+    hashMap.put("word", searchDTO.getWord());
+    
+    int recordPerPage = 10; // 페이지당 출력할 레코드 갯수
+    // 페이지에서 출력할 시작 레코드 번호 계산, nowPage는 1부터 시작
+    int beginOfPage = (searchDTO.getNowPage() - 1) * 10; 
+    // 1 page: 0
+    // 2 page: 10
+    // 3 page: 20
+    int startNum = beginOfPage + 1; // 시작 rownum, 1
+    int endNum = beginOfPage + recordPerPage; // 종료 rownum, 10
+    hashMap.put("startNum", startNum);
+    hashMap.put("endNum", endNum);
+
+    List<UsedcarVO> list = usedcarDAO.list(hashMap); // 검색
+    Iterator<UsedcarVO> iter = list.iterator();
+    while (iter.hasNext() == true) { // 다음 요소 검사
+      UsedcarVO vo = iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+      // vo.setFile1(Tool.textLength(10, vo.getFile1()));
+      // vo.setFile2(Tool.textLength(10, vo.getFile2()));
+      vo.setSize2Label(Tool.unit(vo.getSize2()));
+    }
+    mav.addObject("list", list);
+
+    
+    totalRecord = usedcarDAO.count(hashMap);
+    mav.addObject("totalRecord", usedcarDAO.count(hashMap)); // 검색된 레코드 갯수
+ 
+    String paging = new Paging().paging5(
+                                           totalRecord, 
+                                           searchDTO.getNowPage(), 
+                                           recordPerPage, 
+                                           searchDTO.getCol(), 
+                                           searchDTO.getWord());
+    mav.addObject("paging", paging);
+    return mav;
+  }
+
+
   
 }

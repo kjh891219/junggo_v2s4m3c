@@ -14,14 +14,14 @@
 
 <script type="text/javascript">
 $(function(){ 
-     
+  
 });
 </script>
 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-
+<jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
 
 <DIV class='title'>알림</DIV>
@@ -41,9 +41,9 @@ $(function(){
     </ul>
   </fieldset>
 </DIV>
-  
-<!-- --------------  ------------------------------ -->
 
+<!-- -------------------------------------------- -->
+<jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 <!-- -------------------------------------------- -->
 </html> 

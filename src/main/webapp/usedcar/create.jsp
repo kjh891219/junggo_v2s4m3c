@@ -79,25 +79,25 @@
       <ul>
        <li>
         <label class='label' for='userid'>아이디</label>
-        <input type='text' name='userid' id='userid' value='' required="required">
-         <label class='label' for='passwd'>비밀번호</label>
-        <input type='password' name='passwd' id='passwd' value='1234' required="required"><br><br>
+        <input type='text' name='userid' id='userid' value=' '  required="required">
          <label class='label' for='nickname'>닉네임</label>
-        <input type='text' name='nickname' id='nickname' value='' required="required">
+        <input type='text' name='nickname' id='nickname' value=' ' required="required"S><br><br>
+         <label class='label' for='passwd'>글 비밀번호</label>
+        <input type='password' name='passwd' id='passwd' value='1234' required="required"><br><br>
        </li>
       
        <li>
         <label class='label' for='category'>카테고리 코드</label>
         <select name='category' id='category'>
-          <option value="hyundai" selected="selected">HYUNDAI</option>
-          <option value="kia" >KIA</option>
-          <option value="chevrolet" >쉐보레</option>
-          <option value="benz" >BENZ</option>
+          <option value="HYUNDAI" selected="selected">HYUNDAI</option>
+          <option value="KIA" >KIA</option>
+          <option value="쉐보레" >쉐보레</option>
+          <option value="BENZ" >BENZ</option>
         </select>
         <label class='label' for='deal_code'>거래구분 코드</label>
         <select name='deal_code' id='deal_code'>
-          <option value="sale" selected="selected">팝니다</option>
-          <option value="buy">삽니다</option>
+          <option value="팝니다" selected="selected">팝니다</option>
+          <option value="삽니다">삽니다</option>
         </select>
       </li>
       
@@ -123,8 +123,8 @@
         </select>
           <label class='label' for='deal_way'>거래방식</label>
         <select name='deal_way' id='deal_way'>
-          <option value="field" selected="selected">현장거래</option>
-          <option value="delivery">택배</option>
+          <option value="현장거래" selected="selected">현장거래</option>
+          <option value="택배">택배</option>
         </select>
       </li>
       <li>
@@ -138,8 +138,8 @@
        
        <label class='label' for='product_code'>거래방식</label>
         <select name='product_code' id='product_code'>
-          <option value="old" selected="selected">중고</option>
-          <option value="new">신상</option>
+          <option value="중고" selected="selected">중고</option>
+          <option value="신상">신상</option>
         </select>
       </li>
          

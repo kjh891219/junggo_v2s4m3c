@@ -1,5 +1,6 @@
 package dev.mvc.usedcar;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dev.mvc.usedcar.UsedcarVO;
@@ -7,7 +8,7 @@ import dev.mvc.usedcar.UsedcarVO;
 
 public interface UsedcarDAOInter {
   
-  /**
+  /** 
    * 레코드를 등록합니다.
    * <insert id="create" parameterType="CodeVO">
    * @param vo 등록할 데이터 객체
@@ -47,7 +48,38 @@ public interface UsedcarDAOInter {
    * @return
    */
   public UsedcarVO read(int u_no);
-  
 
+  
+  /**
+   * 등록된 글수의 증가
+   * <update id="increaseCnt" parameterType="int">
+   * @param u_no
+   * @return
+   */
+  public int increaseCnt(int u_no);
+  
+  /**
+   * 검색 목록
+   * <select id="list2" resultType="UsedcarVO" parameterType="HashMap" > 
+   * @param hashmap 검색 조건
+   * @return
+   */
+  public List<UsedcarVO> list2(HashMap hashmap);
+  
+  /**
+   * 검색된 레코드 수
+   * <select id="count" resultType="int" parameterType="HashMap" > 
+   * @param hashmap 검색 조건
+   * @return
+   */
+  public int count(HashMap hashmap);
+
+  /**
+   * 검색 목록
+   * <select id="list3" resultType="UsedcarVO" parameterType="HashMap" > 
+   * @param hashmap 검색 조건
+   * @return
+   */
+  public List<UsedcarVO> list(HashMap hashmap);
 
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- Oracle 기반 -->
+<mapper namespace = "message">
+  <!-- 받은 메시지 모두 조회 -->
+  <select id="receive_list" resultType="MessageVO" parameterType="String">  
+    SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck
+    FROM message
+    WHERE receiveid=#{receiveid} and visible = 'Y'
+  </select>
+  
+  <!-- 보낸 메시지 모두 조회 -->
+  <select id="send_list" resultType="MessageVO" parameterType="String">  
+    SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck
+    FROM message
+    WHERE sendid=#{sendid} 
+  </select>
+  
+  <!-- 메시지 하나만 조회 -->
+  <select id="read_msg" resultType="MessageVO" parameterType="int">  
+    SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck
+    FROM message
+    WHERE msg_no=#{msg_no}
+  </select>
+</mapper>

@@ -1,10 +1,8 @@
 package dev.mvc.usedcar;
 
-import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import oracle.sql.DATE;
 
 public class UsedcarVO {
   
@@ -48,7 +46,7 @@ public class UsedcarVO {
   /** 구입시기 */
   private String purc_date;
   /** 글등록일 */
-  private DATE wdate;
+  private String wdate;
   /** 조회수 */
   private int     u_cnt;
   
@@ -187,10 +185,10 @@ public class UsedcarVO {
   public void setPurc_date(String purc_date) {
     this.purc_date = purc_date;
   }
-  public DATE getWdate() {
+  public String getWdate() {
     return wdate;
   }
-  public void setWdate(DATE wdate) {
+  public void setWdate(String wdate) {
     this.wdate = wdate;
   }
   public int getU_cnt() {
