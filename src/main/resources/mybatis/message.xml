@@ -25,4 +25,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM message
     WHERE msg_no=#{msg_no}
   </select>
+  
+  <!-- 전송 -->
+  <insert id="create" parameterType="MessageVO">
+  INSERT INTO message (msg_no, sendid, receiveid, title, content, msg_date, read_ck, visible)
+  VALUES ((SELECT NVL(MAX(msg_no), 0)+1 as msg_no FROM message), 
+            #{sendid}, #{receiveid}, #{title}, #{content}, sysdate, 'N', 'Y');
+  </insert>
+  
 </mapper>

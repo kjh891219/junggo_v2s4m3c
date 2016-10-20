@@ -30,4 +30,9 @@ public class MessageDAO implements MessageDAOInter{
   public MessageVO read_msg(int msg_no) {
     return mybatis.selectOne("message.read_msg", msg_no);
   }
+
+  @Override
+  public int create(MessageVO messageVO) {
+    return mybatis.insert("message.create", messageVO);
+  }
 }

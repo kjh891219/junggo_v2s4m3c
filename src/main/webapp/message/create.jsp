@@ -66,55 +66,41 @@ table{
 </tr>
 </table>
 
+
+<form name=fmemoform method=post onsubmit="return fmemoform_submit(this);" style="margin:0px;">
 <table width="600">
 <tr> 
-    <td height="200" align="center" valign="top">
+    <td height="300" align="center" valign="top">
         <table width="540">
+        <tr> 
+            <td height="30" align="right" style="padding-right:0px;">
+                        </td>
+        </tr>
         <tr> 
             <td height="2" bgcolor="#808080"></td>
         </tr>
         <tr> 
-            <td width="540" bgcolor="#FFFFFF">
-                <table width=100%;>
-                <tr bgcolor=#E1E1E1> 
-                    <c:choose>
-                      <c:when test="${flag == 'recv'}">
-                        <td width="30%" height="24"><b>보낸 사람</b></td>
-                      </c:when>
-                      <c:when test="${flag == 'send'}">
-                        <td width="30%" height="24"><b>받은 사람</b></td>
-                      </c:when>
-                    </c:choose>
-                    <td width=25%><b>제목</b></td>
-                    <td width=25%><b>내용</b></td>
-                    <td width=20%><b>전송 시간</b></td>
+            <td width="540" height="2" align="center" valign="top" bgcolor="#FFFFFF">
+                <table width=100% cellpadding=1 cellspacing=1 border=0>
+                <tr bgcolor=#E1E1E1 align=center> 
+                    <td width="30%" height="24" rowspan="2"><b>받는 회원 아이디</b></td>
+                    <td width=70% align="center"><input type=text name="sendid" required style="width:95%;"></td>
                 </tr>
-
-                <c:if test="">
-                <tr><td height=100 align=center colspan=4>자료가 없습니다.</td></tr> 
-                </c:if>
-                
-                <c:forEach var="vo" items="${list }">
-                  <tr>
-                   <c:choose>
-                      <c:when test="${flag == 'recv'}">
-                        <td>${vo.sendid}</td>
-                      </c:when>
-                      <c:when test="${flag == 'send'}">
-                        <td>${vo.receiveid}</td>
-                      </c:when>
-                    </c:choose>
-                  <td>
-                    <a href="./read_msg.do?msg_no=${vo.msg_no}&flag=${flag}">${vo.title}</a> 
-                  </td> 
-                  <td>${vo.content}</td>
-                  <td>${vo.msg_date}</td>
+                <tr bgcolor=#E1E1E1 align=center> 
+                    <td>※ ID를 잘 확인하세요.</td>
                 </tr>
-               </c:forEach>
-                </table></td>
+                <tr bgcolor=#F6F6F6 align=center> 
+                    <td width="30%" height="24" rowspan="2"><b>제목</b></td>
+                    <td width=70% align="center"><input type=text name="title" required style="width:95%;"></td>
+                </tr>
+                </table>
+            </td>
         </tr>
-        </table>
-     </td>
+        <tr>
+            <td height="200" align="center" valign="middle" bgcolor="#F6F6F6">
+                <textarea name=content rows=10 style='width:95%;' required></textarea></td>
+        </tr>
+        </table></td>
 </tr>
 <tr> 
     <td height="2" align="center" valign="top" bgcolor="#D5D5D5"></td>
@@ -123,9 +109,13 @@ table{
     <td height="2" align="center" valign="top" bgcolor="#E6E6E6"></td>
 </tr>
 <tr>
-    <td height="40" align="center" valign="bottom"><a href="javascript:window.close();">닫기</a><br><br></td>
+    <td height="40" align="center" valign="bottom">
+        <input id=btn_submit type=image src="../skin/member/junggo/img/btn_paper_send.gif" border=0>&nbsp;&nbsp;
+        <a href="javascript:window.close();"><img src="../skin/member/junggo/img/btn_close.gif" width="48" height="20" border="0"></a></td>
 </tr>
 </table>
+</form>
+
  
 </div>
 </body>

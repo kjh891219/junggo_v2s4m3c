@@ -96,11 +96,12 @@ public class MessageCont {
    * @return
    */
   @RequestMapping(value = "/message/read_msg.do", method = RequestMethod.GET)
-  public ModelAndView read_msg(int msg_no) {
+  public ModelAndView read_msg(int msg_no, String flag) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/message/read"); //  /webapp/member/read.jsp
     MessageVO messageVO = messageDAO.read_msg(msg_no);
     mav.addObject("messageVO", messageVO);
+    mav.addObject("flag", flag);
     return mav;
   }
   
@@ -141,6 +142,37 @@ public class MessageCont {
     mav.addObject("cnt", cnt);
     mav.addObject("flag", flag);
     
+    return mav;
+  }
+  
+  @RequestMapping(value = "/message/create.do", method = RequestMethod.GET)
+  public ModelAndView create() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/message/create"); 
+ 
+    return mav;
+  }
+  
+  @RequestMapping(value = "/message/create.do", method = RequestMethod.POST)
+  public ModelAndView create(MessageVO messageVO) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/message/create"); 
+    
+    ArrayList<String> msgs = new ArrayList<String>();
+    ArrayList<String> links = new ArrayList<String>();
+
+    int sendOK = messageDAO.create(messageVO);
+    
+    if (sendOK == 1) {
+      msgs.add("쪽지가 정상적으로 처리되었습니다.");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    } else {
+      msgs.add("죄송하지만 다시한번 시도해주세요.");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    }
+    mav.addObject("msgs", msgs);
+    mav.addObject("links", links);
+    mav.addObject("sendOK", sendOK);
     return mav;
   }
   

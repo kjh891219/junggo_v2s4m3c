@@ -33,4 +33,13 @@ public interface MessageDAOInter {
    * @return
    */
   public MessageVO read_msg(int msg_no);
+  
+  /**
+   * 메시지 전송
+   * <insert id="create" parameterType="MessageVO">
+   * @param messageVO
+   * @return
+   */
+  public int create(MessageVO messageVO);
+  
 }
