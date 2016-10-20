@@ -7,33 +7,82 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <mapper namespace = "usedcar">
   <insert id="create" parameterType="UsedcarVO">
     INSERT INTO usedcar(u_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, email, tel)
+                                     h_price, purc_date, region, title, content, file1, file2, size2, email, tel, wdate)
    VALUES ((SELECT NVL(MAX(u_no), 0)+1 as u_no FROM usedcar), #{nickname}, #{userid}, #{passwd}, #{category},
-                                   #{deal_way}, #{product_code}, #{h_price} , #{purc_date},#{region},
-                                   #{title},#{content},#{email},#{tel})
+                                   #{deal_way},#{deal_code}, #{product_code}, #{h_price} , #{purc_date},#{region},
+                                   #{title},#{content},#{file1},#{file2},#{size2},#{email},#{tel}, sysdate)
   </insert>
   
      <!-- 검색을하지 않는 전체 목록 -->
   <select id="list" resultType="UsedcarVO">
-    SELECT u_no, title, category, deal_code, region, deal_way, h_price, nickname, product_code, u_cnt
+    SELECT u_no, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, u_cnt, wdate
     FROM usedcar
     ORDER BY u_no ASC
   </select>
   
-  <!-- 수정 -->
-   <update id="update" parameterType="UsedcarVO">
+   <!-- 수정 -->
+    <update id="update" parameterType="UsedcarVO">
     UPDATE usedcar 
     SET title=#{title}, category=#{category}, deal_code=#{deal_code}, region=#{region}, deal_way=#{deal_way},
-         h_price=#{h_price}, product_code=#{product_code}
+         h_price=#{h_price}, product_code=#{product_code}, file1=#{file1}, file2=#{file2}, size2=#{size2}
     WHERE u_no=#{u_no}
   </update> 
   
-      <!-- 조회 -->
-  <select id="read" resultType="UsedcarVO" parameterType="int">
-    SELECT u_no, category, deal_code, region, deal_way, h_price
+<!--조회  --> 
+   <select id="read" resultType="UsedcarVO" parameterType="int">
+    SELECT u_no, category, deal_code, region, deal_way, h_price, title, content, wdate
     FROM usedcar
     WHERE u_no=#{u_no}
-  </select>
+  </select>  
+  
+  <!-- 삭제 -->
+<!--   <delete id="delete" parameterType="int">
+    DELETE FROM usedcar
+    WHERE u_no=#{u_no}
+  </delete> -->
+  
+     <!-- ********** 검색에 따른 변경 시작 ********** -->
+<!--   <select id="list2" resultType="BlogVO" parameterType="HashMap" >
+     SELECT blogno,
+           blogcategoryno, mno, title, good, file1, file2, size2, cnt, replycnt, rdate, 
+           grpno, indent, ansnum
+    FROM blog
+    WHERE blogcategoryno=#{blogcategoryno}
+    
+    <choose>
+      <when test="col == 'title'">
+         AND title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+         AND content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+         AND title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+    
+    ORDER BY blogno DESC
+  </select>        
+ 
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM blog
+    WHERE blogcategoryno=#{blogcategoryno}
+    
+    <choose>
+      <when test="col == 'title'">
+        AND title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        AND content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        AND title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+  </select>     -->    
+  <!-- ********** 검색에 따른 변경 종료 ********** -->   
+  
   
   
 </mapper> 

@@ -36,5 +36,18 @@ public class UsedcarDAO implements UsedcarDAOInter{
   public int update(UsedcarVO usedcarVO) {
     return mybatis.update("usedcar.update", usedcarVO);
   }
+  
+  @Override
+  public int delete(int u_no) { 
+    return mybatis.delete("usedcar.delete", u_no);
+  }
+
+  @Override
+  public UsedcarVO read(int u_no) {
+    return mybatis.selectOne("usedcar.read", u_no);
+  }
+
+
+   
  
 }

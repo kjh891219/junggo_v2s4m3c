@@ -16,11 +16,38 @@ public interface UsedcarDAOInter {
   public int create(UsedcarVO vo);
   
   /**
-   * 코드 전체 목록
+   * 게시글 전체 목록
    * <select id="list" resultType="CodeVO">
    * @return 코드 목록
    */
   public List<UsedcarVO> list();
+ 
   
+  /**
+   * 한건의 레코드 삭제
+   * <delete id="delete" parameterType="int">
+   * @param u_no 글 번호
+   * @return
+   */
+  public int delete(int u_no);
+
+  
+  /**
+   * 수정
+   * @param usedcarVO
+   * @return
+   */
   public int update(UsedcarVO usedcarVO);
+  
+  
+  /**
+   * 한건의 레코드 조회
+   * <select id="read" resultType="usedcarVO" parameterType="int">
+   * @param u_no 글 번호
+   * @return
+   */
+  public UsedcarVO read(int u_no);
+  
+
+
 }

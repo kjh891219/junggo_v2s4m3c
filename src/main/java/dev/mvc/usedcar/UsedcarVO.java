@@ -2,47 +2,94 @@ package dev.mvc.usedcar;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import oracle.sql.DATE;
 
 public class UsedcarVO {
   
 
-  private int     u_no;
   /** 중고차번호 */
-  private String nickname;
+  private int     u_no;
   /** 닉네임 */
-  private String passwd;
+  private String nickname;
   /** 비밀번호 */
-  private String userid;
+  private String passwd;
   /** 아이디 */
-  private String category;
+  private String userid;
   /** 자동차카테고리코드 */
-  private String deal_way;
+  private String category;
   /** 거래방식 */
-  private String deal_code;
+  private String deal_way;
   /** 거래구분코드 */
-  private String product_code;
+  private String deal_code;
   /** 상품구분 */
-  private int     h_price;
+  private String product_code;
   /** 희망가격 */
-  private String region;
+  private int     h_price;
   /** 거래지역 */
-  private String tel;
+  private String region;
   /** 전화번호 */
-  private String email;
+  private String tel;
   /** 이메일 */
-  private int quantity;
+  private String email;
   /** 수량 */
-  private String title;
+  private int quantity;
   /** 제목 */
-  private String content;
+  private String title;
   /** 내용 */
-  private String purc_date;
+  private String content;
+  /** Preview 소형 이미지 200 X 150, 자동 생성됨*/
+  private String file1;
+  /** 업로드 파일 */
+  private String file2;
+  /** 업로드된 파일 크기 */
+  private long size2;
   /** 구입시기 */
-  private DATE wdate;
+  private String purc_date;
   /** 글등록일 */
-  private int     u_cnt;
+  private DATE wdate;
   /** 조회수 */
+  private int     u_cnt;
+  
+  /** Framework에서 자동 주입되는 업로드 파일 객체 */  
+  private MultipartFile file2MF;
+  /** size2의 컴마 저장 출력용 변수 */
+  private String size2Label; 
+  
+  
+  public String getFile1() {
+    return file1;
+  }
+  public void setFile1(String file1) {
+    this.file1 = file1;
+  }
+  public String getFile2() {
+    return file2;
+  }
+  public void setFile2(String file2) {
+    this.file2 = file2;
+  }
+  public long getSize2() {
+    return size2;
+  }
+  public void setSize2(long size2) {
+    this.size2 = size2;
+  }
+  public MultipartFile getFile2MF() {
+    return file2MF;
+  }
+  public void setFile2MF(MultipartFile file2mf) {
+    file2MF = file2mf;
+  }
+  public String getSize2Label() {
+    return size2Label;
+  }
+  public void setSize2Label(String size2Label) {
+    this.size2Label = size2Label;
+  }
+  
+  
   
   public int getU_no() {
     return u_no;
