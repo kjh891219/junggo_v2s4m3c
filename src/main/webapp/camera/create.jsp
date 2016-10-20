@@ -139,13 +139,25 @@
         <textarea rows="10" cols="100"  name="content" id="content" placeholder="내용을 입력하세요" class="form-group">sqld책 싸게 팔아요</textarea>
       </div>
       <hr/>
-       <div class="form-inline">   
+        <div class="form-inline">   
         <label for='file2MF'>업로드 파일</label>
         <input type="file" name='file2MF' id='file2MF' size='40'>
       </div>
       <div class="form-inline">   
         <label for='file4MF'>업로드 파일2</label>
         <input type="file" name='file4MF' id='file4MF' size='40'>
+      </div>
+      <div class="form-inline">   
+        <label for='file6MF'>업로드 파일3</label>
+        <input type="file" name='file6MF' id='file6MF' size='40'>
+      </div>
+      <div class="form-inline">   
+        <label for='file8MF'>업로드 파일4</label>
+        <input type="file" name='file8MF' id='file8MF' size='40'>
+      </div>
+      <div class="form-inline">   
+        <label for='file10MF'>업로드 파일5</label>
+        <input type="file" name='file10MF' id='file10MF' size='40'>
       </div>
       
       <div>

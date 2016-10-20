@@ -193,6 +193,100 @@ public class CameraCont {
     // -------------------------------------------------------------------
     
     
+ // -------------------------------------------------------------------
+    // 파일 전송3
+    // -------------------------------------------------------------------
+    String file5 = "";
+    String file6 = "";
+    String upDir3 = Tool.getRealPath(request, "/camera/storage");
+    MultipartFile file6MF = cameraVO.getFile6MF();
+   
+    // System.out.println("file2MF.getSize(): " + file2MF.getSize());
+    if (file6MF.getSize() > 0) {
+      file6 = Upload.saveFileSpring(file6MF, upDir3);
+      cameraVO.setFile6(file6); // 전송된 파일명 저장
+      cameraVO.setSize6(file6MF.getSize());
+
+      // -------------------------------------------------------------------
+      // Thumb 파일 생성
+      // -------------------------------------------------------------------
+      if (Tool.isImage(file6)) {
+        file5 = Tool.preview(upDir3, file6, 120, 80);
+      } else {
+        file5 = "";
+      }
+      // -------------------------------------------------------------------
+    }
+    cameraVO.setFile5(file5); // Thumb 이미지
+    cameraVO.setFile6(file6); // 원본 이미지
+    // -------------------------------------------------------------------
+    
+ 
+    
+    
+    // -------------------------------------------------------------------
+    // 파일 전송4
+    // -------------------------------------------------------------------
+    String file7 = "";
+    String file8 = "";
+    String upDir4 = Tool.getRealPath(request, "/camera/storage");
+    MultipartFile file8MF = cameraVO.getFile8MF();
+   
+    // System.out.println("file2MF.getSize(): " + file2MF.getSize());
+    if (file8MF.getSize() > 0) {
+      file8 = Upload.saveFileSpring(file8MF, upDir4);
+      cameraVO.setFile8(file8); // 전송된 파일명 저장
+      cameraVO.setSize8(file8MF.getSize());
+
+      // -------------------------------------------------------------------
+      // Thumb 파일 생성
+      // -------------------------------------------------------------------
+      if (Tool.isImage(file8)) {
+        file7 = Tool.preview(upDir4, file8, 120, 80);
+      } else {
+        file7 = "";
+      }
+      // -------------------------------------------------------------------
+    }
+    cameraVO.setFile7(file7); // Thumb 이미지
+    cameraVO.setFile8(file8); // 원본 이미지
+    // -------------------------------------------------------------------
+    
+    
+    
+ // -------------------------------------------------------------------
+    // 파일 전송5
+    // -------------------------------------------------------------------
+    String file9 = "";
+    String file10 = "";
+    String upDir5 = Tool.getRealPath(request, "/camera/storage");
+    MultipartFile file10MF = cameraVO.getFile10MF();
+   
+    // System.out.println("file2MF.getSize(): " + file2MF.getSize());
+    if (file10MF.getSize() > 0) {
+      file10 = Upload.saveFileSpring(file10MF, upDir5);
+      cameraVO.setFile10(file10); // 전송된 파일명 저장
+      cameraVO.setSize10(file10MF.getSize());
+
+      // -------------------------------------------------------------------
+      // Thumb 파일 생성
+      // -------------------------------------------------------------------
+      if (Tool.isImage(file10)) {
+        file9 = Tool.preview(upDir5, file10, 120, 80);
+      } else {
+        file9 = "";
+      }
+      // -------------------------------------------------------------------
+    }
+    cameraVO.setFile9(file9); // Thumb 이미지
+    cameraVO.setFile10(file10); // 원본 이미지
+    // -------------------------------------------------------------------
+    
+    
+    
+    
+    
+    
     
     
     if (cameraDAO.create(cameraVO) == 1) {

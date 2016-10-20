@@ -15,15 +15,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
    
   <!-- 등록 --> 
-  <insert id="create" parameterType="CameraVO">
-   insert into CAMERA(ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, userid, file1, file2, size2, file3, file4, size4) 
+   <insert id="create" parameterType="CameraVO">
+   insert into CAMERA(ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, userid, file1, file2, size2, file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10) 
    values ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM CAMERA),
-   #{category}, #{nickname}, #{passwd}, #{deal_way}, #{deal_code}, #{product_code}, #{hprice}, #{region}, #{tel}, #{email}, #{quantity}, #{title}, #{content}, #{purc_date}, #{userid}, #{file1}, #{file2}, #{size2}, #{file3}, #{file4}, #{size4})
+   #{category}, #{nickname}, #{passwd}, #{deal_way}, #{deal_code}, #{product_code}, #{hprice}, #{region}, #{tel}, #{email}, #{quantity}, #{title}, #{content}, #{purc_date}, #{userid}, #{file1}, #{file2}, #{size2}, #{file3}, #{file4}, #{size4}, #{file5}, #{file6}, #{size6}, #{file7}, #{file8}, #{size8}, #{file9}, #{file10}, #{size10})
   </insert> 
   
-  <!-- 조회 -->
+ <!-- 조회 -->
   <select id="read" resultType="CameraVO" parameterType="int">
-    select ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, cnt, file1, file2, size2, file3, file4, size4
+    select ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, cnt, file1, file2, size2, file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10
     from camera
     where ctno = #{ctno}
   </select>
