@@ -318,6 +318,9 @@ public class CameraCont {
     CameraVO cameraVO = cameraDAO.read(ctno);
     cameraVO.setSize2Label(Tool.unit(cameraVO.getSize2()));
     cameraVO.setSize4Label(Tool.unit(cameraVO.getSize4()));
+    cameraVO.setSize6Label(Tool.unit(cameraVO.getSize6()));
+    cameraVO.setSize8Label(Tool.unit(cameraVO.getSize8()));
+    cameraVO.setSize10Label(Tool.unit(cameraVO.getSize10()));
     mav.addObject("cameraVO", cameraVO);
     mav.addObject("searchDTO", searchDTO);
     mav.addObject("root", request.getContextPath());
@@ -438,6 +441,117 @@ public class CameraCont {
     cameraVO.setFile3(file3); 
     cameraVO.setFile4(file4);
     
+    
+    
+ // -------------------------------------------------------------------
+    // 파일 전송 관련3
+    // -------------------------------------------------------------------
+    String file5 = "";
+    String file6 = "";
+
+    String upDir3 = Tool.getRealPath(request, "/camera/storage");
+    // <input type="file" name='file2MF' id='file2MF' size='40' >
+    MultipartFile file6MF = cameraVO.getFile6MF();
+    CameraVO oldVO3 = cameraDAO.read(cameraVO.getCtno());
+
+    if (file6MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+      Tool.deleteFile(upDir3, oldVO3.getFile6()); // 기존 등록된 파일 삭제
+      file6 = Upload.saveFileSpring(file6MF, upDir3); // 새로운 파일 저장
+      cameraVO.setFile6(file6); // 새로운 파일명 저장
+      cameraVO.setSize6(file6MF.getSize()); // 새로운 크기 저장
+
+      // -------------------------------------------------------------------
+      // Thumb 파일 생성
+      // -------------------------------------------------------------------
+      if (Tool.isImage(file6)) { // 이미지인지 검사
+        Tool.deleteFile(upDir3, oldVO3.getFile5()); // 파일 삭제
+        file5 = Tool.preview(upDir3, file6, 120, 80); // thumb 이미지 생성
+      } else {
+        file5 = "";
+      }
+      // -------------------------------------------------------------------
+
+    } else {
+      file5 = oldVO3.getFile5(); // 파일 업로드를하지 않는 경우
+      file6 = oldVO3.getFile6();
+    }
+    cameraVO.setFile5(file5); 
+    cameraVO.setFile6(file6);
+    
+    
+    
+ // -------------------------------------------------------------------
+    // 파일 전송 관련4
+    // -------------------------------------------------------------------
+    String file7 = "";
+    String file8 = "";
+
+    String upDir4 = Tool.getRealPath(request, "/camera/storage");
+    // <input type="file" name='file2MF' id='file2MF' size='40' >
+    MultipartFile file8MF = cameraVO.getFile8MF();
+    CameraVO oldVO4 = cameraDAO.read(cameraVO.getCtno());
+
+    if (file8MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+      Tool.deleteFile(upDir4, oldVO4.getFile8()); // 기존 등록된 파일 삭제
+      file8 = Upload.saveFileSpring(file8MF, upDir4); // 새로운 파일 저장
+      cameraVO.setFile8(file8); // 새로운 파일명 저장
+      cameraVO.setSize8(file8MF.getSize()); // 새로운 크기 저장
+
+      // -------------------------------------------------------------------
+      // Thumb 파일 생성
+      // -------------------------------------------------------------------
+      if (Tool.isImage(file8)) { // 이미지인지 검사
+        Tool.deleteFile(upDir4, oldVO4.getFile7()); // 파일 삭제
+        file7 = Tool.preview(upDir4, file8, 120, 80); // thumb 이미지 생성
+      } else {
+        file7 = "";
+      }
+      // -------------------------------------------------------------------
+
+    } else {
+      file7 = oldVO4.getFile7(); // 파일 업로드를하지 않는 경우
+      file8 = oldVO4.getFile8();
+    }
+    cameraVO.setFile7(file7); 
+    cameraVO.setFile8(file8);
+    
+    
+    
+    
+ // -------------------------------------------------------------------
+    // 파일 전송 관련2
+    // -------------------------------------------------------------------
+    String file9 = "";
+    String file10 = "";
+
+    String upDir5 = Tool.getRealPath(request, "/camera/storage");
+    // <input type="file" name='file2MF' id='file2MF' size='40' >
+    MultipartFile file10MF = cameraVO.getFile10MF();
+    CameraVO oldVO5 = cameraDAO.read(cameraVO.getCtno());
+
+    if (file10MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+      Tool.deleteFile(upDir5, oldVO5.getFile10()); // 기존 등록된 파일 삭제
+      file10 = Upload.saveFileSpring(file10MF, upDir5); // 새로운 파일 저장
+      cameraVO.setFile10(file10); // 새로운 파일명 저장
+      cameraVO.setSize10(file10MF.getSize()); // 새로운 크기 저장
+
+      // -------------------------------------------------------------------
+      // Thumb 파일 생성
+      // -------------------------------------------------------------------
+      if (Tool.isImage(file10)) { // 이미지인지 검사
+        Tool.deleteFile(upDir5, oldVO5.getFile9()); // 파일 삭제
+        file9 = Tool.preview(upDir5, file10, 120, 80); // thumb 이미지 생성
+      } else {
+        file10 = "";
+      }
+      // -------------------------------------------------------------------
+
+    } else {
+      file9 = oldVO5.getFile9(); // 파일 업로드를하지 않는 경우
+      file10 = oldVO5.getFile10();
+    }
+    cameraVO.setFile9(file9); 
+    cameraVO.setFile10(file10);
     
     
     

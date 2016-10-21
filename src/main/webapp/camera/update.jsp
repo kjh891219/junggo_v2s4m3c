@@ -205,6 +205,100 @@
       </div>
       
        
+        <div id='file6Panel' class="form-group">
+        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일3</label>
+        <div class="col-xs-10 col-lg-10">
+          <c:set var='file6' value="${fn:toLowerCase(cameraVO.file6)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file6, '.jpg')}">
+              <IMG src='./storage/${cameraVO.file5}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file6, '.gif')}">
+              <IMG id='file6'  src='./storage/${cameraVO.file6}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file6, '.png')}">
+              <IMG id='file6'  src='./storage/${cameraVO.file6}'>
+            </c:when>
+            <c:when test="${cameraVO.file6.length() > 0}">
+              ${cameraVO.file6 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </div>
+      
+      <div class="form-group">   
+        <label for="file6MF" class="col-xs-2 col-lg-2 control-label">업로드 파일3</label>
+        <div class="col-xs-10 col-lg-10">
+          <input type="file" class="form-control" name='file6MF' id='file6MF' size='40' >
+          <br>
+          Preview(미리보기) 이미지 자동 생성됩니다.
+        </div>
+      </div>
+       
+       <div id='file8Panel' class="form-group">
+        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일4</label>
+        <div class="col-xs-10 col-lg-10">
+          <c:set var='file8' value="${fn:toLowerCase(cameraVO.file8)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file8, '.jpg')}">
+              <IMG src='./storage/${cameraVO.file7}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file8, '.gif')}">
+              <IMG id='file8'  src='./storage/${cameraVO.file8}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file8, '.png')}">
+              <IMG id='file8'  src='./storage/${cameraVO.file8}'>
+            </c:when>
+            <c:when test="${cameraVO.file8.length() > 0}">
+              ${cameraVO.file8 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </div>
+      
+      <div class="form-group">   
+        <label for="file8MF" class="col-xs-2 col-lg-2 control-label">업로드 파일4</label>
+        <div class="col-xs-10 col-lg-10">
+          <input type="file" class="form-control" name='file8MF' id='file8MF' size='40' >
+          <br>
+          Preview(미리보기) 이미지 자동 생성됩니다.
+        </div>
+      </div>
+       
+       
+       
+        <div id='file10Panel' class="form-group">
+        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일5</label>
+        <div class="col-xs-10 col-lg-10">
+          <c:set var='file10' value="${fn:toLowerCase(cameraVO.file10)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file10, '.jpg')}">
+              <IMG src='./storage/${cameraVO.file9}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file10, '.gif')}">
+              <IMG id='file10'  src='./storage/${cameraVO.file10}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file10, '.png')}">
+              <IMG id='file10'  src='./storage/${cameraVO.file10}'>
+            </c:when>
+            <c:when test="${cameraVO.file10.length() > 0}">
+              ${cameraVO.file10 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </div>
+      
+      <div class="form-group">   
+        <label for="file10MF" class="col-xs-2 col-lg-2 control-label">업로드 파일5</label>
+        <div class="col-xs-10 col-lg-10">
+          <input type="file" class="form-control" name='file10MF' id='file10MF' size='40' >
+          <br>
+          Preview(미리보기) 이미지 자동 생성됩니다.
+        </div>
+      </div>
+       
+       
+       
       <hr/>
       <div>
       <li class='right'>
