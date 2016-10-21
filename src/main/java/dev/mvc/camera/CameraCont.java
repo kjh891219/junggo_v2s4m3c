@@ -1,11 +1,14 @@
 package dev.mvc.camera;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import dev.mvc.tmember.MemberDAOInter;
 import dev.mvc.tmember.MemberVO;
 import web.tool.Paging;
 import web.tool.SearchDTO;
@@ -30,11 +33,13 @@ public class CameraCont {
   @Qualifier("dev.mvc.camera.CameraDAO")
   private CameraDAOInter cameraDAO;
   
-
+  
+ 
   public CameraCont() {
     System.out.println("--> CameraCont created."); 
   }
   
+    
   
   /**
    * 전체 목록을 출력합니다.
@@ -107,17 +112,50 @@ public class CameraCont {
   }
 
   @RequestMapping(value = "/camera/create.do", method = RequestMethod.GET)
-  public ModelAndView create(HttpSession session) {
+  public ModelAndView create(HttpSession session, HttpServletResponse response) throws IOException {
     System.out.println("--> create() GET called.");
+    
+  
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/camera/create"); // /webapp/member/create.jsp
-  
+    
+    
+    
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+    if (session.getAttribute("userid") == null ){
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
+       + "location.href = '../member/login.do';"
+       + "</script>"); 
+      session.setAttribute("url", "camera/list.do");//
+     
+      
+      
+    } else {
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>" 
+          + "location.href = './create.jsp';"
+          + "</script>");
+      
+    }
+    
+    
+    
     String userid = session.getAttribute("userid").toString();
     MemberVO memberVO = cameraDAO.test(userid);
     
     mav.addObject("memberVO", memberVO);
     mav.addObject("userid", userid);
     System.out.println(memberVO);
+    
+    
+    
+    
+    
+    
     return mav;
   }
 

@@ -71,7 +71,8 @@ CREATE TABLE CAMERA(
     file10                             VARCHAR2(50)         NULL ,
     size10                             NUMBER(9)        DEFAULT 0       NULL
 );
-
+select * from member;
+select * from camera
 alter table CAMERA add (userid varchar2(20) );
 ALTER TABLE CAMERA 
 ADD CONSTRAINT FK_CAMERA FOREIGN KEY(userid)

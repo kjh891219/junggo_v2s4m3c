@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.camera.CameraCont;
 import web.tool.Tool;
 
 @Controller
@@ -354,11 +355,14 @@ public class MemberCont {
         // ------------------------------------------------------------------
       
         String url_address = Tool.checkNull(memberVO.getUrl_address());
+       
         if (url_address.length() > 0){
           mav.setViewName("redirect:" + memberVO.getUrl_address());
         }else{
           System.out.println("--> index.jsp 페이지로 이동합니다.");
-          mav.setViewName("redirect:/index.jsp"); // 확장자 명시
+          String url = session.getAttribute("url").toString();
+          mav.setViewName("redirect:/"+url); // 확장자 명시//
+          
         }
     
         } else {
