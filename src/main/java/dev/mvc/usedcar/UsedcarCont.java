@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.usedcar.UsedcarVO;
 import web.tool.Paging;
 import web.tool.SearchDTO;
 import web.tool.Tool;
@@ -102,6 +103,14 @@ return mav;
     // -------------------------------------------------------------------
     String file1 = "";
     String file2 = "";
+    String file3 = "";
+    String file4 = "";
+    String file5 = "";
+    String file6 = "";
+    String file7 = "";
+    String file8 = "";
+    String file9 = "";
+    String file10 = "";
     String upDir = Tool.getRealPath(request, "/usedcar/storage");
     MultipartFile file2MF = usedcarVO.getFile2MF();
     System.out.println("file2MF:"+file2MF);
@@ -120,10 +129,42 @@ return mav;
       } else {
         file1 = "";
       }
+      
+      if (Tool.isImage(file4)) {
+        file3 = Tool.preview(upDir, file4, 120, 80);
+      } else {
+        file3 = "";
+      }
+      
+      if (Tool.isImage(file6)) {
+        file5 = Tool.preview(upDir, file6, 120, 80);
+      } else {
+        file5 = "";
+      }
+      
+      if (Tool.isImage(file8)) {
+        file7 = Tool.preview(upDir, file8, 120, 80);
+      } else {
+        file7 = "";
+      }
+      
+      if (Tool.isImage(file10)) {
+        file9 = Tool.preview(upDir, file10, 120, 80);
+      } else {
+        file9 = "";
+      }
       // -------------------------------------------------------------------
     }
     usedcarVO.setFile1(file1); // Thumb 이미지
     usedcarVO.setFile2(file2); // 원본 이미지
+    usedcarVO.setFile3(file3); // Thumb 이미지
+    usedcarVO.setFile4(file4); // 원본 이미지
+    usedcarVO.setFile5(file5); // Thumb 이미지
+    usedcarVO.setFile6(file6); // 원본 이미지
+    usedcarVO.setFile7(file7); // Thumb 이미지
+    usedcarVO.setFile8(file8); // 원본 이미지
+    usedcarVO.setFile9(file9); // Thumb 이미지
+    usedcarVO.setFile10(file10); // 원본 이미지
     // -------------------------------------------------------------------
     
     //usedcarVO.setU_no(4); // 회원 연동시 변경

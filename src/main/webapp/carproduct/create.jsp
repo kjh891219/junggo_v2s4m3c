@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="dev.mvc.usedcar.UsedcarVO" %>
+<%@ page import="dev.mvc.carproduct.CarproductVO" %>
 
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -64,7 +64,7 @@
      
 
   <div class='content_menu' style='width: 90%;'>
-    <A href='../usedcar/list.do'>게시판 목록</A> > 
+    <A href='../carproduct/list.do'>게시판 목록</A> > 
 <%--     <A href='./list.do?u_no=${usedcarVO.u_no }'>${usedcarVO.title }</A>｜
     <A href='./create.do?u_no=${usedcarVO.u_no }'>중고차 등록</A>｜ --%>
     <A href="javascript:location.reload();">새로고침</A>
@@ -79,7 +79,7 @@
       <ul>
        <li>
         <label class='label' for='userid'>아이디</label>
-        <input type='text' name='userid' id='userid' value='PCM'  readonly>
+        <input type='text' name='userid' id='userid'  value='PCM'  readonly>
          <label class='label' for='nickname'>닉네임</label>
         <input type='text' name='nickname' id='nickname' value='pic' readonly><br><br>
          <label class='label' for='passwd'>글 비밀번호</label>
@@ -89,10 +89,14 @@
        <li>
         <label class='label' for='category'>카테고리 코드</label>
         <select name='category' id='category'>
-          <option value="HYUNDAI" selected="selected">HYUNDAI</option>
-          <option value="KIA" >KIA</option>
-          <option value="쉐보레" >쉐보레</option>
-          <option value="BENZ" >BENZ</option>
+          <option value="국산 2000cc미만" selected="selected">국산 2000cc미만</option>
+          <option value="국 2000cc 이상" >국산 2000cc 이상</option>
+          <option value="국 LPG/화물차/버스" >국산LPG/화물차/버스</option>
+          <option value="수입차" >수입차</option>
+          <option value="카오디오/카DVD" >카오디오/카DVD</option>
+          <option value="차량용 TV" >차량용 TV</option>
+          <option value="휠/타이어/캐리어" >휠/타이어/캐리어</option>
+          <option value="기타 차량용품" >기타 차량용품</option>
         </select>
         <label class='label' for='deal_code'>거래구분 코드</label>
         <select name='deal_code' id='deal_code'>

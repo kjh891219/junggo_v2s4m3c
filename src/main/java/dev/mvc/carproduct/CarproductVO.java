@@ -1,14 +1,11 @@
-package dev.mvc.usedcar;
-
+package dev.mvc.carproduct;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
-public class UsedcarVO {
-  
+public class CarproductVO {
 
   /** 중고차번호 */
-  private int     u_no;
+  private int     p_no;
   /** 닉네임 */
   private String nickname;
   /** 비밀번호 */
@@ -43,81 +40,22 @@ public class UsedcarVO {
   private String file2;
   /** 업로드된 파일 크기 */
   private long size2;
-  /** Preview 소형 이미지 200 X 150, 자동 생성됨*/
-  private String file3;
-  /** 업로드 파일 */
-  private String file4;
-  /** 업로드된 파일 크기 */
-  private long size4;
-  /** Preview 소형 이미지 200 X 150, 자동 생성됨*/
-  private String file5;
-  /** 업로드 파일 */
-  private String file6;
-  /** 업로드된 파일 크기 */
-  private long size6;
-  /** Preview 소형 이미지 200 X 150, 자동 생성됨*/
-  private String file7;
-  /** 업로드 파일 */
-  private String file8;
-  /** 업로드된 파일 크기 */
-  private long size8;
-  /** Preview 소형 이미지 200 X 150, 자동 생성됨*/
-  private String file9;
-  /** 업로드 파일 */
-  private String file10;
-  /** 업로드된 파일 크기 */
-  private long size10;
   /** 구입시기 */
   private String purc_date;
   /** 글등록일 */
   private String wdate;
   /** 조회수 */
-  private int     u_cnt;
+  private int     p_cnt;
   
   /** Framework에서 자동 주입되는 업로드 파일 객체 */  
   private MultipartFile file2MF;
   /** size2의 컴마 저장 출력용 변수 */
-  private String size2Label; 
-  
-  
-  public String getFile1() {
-    return file1;
+  private String size2Label;
+  public int getP_no() {
+    return p_no;
   }
-  public void setFile1(String file1) {
-    this.file1 = file1;
-  }
-  public String getFile2() {
-    return file2;
-  }
-  public void setFile2(String file2) {
-    this.file2 = file2;
-  }
-  public long getSize2() {
-    return size2;
-  }
-  public void setSize2(long size2) {
-    this.size2 = size2;
-  }
-  public MultipartFile getFile2MF() {
-    return file2MF;
-  }
-  public void setFile2MF(MultipartFile file2mf) {
-    file2MF = file2mf;
-  }
-  public String getSize2Label() {
-    return size2Label;
-  }
-  public void setSize2Label(String size2Label) {
-    this.size2Label = size2Label;
-  }
-  
-  
-  
-  public int getU_no() {
-    return u_no;
-  }
-  public void setU_no(int u_no) {
-    this.u_no = u_no;
+  public void setP_no(int p_no) {
+    this.p_no = p_no;
   }
   public String getNickname() {
     return nickname;
@@ -203,6 +141,24 @@ public class UsedcarVO {
   public void setContent(String content) {
     this.content = content;
   }
+  public String getFile1() {
+    return file1;
+  }
+  public void setFile1(String file1) {
+    this.file1 = file1;
+  }
+  public String getFile2() {
+    return file2;
+  }
+  public void setFile2(String file2) {
+    this.file2 = file2;
+  }
+  public long getSize2() {
+    return size2;
+  }
+  public void setSize2(long size2) {
+    this.size2 = size2;
+  }
   public String getPurc_date() {
     return purc_date;
   }
@@ -215,86 +171,24 @@ public class UsedcarVO {
   public void setWdate(String wdate) {
     this.wdate = wdate;
   }
-  public int getU_cnt() {
-    return u_cnt;
+  public int getP_cnt() {
+    return p_cnt;
   }
-  public void setU_cnt(int u_cnt) {
-    this.u_cnt = u_cnt;
+  public void setP_cnt(int p_cnt) {
+    this.p_cnt = p_cnt;
   }
-  public String getFile3() {
-    return file3;
+  public MultipartFile getFile2MF() {
+    return file2MF;
   }
-  public void setFile3(String file3) {
-    this.file3 = file3;
+  public void setFile2MF(MultipartFile file2mf) {
+    file2MF = file2mf;
   }
-  public String getFile4() {
-    return file4;
+  public String getSize2Label() {
+    return size2Label;
   }
-  public void setFile4(String file4) {
-    this.file4 = file4;
-  }
-  public long getSize4() {
-    return size4;
-  }
-  public void setSize4(long size4) {
-    this.size4 = size4;
-  }
-  public String getFile5() {
-    return file5;
-  }
-  public void setFile5(String file5) {
-    this.file5 = file5;
-  }
-  public String getFile6() {
-    return file6;
-  }
-  public void setFile6(String file6) {
-    this.file6 = file6;
-  }
-  public long getSize6() {
-    return size6;
-  }
-  public void setSize6(long size6) {
-    this.size6 = size6;
-  }
-  public String getFile7() {
-    return file7;
-  }
-  public void setFile7(String file7) {
-    this.file7 = file7;
-  }
-  public String getFile8() {
-    return file8;
-  }
-  public void setFile8(String file8) {
-    this.file8 = file8;
-  }
-  public long getSize8() {
-    return size8;
-  }
-  public void setSize8(long size8) {
-    this.size8 = size8;
-  }
-  public String getFile9() {
-    return file9;
-  }
-  public void setFile9(String file9) {
-    this.file9 = file9;
-  }
-  public String getFile10() {
-    return file10;
-  }
-  public void setFile10(String file10) {
-    this.file10 = file10;
-  }
-  public long getSize10() {
-    return size10;
-  }
-  public void setSize10(long size10) {
-    this.size10 = size10;
-  }
+  public void setSize2Label(String size2Label) {
+    this.size2Label = size2Label;
+  } 
   
-
-
   
 }
