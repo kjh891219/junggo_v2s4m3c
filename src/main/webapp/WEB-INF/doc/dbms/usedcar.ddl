@@ -54,6 +54,7 @@ DELETE FROM MEMBER WHERE mno='2'
 /**********************************/
 /* Table Name: 중고차 거래 게시판 */
 /**********************************/
+drop table usedcar
 CREATE TABLE usedcar(
 		u_no                          		NUMBER(10)		                                 NOT NULL   PRIMARY KEY,
 		nickname                      	VARCHAR2(20)		                               NOT NULL,
@@ -76,7 +77,7 @@ CREATE TABLE usedcar(
 		userid                        		  VARCHAR2(20)		                               NOT NULL,
 		wdate                         		DATE		             DEFAULT sysdate		     NOT NULL,
 		u_cnt                         		  NUMBER(6)		     DEFAULT 0		             NOT NULL,
-    FOREIGN KEY (userid)        REFERENCES member_test(userid)
+    FOREIGN KEY (userid)        REFERENCES member(userid)
 );
 
 SELECT * FROM member

@@ -19,7 +19,7 @@
          <div class='left_list_detail' id="left_detail_3"></div>
       </li>
       <li id="left_list_top_4">
-         <div class='left_list' id="left_list_4"><a href='#' class='menu_style'>게임</a></div>
+         <div class='left_list' id="left_list_4"><a href='${pageContext.request.contextPath}/game/list.do' class='menu_style'>게임</a></div>
          <div class='left_list_detail' id="left_detail_4"></div>
       </li>
       <li id="left_list_top_5">

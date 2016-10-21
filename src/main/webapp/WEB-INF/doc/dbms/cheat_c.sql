@@ -24,7 +24,7 @@ CREATE TABLE CHEAT(
     file2                   VARCHAR2(50)         NULL ,
     size2                  NUMBER(9)        DEFAULT 0       NULL ,
   PRIMARY KEY (ctno),
-  FOREIGN KEY (userid) REFERENCES member_test (userid)
+  FOREIGN KEY (userid) REFERENCES member (userid)
 );
 
  /**gubun:신고구분 (물품미발송 / 상태불량 / 이미테이션 / 택배착불 / 더치트,사이버안전국 등록자 등)

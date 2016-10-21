@@ -60,13 +60,22 @@ CREATE TABLE CAMERA(
     size2                             NUMBER(9)        DEFAULT 0       NULL,
     file3                             VARCHAR2(100)        NULL ,
     file4                             VARCHAR2(50)         NULL ,
-    size4                             NUMBER(9)        DEFAULT 0       NULL
+    size4                             NUMBER(9)        DEFAULT 0       NULL,
+    file5                             VARCHAR2(100)        NULL ,
+    file6                             VARCHAR2(50)         NULL ,
+    size6                             NUMBER(9)        DEFAULT 0       NULL,
+    file7                             VARCHAR2(100)        NULL ,
+    file8                             VARCHAR2(50)         NULL ,
+    size8                             NUMBER(9)        DEFAULT 0       NULL,
+    file9                             VARCHAR2(100)        NULL ,
+    file10                             VARCHAR2(50)         NULL ,
+    size10                             NUMBER(9)        DEFAULT 0       NULL
 );
 
 alter table CAMERA add (userid varchar2(20) );
 ALTER TABLE CAMERA 
 ADD CONSTRAINT FK_CAMERA FOREIGN KEY(userid)
-REFERENCES member_test(userid);
+REFERENCES member(userid);
 
 COMMENT ON TABLE CAMERA is '카메라';
 COMMENT ON COLUMN CAMERA.ctno is '글번호';
