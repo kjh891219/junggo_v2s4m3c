@@ -67,7 +67,7 @@ table{
 </table>
 
 
-<form name=fmemoform method=post onsubmit="return fmemoform_submit(this);" style="margin:0px;">
+<form name=fmemoform method=post action="./create.do" style="margin:0px;">
 <table width="600">
 <tr> 
     <td height="300" align="center" valign="top">
@@ -84,7 +84,7 @@ table{
                 <table width=100% cellpadding=1 cellspacing=1 border=0>
                 <tr bgcolor=#E1E1E1 align=center> 
                     <td width="30%" height="24" rowspan="2"><b>받는 회원 아이디</b></td>
-                    <td width=70% align="center"><input type=text name="sendid" required style="width:95%;"></td>
+                    <td width=70% align="center"><input type=text name="receiveid" required style="width:95%;"></td>
                 </tr>
                 <tr bgcolor=#E1E1E1 align=center> 
                     <td>※ ID를 잘 확인하세요.</td>
@@ -110,8 +110,8 @@ table{
 </tr>
 <tr>
     <td height="40" align="center" valign="bottom">
-        <input id=btn_submit type=image src="../skin/member/junggo/img/btn_paper_send.gif" border=0>&nbsp;&nbsp;
-        <a href="javascript:window.close();"><img src="../skin/member/junggo/img/btn_close.gif" width="48" height="20" border="0"></a></td>
+        <input type=submit value="전송">&nbsp;&nbsp;
+        <a href="javascript:window.close();">닫기</a></td>
 </tr>
 </table>
 </form>
