@@ -28,7 +28,7 @@ public interface MessageDAOInter {
   public List<MessageVO> send_list(String sendid);
 
   /**
-   * 받은 메시지 하나만 조회
+   * 받은 메시지 하나만 조회 
    * @param messageVO
    * @return
    */
