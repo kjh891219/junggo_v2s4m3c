@@ -16,10 +16,34 @@
 
 <script type="text/JavaScript">
   window.onload=function(){
-    if ('${opentype }' == 'U'){
+/*     if ('${opentype }' == 'U'){
     CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
-    }
+    } */
+    
+    /* 화면 처음 로딩할 땐 보이지 않기 */
+    $('#divReply').hide(); 
+    
+    /* btnreply 버튼을 클릭하면 답글 입력 란이 보인다. */
+    $('#btnreply').click(function(){ 
+      $('#divReply').show(); //보이기  
+    });
   };
+  
+  /* 답글 등록 실행 */
+  function create(){
+    if ((val("comment") == null) || val("comment") =="")
+      {
+        alert("글 내용을 입력하세요");
+        $("#comment").focus();
+        return false;        
+      }
+    if ((val("passwd") == null) || val("passwd") =="")
+    {
+      alert("비밀번호를 입력하세요");
+      $("#passwd").focus();
+      return false;        
+    }
+  }
 </script>
  
 <script type="text/javascript">
@@ -32,25 +56,26 @@
 <jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
  
-<DIV class='title'>허위상품신고 ${opentype == "U" ? "수정" : "조회" }</DIV>
+<DIV class='title'>허위상품신고 </DIV>
  
 <DIV class='content' style='width: 80%;'>
 <div class='content_menu' style='width: 100%;'>
-    <A href='./create.do'>등록</A>｜
-      <A href='./read.do?ctno=${cheatVO.ctno }&opentype=R'>상세보기</A>｜
-      <A href='./read.do?ctno=${cheatVO.ctno }&opentype=U'>수정</A>｜
+      <A href='./create.do?ctno=0&opentype=R'>등록</A>｜
+      <A href='./read.do?ctno=${cheatVO.ctno }'>상세보기</A>｜
+      <A href='./create.do?ctno=${cheatVO.ctno }&opentype=U'>수정</A>｜
       <A href='./list.do'>목록</A>｜
       <A href='./delete.do?ctno=${cheatVO.ctno }'>삭제</A>｜
       <A href="javascript:location.reload();">새로고침</A>
     </div>
-<FORM name='frm' method='POST' action='./update.do'
+<FORM name='frm' method='POST'  
         enctype="multipart/form-data">
    <input type='hidden' id='ctno' name='ctno' value='${cheatVO.ctno }'>
+   
       <ul> 
   
-    <li>
+      <li>
         <label class='label' for='title'>제목</label>
-        <input type='text' name='title' id='title' value=${cheatVO.title } required="required">
+        <input type='text' name='title' id='title' value='${cheatVO.title}' required="required">
       </li>
       <li>
         <label class='label' for='gubun'>구분</label>
@@ -107,9 +132,9 @@
         <div><textarea name='content' id='content' required="required">${cheatVO.content}</textarea></div>
       </li>
       <li>
-      <label for="file2MF" class="col-xs-2 col-lg-2 control-label">업로드 파일 : ${cheatVO.file1 }</label>
+      <label for="file2MF" class="col-xs-2 col-lg-2 control-label">업로드 파일 : ${cheatVO.file2 }</label>
         <div class="col-xs-10 col-lg-10">
-          <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
+          <input type="file" class="form-control" name='file2MF' id='file2MF' size='20' >
           <br>
           Preview(미리보기) 이미지 자동 생성됩니다.
         </div>
@@ -128,36 +153,34 @@
         <label class='label' for='nickname'>등록자 별명</label>
         <input type='text' name='nickname' id='nickname' value='${cheatVO.nickname}' required="required">
       </li>
-      <c:if test="${opentype=='U'}">
+      
       <li>
         <label class='label' for='passwd'>비밀번호</label>
         <input type='password' name='passwd' id='passwd' value='${cheatVO.passwd}' required="required">
       </li>
-      </c:if>
-      <c:if test="${opentype=='U'}">
-      <li>
-        <button type="submit">저장</button>
-        <button type="button" onclick="location.href='./list.do'">목록</button>
-      </li>         
-      </c:if>
+      
     </ul>
  </FORM>
- <c:if test="${opentype=='R'}">
- <div style='text-align: center; background-color: #efefef; padding: 3px;'>
-      <form name='frm' id='frm' class="form-inline">
+  
+ <button id="btnreply" >답글등록</button> 
+ <div id="divReply" style='text-align: center; background-color: #efefef; padding: 3px;' >
+      <form name='frmreply' id='frmreply' class="form-inline" action='./reply.do' method='POST' >
+      <input type ='hidden' id='ctno' name='ctno' value=${cheatVO.ctno }>
+      <input type='hidden'  id='userid' name='userid' value='chanmi'  >
         <ul>
           <li>
-          <textarea rows="2" cols="" id="comment" name="comment" style="width: 100%;"
-              placeholder="댓글을 작성해 주세요" class="form-control" ></textarea></li>
+          <textarea rows="2" cols="" id="rcomment" name="rcomment" style="width: 100%;"
+              placeholder="글을 작성해 주세요" class="form-control" ></textarea></li>
           <li style="text-align: right;">
-            작성자<input type='text' id='rname' name='rname' style='width: 100px; margin-left: 2px; '
+            작성자<input type='text' id='nickname' name='nickname'  value='chanmi' style='width: 100px; margin-left: 2px; '
             value='' class="form-control" > 
             비밀번호<input type='password' id='passwd' name='passwd' style='width: 100px; margin-left: 2px;' class="form-control"  >
-            <button type='button' onclick='create();'>등록</button></li>
+<!--             <button type='button' onclick='create();'>등록</button></li> -->
+            <button type='submit'>등록</button></li>
         </ul>
       </form>
     </div>
-    </c:if>
+ 
 </DIV>
  
 <!-- -------------------------------------------- -->

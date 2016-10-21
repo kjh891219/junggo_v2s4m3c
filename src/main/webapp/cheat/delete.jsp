@@ -28,9 +28,9 @@
      <jsp:include page="/menu/top.jsp" flush='false' />
     
     <div class='content_menu' style='width: 100%;'>
-    <A href='./create.do'>등록</A>｜
-      <A href='./read.do?ctno=${cheatVO.ctno }&opentype=R'>상세보기</A>｜
-      <A href='./read.do?ctno=${cheatVO.ctno }&opentype=U'>수정</A>｜
+      <A href='./create.do?ctno=0&opentype=R'>등록</A>｜
+      <A href='./read.do?ctno=${cheatVO.ctno }'>상세보기</A>｜
+      <A href='./create.do?ctno=${cheatVO.ctno }&opentype=U'>수정</A>｜
       <A href='./list.do'>목록</A>｜
       <A href='./delete.do?ctno=${cheatVO.ctno }'>삭제</A>｜
       <A href="javascript:location.reload();">새로고침</A>

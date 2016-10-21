@@ -32,11 +32,7 @@ $(function(){
      
   <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
-      <A href='./create.do'>등록</A>｜
-      <%-- <A href='./read.do?ctno=${vo.ctno }&opentype=R'>상세보기</A>｜
-      <A href='./read.do?ctno=${vo.ctno }&opentype=U'>수정</A>｜
-      <A href='./list.do'>목록</A>｜
-      <A href='./delete.do?ctno=${vo.ctno }'>삭제</A>｜ --%>
+     <A href='./create.do?ctno=0&opentype=R'>등록</A>｜
       <A href="javascript:location.reload();">새로고침</A>
     </div>
       <select name="col"> 
@@ -92,7 +88,7 @@ $(function(){
           <tr>
             <td>${vo.ctno}</td>
             <td>${vo.gubun}</td>
-            <td><A href='./read.do?ctno=${vo.ctno }&opentype=R'>${vo.title}</A></td>
+            <td><A href='./read.do?ctno=${vo.ctno }'>${vo.title}</A></td>
             <td>${vo.cnt}</td>
             <td>${vo.nickname}</td>
             <td>${vo.wdate}</td>
