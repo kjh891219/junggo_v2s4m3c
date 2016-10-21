@@ -1,31 +1,58 @@
 package dev.mvc.qna;
- 
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class QnAVO {
    private  int      qnano;
    private  String   title="";
    private  String   content="";
-   private  String   qfile="";
-   private  String   writer="";
-   private  String   passwd="";
    private  String   qdate="";
+   private  String   qfile="";
    private  int      categoryno;
+   private  String   userid="";
    
+   private MultipartFile file2MF;
+   
+   private String size2Label; 
+   
+   
+   
+   public MultipartFile getFile2MF() {
+      return file2MF;
+   }
+
+
+   public void setFile2MF(MultipartFile file2mf) {
+      file2MF = file2mf;
+   }
+
+
+   public String getSize2Label() {
+      return size2Label;
+   }
+
+
+   public void setSize2Label(String size2Label) {
+      this.size2Label = size2Label;
+   }
+
+
    public QnAVO(){
       
    }
-    
-   public QnAVO(int qnano, String title, String content, String qfile, String writer, String passwd,
-         int categoryno) {
+   
+
+   public QnAVO(int qnano, String title, String content, String qdate, String qfile, int categoryno, String userid) {
       this.qnano = qnano;
       this.title = title;
       this.content = content;
+      this.qdate = qdate;
       this.qfile = qfile;
-      this.writer = writer;
-      this.passwd = passwd;
       this.categoryno = categoryno;
+      this.userid = userid;
    }
-   
-   
+
+
    public String getQdate() {
       return qdate;
    }
@@ -58,23 +85,25 @@ public class QnAVO {
    public void setQfile(String qfile) {
       this.qfile = qfile;
    }
-   public String getWriter() {
-      return writer;
-   }
-   public void setWriter(String writer) {
-      this.writer = writer;
-   }
-   public String getPasswd() {
-      return passwd;
-   }
-   public void setPasswd(String passwd) {
-      this.passwd = passwd;
-   }
    public int getCategoryno() {
       return categoryno;
    }
    public void setCategoryno(int categoryno) {
       this.categoryno = categoryno;
+   }
+
+   public String getUserid() {
+      return userid;
+   }
+
+   public void setUserid(String userid) {
+      this.userid = userid;
+   }
+
+
+   public String getFile2() {
+      // TODO Auto-generated method stub
+      return null;
    }
    
    

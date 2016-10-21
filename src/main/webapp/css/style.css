@@ -1,7 +1,7 @@
 /* version 11 */
  
 /*   *{ 
-    font-family: ë§‘ì€ ê³ ë”•; 
+    font-family: ¸¼Àº °íµñ; 
     font-size: 20px;
     margin: 0px;
     padding: 0px;  
@@ -13,7 +13,7 @@
     border-radius: 15px; 
     padding: 10px; 
     margin:10px 0;
-    font-family: ë§‘ì€ ê³ ë”•;  
+    font-family: ¸¼Àº °íµñ;  
     text-align: center;
   } 
 
@@ -49,7 +49,7 @@ p { width: 70px; height: 70px; border: solid 30px;
                12px 12px 0px 8px rgba(0,0,0,0.4) inset;
 }
   
-/* ì „ì²´ ìŠ¤íƒ€ì¼ */
+/* ÀüÃ¼ ½ºÅ¸ÀÏ */
         
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
   *{ 
@@ -68,20 +68,20 @@ p { width: 70px; height: 70px; border: solid 30px;
    color:white;
   }
   
-/* leftë¥¼ ì œì™¸í•œ ìŠ¤íƒ€ì¼ */
+/* left¸¦ Á¦¿ÜÇÑ ½ºÅ¸ÀÏ */
   body{
    width:80%;
    margin-left:130px;
   }
   
-/* top ìŠ¤íƒ€ì¼ */
+/* top ½ºÅ¸ÀÏ */
   
   header{ 
     height: 35px; 
     background-color: #e6e6e6; 
     
     z-index: 2;
-    font-family: ë§‘ì€ ê³ ë”•;  
+    font-family: ¸¼Àº °íµñ;  
     text-align: center;
   }
   .member-list {
@@ -100,7 +100,7 @@ p { width: 70px; height: 70px; border: solid 30px;
 
 /* left */  
 
-   /* ë¡œê³  */
+   /* ·Î°í */
    #logo {
       width:70px;
       margin:20px auto;
@@ -170,7 +170,7 @@ p { width: 70px; height: 70px; border: solid 30px;
     background-color:orange;
   }
 
-/* index ì•ˆì— ìˆëŠ” íƒœê·¸ ìŠ¤íƒ€ì¼ */
+/* index ¾È¿¡ ÀÖ´Â ÅÂ±× ½ºÅ¸ÀÏ */
 
    .container{
       width:100%;
@@ -185,5 +185,7 @@ p { width: 70px; height: 70px; border: solid 30px;
    footer{
       text-align: center;
    }
+   
+
  
  

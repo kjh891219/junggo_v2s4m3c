@@ -1,9 +1,12 @@
 package dev.mvc.message;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,26 +157,31 @@ public class MessageCont {
   }
   
   @RequestMapping(value = "/message/create.do", method = RequestMethod.POST)
-  public ModelAndView create(MessageVO messageVO) {
+  public void create(MessageVO messageVO, HttpServletResponse response, HttpSession session) throws IOException {
+    messageVO.setSendid(session.getAttribute("userid").toString());
+
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/message/create"); 
     
+    
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
-
-    int sendOK = messageDAO.create(messageVO);
     
+    
+    int sendOK = messageDAO.create(messageVO);
+    System.out.println(sendOK);
     if (sendOK == 1) {
-      msgs.add("쪽지가 정상적으로 처리되었습니다.");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+        PrintWriter writer = response.getWriter();
+        writer.println
+        ("<script>alert('메시지가 전송되었습니다');" 
+         + "location.href = './create.do';"
+          // + "self.close();" 
+         + "</script>"
+            );
     } else {
-      msgs.add("죄송하지만 다시한번 시도해주세요.");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     }
-    mav.addObject("msgs", msgs);
-    mav.addObject("links", links);
-    mav.addObject("sendOK", sendOK);
-    return mav;
+    
+    return;
   }
   
   
