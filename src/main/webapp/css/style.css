@@ -1,53 +1,67 @@
-/* version 11 */
+
+    /* CSS 초기화 */
+    body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+        margin: 0;
+        padding: 0;
+    }
  
-/*   *{ 
-    font-family: 맑은 고딕; 
-    font-size: 20px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-   header{ 
-    height: 50px; 
-    background-color: rgba(125, 211, 242,0.5); 
-    border-radius: 15px; 
-    padding: 10px; 
-    margin:10px 0;
-    font-family: 맑은 고딕;  
-    text-align: center;
-  } 
-
-#main_left {
-   position:fixed; 
-   width:100px; 
-   height:100%;
-   float:left;
-   
-}
-
-.container{
-   with:80%;
-   margin:0;
-   float:left;
-}
-  */
-  
-DIV.standout {
-    width: 13em;
-    height: 8em;
-    border: solid black 1em;
-    border-radius: 7.5em 5em }
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+ 
+    table {
+        border-collapse: collapse; /* 셀의 테두리 선을 겹쳐서 표시 */
+        border-spacing: 0; /* 테이블 셀 요소의 테두리 간격 지정 */
+    }
+ 
+    fieldset, img {
+        border: 0;
+    }
+ 
+    input {
+        /* border-style:none;
+        border-bottom: 1px solid #b0b0b0;
+        background-color:transparent;
+        color: #979797;
+        width: 190px; */
+        
+    }
     
-p { width: 70px; height: 70px; border: solid 30px;
-    border-color: orange orange silver silver;
-    border-top-right-radius: 100%; 
-   width: 100px; height: 100px;
-   border: 12px solid blue; background-color: orange;
-   border-top-left-radius: 60px 90px;
-   border-bottom-right-radius: 60px 90px;
-   box-shadow: 64px 64px 12px 40px rgba(0,0,0,0.4),
-               12px 12px 0px 8px rgba(0,0,0,0.4) inset;
-}
+    select {
+        border-style:none;
+        border-bottom: 1px solid #b0b0b0;
+        background-color:transparent;
+    
+    }
+ 
+    address, caption, cite, code, dfn, th, var {
+        font-style: normal;
+        font-weight: normal;
+    }
+ 
+    ol, ul, li {
+        list-style: none;
+    }
+ 
+    caption, th {
+        text-align: left;
+    }
+ 
+    h1, h2, h3, h4, h5, h6 {
+        font-size: 100%;
+        font-weight: normal;
+    }
+ 
+    q:before, q:after {
+        content: '';
+    }
+ 
+    abbr, acronym {
+        border: 0;
+    }
+    
+  
   
 /* 전체 스타일 */
         
