@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %> 
 <% request.setCharacterEncoding("UTF-8"); %>
- 
+<% session.setAttribute("url", "index.jsp"); //test %> 
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
