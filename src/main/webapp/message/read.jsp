@@ -30,7 +30,6 @@ width:100%;
 
 <!-- ----------------------------------------- -->
 <body>
-<input type='hidden' value='${flag }' name='flag'>
 <table width="600" height="50">
 <tr>
     <td align="center" valign="middle" bgcolor="#EBEBEB">
@@ -85,8 +84,8 @@ width:100%;
 </tr>
 <tr>
     <td height="40" align="center" valign="bottom">
-        <a href='./list_msg.do?flag=${flag }'>목록</a>&nbsp;&nbsp;        
-        <a href="javascript:window.close();"><img src="../skin/member/junggo/img/btn_close.gif" width="48" height="20" border="0"></a></td>
+        <a href='./list.do?flag=${flag}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}'>목록</a>&nbsp;&nbsp;        
+        <a href="javascript:window.close();">닫기</a><br><br></td>
 </tr>
 </table>
 <br>

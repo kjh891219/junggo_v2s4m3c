@@ -5,20 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <!-- Oracle 기반 -->
 <mapper namespace = "message">
-  <!-- 받은 메시지 모두 조회 -->
-  <select id="receive_list" resultType="MessageVO" parameterType="String">  
-    SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck
-    FROM message
-    WHERE receiveid=#{receiveid} and visible = 'Y'
-  </select>
-  
-  <!-- 보낸 메시지 모두 조회 -->
-  <select id="send_list" resultType="MessageVO" parameterType="String">  
-    SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck
-    FROM message
-    WHERE sendid=#{sendid} 
-  </select>
-  
   <!-- 메시지 하나만 조회 -->
   <select id="read_msg" resultType="MessageVO" parameterType="int">  
     SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck
@@ -28,9 +14,103 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 전송 -->
   <insert id="create" parameterType="MessageVO">
-  INSERT INTO message (msg_no, sendid, receiveid, title, content, msg_date, read_ck, visible)
+  INSERT INTO message (msg_no, sendid, receiveid, title, content, msg_date, read_ck, visible_recv, visible_send)
   VALUES ((SELECT NVL(MAX(msg_no), 0)+1 as msg_no FROM message), 
-            #{sendid}, #{receiveid}, #{title}, #{content}, sysdate, 'N', 'Y');
+            #{sendid}, #{receiveid}, #{title}, #{content}, sysdate, 'N', 'Y', 'Y')
   </insert>
+  
+  <!-- 받은 메시지, 보낸 메시지 별로 총 개수 조회 -->
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM message
+    <choose>
+      <when test="flag == 'recv'">
+      WHERE receiveid=#{userid} and visible_recv = 'Y'
+      </when>
+      <when test="flag == 'send'">
+      WHERE sendid=#{userid} and visible_send = 'Y'
+      </when>
+    </choose>
+    <choose>
+      <when test="col == 'title'">
+        AND title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        AND content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'category'">
+        AND category LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        AND (title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%')
+      </when>      
+    </choose>
+  </select> 
+  
+  <!-- ********** 메시지 조회 - 받은 메시지, 보낸 메시지 모두 가능 ********** -->
+  <select id="list" resultType="MessageVO" parameterType="HashMap" >
+  SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck, r
+  from (
+      SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck, rownum as r
+      from (
+          SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck
+          FROM message
+          <choose>
+            <when test="flag == 'recv'">
+            WHERE receiveid=#{userid} AND visible_recv = 'Y'
+            </when>
+            <when test="flag == 'send'">
+            WHERE sendid=#{userid} AND visible_send = 'Y'
+            </when>
+          </choose>
+          <choose>
+          <when test="col == 'title'">
+             AND title LIKE '%' || #{word} || '%' 
+          </when>
+          <when test="col == 'content'">
+             AND content LIKE '%' || #{word} || '%'
+          </when>
+          <when test="col == 'title_content'">
+             AND (title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%')
+          </when>      
+          <when test="col == 'id'">
+              <choose>
+              <when test="flag == 'recv'">
+               AND sendid=#{word} 
+              </when>
+              <when test="flag == 'send'">
+               AND receiveid=#{word} 
+              </when>
+            </choose>
+          </when>
+        </choose>
+       ORDER BY msg_no DESC 
+      )
+    )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select>   
+     
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+  
+  
+  <!-- 회원용 - 받은 메시지 삭제: visible_recv를 N로 -->
+  <update id="visible" parameterType="Map">
+  UPDATE message
+  <choose>
+      <when test="flag == 'recv'">
+       SET visible_recv = 'N'
+       WHERE receiveid=#{userid} 
+      </when>
+      <when test="flag == 'send'">
+       SET visible_send = 'N'
+       WHERE sendid=#{userid} 
+      </when>
+     </choose>
+     AND msg_no IN
+            <foreach collection="msg_no_arr" item="msg_no" index="index" separator="," open="(" close=")">
+              #{msg_no}
+            </foreach>
+  </update>
+  
   
 </mapper>

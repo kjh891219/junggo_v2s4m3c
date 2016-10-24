@@ -48,12 +48,14 @@ CREATE TABLE message(
     content                           VARCHAR2(4000)    NOT NULL,               -- 내용
     msg_date                          DATE              NOT NULL,               -- 전송 시간
     read_ck                           CHAR(1)           DEFAULT 'N' NOT NULL,   -- 읽음 여부
-    visible                           CHAR(1)           DEFAULT 'Y' NOT NULL,   -- 메시지 표시
+    visible_recv                      CHAR(1)           DEFAULT 'Y' NOT NULL,   -- 받은 메시지 표시
+    visible_send                      CHAR(1)           DEFAULT 'Y' NOT NULL,   -- 보낸 메시지 표시
   FOREIGN KEY (receiveid) REFERENCES member (userid),
   FOREIGN KEY (sendid)    REFERENCES member (userid)
 );
  DROP TABLE message
-
+update message set visible_recv='Y'
+update message set visible_send='Y'
 COMMENT ON TABLE message is '메시지';
 COMMENT ON COLUMN message.msg_no is '번호';
 COMMENT ON COLUMN message.sendid is '보낸 사람';
@@ -63,14 +65,15 @@ COMMENT ON COLUMN message.content is '내용';
 COMMENT ON COLUMN message.msg_date is '전송 시간';
 COMMENT ON COLUMN message.read_ck is '읽음 여부';
 
+select * from message
 
 1. 입력
-INSERT INTO message (msg_no, sendid, receiveid, title, content, msg_date, read_ck, visible)
+INSERT INTO message (msg_no, sendid, receiveid, title, content, msg_date, read_ck, visible_recv, visible_send)
   VALUES ((SELECT NVL(MAX(msg_no), 0)+1 as msg_no FROM message), 
-            'master', 'chanmi', '제목', '내용', sysdate, 'N', 'Y');
-INSERT INTO message (msg_no, sendid, receiveid, title, content, msg_date, read_ck, visible)
+            'master', 'chanmi', '제목', '내용', sysdate, 'N', 'Y', 'Y');
+INSERT INTO message (msg_no, sendid, receiveid, title, content, msg_date, read_ck, visible_recv, visible_send)
   VALUES ((SELECT NVL(MAX(msg_no), 0)+1 as msg_no FROM message), 
-            'chanmi', 'master', '답장', '내용2', sysdate, 'N', 'Y');
+            'chanmi', 'master', '답장', '내용2', sysdate, 'N', 'Y' 'Y');
 INSERT INTO message (msg_no, sendid, receiveid, title, content, msg_date, read_ck, visible)
   VALUES ((SELECT NVL(MAX(msg_no), 0)+1 as msg_no FROM message), 
             'master', 'chanmi', '안녕하세요', '내용2', sysdate, 'N', 'Y');
@@ -104,3 +107,15 @@ UPDATE message
 SET visible = 'N'
 WHERE receiveid = 'chanmi'
 
+
+SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck, r
+  from (
+      SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck, rownum as r
+      from (
+          SELECT msg_no, sendid, receiveid, title, content, msg_date, read_ck
+          FROM message
+            WHERE receiveid='chanmi' AND visible_recv = 'Y'
+             AND (title LIKE '%' || '제' || '%'  OR content LIKE '%' || '내용' || '%')
+      ORDER BY msg_no DESC
+      )
+    )

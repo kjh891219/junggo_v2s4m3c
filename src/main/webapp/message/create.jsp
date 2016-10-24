@@ -53,15 +53,14 @@ table{
 </tr>
 <tr> 
     <td width="30" height="24"></td>
-    <td width="99" align="center" valign="middle"><a href="./list_msg.do?flag=recv">받은 쪽지</a></td>
+    <td width="99" align="center" valign="middle"><a href="./list.do?flag=recv">받은 쪽지</a></td>
     <td width="2" align="center" valign="middle">&nbsp;</td>
-    <td width="99" align="center" valign="middle"><a href="./list_msg.do?flag=send">보낸 쪽지</a></td>
+    <td width="99" align="center" valign="middle"><a href="./list.do?flag=send">보낸 쪽지</a></td>
     <td width="2" align="center" valign="middle">&nbsp;</td>
     <td width="99" align="center" valign="middle"><a href="./create.do">쪽지 보내기</a></td>
     <td width="2" align="center" valign="middle">&nbsp;</td>
     <td width="100" valign="middle" bgcolor="#EFEFEF">&nbsp;</td>
-    <td width="148" align="left" valign="middle">전체 받은 쪽지 [ <B>${cnt }</B> ]통</td>
-    <td width="3" bgcolor="#EFEFEF"></td>
+    <td width="148" align="left" valign="middle"></td>
     <td width="30" height="24"></td>
 </tr>
 </table>
