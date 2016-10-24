@@ -29,8 +29,9 @@
 
 
 <DIV class=container>
-<DIV class='title'><span>글등록</span></DIV>
 
+<DIV class='title'><span>글등록</span></DIV>
+<div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data"> 
 <DIV class='content_form'>
   <input type='hidden' name='userid' id='userid' value= '${userid }'/>
@@ -48,46 +49,46 @@
         </div>
       </div>
         <div class="">  
-	        <label for='deal_code ' class="control-label need_e">거래구분</label>
-	        <div>
-		        <select name='deal_code' id="deal_code" class="control-label full">
-		           <option value="팝니다" selected="selected">팝니다</option>
-		           <option value="삽니다">삽니다</option>
-		        </select>
-	        </div>
+           <label for='deal_code ' class="control-label need_e">거래구분</label>
+           <div>
+              <select name='deal_code' id="deal_code" class="control-label full">
+                 <option value="팝니다" selected="selected">팝니다</option>
+                 <option value="삽니다">삽니다</option>
+              </select>
+           </div>
         </div>
         </div>
         <div class='float_l _right' >
         <div class="">  
-	        <label for='region' class='need_e'>지역</label>
-	        <div>
-		        <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10 full" >
-		           <option value="서울" selected="selected">서울</option>
-		           <option value="인천">인천</option>
-		           <option value="대구">대구</option>
-		           <option value="대전">대전</option>
-		           <option value="광주">광주</option>
-		           <option value="울산">울산</option>
-		           <option value="부산">부산</option>
-		           <option value="경기">경기</option>
-		           <option value="강원">강원</option>
-		           <option value="경북">경북</option>
-		           <option value="경남">경남</option>
-		           <option value="전북">전북</option>
-		           <option value="전남">전남</option>
-		           <option value="충남">충남</option>
-		           <option value="충북">충북</option>
-		           <option value="제주">제주</option>
-		        </select>
-	        </div>
-	  </div>  
+           <label for='region' class='need_e'>지역</label>
+           <div>
+              <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10 full" >
+                 <option value="서울" selected="selected">서울</option>
+                 <option value="인천">인천</option>
+                 <option value="대구">대구</option>
+                 <option value="대전">대전</option>
+                 <option value="광주">광주</option>
+                 <option value="울산">울산</option>
+                 <option value="부산">부산</option>
+                 <option value="경기">경기</option>
+                 <option value="강원">강원</option>
+                 <option value="경북">경북</option>
+                 <option value="경남">경남</option>
+                 <option value="전북">전북</option>
+                 <option value="전남">전남</option>
+                 <option value="충남">충남</option>
+                 <option value="충북">충북</option>
+                 <option value="제주">제주</option>
+              </select>
+           </div>
+     </div>  
        <div class=""> 
          <label for='deal_way' class='need_e'>거래방식</label>
          <div>
-	         <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10 full">
-	           <option value="직거래" selected="selected">직거래</option>
-	           <option value="</">택배</option>
-	        </select >
+            <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10 full">
+              <option value="직거래" selected="selected">직거래</option>
+              <option value="</">택배</option>
+           </select >
         </div>
       </div>
         </div>
@@ -148,23 +149,23 @@
 
       <hr/>
       <div class='inpo'>판매자 정보</div>
-	      <div class='line_box' id='ul_box_2'></div>
-		      <div class="row">
+         <div class='line_box' id='ul_box_2'></div>
+            <div class="row">
               <label class='col-xs-2 col-lg-2 need' for='userid'>아이디</label>
               <input type='text' name='userid' id='userid' value='' required="required" class="col-xs-3 col-lg-3">
-		      </div>
-		      <div class="row">
-		        <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
-		        <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
-	       	  </div>
-		      <div class="row">
-		      	<label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
-		        <input type='text' name='tel' id='tel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
-		      </div>
-		      <div class="row">  
-		        <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
-		        <input type='text' name='email' id='email'  required="required" value='${memberVO.email }'  class="col-xs-3 col-lg-3">
-		      </div>
+            </div>
+            <div class="row">
+              <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
+              <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              </div>
+            <div class="row">
+               <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
+              <input type='text' name='tel' id='tel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
+            </div>
+            <div class="row">  
+              <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
+              <input type='text' name='email' id='email'  required="required" value='${memberVO.email }'  class="col-xs-3 col-lg-3">
+            </div>
   
       <hr/>
       

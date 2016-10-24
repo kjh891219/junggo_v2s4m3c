@@ -303,6 +303,12 @@
       background-size:15px;
    
    }
+   .choice_e{
+      margin-left:15px;
+      padding-left:15px;
+      background: url(/junggo/images/check_green.png) no-repeat left;
+      background-size:15px;
+   }
 
 /* º¸·ù */   
    fieldset{
