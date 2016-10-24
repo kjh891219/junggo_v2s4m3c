@@ -55,15 +55,13 @@ for (int i=0; i < cookies.length; i++){
                  </label>
                </li>
                <li class='center'>
-                 <button type='submit'>로그인</button>
-                 <button type='button' onclick="history.back();">취소</button>
                  <A href="./create.do">회원가입</A>
                </li>
              </ul>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-              <button type="button" class="btn btn-primary">변경 사항 저장</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+              <button type="submit" class="btn btn-primary">로그인</button>
             </div>
           </div> <!-- 모달 콘텐츠 -->
         </div> <!-- 모달 다이얼로그 -->
