@@ -51,6 +51,7 @@ COMMENT ON COLUMN CHEAT.wdate is '등록일자';
 
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd
     FROM cheat
+    select * from cheat
 
 /** sample 데이터
  * INSERT SQL
@@ -102,7 +103,7 @@ CREATE TABLE creply(
     rcomment           VARCHAR2(1000)     DEFAULT ' '    NOT NULL,
     ctno                   NUMBER(6)    NULL ,
     userid                 VARCHAR2(20)     NULL ,
-    rname                VARCHAR2(30)     NOT NULL,
+    nickname                VARCHAR2(30)     NOT NULL,
     passwd               VARCHAR2(10)     NOT NULL,
     wdate                 DATE     DEFAULT sysdate     NOT NULL,
     grpno                 NUMBER(7)        NOT NULL,
@@ -110,7 +111,7 @@ CREATE TABLE creply(
     ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
     FOREIGN KEY (userid) REFERENCES member_1 (userid),
-    FOREIGN KEY (ctno) REFERENCES computer (ctno)
+    FOREIGN KEY (ctno) REFERENCES cheat (ctno)
 );
 
 COMMENT ON TABLE reply is '허위상품댓글';
@@ -118,17 +119,17 @@ COMMENT ON COLUMN reply.rno is '댓글번호';
 COMMENT ON COLUMN reply.rcomment is '내용';
 COMMENT ON COLUMN reply.ctno is '글번호';
 COMMENT ON COLUMN reply.userid is '아이디';
-COMMENT ON COLUMN reply.rname is '등록자 닉네임';
+COMMENT ON COLUMN reply.nickname is '등록자 닉네임';
 COMMENT ON COLUMN reply.passwd is '비밀번호';
 COMMENT ON COLUMN reply.wdate is '등록일자';
 
-INSERT INTO  creply (rno, rcomment, ctno, userid, rname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate);
+INSERT INTO  creply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 16, 'chanmi', '구매원하는사람', '1234', sysdate, 0,0,0);
 
-INSERT INTO  creply (rno, rcomment, ctno, userid, rname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요2', 1, 'master', '구매원하는사람', '1234', sysdate);
+INSERT INTO  creply (rno, rcomment, ctno, userid, nickname, passwd, wdate)
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요2', 1, 'chanmi', '구매원하는사람', '1234', sysdate);
 
-INSERT INTO  creply (rno, rcomment, ctno, userid, rname, passwd, wdate)
+INSERT INTO  creply (rno, rcomment, ctno, userid, nickname, passwd, wdate)
 values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요3', 2, 'master', '구매원하는사람', '1234', sysdate);
 
 /** 삭제 */
