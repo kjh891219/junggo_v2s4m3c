@@ -16,3 +16,14 @@ $(document).ready(function(){
       $("#left_list_detail_2").slideUp();
    });
 });
+
+
+function message(){
+   var url = './message/list.do?flag=recv';
+   var win = window.open(url, '쪽지함', 'width=600px, height=700px');
+   
+   var x = (screen.width - 500) / 2;
+   var y = (screen.height - 440) / 2;
+   
+   win.moveTo(x, y); // 화면 가운데로 이동
+ }
