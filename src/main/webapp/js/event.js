@@ -1,7 +1,7 @@
 $(document).ready(function(){
    $('#left_list_top_1').mouseenter(function(){
-     $("#left_list_detail_1").delay(5000).slideDown(500);
-     /* Toggle('on'); */
+     $("#left_list_detail_1").slideDown(500);
+     /* Toggle('on'); .delay(5000) */
    })
    $('#left_list_detail_1').parent().mouseleave(function(){
      $("#left_list_detail_1").slideUp();
