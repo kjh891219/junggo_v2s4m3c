@@ -24,9 +24,12 @@ CREATE TABLE CHEAT(
     file2                   VARCHAR2(50)         NULL ,
     size2                  NUMBER(9)        DEFAULT 0       NULL ,
   PRIMARY KEY (ctno),
-  FOREIGN KEY (userid) REFERENCES member (userid)
+  FOREIGN KEY (userid) REFERENCES member_1 (userid)
 );
-
+alter table computer
+MODIFY   file1  VARCHAR2(100)  DEFAULT ''   
+alter table computer
+MODIFY   file2  VARCHAR2(100)  DEFAULT ''  
  /**gubun:신고구분 (물품미발송 / 상태불량 / 이미테이션 / 택배착불 / 더치트,사이버안전국 등록자 등)
   * 
   */
@@ -51,7 +54,6 @@ COMMENT ON COLUMN CHEAT.wdate is '등록일자';
 
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd
     FROM cheat
-    select * from cheat
 
 /** sample 데이터
  * INSERT SQL
@@ -111,7 +113,7 @@ CREATE TABLE creply(
     ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
     FOREIGN KEY (userid) REFERENCES member_1 (userid),
-    FOREIGN KEY (ctno) REFERENCES cheat (ctno)
+    FOREIGN KEY (ctno) REFERENCES computer (ctno)
 );
 
 COMMENT ON TABLE reply is '허위상품댓글';
@@ -124,10 +126,10 @@ COMMENT ON COLUMN reply.passwd is '비밀번호';
 COMMENT ON COLUMN reply.wdate is '등록일자';
 
 INSERT INTO  creply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 16, 'chanmi', '구매원하는사람', '1234', sysdate, 0,0,0);
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
 
 INSERT INTO  creply (rno, rcomment, ctno, userid, nickname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요2', 1, 'chanmi', '구매원하는사람', '1234', sysdate);
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요2', 1, 'master', '구매원하는사람', '1234', sysdate);
 
 INSERT INTO  creply (rno, rcomment, ctno, userid, nickname, passwd, wdate)
 values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요3', 2, 'master', '구매원하는사람', '1234', sysdate);
@@ -138,7 +140,9 @@ select * from cheat
  SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, wdate
     FROM cheat
     
+select * from creply
     
+/** 페이징 */    
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
   cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
   passwd, wdate, file1, file2, size2, r
@@ -157,3 +161,9 @@ SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
   )
   )
   
+ 
+  select * from creply
+  
+  
+   SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, wdate, file1, file2, size2
+    FROM cheat
