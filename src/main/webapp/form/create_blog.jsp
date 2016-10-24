@@ -34,7 +34,7 @@ $(function(){
 
 <DIV class='title'>문의사항 등록</DIV>
 <FORM name='frm' method='POST' action='./create.do'>
-<DIV class='content_form'>
+<DIV class='content'>
 <input type='hidden' name='userid' id='userid' value= '${userid }'/>
 <input type='hidden' name='password' id='password' value= '${passwd }'/>
    <DIV>
