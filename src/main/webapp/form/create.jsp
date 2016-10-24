@@ -132,12 +132,6 @@
          <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label>
          <input type="radio" name='product_code' value="중고품" ><span class='radio_text'>중고품</span>
          <input type="radio" name='product_code' value="신상품" ><span class='radio_text'>신상품</span>
-        <!--  
-        <select name='product_code' id='product_code' class="col-xs-3 col-lg-3">
-           <option value="중고품" selected="selected">중고품</option>
-           <option value="신상품">신상품</option>
-        </select>
-         -->
       </div>
         <div class="row"> 
         <label for='hprice' class='col-xs-2 col-lg-2 need'>희망가격</label>
