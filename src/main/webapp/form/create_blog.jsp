@@ -15,6 +15,7 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <link href="/junggo/css/style.css" rel="Stylesheet" type="text/css">
+<script src="/junggo/js/event.js"></script>
  
 <script type="text/javascript">
 $(function(){
