@@ -3,6 +3,7 @@
 <%
 String root = request.getContextPath();
 %>
+
 <script>
   function message(){
     var url = './message/list.do?flag=recv';
@@ -16,26 +17,25 @@ String root = request.getContextPath();
 </script>
 
 <header>
-   <DIV style='float:right;'>
-            <ul class="member-list">
+   <DIV style='width:87%; '> 
+            <ul class="member-list" style='float:right;'>
                <% if(session.getAttribute("userid") == null) { // 회원 로그인 여부 검사 %>
                <li class="login"><a class='menu_style'  href="#myModal" data-toggle="modal"><span></span>LOGIN</a></li>
-               <li class="join">/member/create.do"><span>JOIN</li>
+               <li class="join"><a href="<%=root %>/member/create.do" class='menu_style'><span></span>JOIN</a></li>
                <% } else { %>
-               <li class="logout">/member/logout.do">${userid }님 로그아웃</li>
-               <li class="mytm">/member/mypage.jsp"><span>마이 페이지</li>
-               <li class="message"><A href='javascript: message();'><img src="<%=root %>/images/message.png"/></a></li>
+               <li class="logout"><a href="<%=root %>/member/logout.do" class='menu_style'>${userid }님 로그아웃</a></li>
+               <li class="mytm"><a href="<%=root %>/member/mypage.jsp" class='menu_style'><span></span>마이 페이지</a></li>
                <% } %>   
-               <li class="orderDelivery"><span>주문/배송</li>
-               <li class="cart"><span>장바구니</li>
+               <li class="orderDelivery"><a href="#" class='menu_style'><span></span>주문/배송</a></li>
+               <li class="cart"><a href="#" class='menu_style'><span></span>장바구니</a></li>
                <!--
-               <li class="cs"><span>고객센터</li><!-- //활성화 시 class on 추가 -->
-               <li class="cs"><span>고객센터</li><!-- //활성화 시 class on 추가 -->
+               <li class="cs"><a href="#none" class="on"><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
+               <li class="cs"><a href="#" class='menu_style'><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
                <%
                 String act = (String) session.getAttribute("act");
                 if ((Tool.checkNull(act)).equals("M")){
                 %>
-                  <li>/member/list.do'><span>관리자다</li>
+                  <li><a class='menu_link' href='<%=root %>/member/list.do' class='menu_style'><span></span>관리자다</a></li>
                 <%
                 }else{ }
                 %>
@@ -43,6 +43,7 @@ String root = request.getContextPath();
             <div style='clear:both;'></div>
       
    </DIV>
-            <div style='clear:both;'></div>
+   
+            <div style='clear:both;'></div> 
    <jsp:include page="/menu/login.jsp" flush='false' />
 </header>
