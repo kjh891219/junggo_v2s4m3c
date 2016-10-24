@@ -18,7 +18,7 @@
     <property name="typeAliasesPackage" 
                    value="dev.mvc.camera, 
                    dev.mvc.tmember, dev.mvc.message,
-                   dev.mvc.usedcar, dev.mvc.cheat, dev.mvc.cosmetic, dev.mvc.game, dev.mvc.junggo, dev.mvc.qna, dev.mvc.gamedevice, dev.mvc.mobile"
+                   dev.mvc.usedcar, dev.mvc.cheat, dev.mvc.cosmetic, dev.mvc.game, dev.mvc.junggo, dev.mvc.qna, dev.mvc.gamedevice, dev.mvc.mobile, dev.mvc.computer"
                    />
     <property name="mapperLocations" value="classpath:mybatis/*.xml" />
   </bean>
