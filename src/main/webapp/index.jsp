@@ -16,82 +16,9 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="./css/style.css" rel="Stylesheet" type="text/css">
+<script src="/junggo/js/event.js"></script>
 <script>
-$(document).ready(function(){
-   $('#left_list_1').click(function(){
-     $(".left_list_detail").slideUp();
-     $("#left_detail_1").slideDown(500);
-     /* Toggle('on'); */
-   })
-   $('#left_detail_1').mouseleave(function(){
-     $(".left_list_detail").slideUp();
-   });
-   
-   $('#left_list_2').click(function(){
-     $(".left_list_detail").slideUp();
-     $("#left_detail_2").slideDown(500);
-     /* Toggle('on'); */
-   })
-   $('#left_detail_2').mouseleave(function(){
-     
-      $(".left_list_detail").slideUp();
-   });
-   
-   $('#left_list_3').click(function(){
-      $(".left_list_detail").slideUp();
-      $("#left_detail_3").slideDown(500);
-     /* Toggle('on'); */
-   })
-   $('#left_detail_3').mouseleave(function(){
-      $(".left_list_detail").slideUp();
-   });
-   
-   $('#left_list_4').click(function(){
-      $(".left_list_detail").slideUp();
-      $("#left_detail_4").slideDown(500);
-      /* Toggle('on'); */
-    })
-    $('#left_detail_4').mouseleave(function(){
-       $(".left_list_detail").slideUp();
-    });
-   
-   $('#left_list_5').click(function(){
-      $(".left_list_detail").slideUp();
-      $("#left_detail_5").slideDown(500);
-      /* Toggle('on'); */
-    })
-    $('#left_detail_5').mouseleave(function(){
-       $(".left_list_detail").slideUp();
-    });
-   
-   $('#left_list_6').click(function(){
-      $(".left_list_detail").slideUp();
-      $("#left_detail_6").slideDown(500);
-      /* Toggle('on'); */
-    })
-    $('#left_detail_6').mouseleave(function(){
-       $(".left_list_detail").slideUp();
-    });
-   
-   $('#left_list_7').click(function(){
-      $(".left_list_detail").slideUp();
-      $("#left_detail_7").slideDown(500);
-      /* Toggle('on'); */
-    })
-    $('#left_detail_7').mouseleave(function(){
-       $(".left_list_detail").slideUp();
-    });
 
-   $('#left_list_8').click(function(){
-      $(".left_list_detail").slideUp();
-      $("#left_detail_8").slideDown(500);
-      /* Toggle('on'); */
-    })
-    $('#left_detail_8').mouseleave(function(){
-       $(".left_list_detail").slideUp();
-    });
-   
-});
 </script>
 <style type="text/css">
  

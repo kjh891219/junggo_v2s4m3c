@@ -15,9 +15,8 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <link href="/junggo/css/style.css" rel="Stylesheet" type="text/css">
-<script type="text/javascript">
- 
-</script>
+<script src="/junggo/js/event.js"></script>
+
 
 </head> 
 <!-- ----------------------------------------- -->
@@ -31,10 +30,9 @@
 <DIV class=container>
 
 <DIV class='title'><span>글등록</span></DIV>
-<div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
+   <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data"> 
 <DIV class='content_form'>
-  <input type='hidden' name='userid' id='userid' value= '${userid }'/>
      <DIV class="">
      <div class="float_l _left">
       <div class="">

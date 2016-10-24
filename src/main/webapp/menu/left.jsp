@@ -59,6 +59,18 @@
       <li class='left_list_main' id="left_list_top_2">
          <a href='#' class='menu_top'>커뮤니티</a>
          <ul class='left_list_detail' id='left_list_detail_2'>
+            <li>
+               <a href='#' class='menu_style'>공지사항</a>
+            </li>
+            <li>
+               <a href='#' class='menu_style'>이용후기</a>
+            </li>
+            <li>
+               <a href='#' class='menu_style'>허위상품신고</a>
+            </li>
+            <li>
+               <a href='#' class='menu_style'>Q&A</a>
+            </li>
          </ul>
       </li>
       <li class='left_list_main' >
