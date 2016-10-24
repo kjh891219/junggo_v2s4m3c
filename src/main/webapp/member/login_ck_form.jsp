@@ -45,7 +45,7 @@ for (int i=0; i < cookies.length; i++){
  
 <DIV class='title' style='width: 20%;'>로그인</DIV>
  
-<DIV class='content' style='width: 50%;'>
+<DIV class='content_form' style='width: 50%;'>
 <FORM name='frm' method='POST' action='./login.do'>
 <input type='hidden' name='url_address' value='<%=url_address %>'> 
   <fieldset>

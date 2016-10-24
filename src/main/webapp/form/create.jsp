@@ -33,7 +33,7 @@
 <DIV class='title'><span>글등록</span></DIV>
 <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data"> 
-<DIV class='content'>
+<DIV class='content_form'>
   <input type='hidden' name='userid' id='userid' value= '${userid }'/>
      <DIV class="">
      <div class="float_l _left">
