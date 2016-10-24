@@ -16,13 +16,13 @@
                <a href='#' class='menu_style'>자동차용품</a>
             </li>
             <li>
-               <a href='#' class='menu_style'>의류</a>
+               <a href='${pageContext.request.contextPath}/cloth/list.do' class='menu_style'>의류</a>
             </li>
             <li>
-               <a href='#' class='menu_style'>화장품</a>
+               <a href='${pageContext.request.contextPath}/cosmetic/list.do' class='menu_style'>화장품</a>
             </li>
             <li>
-               <a href='#' class='menu_style'>잡화</a>
+               <a href='${pageContext.request.contextPath}/product/list.do' class='menu_style'>잡화</a>
             </li>
             <li>
                <a href='#' class='menu_style'>컴퓨터</a>
