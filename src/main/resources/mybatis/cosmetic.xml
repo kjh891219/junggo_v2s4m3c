@@ -5,17 +5,120 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace = "cosmetic">
   <insert id="create" parameterType="CosmeticVO">
-   INSERT INTO cosmetic(bno, 
-               category, writer, passwd, deal_sort, product_sort, deal_region, deal_way, price, wish_price, deal_date, quantity, email, phone, title, content)
-   VALUES((SELECT NVL(MAX(bno), 0)+1 as bno FROM cosmetic),
-               #{category}, #{writer}, #{passwd}, #{deal_sort}, #{product_sort}, #{deal_region}, #{deal_way}, #{price}, #{wish_price}, #{deal_date}, #{quantity}, #{email}, #{phone}, #{title}, #{content})
+   INSERT INTO cosmetic(cno, 
+               category, nickname, passwd, deal_code, product_code, region, deal_way, hprice,  purc_date, quantity, 
+               email, tel, title, content, userid , file1, file2, size2, file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10)
+   
+   VALUES((SELECT NVL(MAX(cno), 0)+1 as cno FROM cosmetic),
+               #{category}, #{nickname}, #{passwd}, #{deal_code}, #{product_code}, #{region}, #{deal_way}, 
+               #{hprice},  #{purc_date}, #{quantity}, #{email}, #{tel}, #{title}, #{content}, #{userid}, #{file1} , #{file2} , #{size2},
+               #{file3}, #{file4}, #{size4}, #{file5}, #{file6}, #{size6}, #{file7}, #{file8}, #{size8}, #{file9}, #{file10}, #{size10} )
   </insert>
  
  <!-- 검색을 하지 않는 전체 목록 --> 
   <select id="list" resultType="CosmeticVO">
-  SELECT bno, category, title, price, deal_region, deal_way, writer
+  SELECT cno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
   FROM cosmetic
   </select>
   
-   
+ 
+  <select id="read" resultType="CosmeticVO" parameterType="int">
+    SELECT cno, category, nickname, passwd, deal_code, product_code, region, deal_way, hprice,  purc_date, quantity, 
+              email, tel, title, content, userid, file1, file2, size2, cnt ,
+              file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10
+    FROM COSMETIC
+    WHERE cno = #{cno}
+  </select>
+  
+  <update id ="update" parameterType="CosmeticVO">
+     UPDATE cosmetic
+     SET  category= #{category}, nickname = #{nickname}, passwd = #{passwd}, deal_way = #{deal_way}, 
+                       deal_code = #{deal_code}, product_code = #{product_code}, hprice = #{hprice}, region = #{region}, tel = #{tel}, 
+                      email = #{email}, quantity = #{quantity}, title = #{title}, content = #{content}, 
+                      purc_date = #{purc_date} , file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, file3 = #{file3}, file4 = #{file4},
+                      size4 = #{size4}, file5 = #{file5}, file6 = #{file6}, size6 = #{size6}, file7 = #{file7}, file8 = #{file8}, size8 = #{size8},
+                      file9 = #{file9}, file10 = #{file10}, size10 = #{size10}    
+     WHERE cno = #{cno}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM cosmetic
+    WHERE cno=#{cno}
+  </delete>
+  
+  <update id = "increaseCnt" parameterType = "int" >
+  UPDATE cosmetic
+  SET cnt = cnt + 1
+  WHERE cno = #{cno}
+  </update> 
+    
+    
+     <!-- ********** 검색에 따른 변경 시작 ********** -->
+  <select id="list2" resultType="CosmeticVO" parameterType="HashMap" >
+   SELECT cno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
+  FROM cosmetic
+  
+    <choose>
+      <when test="col == 'title'">
+         AND title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+         AND content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+         AND title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+    
+    ORDER BY cno DESC
+  </select>        
+ 
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM cosmetic
+    <choose>
+      <when test="col == 'title'">
+        WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        WHERE content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+  </select>        
+ 
+  <!-- ********** 검색에 따른 변경 종료 ********** -->   
+    
+ <!-- ********** 페이징에 따른 변경 시작 ********** -->
+    <select id="list3" resultType="CosmeticVO" parameterType="HashMap" >
+    SELECT cno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, r
+        FROM(
+           SELECT cno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, rownum as r
+              FROM (
+                    SELECT cno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
+                    FROM cosmetic
+                    <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY cno DESC
+             )
+    )
+    
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select>  
+     
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+ 
+    
+    
  </mapper>

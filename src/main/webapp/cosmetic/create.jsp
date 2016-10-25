@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -17,19 +19,30 @@ $(function(){
 
 });
 </script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+ 
+<script type="text/JavaScript">
+  window.onload=function(){
+    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+    
+};
+</script>
 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
+<jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
 
 <DIV class='title'>물품 등록</DIV>
 
 <DIV class='content' >
-<FORM name='frm' method='POST' action='./create.do'>
+<FORM name='frm' method='POST' action='./create.do'  
+                                enctype="multipart/form-data">
+ <input type='hidden' name='cno' id='cno' value='2'>                                
   <fieldset>
     <ul>
+    
       <li>
         <label class='label' for='category'>분류</label>
            <select name='category' id='category'>
@@ -40,6 +53,7 @@ $(function(){
             <option value="헤어/바디케어">헤어/바디케어</option>
             <option value="기타미용제품">기타미용제품</option>
            </select>
+           
       </li>
       <li> 
         <label class='label' for='writer'>글쓴이</label>
@@ -48,8 +62,8 @@ $(function(){
         <input type='password' name='passwd' id='passwd' value='1234' required="required">
       </li>
       <li>  
-        <label class='label' for='deal_sort' >거래 구분</label>
-        <select name='deal_sort' id='deal_sort'>
+        <label class='label' for='deal_code' >거래 구분</label>
+        <select name='deal_code' id='deal_code'>
             <option value="팝니다" selected="selected">팝니다</option>
             <option value="삽니다">삽니다</option>
             <option value="교환">교환</option>
@@ -59,16 +73,16 @@ $(function(){
         </select>        
       </li>   
       <li>  
-        <label class='label' for='product_sort'>상품 구분</label>
-        <select name='product_sort' id='product_sort'>
-            <option value="old_product" selected="selected">중고품</option>
-            <option value="new_product">신상품</option>
+        <label class='label' for='product_code'>상품 구분</label>
+        <select name='product_code' id='product_code'>
+            <option value="중고품" selected="selected">중고품</option>
+            <option value="신상품">신상품</option>
         </select>        
       </li>
      
       <li>  
-        <label class='label' for='deal_region'>거래 지역</label>
-        <select name='deal_region' id='deal_region'>
+        <label class='label' for='region'>거래 지역</label>
+        <select name='region' id='region'>
            <option value="서울" selected="selected">서울</option>
            <option value="인천">인천</option>
            <option value="대구">대구</option>
@@ -97,19 +111,15 @@ $(function(){
             <option value="안전거래">안전거래</option>
         </select>        
       </li>     
+           
       <li> 
-        <label class='label' for='wish_price'>구입가격</label>
-        <input type='text' name='wish_price' id='wish_price' value='1000' required="required">
+        <label class='label' for='hprice'>희망가격</label>
+        <input type='text' name='hprice' id='hprice' value='1000' required="required">
       </li>
       
       <li> 
-        <label class='label' for='price'>희망가격</label>
-        <input type='text' name='price' id='price' value='1000' required="required">
-      </li>
-      
-      <li> 
-        <label class='label' for='deal_date'>구입시기</label>
-        <input type='text' name='deal_date' id='deal_date' value='xxxx-xx-xx' required="required">
+        <label class='label' for='purc_date'>구입시기</label>
+        <input type='text' name='purc_date' id='purc_date' value='xxxx-xx-xx' required="required">
       </li>
       
       <li> 
@@ -123,31 +133,98 @@ $(function(){
       </li>
       
       <li> 
-        <label class='label' for='phone'>연락처</label>
-        <input type='text' name='phone' id='phone' value='000-0000-0000' required="required">
+        <label class='label' for='tel'>연락처</label>
+        <input type='text' name='tel' id='tel' placeholder='000-0000-0000' required="required">
       </li>
       
       <li> 
         <label class='label' for='title'>제목</label>
-        <input type='text' name='title' id='title' value='내용을 입력하세요' required="required">
+        <input type='text' name='title' id='title' placeholder='제목을 입력하세요' required="required">
       </li>
       
       <li> 
         <label class='label' for='content'>글내용</label>
-        <textarea rows="10" cols="40" name='content' id='content'  required="required"></textarea>
+        <textarea rows="10" cols="40" name="content"  id="content" placeholder="내용을 입력하세요." ></textarea>
       </li>            
       
+      <li> 
+        <label class='label' for='userid'>아이디</label>
+        <input type='text' name='userid' id='userid' value='userid' required="required">
+      </li>
+       <li> 
+        <label class='label' for='nickname'>닉네임</label>
+        <input type='text' name='nickname' id='nickname' value='nickname' required="required">
+      </li>
+      
+       <li>  
+        <label for='file1'>Thumb 파일1</label>
+        Preview(미리보기) 이미지 자동 생성됩니다.
+      </li>
+      
+      <li>
+        <label for='file2MF'>업로드 파일1</label>
+        <input type="file" name='file2MF' id='file2MF' size='40'>
+      </li>
+       <br>
+       
+        <li>  
+        <label for='file3'>Thumb 파일2</label>
+        Preview(미리보기) 이미지 자동 생성됩니다.
+      </li>
+  
+      <li>
+        <label for='file4MF'>업로드 파일2</label>
+        <input type="file" name='file4MF' id='file4MF' size='40'>
+      </li>
+       <br>
+           
+       <li>  
+        <label for='file5'>Thumb 파일3</label>
+        Preview(미리보기) 이미지 자동 생성됩니다.
+      </li>
+     
+      <li>
+        <label for='file6MF'>업로드 파일3</label>
+        <input type="file" name='file6MF' id='file6MF' size='40'>
+      </li>
+      
+      <br>
+      
+       <li>  
+        <label for='file7'>Thumb 파일4</label>
+        Preview(미리보기) 이미지 자동 생성됩니다.
+      </li>
+       
+      <li>
+        <label for='file8MF'>업로드 파일4</label>
+        <input type="file" name='file8MF' id='file8MF' size='40'>
+      </li>
+      <br>
+      
+       <li>  
+        <label for='file9'>Thumb 파일5</label>
+        Preview(미리보기) 이미지 자동 생성됩니다.
+      </li>
+       
+      <li>
+        <label for='file10MF'>업로드 파일5</label>
+        <input type="file" name='file10MF' id='file10MF' size='40'>
+      </li>
+      
+      <br>
        <li class='right'>
         <button type="submit">등록</button>
         <button type="button" onclick="location.href='./list.do'">목록</button>
       </li> 
+      
     </ul>
   </fieldset>
 </FORM>
 </DIV>
 
 <!-- -------------------------------------------- -->
-<%-- <jsp:include page="/menu/bottom.jsp" flush='false' /> --%>
+<jsp:include page="/menu/bottom.jsp" flush='false' />
+
 </body>
 <!-- -------------------------------------------- -->
 </html> 
