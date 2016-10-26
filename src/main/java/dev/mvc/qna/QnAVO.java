@@ -16,7 +16,7 @@ public class QnAVO {
    /** 업로드 파일 */
    private  String   file2="";
    /** 업로드된 파일 크기 */
-   private  long     size2= 0;
+   private  long     size2= 0; 
    /** 카테고리 */
    private  int      categoryno;
    /** 회원 아이디 */
