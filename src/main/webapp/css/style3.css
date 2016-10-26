@@ -58,16 +58,10 @@
     abbr, acronym {
         border: 0;
     }
-    
     a{
       text-decoration: none;
-      color:black;
     }
     
-    a:HOVER {
-      text-decoration: none;
-    }
-  
     .menu_top:HOVER {
       text-decoration:none;
       display:block;
@@ -79,14 +73,17 @@
  
 /* 전체 스타일 */
         
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
   *{ 
-    font-family: dotum,"돋움";
-    
+    font-family: 'Nanum Gothic', serif;
     font-size: 15px;
-    color:black;
     margin: 0px;
     padding: 0px;  
     list-style: none;
+  }
+  
+  a{
+   color:black;
   }
   
   
@@ -100,7 +97,7 @@
 /* left를 제외한 스타일 */
   body{
    width:80%;
-   margin:0 auto;
+   margin-left:130px;
   }
   
 /* top 스타일 */
@@ -152,54 +149,68 @@
    }
    
   #main_left {
-    width:100%;
+    height:100%;
+    position:fixed; 
+    top:0;
+    left:0;
+    z-index: 3;
     
   }
   
   #main_left_left{
+    height:100%;
+    float:left;
     color:white;
+    color: #aaa;
+    color: rgba(255, 255, 255, 0.55);
+    text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
+    width: 12em;
+    padding: 3em 1em 1em 2em;
+    background: #364050 url(/images/pic01.png);
+    left: 0;
+    box-shadow: inset -0.1em 0em 0.35em 0em rgba(0, 0, 0, 0.15);
+    /* background-color: #737373; */
+    background-color: rgb(51, 51, 51);
   }
   
-    .left_list_form {
-      display:block;
-      width:20%;
-      margin:0;
-      float:left;
+  
+  .left_list_main{
+   padding-top:5px;
+   padding-bottom:5px;
+   border-top: solid 1px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.075);
   }
   
-  .left_detail {
+  .menu_top{
+   color:white;
+   display:block;
+   padding:inherit;
+  }
+  
+  .left_list_detail {
     display:none;
     position:absolute;
-    top:76px;
-    left:26%;
-    width:16%; 
-    height:460px; 
-    background-color:#3b78ce;
-  }
-  
-    .left_list{
-    display:block;
-    width:100%;
-    line-height:50px;
-    padding-left:20px; 
-    border:1px solid #3b78ce;
-    border-bottom:none;
-    border-bottom-left-radius: 5px; 
-    border-top-left-radius: 5px; 
     z-index: 1;
-    font-weight:bold;
-  }
-    .left_detail a{
-    color:white;
-    display:block;
-    padding:10px 20px;
-    border-bottom:1px solid white;
-  
-  }
-  #left_list_8{
-   border-bottom:1px solid #3b78ce;
+    border-bottom-right-radius: 15px ;
+    background-color:gray;
   }
    
+   #left_list_detail_1{
+    top:165px;
+    left:165px;
+    width:150px;
+   
+   }
+   #left_list_detail_2{
+    top:210px;
+    left:165px;
+    width:150px;
+   
+   }
+   
+   .modal-dialog{
+      margin-top: 200px;
+   }
 
 
 /* top & left 스타일 */
