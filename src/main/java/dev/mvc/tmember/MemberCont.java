@@ -402,7 +402,7 @@ public class MemberCont {
     ArrayList<String> links = new ArrayList<String>();
   
     msgs.add("이용해주셔서 감사합니다.");
-    links.add("<button type='button' onclick=\"location.href='../index.do'\">홈페이지</button>");
+    links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
   
     session.invalidate(); // 모든 session 변수 삭제
     

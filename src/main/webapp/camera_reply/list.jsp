@@ -83,7 +83,7 @@ function create_cancel(){
                   <c:forEach var="indent"  begin="1" end="${vo.indent }" step="1">
                    <img src='./images/white.jpg' style='width: 25px; opacity: 0.0;'>
                   </c:forEach>
-                  <img src='./images/reply3.jpg'>
+                  <img src='./images/reply3.png'>
                 </c:when>
               </c:choose>
                      글번호 <span id="prno">${vo.rno }</span>
