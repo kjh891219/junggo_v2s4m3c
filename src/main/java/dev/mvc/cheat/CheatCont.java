@@ -37,6 +37,72 @@ public class CheatCont {
   }
 
   /**
+   * 1건 조회
+   * 
+   * @param ctno
+   * @return
+   */
+  @RequestMapping(value = "/cheat/read.do", method = RequestMethod.GET)
+  public ModelAndView read(int ctno) {
+    ModelAndView mav = new ModelAndView();
+    cheatDAO.setCnt(ctno); // 조회수 증가
+
+    mav.setViewName("/cheat/read");
+    mav.addObject("cheatVO", cheatDAO.read(ctno));
+    
+    mav.addObject("cReplylist", cReplyDAO.listReply(ctno));
+    return mav;
+  }
+
+  /**
+   * 리스트 목록을 검색+페이징+답변을 적용하여 출력합니다.
+   * 
+   * @param searchDTO
+   *          검색 정보
+   * @return 추출된 게시판 목록
+   */
+  @RequestMapping(value = "/cheat/list.do", method = RequestMethod.GET)
+  public ModelAndView list(SearchDTO searchDTO, HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/cheat/list");
+    int totalRecord = 0;
+
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("col", searchDTO.getCol());
+    hashMap.put("word", searchDTO.getWord());
+
+    int recordPerPage = 10; // 페이지당 출력할 레코드 갯수
+    // 페이지에서 출력할 시작 레코드 번호 계산, nowPage는 1부터 시작
+    int beginOfPage = (searchDTO.getNowPage() - 1) * recordPerPage;
+    // 1 page: 0
+    // 2 page: 10
+    // 3 page: 20
+    int startNum = beginOfPage + 1; // 시작 rownum, 1
+    int endNum = beginOfPage + recordPerPage; // 종료 rownum, 10
+    hashMap.put("startNum", startNum);
+    hashMap.put("endNum", endNum);
+
+    List<CheatVO> list = cheatDAO.list(hashMap); // 검색
+    Iterator<CheatVO> iter = list.iterator();
+    while (iter.hasNext() == true) { // 다음 요소 검사
+      CheatVO vo = iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 20));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    mav.addObject("list", list);
+    mav.addObject("root", request.getContextPath());
+
+    totalRecord = cheatDAO.count(hashMap);
+    mav.addObject("totalRecord", cheatDAO.count(hashMap)); // 검색된 레코드 갯수
+
+    String paging = new Paging().paging5(totalRecord, searchDTO.getNowPage(), recordPerPage, searchDTO.getCol(),
+        searchDTO.getWord());
+    mav.addObject("paging", paging);
+    return mav;
+  }
+
+  
+  /**
    * 
    * @param opentype
    *          : U(수정), R(등록)
@@ -174,69 +240,6 @@ public class CheatCont {
     return mav;
   }
 
-  /**
-   * 1건 조회
-   * 
-   * @param ctno
-   * @return
-   */
-  @RequestMapping(value = "/cheat/read.do", method = RequestMethod.GET)
-  public ModelAndView read(int ctno) {
-    ModelAndView mav = new ModelAndView();
-    cheatDAO.setCnt(ctno); // 조회수 증가
-
-    mav.setViewName("/cheat/read");
-    mav.addObject("cheatVO", cheatDAO.read(ctno));
-
-    return mav;
-  }
-
-  /**
-   * 리스트 목록을 검색+페이징+답변을 적용하여 출력합니다.
-   * 
-   * @param searchDTO
-   *          검색 정보
-   * @return 추출된 게시판 목록
-   */
-  @RequestMapping(value = "/cheat/list.do", method = RequestMethod.GET)
-  public ModelAndView list(SearchDTO searchDTO, HttpServletRequest request) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("/cheat/list");
-    int totalRecord = 0;
-
-    HashMap<String, Object> hashMap = new HashMap<String, Object>();
-    hashMap.put("col", searchDTO.getCol());
-    hashMap.put("word", searchDTO.getWord());
-
-    int recordPerPage = 10; // 페이지당 출력할 레코드 갯수
-    // 페이지에서 출력할 시작 레코드 번호 계산, nowPage는 1부터 시작
-    int beginOfPage = (searchDTO.getNowPage() - 1) * recordPerPage;
-    // 1 page: 0
-    // 2 page: 10
-    // 3 page: 20
-    int startNum = beginOfPage + 1; // 시작 rownum, 1
-    int endNum = beginOfPage + recordPerPage; // 종료 rownum, 10
-    hashMap.put("startNum", startNum);
-    hashMap.put("endNum", endNum);
-
-    List<CheatVO> list = cheatDAO.list(hashMap); // 검색
-    Iterator<CheatVO> iter = list.iterator();
-    while (iter.hasNext() == true) { // 다음 요소 검사
-      CheatVO vo = iter.next(); // 요소 추출
-      vo.setTitle(Tool.textLength(vo.getTitle(), 20));
-      vo.setWdate(vo.getWdate().substring(0, 10));
-    }
-    mav.addObject("list", list);
-    mav.addObject("root", request.getContextPath());
-
-    totalRecord = cheatDAO.count(hashMap);
-    mav.addObject("totalRecord", cheatDAO.count(hashMap)); // 검색된 레코드 갯수
-
-    String paging = new Paging().paging5(totalRecord, searchDTO.getNowPage(), recordPerPage, searchDTO.getCol(),
-        searchDTO.getWord());
-    mav.addObject("paging", paging);
-    return mav;
-  }
 
   /**
    * 글과 파일을 수정 처리
@@ -383,10 +386,13 @@ public class CheatCont {
     mav.setViewName("/cheat/message"); // /webapp/cheat/message.jsp
 
     // ---------- 답변 관련 코드 시작 ----------
-    System.out.println("cReplyVO:" + cReplyVO.getCtno());
-    CReplyVO parentVO = cReplyDAO.read(cReplyVO.getCtno()); // 부모글 정보 추출
+    
+    CReplyVO parentVO = cReplyDAO.read(cReplyVO.getRno()); // 부모글 정보 추출
+    
     if (parentVO == null) {
-      cReplyVO.setGrpno(1); // 그룹 번호
+    
+      int maxgrp = cReplyDAO.getMaxgrpno(cReplyVO.getCtno()) + 1;
+      cReplyVO.setGrpno(maxgrp); // 그룹 번호
       cReplyVO.setIndent(1);
       cReplyVO.setAnsnum(1); // 답변 순서
     } else {

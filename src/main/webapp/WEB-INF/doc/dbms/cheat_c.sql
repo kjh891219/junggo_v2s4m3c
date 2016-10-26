@@ -99,7 +99,7 @@ WHERE ctno = 10
 /**********************************/
 /* Table Name: 허위상품신고 게시글 댓글 */
 /**********************************/
-drop table creply
+delete from creply
 CREATE TABLE creply(
     rno                    NUMBER(6)   NOT NULL,  
     rcomment           VARCHAR2(1000)     DEFAULT ' '    NOT NULL,

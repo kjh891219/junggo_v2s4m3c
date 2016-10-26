@@ -1,5 +1,7 @@
 package dev.mvc.cheat;
 
+import java.util.HashMap;
+import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,6 +26,18 @@ public class CReplyDAO implements CReplyDAOInter {
   @Override
   public CReplyVO read(int rno) {
     return mybatis.selectOne("creply.read", rno);
+  }
+  @Override
+  public List<CReplyVO> listReply(int ctno) {
+    return mybatis.selectList("creply.listReply", ctno);
+  }
+  
+  public List<CheatVO> list(HashMap hashMap) {
+    return mybatis.selectList("cheat.list", hashMap);    
+  }
+  @Override
+  public int getMaxgrpno(int ctno) {
+    return mybatis.selectOne("creply.getMaxgrpno", ctno);
   }
 
 }

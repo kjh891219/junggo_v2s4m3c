@@ -14,18 +14,23 @@ public class CheatVO {
   private String occurday;
   /** 피해금액*/
   private int buyprice;
-  /** 허위상품 신고자 정보*/
+  /** 허위상품 등록자 아이디*/
   private String cheatid;
+  /** 허위상품 등록자 전화번호*/  
   private String cheattel;
+  /** 허위상품 등록자 메일*/
   private String cheatemail;
   /** 조회수*/
   private int cnt;
   /** 내용*/
   private String content;
-  /** 등록자 정보*/
+  /** 등록자 메일*/
   private String email;
+  /** 등록자 전화번호*/
   private String tel;
+  /** 등록자 아이디*/
   private String userid;
+  /** 등록자 닉네임*/
   private String nickname;
   /** 비밀번호*/
   private String passwd;

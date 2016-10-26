@@ -10,16 +10,38 @@
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="./jquery.cookie.js"></script>
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 
 <script type="text/JavaScript">
-  window.onload=function(){
-/*     if ('${opentype }' == 'U'){
-    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
-    } */
-    
+function formCreate(divnm, rno, grpno, indent, ansnum, ctno) {
+  /* 답글 등록 화면 form 구성 */ 
+  var div = document.getElementById(divnm);
+  var str = '<FORM name="frm' + rno + '" id="frm' + rno + '" method="POST" action="./reply.do">';
+  str += '<input type="hidden" name="rno" id="rno" value='+ rno + '>';
+  str += '<input type="hidden" id="grpno" name="grpno" value='+ grpno + '>';
+  str += '<input type="hidden" id="indent" name="indent" value='+ indent + '>';
+  str += '<input type="hidden" id="ansnum" name="ansnum" value='+ ansnum + '>';
+  str += '<input type="hidden" id="ctno" name="ctno" value='+ ctno + '>';
+  str += '<label>아이디</label>';
+  str += '<input type="text" id="userid" name="userid" value='+ 'chanmi' +'>';
+  str += '<label>닉네임</label>';
+  str += '<input type="text" id="nickname" name="nickname" value='+ '댓글등록자' + '>';
+  str += '<label>비밀번호</label>';
+  str += '<input type="password" id="passwd" name="passwd">';
+  str += '<textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요">댓글입력</textarea>';
+  str += '<input type="submit" value="전송"/>';
+  str += '<input type="button" value="닫기" onclick="create_cancel(this.form)"/>';
+  str += '</FORM>';
+  div.innerHTML = str;
+ 
+ } 
+ 
+function create_cancel(frm){
+  frm.style.display='none';
+}
+
+  window.onload=function(){    
     /* 화면 처음 로딩할 땐 보이지 않기 */
     $('#divReply').hide(); 
     
@@ -161,27 +183,40 @@
       
     </ul>
  </FORM>
-  
- <button id="btnreply" >답글등록</button> 
- <div id="divReply" style='text-align: center; background-color: #efefef; padding: 3px;' >
-      <form name='frmreply' id='frmreply' class="form-inline" action='./reply.do' method='POST' >
-      <input type ='hidden' id='ctno' name='ctno' value=${cheatVO.ctno }>
-      <input type='hidden'  id='userid' name='userid' value='chanmi'  >
-        <ul>
-          <li>
-          <textarea rows="2" cols="" id="rcomment" name="rcomment" style="width: 100%;"
-              placeholder="글을 작성해 주세요" class="form-control" ></textarea></li>
-          <li style="text-align: right;">
-            작성자<input type='text' id='nickname' name='nickname'  value='chanmi' style='width: 100px; margin-left: 2px; '
-            value='' class="form-control" > 
-            비밀번호<input type='password' id='passwd' name='passwd' style='width: 100px; margin-left: 2px;' class="form-control"  >
-<!--             <button type='button' onclick='create();'>등록</button></li> -->
-            <button type='submit'>등록</button></li>
-        </ul>
-      </form>
-    </div>
- 
-</DIV>
+  <hr>
+  <div class="divReplyList">
+  <c:forEach var="cReplyVO" items="${cReplylist }">
+  <div  class="divReplyOne">
+  <input type='hidden' id='grpno' name='grpno' value=${cReplyVO.grpno } style='width: 100px;'>
+  <input type='hidden' id='indent' name='indent' value=${cReplyVO.indent } style='width: 100px;'>
+  <input type='hidden' id='ansnum' name='ansnum' value=${cReplyVO.ansnum } style='width: 100px;'>
+  <input type='hidden' id='rno' name='rno' value=${cReplyVO.rno } style='width: 100px;'>
+  <c:choose>
+    <c:when test="${cReplyVO.ansnum == 0 }">
+      <img src='./images/reply3.png' style='width: 14px;'>
+    </c:when>
+    <c:when test="${cReplyVO.ansnum > 0 }">
+      <c:forEach var="indent"  begin="1" end="${cReplyVO.indent }" step="1">
+       　
+      </c:forEach>
+      <img src='../images/reply3.jpg'>
+    </c:when>
+  </c:choose>
+   ${cReplyVO.rcomment}
+   <%-- <a onclick="formCreate('div16', 16)" id='${cReplyVO.rno }'>답글쓰기</a> --%> 
+   <%-- <a onclick="formCreate('div"+${cReplyVO.rno }+"', 1)" id='${cReplyVO.rno }'>답글쓰기</a> --%>
+   <A href="javascript:formCreate('div' + '${cReplyVO.rno }' ,'${cReplyVO.rno }' ,'${cReplyVO.grpno }'
+        ,'${cReplyVO.indent }' ,'${cReplyVO.ansnum }','${cReplyVO.ctno }')">답글쓰기</a>
+          
+   <div id='div${cReplyVO.rno }'> </div>
+  </div>
+  </c:forEach>
+  </div>
+  <A href="javascript:formCreate('div0' ,'0' ,'1'
+        ,'1' ,'1','${cheatVO.ctno }')">답글등록</a>
+          
+   <div id='div0'> </div>
+  </DIV>
  
 <!-- -------------------------------------------- -->
 <jsp:include page="/menu/bottom.jsp" flush='false' />
