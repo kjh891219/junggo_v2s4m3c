@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <DIV id="main_left">
    <div id="main_left_left">
-   <div style="height:50px;">
+   <div style="margin-top:26px;height:50px;">
    
    </div>
    <nav class='left_list_form'>
