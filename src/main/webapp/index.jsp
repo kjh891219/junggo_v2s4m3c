@@ -31,62 +31,11 @@
    <jsp:include page="/menu/left.jsp" flush='false' />
    
 <div class="container">
-   <!-- 본문 내용 -->
-   <table class="table table-hover" style='width: 100%;'>
-    <thead>
-      <colgroup>
-        <col style="width: 7%;"></col>
-        <col style="width: 30%;"></col>
-        <col style="width: 8%;"></col>
-        <col style="width: 15%;"></col>
-        <col style="width: 10%;"></col>
-        <col style="width: 15%;"></col>
-        <col style="width: 7%;"></col>
-        <col style="width: 8%;"></col>
-      </colgroup>
-          
-      <%-- table 컬럼 --%>
-      <thead>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>추천</th>
-          <th>등록일</th>
-          <th>파일</th>
-          <th>업로드 파일</th>
-          <th>댓글</th>
-          <th>기타</th>
-        </tr>
-      
-      </thead>
-      
-      <%-- table 내용 --%>
-      <tbody>
-      
-        <c:forEach var="vo" items="${list }">
-          <tr>
-            <td>${vo.blogno}</td>
-            <td>
-              <a href="./read.do?blogno=${vo.blogno}">${vo.title}</a> 
-            </td> 
-            <td>${vo.good}</td>
-            <td>${vo.rdate}</td>
-            <td>${vo.file1}</td>
-            <td>${vo.file2}</td>
-            <td>${vo.replycnt}</td>
-            <td>
-            </td>
-          </tr>
-        </c:forEach>
-        
-      </tbody>
-    </table>
-    
-    <br><br>
-   
-   <div style='height:5000px;'></div>
+<div style="width:100%; "></div>
    
 </div>
+
+<div style='clear:both;'></div>
    <jsp:include page="/menu/bottom.jsp" flush='false' />
    
 
