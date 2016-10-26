@@ -230,6 +230,9 @@
   <button type='button' onclick="location.href='./list.do'">목록</button>
   
 </DIV>
+
+<iframe src="${pageContext.request.contextPath}/camera_reply/list.do?ctno=${cameraVO.ctno}" scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;"></iframe>  
+
 <!-- -------------------------------------------- -->
 <%-- <jsp:include page="/menu/bottom.jsp" flush='false' /> --%>
 </body>

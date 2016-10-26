@@ -20,7 +20,7 @@
                    dev.mvc.computer, dev.mvc.cosmetic, dev.mvc.game,
                    dev.mvc.gamedevice, dev.mvc.message,  dev.mvc.mobile,
                    dev.mvc.music,  dev.mvc.qna, dev.mvc.tmember, 
-                   dev.mvc.usedcar,  dev.mvc.junggo"
+                   dev.mvc.usedcar,  dev.mvc.junggo, dev.mvc.camera_reply"
                    />
     <property name="mapperLocations" value="classpath:mybatis/*.xml" />
   </bean>

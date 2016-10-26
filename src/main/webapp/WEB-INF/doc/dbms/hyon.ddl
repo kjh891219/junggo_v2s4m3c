@@ -28,7 +28,7 @@ INSERT INTO member_test(userid, mno, pwd, name, nickname, email, tel, zipcode, a
               'VIL1476668797084', 'Y', 'M', 'N')
 
 
-
+select * from camera;
 
 
 
