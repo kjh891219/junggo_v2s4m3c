@@ -86,11 +86,11 @@ function create_cancel(){
                   <img src='./images/reply3.png'>
                 </c:when>
               </c:choose>
-                     글번호 <span id="prno">${vo.rno }</span>
                      글쓴이 : ${vo.nickname }
-                     등록일 : ${fn:substring(vo.rdate, 0, 10) }   
-                      ${vo.rcomment} 
-              <button type='button' onclick="create('${vo.rno}');">${vo.rno }댓글</button>
+                     등록일 : ${fn:substring(vo.rdate, 0, 10) }
+                      ${vo.rcomment}
+              <button type='button' onclick="create('${vo.rno}');">댓글</button>
+              <hr>
               <DIV id="comment${vo.rno }">
               <!-- 여기에 Tag를 넣어줍니다 -->
               </DIV> 
