@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="./css/style_home.css" rel="Stylesheet" type="text/css">
 <script src="/junggo/js/event.js"></script>
 <script>
 
@@ -28,7 +28,7 @@
 <body leftmargin="0" topmargin="0">
 
    <jsp:include page="/menu/top.jsp" flush='false' />
-   <jsp:include page="/menu/left.jsp" flush='false' />
+   <jsp:include page="/menu/left_home.jsp" flush='false' />
    
 <div class="container">
 <div style="width:100%; "></div>
