@@ -83,14 +83,14 @@ function create_cancel(){
                   <c:forEach var="indent"  begin="1" end="${vo.indent }" step="1">
                    <img src='./images/white.jpg' style='width: 25px; opacity: 0.0;'>
                   </c:forEach>
-                  <img src='./images/reply3.jpg'>
+                  <img src='./images/reply3.png'>
                 </c:when>
               </c:choose>
-                     글번호 <span id="prno">${vo.rno }</span>
                      글쓴이 : ${vo.nickname }
-                     등록일 : ${fn:substring(vo.rdate, 0, 10) }   
-                      ${vo.rcomment} 
-              <button type='button' onclick="create('${vo.rno}');">${vo.rno }댓글</button>
+                     등록일 : ${fn:substring(vo.rdate, 0, 10) }
+                      ${vo.rcomment}
+              <button type='button' onclick="create('${vo.rno}');">댓글</button>
+              <hr>
               <DIV id="comment${vo.rno }">
               <!-- 여기에 Tag를 넣어줍니다 -->
               </DIV> 

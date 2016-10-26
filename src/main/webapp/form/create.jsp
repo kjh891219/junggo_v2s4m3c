@@ -149,10 +149,6 @@
       <div class='inpo'>판매자 정보</div>
          <div class='line_box' id='ul_box_2'></div>
             <div class="row">
-              <label class='col-xs-2 col-lg-2 need' for='userid'>아이디</label>
-              <input type='text' name='userid' id='userid' value='' required="required" class="col-xs-3 col-lg-3">
-            </div>
-            <div class="row">
               <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
               <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
               </div>

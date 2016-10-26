@@ -312,6 +312,7 @@ public class MemberCont {
       if ("MY".indexOf(act) >= 0){ // 로그인 권한 있음. M: Master, Y:일반 회원
         session.setAttribute("userid", memberVO.getUserid());
         session.setAttribute("pwd", memberVO.getPwd());
+        session.setAttribute("nickname", memberDAO.read_userid(memberVO.getUserid()).getNickname());
         session.setAttribute("act", act);
         session.setAttribute("mno", mno);
         
@@ -402,7 +403,7 @@ public class MemberCont {
     ArrayList<String> links = new ArrayList<String>();
   
     msgs.add("이용해주셔서 감사합니다.");
-    links.add("<button type='button' onclick=\"location.href='../index.do'\">홈페이지</button>");
+    links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
   
     session.invalidate(); // 모든 session 변수 삭제
     
