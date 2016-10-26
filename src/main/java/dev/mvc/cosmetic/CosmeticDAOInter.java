@@ -1,5 +1,6 @@
 package dev.mvc.cosmetic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dev.mvc.cosmetic.CosmeticVO;
@@ -19,4 +20,61 @@ public interface CosmeticDAOInter {
    * @return 회원 목록
    */ 
   public List<CosmeticVO> list(); 
+  
+  /**
+   * 정보 읽기
+   * <select id="read" resultType="CosmeticVO" parameterType="int">
+   */
+  public CosmeticVO read(int cno); 
+  
+  
+  /**
+   * 수정처리
+   * <update id ="update" parameterType="CosmeticVO">
+   * @param vo
+   * @return
+   */
+  
+  public int update(CosmeticVO vo);
+  
+  /**
+   * <delete id="delete" parameterType="int">
+   * @param cno
+   * @return
+   */
+  
+  public int delete(int cno);
+ 
+  /**
+  *  <update id = "increaseCnt" parameterType = "int" >
+  *  @param cno
+  *  @return 
+  */
+  public int increaseCnt(int cno);
+  
+  /**
+   * 검색 목록
+   * <select id="list2" resultType="CosmeticVO" parameterType="HashMap" > 
+   * @param hashmap 검색 조건
+   * @return
+   */
+  public List<CosmeticVO> list2(HashMap hashmap);
+  
+  /**
+   * 검색된 레코드 수
+   * <select id="count" resultType="int" parameterType="HashMap" > 
+   * @param hashmap 검색 조건
+   * @return
+   */
+  public int count(HashMap hashmap);
+  
+  
+  /**
+   * 검색 목록
+   * <select id="list3" resultType="CosmeticVO" parameterType="HashMap" > 
+   * @param hashmap 검색 조건
+   * @return
+   */
+  public List<CosmeticVO> list3(HashMap hashmap);
+
 }
