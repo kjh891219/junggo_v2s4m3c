@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Oracle 기반 -->
+<mapper namespace = "qna"> 
+ 
+  <!-- 문의글 등록 -->
+  <insert id="create" parameterType="QnAVO">
+   INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
+    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),#{title}, #{content}, sysdate, #{file1}, #{file2}, #{size2}, 
+    #{categoryno},(SELECT userid FROM member WHERE userid = #{userid}))
+  </insert>
+ 
+  <!-- 전체 목록 출력 -->
+  <select id="list" resultType="QnAVO">
+   select qnano, title, content, qdate, categoryno, userid 
+   FROM qna
+   ORDER BY qnano DESC
+  </select>
+  
+   <!-- 아이디별 목록 출력 -->
+   <select id="idlist" parameterType="string">
+   select qnano, title, content, qdate, categoryno, userid
+   FROM qna
+   where userid = #{userid}
+   </select>
+   
+   <!-- 한 건의 대한 조회 -->
+   <select id="read" resultType="QnAVO" parameterType="int">
+    select qnano, title, content, qdate, file1, file2, size2, categoryno, userid
+    from qna
+    where qnano = #{qnano}
+   </select>
+  
+  <!-- 문의 글 삭제 -->
+  <select id="delete" parameterType="int">
+    delete qna
+    where qnano = #{qnano}
+   </select>
+  <!-- 문의글 수정 -->
+  
+  <select id="update" parameterType="QnAVO">
+   UPDATE qna
+   SET title = #{title}, content = #{content}, file1 = #{file1}, file2 = #{file2}, size2 = #{size2}
+   WHERE qnano = #{qnano}
+  </select>
+   
+
+
+</mapper>

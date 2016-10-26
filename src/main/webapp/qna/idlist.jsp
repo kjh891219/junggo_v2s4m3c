@@ -29,8 +29,6 @@ $(function(){
 </head> 
 <!-- ----------------------------------------- -->
 <body>
-<jsp:include page="/menu/top.jsp" flush='false' />
-<jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
 <div class="container">
 <DIV class='title'>문의게시판</DIV>
@@ -53,9 +51,10 @@ $(function(){
     <TH class='th'>관리</TH>
   </TR>
  
-   <c:forEach var="vo" items="${list }">
+   <c:forEach var="vo" items="${idlist }">
   <TR>
     <TD class='td'>${vo.qnano}</TD>
+    <%-- <TD class='td'>${vo.sort}</TD> --%>
          <c:choose>
       <c:when test="${vo.categoryno == '1'}">
       <TD class='td'>회원가입 및 로그인</TD>
@@ -71,6 +70,7 @@ $(function(){
     <TD class='td'>${vo.userid }</TD>
     <TD class='td'>${vo.qdate}</TD>
     <TD class='td'>
+      <A href="./passwd.do?qnano=${vo.qnano}"><IMG src='../menu/images/passwd.ico' title='패스워드 변경'></A>
       <A href="./read.do?qnano=${vo.qnano}"><IMG src='../menu/images/update.png' width="16px" title='수정'></A>
       <A href="./delete.do?qnano=${vo.qnano}"><IMG src='../menu/images/delete.png' width="16px" title='삭제'></A>
     </TD>
@@ -84,7 +84,6 @@ $(function(){
   <button type='button' onclick="location.reload();">새로 고침</button>
 </DIV>
 <!-- -------------------------------------------- -->
-<jsp:include page="/menu/bottom.jsp" flush='false' />
 </div>
 </body>
 

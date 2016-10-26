@@ -23,14 +23,24 @@ public class QnADAO implements QnADAOInter{
    }
 
    @Override
+   public List<QnAVO> idlist(String userid) {
+      return mybatis.selectList("qna.idlist");
+   }
+
+   @Override
    public QnAVO read(int qnano) {
       return mybatis.selectOne("qna.read", qnano);
    }
 
-/*   @Override
+   @Override
+   public int delete(int qnano) {
+      return mybatis.delete("qna.delete", qnano);
+   }
+
+   @Override
    public int update(QnAVO vo) {
       return mybatis.update("qna.update", vo);
-   } */
-   
+   }
+
  
 }
