@@ -8,11 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   INSERT INTO computer (ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status, file1, file2, size2)
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5)
  values((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM computer), #{title}, #{deal_code}, #{product_code}
         , #{category}, #{region}, #{deal_way}, #{purc_date}, #{quantity}
         , #{hprice}, #{content}, 0, #{nickname}, #{userid}
-        , #{passwd}, #{tel}, #{email}, sysdate, #{deal_status}, #{file1}, #{file2}, #{size2})
+        , #{passwd}, #{tel}, #{email}, sysdate, #{deal_status}, #{thumb}, #{file1}, #{size1}, #{file2}, #{size2}, #{file3}, #{size3}, #{file4}, #{size4}, #{file5}, #{size5})
   </insert> 
 
  <!-- 정보수정 -->
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         , category= #{category}, region= #{region}, deal_way= #{deal_way}, purc_date= #{purc_date}, quantity= #{quantity}
         , hprice= #{hprice}, content= #{content}, nickname= #{nickname}, userid= #{userid}
         , passwd= #{passwd}, tel= #{tel}, email= #{email}, deal_status= #{deal_status}
-        , file1= #{file1}, file2= #{file2}, size2= #{size2}
+        , thumb = #{thumb}, file1 = #{file1} , size1 = #{size1}, file2 = #{file2}, size2 = #{size2}, file3 = #{file3}, size3 = #{size3}, file4 = #{file4}, size4 = #{size4}, file5 = #{file5}, size5 = #{size5}
 WHERE ctno = #{ctno} and passwd = #{passwd}
   </update>
 
@@ -31,7 +31,7 @@ WHERE ctno = #{ctno} and passwd = #{passwd}
     SELECT ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status, file1, file2, size2
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5
     FROM computer
     WHERE CTNO = #{ctno}
   </select>
@@ -60,17 +60,17 @@ WHERE ctno = #{ctno} and passwd = #{passwd}
   SELECT ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status, file1, file2, size2, r
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5, r
   FROM(
   SELECT ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status, file1, file2, size2, rownum as r
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5, rownum as r
   FROM(
   SELECT ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status, file1, file2, size2
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5
   FROM computer
 
   <choose>

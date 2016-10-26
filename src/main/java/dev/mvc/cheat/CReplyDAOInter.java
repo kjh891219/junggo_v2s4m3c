@@ -13,4 +13,6 @@ public interface CReplyDAOInter {
   public List<CReplyVO> listReply(int ctno);  
   
   public int getMaxgrpno(int ctno); 
+  
+  public int delete_reply(int rno);
 }

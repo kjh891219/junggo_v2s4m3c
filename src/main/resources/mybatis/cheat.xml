@@ -2,29 +2,47 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+
 <mapper namespace="cheat">
   <insert id="create" parameterType="CheatVO">
-    INSERT INTO CHEAT (ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, file1, file2, size2)
+    INSERT INTO CHEAT (ctno,
+    title, gubun, region, occurday, buyprice, cheatid, cheattel,
+    cheatemail, cnt, content, email, tel, userid, nickname, passwd,
+    thumb, file1, size1, file2, size2, file3, size3, file4, size4,
+    file5, size5)
     VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM cheat)
-    ,#{title}, #{gubun}, #{region}, #{occurday}, #{buyprice}, #{cheatid}, #{cheattel}, #{cheatemail}
-    , 0, #{content}, #{email}, #{tel}, #{userid}, #{nickname}, #{passwd}, #{file1}, #{file2}, #{size2}) 
-  </insert> 
+    ,#{title}, #{gubun}, #{region}, #{occurday}, #{buyprice},
+    #{cheatid}, #{cheattel}, #{cheatemail}
+    , 0, #{content}, #{email},
+    #{tel}, #{userid}, #{nickname}, #{passwd}, #{thumb}, #{file1},
+    #{size1}, #{file2}, #{size2}, #{file3}, #{size3}, #{file4},
+    #{size4}, #{file5}, #{size5})
+  </insert>
 
- <!-- 정보수정 -->
+  <!-- 정보수정 -->
   <update id="update" parameterType="CheatVO">
     UPDATE CHEAT
-    SET title = #{title}, gubun =#{gubun}, region = #{region}, occurday = #{occurday}
-          , buyprice = #{buyprice}, cheatid = #{cheatid}, cheattel = #{cheattel}
-          , cheatemail = #{cheatemail}, cnt = 0, content = #{content}
-          , email = #{email}, tel = #{tel}, userid = #{userid}, nickname = #{nickname}, passwd = #{passwd}
-          , file1 = #{file1}, file2 = #{file2}, size2 = #{size2}
+    SET title =
+    #{title}, gubun =#{gubun}, region = #{region}, occurday =
+    #{occurday}
+    , buyprice = #{buyprice}, cheatid = #{cheatid}, cheattel = #{cheattel}
+    , cheatemail = #{cheatemail}, cnt = 0, content = #{content}
+    , email = #{email}, tel = #{tel}, userid = #{userid}, nickname =
+    #{nickname}, passwd = #{passwd}
+    , thumb = #{thumb}, file1 = #{file1} , size1 = #{size1}, file2 =
+    #{file2}, size2 = #{size2}, file3 = #{file3}, size3 = #{size3},
+    file4 = #{file4}, size4 = #{size4}, file5 = #{file5}, size5 =
+    #{size5}
     WHERE ctno = #{ctno} and passwd = #{passwd}
   </update>
 
   <!-- 상세 조회 -->
   <select id="read" resultType="CheatVO" parameterType="int">
-    SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, wdate, file1, file2, size2
+    SELECT
+    ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel,
+    cheatemail, cnt, content, email, tel, userid, nickname, passwd,
+    wdate, thumb, file1, size1, file2, size2, file3, size3, file4,
+    size4, file5, size5
     FROM cheat
     WHERE CTNO = #{ctno}
   </select>
@@ -33,72 +51,78 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="count" resultType="int" parameterType="Map">
     SELECT count(ctno) as cnt
     FROM cheat
-    
+
     <choose>
       <when test="col == 'title'">
-        WHERE  title LIKE '%' || #{word} || '%' 
+        WHERE title LIKE '%' || #{word} || '%'
       </when>
       <when test="col == 'content'">
-        WHERE  content LIKE '%' || #{word} || '%' 
+        WHERE content LIKE '%' || #{word} || '%'
       </when>
       <when test="col == 'title_content'">
-        WHERE  title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
-      </when>      
+        WHERE title LIKE '%' || #{word} || '%' OR content
+        LIKE '%' || #{word} || '%'
+      </when>
     </choose>
-   
-  </select>
-  
-   <!-- 조건 검색 -->
-  <select id="list" resultType="CheatVO" parameterType="Map">
-  SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
-  cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
-  passwd, wdate, file1, file2, size2, r
-  FROM(
-  SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
-  cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
-  passwd, wdate, file1, file2, size2, rownum as r
-  FROM(
-  SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
-  cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
-  passwd, wdate, file1, file2, size2
-  FROM cheat
 
-  <choose>
-    <when test="col == 'title'">
-      WHERE title LIKE '%' || #{word} || '%'
-    </when>
-    <when test="col == 'content'">
-      WHERE content LIKE '%' || #{word} || '%'
-    </when>
-    <when test="col == 'title_content'">
-      WHERE title LIKE '%' || #{word} || '%' OR content LIKE '%' || #{word} || '%'
-    </when>
-  </choose>
-  ORDER BY ctno desc
-  )
-  )
-  WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
   </select>
-  
-   <!-- 코드 삭제 -->
+
+  <!-- 조건 검색 -->
+  <select id="list" resultType="CheatVO" parameterType="Map">
+    SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
+    cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
+    passwd, wdate, thumb, file1, size1, file2, size2, file3, size3,
+    file4, size4, file5, size5, r
+    FROM(
+    SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
+    cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
+    passwd, wdate, thumb, file1, size1, file2, size2, file3, size3, file4, size4,
+    file5, size5, rownum as r
+    FROM(
+    SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
+    cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
+    passwd, wdate, thumb, file1, size1, file2, size2, file3, size3, file4, size4,
+    file5, size5
+    FROM cheat
+
+    <choose>
+      <when test="col == 'title'">
+        WHERE title LIKE '%' || #{word} || '%'
+      </when>
+      <when test="col == 'content'">
+        WHERE content LIKE '%' || #{word} || '%'
+      </when>
+      <when test="col == 'title_content'">
+        WHERE title LIKE '%' || #{word} || '%' OR content LIKE '%' || #{word} ||
+        '%'
+      </when>
+    </choose>
+    ORDER BY ctno desc
+    )
+    )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select>
+
+  <!-- 허위상품신고글 삭제 -->
   <delete id="delete" parameterType="int">
     DELETE FROM cheat
     WHERE ctno
-    = #{ctno}
+    =
+    #{ctno}
   </delete>
 
   <!-- 비밀번호체크 -->
   <select id="passwordCheck" resultType="int" parameterType="Map">
-      SELECT COUNT(*) as cnt
-      FROM cheat
-      WHERE ctno=#{ctno} AND passwd=#{passwd}
-   </select>
-   
-   <update id="setCnt" parameterType="int">
-      UPDATE cheat
-      SET cnt = cnt + 1
-      WHERE ctno = #{ctno}
-   </update>
-   
- 
+    SELECT COUNT(*) as cnt
+    FROM cheat
+    WHERE ctno=#{ctno} AND passwd=#{passwd}
+  </select>
+
+  <update id="setCnt" parameterType="int">
+    UPDATE cheat
+    SET cnt = cnt + 1
+    WHERE ctno = #{ctno}
+  </update>
+
+
 </mapper>

@@ -162,57 +162,182 @@ public class CheatCont {
     // 파일 전송 관련
     // -------------------------------------------------------------------
     
+    String thumb = "";
     String file1 = "";
     String file2 = "";
-
+    String file3 = "";
+    String file4 = "";
+    String file5 = "";
+     
     String upDir = Tool.getRealPath(request, "/cheat/storage");
+    MultipartFile file1MF = cheatVO.getFile1MF();
     MultipartFile file2MF = cheatVO.getFile2MF();
+    MultipartFile file3MF = cheatVO.getFile3MF();
+    MultipartFile file4MF = cheatVO.getFile4MF();
+    MultipartFile file5MF = cheatVO.getFile5MF();
     
     if (opentype.equals("U")) {
       
       CheatVO oldVO = cheatDAO.read(cheatVO.getCtno());
-
-      if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile2()); // 기존 등록된 파일 삭제
-        file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
-        cheatVO.setFile2(file2); // 새로운 파일명 저장
-        cheatVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
+      /*파일 저장 1*/ 
+      if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
+        file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
+        cheatVO.setFile1(file1); // 새로운 파일명 저장
+        cheatVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
 
         // -------------------------------------------------------------------
         // Thumb 파일 생성
         // -------------------------------------------------------------------
-        if (Tool.isImage(file2)) { // 이미지인지 검사
+        if (Tool.isImage(file1)) { // 이미지인지 검사
           Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-          file1 = Tool.preview(upDir, file2, 120, 80); // thumb 이미지 생성
+          thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
         } else {
-          file1 = "";
+          thumb = "";
         }
         // -------------------------------------------------------------------
 
       } else {
-        file1 = oldVO.getFile1(); // 파일 업로드를하지 않는 경우
-        file2 = oldVO.getFile2();
+        thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
+        file1 = oldVO.getFile1();
       }
+      cheatVO.setThumb(thumb);
       cheatVO.setFile1(file1);
-      cheatVO.setFile2(file2);
-    } else {
-      if (file2MF.getSize() > 0) {
-        file2 = Upload.saveFileSpring(file2MF, upDir);
-        cheatVO.setFile2(file2); // 전송된 파일명 저장
-        cheatVO.setSize2(file2MF.getSize());
+      
+      /*파일 저장 file1MF*/ 
+      if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
+        file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
+        cheatVO.setFile1(file1); // 새로운 파일명 저장
+        cheatVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
 
         // -------------------------------------------------------------------
         // Thumb 파일 생성
         // -------------------------------------------------------------------
-        if (Tool.isImage(file2)) {
-          file1 = Tool.preview(upDir, file2, 120, 80);
+        if (Tool.isImage(file1)) { // 이미지인지 검사
+          Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
+          thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
         } else {
-          file1 = "";
+          thumb = "";
+        }
+        // -------------------------------------------------------------------
+
+      } else {
+        thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
+        file1 = oldVO.getFile1();
+      }
+      cheatVO.setThumb(thumb);
+      cheatVO.setFile1(file1);
+      
+      /*파일 저장 file2MF */  
+      if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile2());  // 기존 등록된 파일 삭제
+        file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
+        cheatVO.setFile2(file2);  // 새로운 파일명 저장
+        cheatVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file2 = oldVO.getFile2();
+      }
+     
+      cheatVO.setFile2(file2);
+      
+      /*파일 저장 file3MF */  
+      if (file3MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile3());  // 기존 등록된 파일 삭제
+        file3 = Upload.saveFileSpring(file3MF, upDir); // 새로운 파일 저장
+        cheatVO.setFile3(file3);  // 새로운 파일명 저장
+        cheatVO.setSize3(file3MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file3 = oldVO.getFile3();
+      }
+     
+      cheatVO.setFile3(file3);
+      
+      /*파일 저장 file4MF */  
+      if (file4MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile4());  // 기존 등록된 파일 삭제
+        file4 = Upload.saveFileSpring(file4MF, upDir); // 새로운 파일 저장
+        cheatVO.setFile4(file4);  // 새로운 파일명 저장
+        cheatVO.setSize4(file4MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file4 = oldVO.getFile4();
+      }
+     
+      cheatVO.setFile4(file4);
+      
+      
+      /*파일 저장 file5MF */  
+      if (file5MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile5());  // 기존 등록된 파일 삭제
+        file5 = Upload.saveFileSpring(file5MF, upDir); // 새로운 파일 저장
+        cheatVO.setFile5(file5);  // 새로운 파일명 저장
+        cheatVO.setSize5(file5MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file5 = oldVO.getFile5();
+      }
+     
+      cheatVO.setFile5(file5);
+    } else {
+      /*파일 저장 file1MF */  
+      if (file1MF.getSize() > 0) {
+        file1 = Upload.saveFileSpring(file1MF, upDir);
+        cheatVO.setFile1(file1); // 전송된 파일명 저장
+        cheatVO.setSize1(file1MF.getSize());
+
+        // -------------------------------------------------------------------
+        // Thumb 파일 생성
+        // -------------------------------------------------------------------
+        if (Tool.isImage(file1)) {
+          thumb = Tool.preview(upDir, file1, 120, 80);
+        } else {
+          thumb = "";
         }
         // -------------------------------------------------------------------
       }
-      cheatVO.setFile1(file1); // Thumb 이미지
+      
+      cheatVO.setThumb(thumb); // Thumb 이미지
+      cheatVO.setFile1(file1); // 원본 이미지
+      
+      /*파일 저장 file2MF */  
+      if (file2MF.getSize() > 0) {
+        file2 = Upload.saveFileSpring(file2MF, upDir);
+        cheatVO.setFile2(file2); // 전송된 파일명 저장
+        cheatVO.setSize2(file2MF.getSize());
+      }
+ 
       cheatVO.setFile2(file2); // 원본 이미지
+      
+      /*파일 저장 file3MF */  
+      if (file3MF.getSize() > 0) {
+        file3 = Upload.saveFileSpring(file3MF, upDir);
+        cheatVO.setFile3(file3); // 전송된 파일명 저장
+        cheatVO.setSize3(file3MF.getSize());
+      }
+ 
+      cheatVO.setFile3(file3); // 원본 이미지
+
+      /*파일 저장 file4MF */  
+      if (file4MF.getSize() > 0) {
+        file4 = Upload.saveFileSpring(file4MF, upDir);
+        cheatVO.setFile4(file4); // 전송된 파일명 저장
+        cheatVO.setSize4(file4MF.getSize());
+      }
+ 
+      cheatVO.setFile4(file4); // 원본 이미지
+
+      /*파일 저장 file5MF */  
+      if (file5MF.getSize() > 0) {
+        file5 = Upload.saveFileSpring(file5MF, upDir);
+        cheatVO.setFile5(file5); // 전송된 파일명 저장
+        cheatVO.setSize5(file5MF.getSize());
+      }
+ 
+      cheatVO.setFile5(file5); // 원본 이미지
+
     }
     
     int result = 0;
@@ -240,83 +365,7 @@ public class CheatCont {
     return mav;
   }
 
-
-  /**
-   * 글과 파일을 수정 처리
-   * 
-   * @param cheatVO
-   * @return
-   */
-  @RequestMapping(value = "/cheat/update1.do", method = RequestMethod.POST)
-  public ModelAndView update(CheatVO cheatVO, HttpServletRequest request) {
-    ModelAndView mav = new ModelAndView();
-
-    ArrayList<String> msgs = new ArrayList<String>();
-    ArrayList<String> links = new ArrayList<String>();
-
-    HashMap<String, Object> hashMap = new HashMap<String, Object>();
-    hashMap.put("ctno", cheatVO.getCtno());
-    hashMap.put("passwd", cheatVO.getPasswd());
-
-    if (cheatDAO.passwordCheck(hashMap) == 0) {
-      mav.setViewName("/cheat/message"); // /webapp/cheat/message.jsp
-      msgs.add("비밀번호가 틀렸습니다.");
-      links.add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
-      mav.addObject("msgs", msgs);
-      mav.addObject("links", links);
-      return mav;
-    }
-    // -------------------------------------------------------------------
-    // 파일 전송 관련
-    // -------------------------------------------------------------------
-    String file1 = "";
-    String file2 = "";
-
-    String upDir = Tool.getRealPath(request, "/cheat/storage");
-    // <input type="file" name='file2MF' id='file2MF' size='40' >
-    MultipartFile file2MF = cheatVO.getFile2MF();
-    CheatVO oldVO = cheatDAO.read(cheatVO.getCtno());
-
-    if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-      Tool.deleteFile(upDir, oldVO.getFile2()); // 기존 등록된 파일 삭제
-      file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
-      cheatVO.setFile2(file2); // 새로운 파일명 저장
-      cheatVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
-
-      // -------------------------------------------------------------------
-      // Thumb 파일 생성
-      // -------------------------------------------------------------------
-      if (Tool.isImage(file2)) { // 이미지인지 검사
-        Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-        file1 = Tool.preview(upDir, file2, 120, 80); // thumb 이미지 생성
-      } else {
-        file1 = "";
-      }
-      // -------------------------------------------------------------------
-
-    } else {
-      file1 = oldVO.getFile1(); // 파일 업로드를하지 않는 경우
-      file2 = oldVO.getFile2();
-    }
-    cheatVO.setFile1(file1);
-    cheatVO.setFile2(file2);
-    // -------------------------------------------------------------------
-
-    if (cheatDAO.update(cheatVO) == 1) {
-      // 수정후 조회로 자동 이동
-      mav.setViewName("redirect:/cheat/read.do?ctno=" + cheatVO.getCtno());
-    } else {
-      mav.setViewName("/cheat/message"); // /webapp/cheat/message.jsp
-      msgs.add("게시판 수정에 실패 하셨습니다.");
-      links.add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
-      mav.addObject("msgs", msgs);
-      mav.addObject("links", links);
-    }
-    return mav;
-  }
-
+ 
   /**
    * 삭제폼
    * 
@@ -424,4 +473,30 @@ public class CheatCont {
     return mav;
   }
 
+  /**
+   * 댓글 삭제 처리
+   * 
+   * @param rno
+   * @return
+   */
+  @RequestMapping(value = "/cheat/delete_reply.do", method = RequestMethod.GET)
+  public ModelAndView delete_reply(int rno, int ctno) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/cheat/message");
+    ArrayList<String> msgs = new ArrayList<String>();
+    ArrayList<String> links = new ArrayList<String>();
+    if (cReplyDAO.delete_reply(rno) == 1) {
+      mav.setViewName("redirect:/cheat/read.do?ctno=" + ctno);
+      
+    } else {
+      msgs.add("답글 삭제에 실패했습니다.");
+      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
+      links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
+    }
+
+    mav.addObject("msgs", msgs);
+    mav.addObject("links", links);
+
+    return mav;
+  }
 }

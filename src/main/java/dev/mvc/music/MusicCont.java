@@ -55,7 +55,7 @@ public class MusicCont {
     mav.addObject("opentype", opentype);
     return mav;
   }
-
+  
   @RequestMapping(value = "/music/create.do", method = RequestMethod.POST)
   public ModelAndView create(MusicVO musicVO, HttpServletRequest request, HttpSession session, String opentype) {
     System.out.println("--> create() POST called.");
@@ -96,57 +96,182 @@ public class MusicCont {
     // 파일 전송 관련
     // -------------------------------------------------------------------
     
+    String thumb = "";
     String file1 = "";
     String file2 = "";
-
+    String file3 = "";
+    String file4 = "";
+    String file5 = "";
+     
     String upDir = Tool.getRealPath(request, "/music/storage");
+    MultipartFile file1MF = musicVO.getFile1MF();
     MultipartFile file2MF = musicVO.getFile2MF();
+    MultipartFile file3MF = musicVO.getFile3MF();
+    MultipartFile file4MF = musicVO.getFile4MF();
+    MultipartFile file5MF = musicVO.getFile5MF();
     
     if (opentype.equals("U")) {
       
       MusicVO oldVO = musicDAO.read(musicVO.getCtno());
-
-      if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile2()); // 기존 등록된 파일 삭제
-        file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
-        musicVO.setFile2(file2); // 새로운 파일명 저장
-        musicVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
+      /*파일 저장 1*/ 
+      if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
+        file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
+        musicVO.setFile1(file1); // 새로운 파일명 저장
+        musicVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
 
         // -------------------------------------------------------------------
         // Thumb 파일 생성
         // -------------------------------------------------------------------
-        if (Tool.isImage(file2)) { // 이미지인지 검사
+        if (Tool.isImage(file1)) { // 이미지인지 검사
           Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-          file1 = Tool.preview(upDir, file2, 120, 80); // thumb 이미지 생성
+          thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
         } else {
-          file1 = "";
+          thumb = "";
         }
         // -------------------------------------------------------------------
 
       } else {
-        file1 = oldVO.getFile1(); // 파일 업로드를하지 않는 경우
-        file2 = oldVO.getFile2();
+        thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
+        file1 = oldVO.getFile1();
       }
+      musicVO.setThumb(thumb);
       musicVO.setFile1(file1);
-      musicVO.setFile2(file2);
-    } else {
-      if (file2MF.getSize() > 0) {
-        file2 = Upload.saveFileSpring(file2MF, upDir);
-        musicVO.setFile2(file2); // 전송된 파일명 저장
-        musicVO.setSize2(file2MF.getSize());
+      
+      /*파일 저장 file1MF*/ 
+      if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
+        file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
+        musicVO.setFile1(file1); // 새로운 파일명 저장
+        musicVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
 
         // -------------------------------------------------------------------
         // Thumb 파일 생성
         // -------------------------------------------------------------------
-        if (Tool.isImage(file2)) {
-          file1 = Tool.preview(upDir, file2, 120, 80);
+        if (Tool.isImage(file1)) { // 이미지인지 검사
+          Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
+          thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
         } else {
-          file1 = "";
+          thumb = "";
+        }
+        // -------------------------------------------------------------------
+
+      } else {
+        thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
+        file1 = oldVO.getFile1();
+      }
+      musicVO.setThumb(thumb);
+      musicVO.setFile1(file1);
+      
+      /*파일 저장 file2MF */  
+      if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile2());  // 기존 등록된 파일 삭제
+        file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
+        musicVO.setFile2(file2);  // 새로운 파일명 저장
+        musicVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file2 = oldVO.getFile2();
+      }
+     
+      musicVO.setFile2(file2);
+      
+      /*파일 저장 file3MF */  
+      if (file3MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile3());  // 기존 등록된 파일 삭제
+        file3 = Upload.saveFileSpring(file3MF, upDir); // 새로운 파일 저장
+        musicVO.setFile3(file3);  // 새로운 파일명 저장
+        musicVO.setSize3(file3MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file3 = oldVO.getFile3();
+      }
+     
+      musicVO.setFile3(file3);
+      
+      /*파일 저장 file4MF */  
+      if (file4MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile4());  // 기존 등록된 파일 삭제
+        file4 = Upload.saveFileSpring(file4MF, upDir); // 새로운 파일 저장
+        musicVO.setFile4(file4);  // 새로운 파일명 저장
+        musicVO.setSize4(file4MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file4 = oldVO.getFile4();
+      }
+     
+      musicVO.setFile4(file4);
+      
+      
+      /*파일 저장 file5MF */  
+      if (file5MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile5());  // 기존 등록된 파일 삭제
+        file5 = Upload.saveFileSpring(file5MF, upDir); // 새로운 파일 저장
+        musicVO.setFile5(file5);  // 새로운 파일명 저장
+        musicVO.setSize5(file5MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file5 = oldVO.getFile5();
+      }
+     
+      musicVO.setFile5(file5);
+    } else {
+      /*파일 저장 file1MF */  
+      if (file1MF.getSize() > 0) {
+        file1 = Upload.saveFileSpring(file1MF, upDir);
+        musicVO.setFile1(file1); // 전송된 파일명 저장
+        musicVO.setSize1(file1MF.getSize());
+
+        // -------------------------------------------------------------------
+        // Thumb 파일 생성
+        // -------------------------------------------------------------------
+        if (Tool.isImage(file1)) {
+          thumb = Tool.preview(upDir, file1, 120, 80);
+        } else {
+          thumb = "";
         }
         // -------------------------------------------------------------------
       }
-      musicVO.setFile1(file1); // Thumb 이미지
+      
+      musicVO.setThumb(thumb); // Thumb 이미지
+      musicVO.setFile1(file1); // 원본 이미지
+      
+      /*파일 저장 file2MF */  
+      if (file2MF.getSize() > 0) {
+        file2 = Upload.saveFileSpring(file2MF, upDir);
+        musicVO.setFile2(file2); // 전송된 파일명 저장
+        musicVO.setSize2(file2MF.getSize());
+      }
+ 
       musicVO.setFile2(file2); // 원본 이미지
+      
+      /*파일 저장 file3MF */  
+      if (file3MF.getSize() > 0) {
+        file3 = Upload.saveFileSpring(file3MF, upDir);
+        musicVO.setFile3(file3); // 전송된 파일명 저장
+        musicVO.setSize3(file3MF.getSize());
+      }
+ 
+      musicVO.setFile3(file3); // 원본 이미지
+
+      /*파일 저장 file4MF */  
+      if (file4MF.getSize() > 0) {
+        file4 = Upload.saveFileSpring(file4MF, upDir);
+        musicVO.setFile4(file4); // 전송된 파일명 저장
+        musicVO.setSize4(file4MF.getSize());
+      }
+ 
+      musicVO.setFile4(file4); // 원본 이미지
+
+      /*파일 저장 file5MF */  
+      if (file5MF.getSize() > 0) {
+        file5 = Upload.saveFileSpring(file5MF, upDir);
+        musicVO.setFile5(file5); // 전송된 파일명 저장
+        musicVO.setSize5(file5MF.getSize());
+      }
+ 
+      musicVO.setFile5(file5); // 원본 이미지
+
     }
     
     int result = 0;

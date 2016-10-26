@@ -59,11 +59,12 @@ $(function(){
     <table class="table table-striped" style='width: 100%;'>
       <colgroup>
         <col style="width: 5%;"></col>
-        <col style="width: 20%;"></col>
-        <col style="width: 40%;"></col>
         <col style="width: 10%;"></col>
-        <col style="width: 15%;"></col>
-        <col style="width: 15%;"></col>
+        <col style="width: 10%;"></col>
+        <col style="width: 30%;"></col>
+        <col style="width: 10%;"></col>
+        <col style="width: 10%;"></col>
+        <col style="width: 10%;"></col>       
         
       </colgroup>
           
@@ -72,11 +73,11 @@ $(function(){
         <tr>
           <th>번호</th>
           <th>구분</th>
+          <th>이미지</th>
           <th>제목</th>
           <th>조회수</th>
           <th>등록자</th>
           <th>등록일</th>
-        
         </tr>
       
       </thead>
@@ -88,6 +89,27 @@ $(function(){
           <tr>
             <td>${vo.ctno}</td>
             <td>${vo.gubun}</td>
+            <td> <c:choose>
+              <c:when test="${vo.thumb == null}"></c:when>
+              <c:when test="${vo.thumb != null}">
+                <c:set var='thumb' value="${fn:toLowerCase(vo.thumb)}" />
+                <c:choose>
+                  <c:when test="${fn:endsWith(thumb, '.jpg')}">
+                    <IMG id='thumb' src='./storage/${vo.thumb}' >
+                  </c:when>
+                  <c:when test="${fn:endsWith(thumb, '.gif')}">
+                    <IMG id='thumb'  src='./storage/${vo.thumb}' >
+                  </c:when>
+                  <c:when test="${fn:endsWith(thumb, '.png')}">
+                    <IMG id='thumb'  src='./storage/${vo.thumb}' >
+                  </c:when>
+                  <c:otherwise>
+                    ${vo.thumb}
+                  </c:otherwise>
+                </c:choose>
+                </c:when>
+            </c:choose>
+            </td>
             <td><A href='./read.do?ctno=${vo.ctno }'>${vo.title}</A></td>
             <td>${vo.cnt}</td>
             <td>${vo.nickname}</td>

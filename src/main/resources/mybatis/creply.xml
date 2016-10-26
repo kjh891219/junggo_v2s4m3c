@@ -23,4 +23,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM creply
     WHERE rno=#{rno}
   </select> 
+  
+  <!-- 조건 검색 -->
+  <select id="listReply" resultType="CReplyVO" parameterType="int">
+  SELECT rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum
+    FROM creply
+    WHERE ctno=#{ctno}
+   order by grpno DESC, ansnum ASC
+  </select>
+  
+  <!-- 댓글 등록 시 메인글번호에 해당하는 답글 중 grpno MAX 값 가져오기-->
+   <select id="getMaxgrpno" resultType="int" parameterType="int">
+    SELECT nvl(max(grpno),0) grpno
+    FROM creply
+    WHERE ctno=#{ctno}
+  </select> 
+  
+    <!-- 허위상품신고 답글 삭제 -->
+  <delete id="delete_reply" parameterType="int">
+    DELETE FROM creply
+    WHERE rno = #{rno}
+  </delete>
+  
 </mapper>
