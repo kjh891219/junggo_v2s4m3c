@@ -59,10 +59,6 @@
               </select>
             </div>
           
-          <label class='label_1' for='title'>제목</label> <input
-            type='text' name='title' id='title'
-            value='${opentype == "U" ? computerVO.title : "컴퓨터 팔아요" }'
-            required="required">
           <label class='label_1' for='category'>분류</label> <select
             id="category" name="category">
               <option value="노트북/넷북"
@@ -143,6 +139,9 @@
               </select>
             </div>
           
+          <label class='label_1' for='title'>제목</label> 
+            <input type='text' name='title' id='title' 
+               value='${opentype == "U" ? computerVO.title : "컴퓨터 팔아요" }' required="required">
           
             <div class="col-xs-5">
               <label for='hprice'>*희망가격</label> <input type='number'
