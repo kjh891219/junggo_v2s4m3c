@@ -41,52 +41,47 @@ public class ComputerVO {
   private String wdate;
   /** 거래상태 */
   private String deal_status;
-  /** 썸네일 파일명 */
-  private String file1;
-  /** 첨부파일명 */
-  private String file2;
-  /** 첨부파일 사이즈 */
-  private long size2=0;
-  /**
-   * Spring Framework에서 자동 주입되는 업로드 파일 객체, 실제 컬럼은 존재하지 않음.
-   */
+  /** 첨부파일정보*/
+  /** 썸네일 이미지*/
+  private String thumb = "";
+  /** 업로드 파일 */
+  private String file1 = "";
+  /** 업로드된 파일 크기 */
+  private long size1 = 0;
+  /** 업로드 파일 */
+  private String file2 = "";
+  /** 업로드된 파일 크기 */
+  private long size2 = 0;
+  /** 업로드 파일 */
+  private String file3 = "";
+  /** 업로드된 파일 크기 */
+  private long size3 = 0;
+  /** 업로드 파일 */
+  private String file4 = "";
+  /** 업로드된 파일 크기 */
+  private long size4 = 0;
+  /** 업로드 파일 */
+  private String file5 = "";
+  /** 업로드된 파일 크기 */
+  private long size5 = 0;
+  
+  /** Spring Framework에서 자동 주입되는 업로드 파일 객체,
+  실제 컬럼은 존재하지 않음. */  
+  private MultipartFile file1MF;
   private MultipartFile file2MF;
-
+  private MultipartFile file3MF;
+  private MultipartFile file4MF;
+  private MultipartFile file5MF;
+  
   /** size2의 컴마 저장 출력용 변수, 실제 컬럼은 존재하지 않음. */
-  private String size2Label;
+  private String size1Label; 
+  private String size2Label; 
+  private String size3Label; 
+  private String size4Label; 
+  private String size5Label;
   
   public ComputerVO(){}
-  public ComputerVO(int ctno, String title, String deal_code,
-      String product_code, String category, String region, String deal_way,
-      String purc_date, int quantity, int hprice, String content, int cnt,
-      String nickname, String userid, String passwd, String tel, String email,
-      String wdate, String deal_status, String file1, String file2,
-      long size2, MultipartFile file2mf, String size2Label) {
-    this.ctno = ctno;
-    this.title = title;
-    this.deal_code = deal_code;
-    this.product_code = product_code;
-    this.category = category;
-    this.region = region;
-    this.deal_way = deal_way;
-    this.purc_date = purc_date;
-    this.quantity = quantity;
-    this.hprice = hprice;
-    this.content = content;
-    this.cnt = cnt;
-    this.nickname = nickname;
-    this.userid = userid;
-    this.passwd = passwd;
-    this.tel = tel;
-    this.email = email;
-    this.wdate = wdate;
-    this.deal_status = deal_status;
-    this.file1 = file1;
-    this.file2 = file2;
-    this.size2 = size2;
-    this.file2MF = file2mf;
-    this.size2Label = size2Label;
-  }
+ 
 
   public int getCtno() {
     return ctno;
@@ -240,22 +235,20 @@ public class ComputerVO {
     this.deal_status = deal_status;
   }
 
-  public String getFile1() {
-    return file1;
+  public String getThumb() {
+    return thumb;
   }
-
-  public void setFile1(String file1) {
-    this.file1 = file1;
+  public void setThumb(String thumb) {
+    this.thumb = thumb;
   }
-
-  public String getFile2() {
-    return file2;
+  
+  public long getSize1() {
+    return size1;
   }
-
-  public void setFile2(String file2) {
-    this.file2 = file2;
+  public void setSize1(long size1) {
+    this.size1 = size1;
   }
-
+  
   public long getSize2() {
     return size2;
   }
@@ -263,15 +256,134 @@ public class ComputerVO {
   public void setSize2(long size2) {
     this.size2 = size2;
   }
+  
+  public long getSize3() {
+    return size3;
+  }
+  public void setSize3(long size3) {
+    this.size3 = size3;
+  }
+ 
+  public long getSize4() {
+    return size4;
+  }
+  public void setSize4(long size4) {
+    this.size4 = size4;
+  }
+  
+  public long getSize5() {
+    return size5;
+  }
+  public void setSize5(long size5) {
+    this.size5 = size5;
+  }
+  
+  public String getFile1() {
+    if (file1 == null){
+      file1 = "";
+    }
+    return file1;
+  }
+  public void setFile1(String file1) {
+    this.file1 = file1;
+  }
 
+  public void setFile2(String file2) {
+    this.file2 = file2;
+  }
+
+  public String getFile2() {
+  if (file2 == null){
+   file2 = "";
+  }
+  return file2;
+  }
+
+  public String getFile3() {
+    if (file3 == null){
+      file3 = "";
+    }
+    return file3;
+  }
+  public void setFile3(String file3) {
+    this.file3 = file3;
+  }
+ 
+  public String getFile4() {
+    if (file4 == null){
+      file4 = "";
+    }
+    return file4;
+  }
+  public void setFile4(String file4) {
+    this.file4 = file4;
+  }
+  
+  public String getFile5() {
+    if (file5 == null){
+      file5 = "";
+    }
+    return file5;
+  }
+  public void setFile5(String file5) {
+    this.file5 = file5;
+  }
+ 
+ 
+  public MultipartFile getFile1MF() {
+    return file1MF;
+  }
+  public void setFile1MF(MultipartFile file1mf) {
+    file1MF = file1mf;
+  }
   public MultipartFile getFile2MF() {
     return file2MF;
   }
-
   public void setFile2MF(MultipartFile file2mf) {
-    this.file2MF = file2mf;
+    file2MF = file2mf;
   }
-
+  public MultipartFile getFile3MF() {
+    return file3MF;
+  }
+  public void setFile3MF(MultipartFile file3mf) {
+    file3MF = file3mf;
+  }
+  public MultipartFile getFile4MF() {
+    return file4MF;
+  }
+  public void setFile4MF(MultipartFile file4mf) {
+    file4MF = file4mf;
+  }
+  public MultipartFile getFile5MF() {
+    return file5MF;
+  }
+  public void setFile5MF(MultipartFile file5mf) {
+    file5MF = file5mf;
+  }
+  public String getSize1Label() {
+    return size1Label;
+  }
+  public void setSize1Label(String size1Label) {
+    this.size1Label = size1Label;
+  }
+  public String getSize3Label() {
+    return size3Label;
+  }
+  public void setSize3Label(String size3Label) {
+    this.size3Label = size3Label;
+  }
+  public String getSize4Label() {
+    return size4Label;
+  }
+  public void setSize4Label(String size4Label) {
+    this.size4Label = size4Label;
+  }
+  public String getSize5Label() {
+    return size5Label;
+  }
+  public void setSize5Label(String size5Label) {
+    this.size5Label = size5Label;
+  }
   public String getSize2Label() {
     return size2Label;
   }
@@ -280,6 +392,5 @@ public class ComputerVO {
     this.size2Label = size2Label;
   }
 
-  
-
+ 
 }

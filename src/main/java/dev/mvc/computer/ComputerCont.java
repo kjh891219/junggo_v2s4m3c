@@ -55,7 +55,15 @@ public class ComputerCont {
     mav.addObject("opentype", opentype);
     return mav;
   }
-
+  
+  /**
+   * 등록과 수정을 한 화면에서 처리한다.
+   * @param computerVO
+   * @param request
+   * @param session
+   * @param opentype : U(수정모드), R(등록모드)
+   * @return
+   */
   @RequestMapping(value = "/computer/create.do", method = RequestMethod.POST)
   public ModelAndView create(ComputerVO computerVO, HttpServletRequest request, HttpSession session, String opentype) {
     System.out.println("--> create() POST called.");
@@ -65,6 +73,13 @@ public class ComputerCont {
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
     mav.setViewName("/computer/message"); // /webapp/computer/message.jsp
+
+    /* 진입 모드 Log */
+    if (opentype.equals("U")) {
+      System.out.println("--> create() POST 수정 모드.");
+    } else if (opentype.equals("R")) {
+      System.out.println("--> create() POST 등록 모드.");
+    }
 
     /* 수정인 경우 비밀번호 체크 */
     if (opentype.equals("U")) {
@@ -89,58 +104,182 @@ public class ComputerCont {
     // 파일 전송 관련
     // -------------------------------------------------------------------
     
+    String thumb = "";
     String file1 = "";
     String file2 = "";
-
+    String file3 = "";
+    String file4 = "";
+    String file5 = "";
+     
     String upDir = Tool.getRealPath(request, "/computer/storage");
+    MultipartFile file1MF = computerVO.getFile1MF();
     MultipartFile file2MF = computerVO.getFile2MF();
+    MultipartFile file3MF = computerVO.getFile3MF();
+    MultipartFile file4MF = computerVO.getFile4MF();
+    MultipartFile file5MF = computerVO.getFile5MF();
     
     if (opentype.equals("U")) {
-      System.out.println("--> create() POST 파일저장 수정 모드.");
+      
       ComputerVO oldVO = computerDAO.read(computerVO.getCtno());
-
-      if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile2()); // 기존 등록된 파일 삭제
-        file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
-        computerVO.setFile2(file2); // 새로운 파일명 저장
-        computerVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
+      /*파일 저장 1*/ 
+      if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
+        file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
+        computerVO.setFile1(file1); // 새로운 파일명 저장
+        computerVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
 
         // -------------------------------------------------------------------
         // Thumb 파일 생성
         // -------------------------------------------------------------------
-        if (Tool.isImage(file2)) { // 이미지인지 검사
+        if (Tool.isImage(file1)) { // 이미지인지 검사
           Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-          file1 = Tool.preview(upDir, file2, 120, 80); // thumb 이미지 생성
+          thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
         } else {
-          file1 = "";
+          thumb = "";
         }
         // -------------------------------------------------------------------
 
       } else {
-        file1 = oldVO.getFile1(); // 파일 업로드를하지 않는 경우
-        file2 = oldVO.getFile2();
+        thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
+        file1 = oldVO.getFile1();
       }
+      computerVO.setThumb(thumb);
       computerVO.setFile1(file1);
-      computerVO.setFile2(file2);
-    } else {
-      System.out.println("--> create() POST 파일저장 등록 모드.");
-      if (file2MF.getSize() > 0) {
-        file2 = Upload.saveFileSpring(file2MF, upDir);
-        computerVO.setFile2(file2); // 전송된 파일명 저장
-        computerVO.setSize2(file2MF.getSize());
+      
+      /*파일 저장 file1MF*/ 
+      if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
+        file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
+        computerVO.setFile1(file1); // 새로운 파일명 저장
+        computerVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
 
         // -------------------------------------------------------------------
         // Thumb 파일 생성
         // -------------------------------------------------------------------
-        if (Tool.isImage(file2)) {
-          file1 = Tool.preview(upDir, file2, 120, 80);
+        if (Tool.isImage(file1)) { // 이미지인지 검사
+          Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
+          thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
         } else {
-          file1 = "";
+          thumb = "";
+        }
+        // -------------------------------------------------------------------
+
+      } else {
+        thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
+        file1 = oldVO.getFile1();
+      }
+      computerVO.setThumb(thumb);
+      computerVO.setFile1(file1);
+      
+      /*파일 저장 file2MF */  
+      if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile2());  // 기존 등록된 파일 삭제
+        file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
+        computerVO.setFile2(file2);  // 새로운 파일명 저장
+        computerVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file2 = oldVO.getFile2();
+      }
+     
+      computerVO.setFile2(file2);
+      
+      /*파일 저장 file3MF */  
+      if (file3MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile3());  // 기존 등록된 파일 삭제
+        file3 = Upload.saveFileSpring(file3MF, upDir); // 새로운 파일 저장
+        computerVO.setFile3(file3);  // 새로운 파일명 저장
+        computerVO.setSize3(file3MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file3 = oldVO.getFile3();
+      }
+     
+      computerVO.setFile3(file3);
+      
+      /*파일 저장 file4MF */  
+      if (file4MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile4());  // 기존 등록된 파일 삭제
+        file4 = Upload.saveFileSpring(file4MF, upDir); // 새로운 파일 저장
+        computerVO.setFile4(file4);  // 새로운 파일명 저장
+        computerVO.setSize4(file4MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file4 = oldVO.getFile4();
+      }
+     
+      computerVO.setFile4(file4);
+      
+      
+      /*파일 저장 file5MF */  
+      if (file5MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+        Tool.deleteFile(upDir, oldVO.getFile5());  // 기존 등록된 파일 삭제
+        file5 = Upload.saveFileSpring(file5MF, upDir); // 새로운 파일 저장
+        computerVO.setFile5(file5);  // 새로운 파일명 저장
+        computerVO.setSize5(file5MF.getSize()); // 새로운 크기 저장
+      
+      } else {
+        file5 = oldVO.getFile5();
+      }
+     
+      computerVO.setFile5(file5);
+    } else {
+      /*파일 저장 file1MF */  
+      if (file1MF.getSize() > 0) {
+        file1 = Upload.saveFileSpring(file1MF, upDir);
+        computerVO.setFile1(file1); // 전송된 파일명 저장
+        computerVO.setSize1(file1MF.getSize());
+
+        // -------------------------------------------------------------------
+        // Thumb 파일 생성
+        // -------------------------------------------------------------------
+        if (Tool.isImage(file1)) {
+          thumb = Tool.preview(upDir, file1, 120, 80);
+        } else {
+          thumb = "";
         }
         // -------------------------------------------------------------------
       }
-      computerVO.setFile1(file1); // Thumb 이미지
+      
+      computerVO.setThumb(thumb); // Thumb 이미지
+      computerVO.setFile1(file1); // 원본 이미지
+      
+      /*파일 저장 file2MF */  
+      if (file2MF.getSize() > 0) {
+        file2 = Upload.saveFileSpring(file2MF, upDir);
+        computerVO.setFile2(file2); // 전송된 파일명 저장
+        computerVO.setSize2(file2MF.getSize());
+      }
+ 
       computerVO.setFile2(file2); // 원본 이미지
+      
+      /*파일 저장 file3MF */  
+      if (file3MF.getSize() > 0) {
+        file3 = Upload.saveFileSpring(file3MF, upDir);
+        computerVO.setFile3(file3); // 전송된 파일명 저장
+        computerVO.setSize3(file3MF.getSize());
+      }
+ 
+      computerVO.setFile3(file3); // 원본 이미지
+
+      /*파일 저장 file4MF */  
+      if (file4MF.getSize() > 0) {
+        file4 = Upload.saveFileSpring(file4MF, upDir);
+        computerVO.setFile4(file4); // 전송된 파일명 저장
+        computerVO.setSize4(file4MF.getSize());
+      }
+ 
+      computerVO.setFile4(file4); // 원본 이미지
+
+      /*파일 저장 file5MF */  
+      if (file5MF.getSize() > 0) {
+        file5 = Upload.saveFileSpring(file5MF, upDir);
+        computerVO.setFile5(file5); // 전송된 파일명 저장
+        computerVO.setSize5(file5MF.getSize());
+      }
+ 
+      computerVO.setFile5(file5); // 원본 이미지
+
     }
     
     int result = 0;
@@ -232,81 +371,7 @@ public class ComputerCont {
     return mav;
   }
 
-  /**
-   * 글과 파일을 수정 처리
-   * 
-   * @param computerVO
-   * @return
-   */
-  @RequestMapping(value = "/computer/update1.do", method = RequestMethod.POST)
-  public ModelAndView update(ComputerVO computerVO, HttpServletRequest request) {
-    ModelAndView mav = new ModelAndView();
-
-    ArrayList<String> msgs = new ArrayList<String>();
-    ArrayList<String> links = new ArrayList<String>();
-
-    HashMap<String, Object> hashMap = new HashMap<String, Object>();
-    hashMap.put("ctno", computerVO.getCtno());
-    hashMap.put("passwd", computerVO.getPasswd());
-
-    if (computerDAO.passwordCheck(hashMap) == 0) {
-      mav.setViewName("/computer/message"); // /webapp/computer/message.jsp
-      msgs.add("비밀번호가 틀렸습니다.");
-      links.add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
-      mav.addObject("msgs", msgs);
-      mav.addObject("links", links);
-      return mav;
-    }
-    // -------------------------------------------------------------------
-    // 파일 전송 관련
-    // -------------------------------------------------------------------
-    String file1 = "";
-    String file2 = "";
-
-    String upDir = Tool.getRealPath(request, "/computer/storage");
-    // <input type="file" name='file2MF' id='file2MF' size='40' >
-    MultipartFile file2MF = computerVO.getFile2MF();
-    ComputerVO oldVO = computerDAO.read(computerVO.getCtno());
-
-    if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-      Tool.deleteFile(upDir, oldVO.getFile2()); // 기존 등록된 파일 삭제
-      file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
-      computerVO.setFile2(file2); // 새로운 파일명 저장
-      computerVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
  
-      // -------------------------------------------------------------------
-      // Thumb 파일 생성
-      // -------------------------------------------------------------------
-      if (Tool.isImage(file2)) { // 이미지인지 검사
-        Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-        file1 = Tool.preview(upDir, file2, 120, 80); // thumb 이미지 생성
-      } else {
-        file1 = "";
-      }
-      // -------------------------------------------------------------------
-
-    } else {
-      file1 = oldVO.getFile1(); // 파일 업로드를하지 않는 경우
-      file2 = oldVO.getFile2();
-    }
-    computerVO.setFile1(file1);
-    computerVO.setFile2(file2);
-    // -------------------------------------------------------------------
-
-    if (computerDAO.update(computerVO) == 1) {
-      // 수정후 조회로 자동 이동
-      mav.setViewName("redirect:/computer/read.do?ctno=" + computerVO.getCtno());
-    } else {
-      mav.setViewName("/computer/message"); // /webapp/computer/message.jsp
-      msgs.add("게시판 수정에 실패 하셨습니다.");
-      links.add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
-      mav.addObject("msgs", msgs);
-      mav.addObject("links", links);
-    }
-    return mav;
-  }
 
   /**
    * 삭제폼
