@@ -138,11 +138,15 @@
                   ${opentype == "U" && computerVO.region =="제주" ? "selected=selected":""}>제주</option>
               </select>
             </div>
-          
-          <label class='label_1' for='title'>제목</label> 
+         <div class='row'> 
+          <label class='col-xs-2 col-lg-2 need' for='title' class="col-xs-9 col-lg-9">제목</label> 
             <input type='text' name='title' id='title' 
-               value='${opentype == "U" ? computerVO.title : "컴퓨터 팔아요" }' required="required">
-          
+               value='${opentype == "U" ? computerVO.title : "컴퓨터 팔아요" }' class="col-xs-9 col-lg-9" required="required">
+         </div>    
+         <div class='row'>
+           <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+           <textarea rows='10' name='content' id='content' required="required"> ${opentype == "U" ? computerVO.content : "꼭 보세요. 주의하세요." }</textarea>
+         </div>
             <div class="col-xs-5">
               <label for='hprice'>*희망가격</label> <input type='number'
                 name='hprice' id='hprice' required="required"
@@ -156,10 +160,7 @@
                 class="">
             </div>
           
-          
-            <div>
-              <textarea name='content' id='content' required="required"> ${opentype == "U" ? computerVO.content : "꼭 보세요. 주의하세요." }</textarea>
-            </div>
+       
           
           <div class="col-xs-5">
               <label for='quantity'>수량</label> <input type='number'
