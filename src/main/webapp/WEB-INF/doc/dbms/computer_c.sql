@@ -25,17 +25,22 @@ CREATE TABLE computer(
     email                             VARCHAR2(100)    DEFAULT ''    NOT NULL,
     wdate                             DATE     DEFAULT sysdate     NOT NULL,
     deal_status                       VARCHAR2(20)     DEFAULT ''     NOT NULL,
-    file1                   VARCHAR2(100)  DEFAULT ''      NULL ,
-    file2                   VARCHAR2(50)   DEFAULT ''      NULL ,
-    size2                  NUMBER(9)        DEFAULT 0       NULL ,
+    thumb                   VARCHAR2(100)        NULL ,
+    file1                   VARCHAR2(50)         NULL ,
+    size1                   NUMBER(9)        DEFAULT 0       NULL ,
+    file2                   VARCHAR2(50)         NULL ,
+    size2                   NUMBER(9)        DEFAULT 0       NULL ,
+    file3                   VARCHAR2(50)         NULL ,
+    size3                   NUMBER(9)        DEFAULT 0       NULL ,
+    file4                   VARCHAR2(50)         NULL ,
+    size4                   NUMBER(9)        DEFAULT 0       NULL ,
+    file5                   VARCHAR2(50)         NULL ,
+    size5                   NUMBER(9)        DEFAULT 0       NULL ,
   PRIMARY KEY (ctno),
   FOREIGN KEY (userid) REFERENCES member_1 (userid)
 );
-alter table computer
-MODIFY   file1  VARCHAR2(100)  DEFAULT ''   
-alter table computer
-MODIFY   file2  VARCHAR2(100)  DEFAULT ''  
 
+drop table computer
  
 COMMENT ON TABLE computer is '컴퓨터';
 COMMENT ON COLUMN computer.ctno is '글번호';
@@ -104,26 +109,29 @@ DELETE computer WHERE ctno = 9 and passwd = '4546'
 /**********************************/
  drop table nreply
 CREATE TABLE nreply(
-    rno                              NUMBER(6)   NOT NULL,  
-    rcomment                     VARCHAR2(1000)     DEFAULT ' '    NOT NULL,
-    ctno                             NUMBER(6)    NULL ,
-    userid                           VARCHAR2(20)     NULL ,
-    rname                           VARCHAR2(30)     NOT NULL,
-    passwd                          VARCHAR2(10)     NOT NULL,
-    wdate                            DATE     DEFAULT sysdate     NOT NULL,
+    rno                    NUMBER(6)   NOT NULL,  
+    rcomment           VARCHAR2(1000)     DEFAULT ' '    NOT NULL,
+    ctno                   NUMBER(6)    NULL ,
+    userid                 VARCHAR2(20)     NULL ,
+    nickname                VARCHAR2(30)     NOT NULL,
+    passwd               VARCHAR2(10)     NOT NULL,
+    wdate                 DATE     DEFAULT sysdate     NOT NULL,
+    grpno                 NUMBER(7)        NOT NULL,
+    indent                NUMBER(2)        DEFAULT 0       NOT NULL,
+    ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
     FOREIGN KEY (userid) REFERENCES member_1 (userid),
     FOREIGN KEY (ctno) REFERENCES computer (ctno)
 );
 
-COMMENT ON TABLE reply is '컴퓨터댓글';
-COMMENT ON COLUMN reply.rno is '댓글번호';
-COMMENT ON COLUMN reply.rcomment is '내용';
-COMMENT ON COLUMN reply.ctno is '글번호';
-COMMENT ON COLUMN reply.userid is '아이디';
-COMMENT ON COLUMN reply.rname is '등록자 닉네임';
-COMMENT ON COLUMN reply.passwd is '비밀번호';
-COMMENT ON COLUMN reply.wdate is '등록일자';
+COMMENT ON TABLE nreply is '컴퓨터댓글';
+COMMENT ON COLUMN nreply.rno is '댓글번호';
+COMMENT ON COLUMN nreply.rcomment is '내용';
+COMMENT ON COLUMN nreply.ctno is '글번호';
+COMMENT ON COLUMN nreply.userid is '아이디';
+COMMENT ON COLUMN nreply.rname is '등록자 닉네임';
+COMMENT ON COLUMN nreply.passwd is '비밀번호';
+COMMENT ON COLUMN nreply.wdate is '등록일자';
 
 INSERT INTO  nreply (rno, rcomment, ctno, userid, rname, passwd, wdate)
 values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM nreply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate);
@@ -137,6 +145,6 @@ values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM nreply), '좋은 거래 하세요3', 2, 
 /** 삭제 */
 DELETE nreply WHERE rno = 1 and passwd = '5678'
 
-select * from computer
+
 
 

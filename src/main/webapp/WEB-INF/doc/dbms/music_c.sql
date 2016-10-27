@@ -2,7 +2,8 @@
 /* Table Name: À½Çâ/±â±â/¾Ç±â */
 /**********************************/
 drop table music
-
+delete from music
+select * from music
 CREATE TABLE music(
     ctno                              NUMBER(6)    NOT NULL,
     title                             VARCHAR2(200)    DEFAULT ''    NULL ,
@@ -23,9 +24,17 @@ CREATE TABLE music(
     email                             VARCHAR2(100)    DEFAULT ''    NOT NULL,
     wdate                             DATE     DEFAULT sysdate     NOT NULL,
     deal_status                       VARCHAR2(20)     DEFAULT ''     NOT NULL,
-    file1                   VARCHAR2(100)        NULL ,
+    thumb                   VARCHAR2(100)        NULL ,
+    file1                   VARCHAR2(50)         NULL ,
+    size1                   NUMBER(9)        DEFAULT 0       NULL ,
     file2                   VARCHAR2(50)         NULL ,
-    size2                  NUMBER(9)        DEFAULT 0       NULL ,
+    size2                   NUMBER(9)        DEFAULT 0       NULL ,
+    file3                   VARCHAR2(50)         NULL ,
+    size3                   NUMBER(9)        DEFAULT 0       NULL ,
+    file4                   VARCHAR2(50)         NULL ,
+    size4                   NUMBER(9)        DEFAULT 0       NULL ,
+    file5                   VARCHAR2(50)         NULL ,
+    size5                   NUMBER(9)        DEFAULT 0       NULL ,
   PRIMARY KEY (ctno),
   FOREIGN KEY (userid) REFERENCES member_1 (userid)
 );
@@ -102,16 +111,19 @@ DELETE music WHERE ctno = 9 and passwd = '4546'
 /**********************************/
 drop table mreply
 CREATE TABLE mreply(
-    rno                              NUMBER(6)   NOT NULL,  
-    rcomment                     VARCHAR2(1000)     DEFAULT ' '    NOT NULL,
-    ctno                             NUMBER(6)    NULL ,
-    userid                           VARCHAR2(20)     NULL ,
-    rname                           VARCHAR2(30)     NOT NULL,
-    passwd                          VARCHAR2(10)     NOT NULL,
-    wdate                            DATE     DEFAULT sysdate     NOT NULL,
+    rno                    NUMBER(6)   NOT NULL,  
+    rcomment           VARCHAR2(1000)     DEFAULT ' '    NOT NULL,
+    ctno                   NUMBER(6)    NULL ,
+    userid                 VARCHAR2(20)     NULL ,
+    nickname                VARCHAR2(30)     NOT NULL,
+    passwd               VARCHAR2(10)     NOT NULL,
+    wdate                 DATE     DEFAULT sysdate     NOT NULL,
+    grpno                 NUMBER(7)        NOT NULL,
+    indent                NUMBER(2)        DEFAULT 0       NOT NULL,
+    ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
     FOREIGN KEY (userid) REFERENCES member_1 (userid),
-    FOREIGN KEY (ctno) REFERENCES computer (ctno)
+    FOREIGN KEY (ctno) REFERENCES music (ctno)
 );
 
 COMMENT ON TABLE reply is '¹ÂÁ÷/À½Çâ ´ñ±Û';

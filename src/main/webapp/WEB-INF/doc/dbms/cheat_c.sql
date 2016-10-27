@@ -20,12 +20,22 @@ CREATE TABLE CHEAT(
     nickname                          VARCHAR2(20)     DEFAULT ''    NOT NULL,
     passwd                            VARCHAR2(10)     NOT NULL,
     wdate                             DATE     DEFAULT sysdate     NOT NULL,
-    file1                   VARCHAR2(100)        NULL ,
+    thumb                   VARCHAR2(100)        NULL ,
+    file1                   VARCHAR2(50)         NULL ,
+    size1                   NUMBER(9)        DEFAULT 0       NULL ,
     file2                   VARCHAR2(50)         NULL ,
-    size2                  NUMBER(9)        DEFAULT 0       NULL ,
+    size2                   NUMBER(9)        DEFAULT 0       NULL ,
+    file3                   VARCHAR2(50)         NULL ,
+    size3                   NUMBER(9)        DEFAULT 0       NULL ,
+    file4                   VARCHAR2(50)         NULL ,
+    size4                   NUMBER(9)        DEFAULT 0       NULL ,
+    file5                   VARCHAR2(50)         NULL ,
+    size5                   NUMBER(9)        DEFAULT 0       NULL ,
   PRIMARY KEY (ctno),
   FOREIGN KEY (userid) REFERENCES member_1 (userid)
 );
+
+
 alter table computer
 MODIFY   file1  VARCHAR2(100)  DEFAULT ''   
 alter table computer
@@ -54,6 +64,7 @@ COMMENT ON COLUMN CHEAT.wdate is '등록일자';
 
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd
     FROM cheat
+    select * from cheat
 
 /** sample 데이터
  * INSERT SQL
@@ -99,7 +110,7 @@ WHERE ctno = 10
 /**********************************/
 /* Table Name: 허위상품신고 게시글 댓글 */
 /**********************************/
-delete from creply
+drop table creply
 CREATE TABLE creply(
     rno                    NUMBER(6)   NOT NULL,  
     rcomment           VARCHAR2(1000)     DEFAULT ' '    NOT NULL,
@@ -113,7 +124,7 @@ CREATE TABLE creply(
     ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
     FOREIGN KEY (userid) REFERENCES member_1 (userid),
-    FOREIGN KEY (ctno) REFERENCES computer (ctno)
+    FOREIGN KEY (ctno) REFERENCES cheat (ctno)
 );
 
 COMMENT ON TABLE reply is '허위상품댓글';
@@ -140,8 +151,11 @@ select * from cheat
  SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, wdate
     FROM cheat
     
-select * from creply
-    
+select * from creply order by grpno, indent, ansnum
+select * from creply where grpno = 1 order by grpno, indent, ansnum
+delete from creply
+select * from cheat
+select * from member_1    
 /** 페이징 */    
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
   cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
@@ -163,7 +177,11 @@ SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
   
  
   select * from creply
-  
+  delete from  creply
   
    SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, wdate, file1, file2, size2
     FROM cheat
+    
+     SELECT nvl(max(grpno),0)
+    FROM creply
+    WHERE ctno=16
