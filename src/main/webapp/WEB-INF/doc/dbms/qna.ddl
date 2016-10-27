@@ -2,10 +2,11 @@
 /**********************************/
 /* Table Name: 문의게시판 */
 /**********************************/
+select table_name from user_tables;
 
 -- 테이블 이름 변경
 alter table qna Rename to qna_1;
-alter table member_1 Rename to member_2;
+alter table member Rename to member_t;
 -- 컬럼추가
 alter table qna add(qfile2 VARCHAR2(100) NULL) ;
 alter table qna add(
