@@ -7,12 +7,11 @@
 <meta charset="UTF-8">
 <title></title>
 
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/JavaScript">
@@ -33,8 +32,10 @@
 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-  <jsp:include page="/menu/top.jsp" flush='false' />
-  <!-- ----------------------------------------- -->
+   <jsp:include page="/menu/top.jsp" flush='false' />
+   <jsp:include page="/menu/left.jsp" flush='false' />
+<!-- ----------------------------------------- -->
+
   <div class='container'>
   <DIV class='title'>컴퓨터 ${opentype == "U" ? "수정" : "등록" }</DIV>
   <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
@@ -194,14 +195,25 @@
          <div class='row'>
            <c:if test="${opentype == 'U'}">
                 <label for='deal_status' class='col-xs-2 col-lg-2 need'>판매상태</label>
-                <input type="radio" name='product_code' ${opentype == "U" && computerVO.deal_status =="거래중" ? "checked=checked":""}><span class='radio_text'>거래중</span>
-                <input type="radio" name='product_code' ${opentype == "U" && computerVO.deal_status =="거래완료" ? "checked=checked":""}><span class='radio_text'>거래완료</span> 
+                <input type="radio" name='deal_status' ${opentype == "U" && computerVO.deal_status =="거래중" ? "checked=checked":""}><span class='radio_text'>거래중</span>
+                <input type="radio" name='deal_status' ${opentype == "U" && computerVO.deal_status =="거래완료" ? "checked=checked":""}><span class='radio_text'>거래완료</span> 
+          </c:if>
+           <c:if test="${opentype == 'R'}">
+                <input type="hidden" name='deal_status' value="거래중" checked="checked">
           </c:if>
          </div>
          <div class='row'>
            <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label> 
-           <input type="radio" name='product_code' ${opentype == "U" && computerVO.product_code =="중고품" ? "checked=checked":""}><span class='radio_text'>중고품</span>
-           <input type="radio" name='product_code' ${opentype == "U" && computerVO.product_code =="신상품" ? "checked=checked":""}><span class='radio_text'>신상품</span> 
+           <c:if test="${opentype == 'U'}">
+           <input type="radio" name='product_code' ${computerVO.product_code =="중고품" ? "checked=checked":""}><span class='radio_text'>중고품</span>
+           <input type="radio" name='product_code' ${computerVO.product_code =="신상품" ? "checked=checked":""}><span class='radio_text'>신상품</span> 
+            
+           </c:if>
+           <c:if test="${opentype == 'R'}">
+           <input type="radio" name='product_code' value="중고품" checked="checked"><span class='radio_text'>중고품</span>
+           <input type="radio" name='product_code' value="신상품"><span class='radio_text'>신상품</span> 
+            
+           </c:if>
          </div>
          <div class='row'>
            <label for='hprice'  class='col-xs-2 col-lg-2 need'>희망가격</label> 
