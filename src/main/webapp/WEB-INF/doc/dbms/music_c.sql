@@ -134,11 +134,11 @@ COMMENT ON COLUMN mreply.passwd is '비밀번호';
 COMMENT ON COLUMN mreply.wdate is '등록일자';
 
 INSERT INTO  mreply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM mreply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
 INSERT INTO  mreply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM mreply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
 INSERT INTO  mreply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM mreply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
 
 
 /** 삭제 */
