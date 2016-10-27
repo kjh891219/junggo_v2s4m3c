@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -49,16 +50,14 @@
       </div>
         <input type='hidden' id='opentype' name='opentype' value='${opentype }'> 
         <input type='hidden' name='ctno' id='ctno' value='${opentype == "U" ? computerVO.ctno : "0" }'>
-            <div class="col-xs-5">
-              <label for='deal_status'>*판매상태</label> <select
-                name='deal_status' id='deal_status' class=" ">
-                <option value="거래중"
-                  ${opentype == "U" && computerVO.deal_status =="거래중" ? "selected=selected":""}>거래중</option>
-                <option value="거래완료"
-                  ${opentype == "U" && computerVO.deal_status =="거래완료" ? "selected=selected":""}>거래완료</option>
-              </select>
-            </div>
-          
+            <c:if test="${opentype == 'U'}">
+              <div class="col-xs-5">
+                <label for='deal_status'>*판매상태</label> <select name='deal_status' id='deal_status' class=" ">
+                  <option value="거래중" ${opentype == "U" && computerVO.deal_status =="거래중" ? "selected=selected":""}>거래중</option>
+                  <option value="거래완료" ${opentype == "U" && computerVO.deal_status =="거래완료" ? "selected=selected":""}>거래완료</option>
+                </select>
+              </div>
+          </c:if>
           <label class='label_1' for='category'>분류</label> <select
             id="category" name="category">
               <option value="노트북/넷북"
