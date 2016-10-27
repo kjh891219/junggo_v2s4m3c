@@ -65,7 +65,22 @@ function create_cancel(frm){
       return false;        
     }
   }
+  
+  function delete_reply(rno_del, ctno_del){
+   
+    document.getElementById("rno_del").value = rno_del;
+    document.getElementById("ctno_del").value = ctno_del;
+    var frm = document.getElementById("frm_reply_del");
+    frm.submit();
+  }
+  
+  function fnMove(){
+    alert('');
+    var offset = $("#div_r").offset();
+    $('html','body').animate({scrollTop:position.top},100);
+  }
 </script>
+
 
 <script type="text/javascript">
  
@@ -180,7 +195,7 @@ function create_cancel(frm){
     <hr>
     <div id='div0'></div>
 
-    <div class="divReplyList">
+    <div class="divReplyList" id="div_r">
       <c:forEach var="cReplyVO" items="${cReplylist }">
         <div class="divReplyOne">
           <input type='hidden' id='grpno' name='grpno' value=${cReplyVO.grpno } style='width: 100px;'> <input
@@ -199,10 +214,10 @@ function create_cancel(frm){
             </c:when>
           </c:choose> 
           ${cReplyVO.rcomment } <span style='font-size: 10px;'>${cReplyVO.nickname }</span>
-          <A
-            href="javascript:formCreate('div' + '${cReplyVO.rno }' ,'${cReplyVO.rno }' ,'${cReplyVO.grpno }'
-        ,'${cReplyVO.indent }' ,'${cReplyVO.ansnum }','${cReplyVO.ctno }')">답글쓰기</a>&nbsp;
+          <A href="javascript:formCreate('div' + '${cReplyVO.rno }' ,'${cReplyVO.rno }' ,'${cReplyVO.grpno }'
+        ,'${cReplyVO.indent }' ,'${cReplyVO.ansnum }','${cReplyVO.ctno }')" >답글쓰기</a>&nbsp;
           <a href='./delete_reply.do?rno=${cReplyVO.rno }&ctno=${cReplyVO.ctno }'>삭제</A>
+          <a href="javascript:delete_reply(${cReplyVO.rno }, ${cReplyVO.ctno })">삭제</A>          
           <div id='div${cReplyVO.rno }'></div>
         </div>
       </c:forEach>
@@ -210,7 +225,11 @@ function create_cancel(frm){
     <A href="javascript:formCreate('div0' ,'0' ,'1'
         ,'1' ,'1','${cheatVO.ctno }')">댓글등록</a> <br>
   </DIV>
-
+  <form id='frm_reply_del' method="POST" action="./delete_reply.do">
+  <input type="hidden" name="rno_del" id="rno_del"/>
+  <input type="hidden" name="ctno_del" id="ctno_del"/>
+  <button type="submit" onclick="fnMove()"></button>
+  </form>
   <!-- -------------------------------------------- -->
   <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
