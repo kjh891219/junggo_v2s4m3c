@@ -195,8 +195,8 @@
          <div class='row'>
            <c:if test="${opentype == 'U'}">
                 <label for='deal_status' class='col-xs-2 col-lg-2 need'>판매상태</label>
-                <input type="radio" name='deal_status' ${opentype == "U" && computerVO.deal_status =="거래중" ? "checked=checked":""}><span class='radio_text'>거래중</span>
-                <input type="radio" name='deal_status' ${opentype == "U" && computerVO.deal_status =="거래완료" ? "checked=checked":""}><span class='radio_text'>거래완료</span> 
+                <input type="radio" name='deal_status' value="거래중" ${computerVO.deal_status =="거래중" ? "checked=checked":""}><span class='radio_text'>거래중</span>
+                <input type="radio" name='deal_status' value="거래완료" ${computerVO.deal_status =="거래완료" ? "checked=checked":""}><span class='radio_text'>거래완료</span> 
           </c:if>
            <c:if test="${opentype == 'R'}">
                 <input type="hidden" name='deal_status' value="거래중" checked="checked">
@@ -205,8 +205,8 @@
          <div class='row'>
            <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label> 
            <c:if test="${opentype == 'U'}">
-           <input type="radio" name='product_code' ${computerVO.product_code =="중고품" ? "checked=checked":""}><span class='radio_text'>중고품</span>
-           <input type="radio" name='product_code' ${computerVO.product_code =="신상품" ? "checked=checked":""}><span class='radio_text'>신상품</span> 
+           <input type="radio" name='product_code' value="중고품" ${computerVO.product_code =="중고품" ? "checked=checked":""}><span class='radio_text'>중고품</span>
+           <input type="radio" name='product_code' value="신상품" ${computerVO.product_code =="신상품" ? "checked=checked":""}><span class='radio_text'>신상품</span> 
             
            </c:if>
            <c:if test="${opentype == 'R'}">
