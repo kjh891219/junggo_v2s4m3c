@@ -35,6 +35,10 @@ body {
 }
 table{
 }
+
+button {
+background-color:transparent; 
+}
 </style>
 </head> 
 <!-- ----------------------------------------- -->
