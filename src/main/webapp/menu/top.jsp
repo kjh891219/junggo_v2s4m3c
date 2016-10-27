@@ -4,12 +4,12 @@
 String root = request.getContextPath();
 %>
 
-
+  
 <header>
    <DIV style='width:87%; '> 
             <ul class="member-list" style='float:right;'>
                <% if(session.getAttribute("userid") == null) { // 회원 로그인 여부 검사 %>
-               <li class="login"><a class='menu_style'  href="#myModal" data-toggle="modal"><span></span>LOGIN</a></li>
+               <li class="login"><a class='menu_style'  href="<%=root %>/member/login.do" data-toggle="modal"><span></span>LOGIN</a></li>
                <li class="join"><a href="<%=root %>/member/create.do" class='menu_style'><span></span>JOIN</a></li>
                <% } else { %>
                <li class="logout"><a href="<%=root %>/member/logout.do" class='menu_style'>${userid }님 로그아웃</a></li>

@@ -174,7 +174,7 @@ public class MessageCont {
     if (sendOK != 0) {
       PrintWriter writer = response.getWriter();
       writer.println
-      ("<script>alert('메시지가 삭제되었습니다');" 
+      ("<script>alert('메시지가 " + sendOK + "개 삭제되었습니다');" 
        + "location.href = './list.do?flag=" + flag + "';"
        + "</script>"
           );
