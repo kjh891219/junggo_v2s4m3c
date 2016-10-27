@@ -32,14 +32,10 @@ CREATE TABLE CHEAT(
     file5                   VARCHAR2(50)         NULL ,
     size5                   NUMBER(9)        DEFAULT 0       NULL ,
   PRIMARY KEY (ctno),
-  FOREIGN KEY (userid) REFERENCES member_1 (userid)
+  FOREIGN KEY (userid) REFERENCES member (userid)
 );
 
 
-alter table computer
-MODIFY   file1  VARCHAR2(100)  DEFAULT ''   
-alter table computer
-MODIFY   file2  VARCHAR2(100)  DEFAULT ''  
  /**gubun:신고구분 (물품미발송 / 상태불량 / 이미테이션 / 택배착불 / 더치트,사이버안전국 등록자 등)
   * 
   */
@@ -62,21 +58,18 @@ COMMENT ON COLUMN CHEAT.nickname is '별명';
 COMMENT ON COLUMN CHEAT.passwd is '비밀번호';
 COMMENT ON COLUMN CHEAT.wdate is '등록일자';
 
-    SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd
-    FROM cheat
-    select * from cheat
 
 /** sample 데이터
  * INSERT SQL
  */ 
-INSERT INTO cheat (ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd)
-VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM cheat), '입금했는데 연락두절이에요', '물품미발송','충청남도','2016-09-27',  50000, 'badid', '010-1234-5678', 'BADID@daum.net', 0, '어제 입금완료했어요. 연락이 두절되었어요 ㅠㅠ', 'user2@naver.com','010-2222-3333','chanmi','왕눈이','1234'); 
+INSERT INTO cheat (ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
+VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM cheat), '입금했는데 연락두절이에요', '물품미발송','충청남도','2016-09-27',  50000, 'badid', '010-1234-5678', 'BADID@daum.net', 0, '어제 입금완료했어요. 연락이 두절되었어요 ㅠㅠ', 'user2@naver.com','010-2222-3333','chanmi','왕눈이','1234', '', '', 0,'',0,'',0,'',0,'',0); 
 
-INSERT INTO cheat (ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd)
-VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM cheat), '입금했는데 연락두절이에요2', '물품미발송','경상남도','2016-09-27',  50000, 'badid', '010-1234-5678', 'BADID@daum.net', 0, '어제 입금완료했어요. 연락이 두절되었어요 ㅠㅠ', 'user2@naver.com','010-2222-3333','chanmi','왕눈이','1234'); 
+INSERT INTO cheat (ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
+VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM cheat), '입금했는데 연락두절이에요2', '물품미발송','경상남도','2016-09-27',  50000, 'badid', '010-1234-5678', 'BADID@daum.net', 0, '어제 입금완료했어요. 연락이 두절되었어요 ㅠㅠ', 'user2@naver.com','010-2222-3333','chanmi','왕눈이','1234', '', '', 0,'',0,'',0,'',0,'',0); 
 
-INSERT INTO cheat (ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd)
-VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM cheat), '물품 상태가 엉망이에요', '상태불량','경기도','2016-09-27',  50000, 'badid', '010-1234-5678', 'BADID@daum.net', 0, '어제 입금완료했어요. 연락이 두절되었어요 ㅠㅠ', 'user2@naver.com','010-2222-3333','chanmi','왕눈이','1234'); 
+INSERT INTO cheat (ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
+VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM cheat), '물품 상태가 엉망이에요', '상태불량','경기도','2016-09-27',  50000, 'badid', '010-1234-5678', 'BADID@daum.net', 0, '어제 입금완료했어요. 연락이 두절되었어요 ㅠㅠ', 'user2@naver.com','010-2222-3333','chanmi','왕눈이','1234', '', '', 0,'',0,'',0,'',0,'',0); 
 
 /** 검색 SQL */
 SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, wdate
@@ -92,7 +85,8 @@ UPDATE cheat
           , buyprice = 40000, cheatid = 'user1441', cheattel = '010-2345-5678'
           , cheatemail = 'BADID1@daum.net', cnt = 0, content = '노트북이 이미테이션이에요'
           , email = 'user2@naver.com', tel = '010-2222-3333', userid = 'user2', nickname = '왕눈이', passwd = '1234'
-          , file1 = '1', file2 ='2', size2 = 3
+          , thumb = '', file1='test.txt', size1=0, file2 ='test.txt', size2 = 0, file3 ='test.txt', size3 = 0
+          , file4 ='test.txt', size4 = 0, file5 ='test.txt', size5 = 0
 WHERE ctno = 10
 AND passwd = '1234'
 
@@ -123,7 +117,7 @@ CREATE TABLE creply(
     indent                NUMBER(2)        DEFAULT 0       NOT NULL,
     ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
-    FOREIGN KEY (userid) REFERENCES member_1 (userid),
+    FOREIGN KEY (userid) REFERENCES member (userid),
     FOREIGN KEY (ctno) REFERENCES cheat (ctno)
 );
 
@@ -151,11 +145,7 @@ select * from cheat
  SELECT ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel, cheatemail, cnt, content, email, tel, userid, nickname, passwd, wdate
     FROM cheat
     
-select * from creply order by grpno, indent, ansnum
-select * from creply where grpno = 1 order by grpno, indent, ansnum
-delete from creply
-select * from cheat
-select * from member_1    
+
 /** 페이징 */    
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
   cheattel, cheatemail, cnt, content, email, tel, userid, nickname,

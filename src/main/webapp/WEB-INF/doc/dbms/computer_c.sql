@@ -2,9 +2,7 @@
 /* Table Name: 컴퓨터/노트북 */
 /**********************************/
 drop table computer
-delete from computer
-select * from computer
-select * from nreply
+
 CREATE TABLE computer(
     ctno                              NUMBER(6)    NOT NULL,
     title                             VARCHAR2(200)    DEFAULT ''    NULL ,
@@ -37,7 +35,7 @@ CREATE TABLE computer(
     file5                   VARCHAR2(50)         NULL ,
     size5                   NUMBER(9)        DEFAULT 0       NULL ,
   PRIMARY KEY (ctno),
-  FOREIGN KEY (userid) REFERENCES member_1 (userid)
+  FOREIGN KEY (userid) REFERENCES member (userid)
 );
 
 drop table computer
@@ -68,29 +66,29 @@ truncate table computer
 INSERT INTO computer (ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status, file1, file2, size2)
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
 values((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM computer), '노트북 판매합니다','팝니다', '새상품'
 , '노트북', '경기도', '택배', '2015-01-01', 1
 , 1000000, '1년 미만 사용한 상태 최상 노트북입니다', 0, '정직한거래자', 'chanmi'
-, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0);
+, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0,'',0,'',0,'',0,'',0);
 
 INSERT INTO computer (ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status, file1, file2, size2)
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
 values((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM computer), '데스크탑 구매원해요','삽니다', '중고품'
 , '데스크탑', '경기도', '직거래', '2015-01-01', 1
 , 1000000, '상태 최상 데스크탑 원해요', 0, '정직한거래자', 'chanmi'
-, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0);
+, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0,'',0,'',0,'',0,'',0);
 
 INSERT INTO computer (ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status, file1, file2, size2)
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
 values((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM computer), '데스크탑 판매합니다2','팝니다', '중고품'
 , '데스크탑', '경상도', '직거래', '2011-01-01', 1
 , 1000000, '5년 미만 사용한 중고 데스크탑입니다', 0, '정직한거래자', 'chanmi'
-, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0);
+, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0,'',0,'',0,'',0,'',0);
 
 /** update computer table */
 select * from computer
@@ -98,8 +96,9 @@ UPDATE computer set title = '데스크탑 거래중', deal_code = '택배', product_code 
         , category = '데스크탑', region ='경기도', deal_way='직거래', purc_date='2016-03-03', quantity=1
         , hprice=800000, content='5년 미만 중고 컴퓨터', cnt = 0, nickname='왕눈이', userid ='chanmi'
         , passwd='1234', tel='02-0930-0909', email='test1@google.com', deal_status='Y'
-        , file1='', file2='', size2=0
-WHERE ctno = 3 and passwd = '4546'
+        , thumb = '', file1='test.txt', size1=0, file2 ='test.txt', size2 = 0, file3 ='test.txt', size3 = 0
+        , file4 ='test.txt', size4 = 0, file5 ='test.txt', size5 = 0
+WHERE ctno = 10 and passwd = '4546'
 
 /** 삭제 */
 DELETE computer WHERE ctno = 9 and passwd = '4546'
@@ -120,7 +119,7 @@ CREATE TABLE nreply(
     indent                NUMBER(2)        DEFAULT 0       NOT NULL,
     ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
-    FOREIGN KEY (userid) REFERENCES member_1 (userid),
+    FOREIGN KEY (userid) REFERENCES member (userid),
     FOREIGN KEY (ctno) REFERENCES computer (ctno)
 );
 
@@ -129,18 +128,12 @@ COMMENT ON COLUMN nreply.rno is '댓글번호';
 COMMENT ON COLUMN nreply.rcomment is '내용';
 COMMENT ON COLUMN nreply.ctno is '글번호';
 COMMENT ON COLUMN nreply.userid is '아이디';
-COMMENT ON COLUMN nreply.rname is '등록자 닉네임';
+COMMENT ON COLUMN nreply.nickname is '등록자 닉네임';
 COMMENT ON COLUMN nreply.passwd is '비밀번호';
 COMMENT ON COLUMN nreply.wdate is '등록일자';
 
-INSERT INTO  nreply (rno, rcomment, ctno, userid, rname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM nreply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate);
-
-INSERT INTO  nreply (rno, rcomment, ctno, userid, rname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM nreply), '좋은 거래 하세요2', 1, 'master', '구매원하는사람', '1234', sysdate);
-
-INSERT INTO  nreply (rno, rcomment, ctno, userid, rname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM nreply), '좋은 거래 하세요3', 2, 'master', '구매원하는사람', '1234', sysdate);
+INSERT INTO  nreply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
 
 /** 삭제 */
 DELETE nreply WHERE rno = 1 and passwd = '5678'

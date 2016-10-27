@@ -36,13 +36,9 @@ CREATE TABLE music(
     file5                   VARCHAR2(50)         NULL ,
     size5                   NUMBER(9)        DEFAULT 0       NULL ,
   PRIMARY KEY (ctno),
-  FOREIGN KEY (userid) REFERENCES member_1 (userid)
+  FOREIGN KEY (userid) REFERENCES member (userid)
 );
 
-alter table computer
-MODIFY   file1  VARCHAR2(100)  DEFAULT ''   
-alter table computer
-MODIFY   file2  VARCHAR2(100)  DEFAULT ''  
 
 COMMENT ON TABLE music is '음향/기기';
 COMMENT ON COLUMN music.ctno is '글번호';
@@ -70,29 +66,29 @@ truncate table music
 INSERT INTO music (ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status)
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
 values((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM music), '피아노 판매합니다','팝니다', '새상품'
 , '피아노', '경기도', '택배', '2015-01-01', 1
 , 1000000, '1년 미만 사용한 상태 최상 피아노입니다', 0, '정직한거래자', 'chanmi'
-, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N');
+, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0,'',0,'',0,'',0,'',0);
 
 INSERT INTO music (ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status)
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
 values((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM music), 'MIKA 음반 구매원해요','삽니다', '중고품'
 , 'MIKA 음반', '경기도', '직거래', '2015-01-01', 1
 , 1000000, '상태 최상 MIKA 음반 원해요', 0, '정직한거래자', 'chanmi'
-, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N');
+, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0,'',0,'',0,'',0,'',0);
 
 INSERT INTO music (ctno, title, deal_code, product_code
         , category, region, deal_way, purc_date, quantity
         , hprice, content, cnt, nickname, userid
-        , passwd, tel, email, wdate, deal_status)
+        , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
 values((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM music), '피아노 판매합니다2','팝니다', '중고품'
 , 'MIKA 음반', '경상도', '직거래', '2011-01-01', 1
 , 1000000, '5년 미만 사용한 중고 피아노', 0, '정직한거래자', 'chanmi'
-, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N');
+, '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0,'',0,'',0,'',0,'',0);
 
 /** update music table */
 select * from music
@@ -100,6 +96,8 @@ UPDATE music set title = 'MIKA 음반 거래중', deal_code = '택배', product_code ='
         , category = 'MIKA 음반', region ='경기도', deal_way='직거래', purc_date='2016-03-03', quantity=1
         , hprice=800000, content='미사용 CD', cnt = 0, nickname='왕눈이', userid ='chanmi'
         , passwd='1234', tel='02-0930-0909', email='test1@google.com', deal_status='Y'
+        , thumb = '', file1='test.txt', size1=0, file2 ='test.txt', size2 = 0, file3 ='test.txt', size3 = 0
+        , file4 ='test.txt', size4 = 0, file5 ='test.txt', size5 = 0
 WHERE ctno = 3 and passwd = '4546'
 
 /** 삭제 */
@@ -122,27 +120,26 @@ CREATE TABLE mreply(
     indent                NUMBER(2)        DEFAULT 0       NOT NULL,
     ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
-    FOREIGN KEY (userid) REFERENCES member_1 (userid),
+    FOREIGN KEY (userid) REFERENCES member (userid),
     FOREIGN KEY (ctno) REFERENCES music (ctno)
 );
 
-COMMENT ON TABLE reply is '뮤직/음향 댓글';
-COMMENT ON COLUMN reply.rno is '댓글번호';
-COMMENT ON COLUMN reply.rcomment is '내용';
-COMMENT ON COLUMN reply.ctno is '글번호';
-COMMENT ON COLUMN reply.userid is '아이디';
-COMMENT ON COLUMN reply.rname is '등록자 닉네임';
-COMMENT ON COLUMN reply.passwd is '비밀번호';
-COMMENT ON COLUMN reply.wdate is '등록일자';
+COMMENT ON TABLE mreply is '뮤직/음향 댓글';
+COMMENT ON COLUMN mreply.rno is '댓글번호';
+COMMENT ON COLUMN mreply.rcomment is '내용';
+COMMENT ON COLUMN mreply.ctno is '글번호';
+COMMENT ON COLUMN mreply.userid is '아이디';
+COMMENT ON COLUMN mreply.nickname is '등록자 닉네임';
+COMMENT ON COLUMN mreply.passwd is '비밀번호';
+COMMENT ON COLUMN mreply.wdate is '등록일자';
 
-INSERT INTO  mreply (rno, rcomment, ctno, userid, rname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM mreply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate);
+INSERT INTO  mreply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
+INSERT INTO  mreply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
+INSERT INTO  mreply (rno, rcomment, ctno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
+values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM creply), '좋은 거래 하세요', 1, 'master', '구매원하는사람', '1234', sysdate, 1, 1, 1);
 
-INSERT INTO  mreply (rno, rcomment, ctno, userid, rname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM mreply), '좋은 거래 하세요2', 1, 'master', '구매원하는사람', '1234', sysdate);
-
-INSERT INTO  mreply (rno, rcomment, ctno, userid, rname, passwd, wdate)
-values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM mreply), '좋은 거래 하세요3', 2, 'master', '구매원하는사람', '1234', sysdate);
 
 /** 삭제 */
 DELETE mreply WHERE rno = 1 and passwd = '5678'
