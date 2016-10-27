@@ -53,17 +53,6 @@ $(function(){
           value='${opentype }'> <label>CTNO</label> 
           <input type='text' name='ctno' id='ctno' value='${opentype == "U" ? cheatVO.ctno : "0" }'>
         <ul>
-         <li>
-            <div class="col-xs-5">
-              <label for='deal_status'>*판매상태</label> <select
-                name='deal_status' id='deal_status' class=" ">
-                <option value="거래중"
-                  ${opentype == "U" && computerVO.deal_status =="거래중" ? "selected=selected":""}>거래중</option>
-                <option value="거래완료"
-                  ${opentype == "U" && computerVO.deal_status =="거래완료" ? "selected=selected":""}>거래완료</option>
-              </select>
-            </div>
-          </li>
           <li><label class='label_1' for='title'>제목</label> <input
             type='text' name='title' id='title'
             value='${opentype == "U" ? cheatVO.title : "허위상품 신고합니다" }'
