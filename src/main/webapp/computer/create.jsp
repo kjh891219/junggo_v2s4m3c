@@ -67,7 +67,7 @@
           </select>
           </div>
             <div class="">
-              <label for='deal_code' class='control-label need_e'>*거래구분</label> 
+              <label for='deal_code' class='control-label need_e'>거래구분</label> 
                <select name='deal_code' id="deal_code" class="control-label full">
                 <option value="팝니다"
                   ${opentype == "U" && computerVO.deal_code =="팝니다" ? "selected=selected":""}>팝니다</option>
@@ -78,7 +78,7 @@
          </div>   
          <div  class='float_l _right' >
             <div>
-              <label for='region' class='need_e'>*지역</label> 
+              <label for='region' class='need_e'>지역</label> 
                <div>
               <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10 full" >
                 <option value="서울"
@@ -117,7 +117,7 @@
             </div>
                <div>
              
-                  <label for='deal_way' class='need_e'>*거래방식</label> 
+                  <label for='deal_way' class='need_e'>거래방식</label> 
                   <div>
                     <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10 full">
                       <option value="직거래"
@@ -191,66 +191,64 @@
       <h3>추가항목</h3>   
       <div class='inpo'>상품 정보</div>
       <div class='line_box' id='ul_box_1'></div>
-            <c:if test="${opentype == 'U'}">
-              <div class="col-xs-5">
-                <label for='deal_status'>*판매상태</label> <select name='deal_status' id='deal_status' class=" ">
-                  <option value="거래중" ${opentype == "U" && computerVO.deal_status =="거래중" ? "selected=selected":""}>거래중</option>
-                  <option value="거래완료" ${opentype == "U" && computerVO.deal_status =="거래완료" ? "selected=selected":""}>거래완료</option>
-                </select>
-              </div>
+         <div class='row'>
+           <c:if test="${opentype == 'U'}">
+                <label for='deal_status' class='col-xs-2 col-lg-2 need'>판매상태</label>
+                <input type="radio" name='product_code' ${opentype == "U" && computerVO.deal_status =="거래중" ? "checked=checked":""}><span class='radio_text'>거래중</span>
+                <input type="radio" name='product_code' ${opentype == "U" && computerVO.deal_status =="거래완료" ? "checked=checked":""}><span class='radio_text'>거래완료</span> 
           </c:if>
-            <div class="col-xs-5">
-              <label for='product_code'>*상품구분</label> <select
-                name='product_code' id='product_code' class=" ">
-                <option value="중고품"
-                  ${opentype == "U" && computerVO.product_code =="중고품" ? "selected=selected":""}>중고품</option>
-                <option value="신상품"
-                  ${opentype == "U" && computerVO.product_code =="신상품" ? "selected=selected":""}>신상품</option>
-              </select>
-            </div>
+         </div>
+         <div class='row'>
+           <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label> 
+           <input type="radio" name='product_code' ${opentype == "U" && computerVO.product_code =="중고품" ? "checked=checked":""}><span class='radio_text'>중고품</span>
+           <input type="radio" name='product_code' ${opentype == "U" && computerVO.product_code =="신상품" ? "checked=checked":""}><span class='radio_text'>신상품</span> 
+         </div>
+         <div class='row'>
+           <label for='hprice'  class='col-xs-2 col-lg-2 need'>희망가격</label> 
+           <input type='number' name='hprice' id='hprice' required="required"
+             value=${opentype == "U" ? computerVO.hprice : 10000 } class="col-xs-3 col-lg-3">원
+         </div>
+         <div class='row'>
+           <label for='purc_date' class='col-xs-2 col-lg-2 choice'>구입시기</label> 
+           <input type='text' name='purc_date' id='purc_date'
+             value='${opentype == "U" ? computerVO.purc_date : "2014년 10월" }' class="col-xs-3 col-lg-3">
+         </div>
+         <div class='row'>
+           <label for='quantity'  class='col-xs-2 col-lg-2 choice'>수량</label> 
+           <input type='number' name='quantity' id='quantity'
+                value=${opentype == "U" ? computerVO.quantity : 2 } class="col-xs-3 col-lg-3">
+         </div>
             
-            <div class="col-xs-5">
-              <label for='hprice'>*희망가격</label> <input type='number'
-                name='hprice' id='hprice' required="required"
-                value=${opentype == "U" ? computerVO.hprice : 10000 }
-                class=" ">원
-            </div>
-            <div class="col-xs-5">
-              <label for='purc_date'>구입시기</label> <input type='text'
-                name='purc_date' id='purc_date'
-                value='${opentype == "U" ? computerVO.purc_date : "2014년 10월" }'
-                class="">
-            </div>
-          
-       
-          
-          <div class="col-xs-5">
-              <label for='quantity'>수량</label> <input type='number'
-                name='quantity' id='quantity'
-                value=${opentype == "U" ? computerVO.quantity : 2 }
-                class=" ">
-            </div>
-          <label class='label_1' for='userid'>등록자 ID</label> <input
-            type='text' name='userid' id='userid'
-            value='${opentype == "U" ? computerVO.userid : "chanmi" }'
-            required="required">
-          <label class='label_1' for='email'>등록자 이메일</label> <input
-            type='text' name='email' id='email'
-            value='${opentype == "U" ? computerVO.email : "chanmi@gmail.com" }'
-            required="required"> <label class='label_1'
-            for='tel'>등록자 연락처</label> <input type='text' name='tel'
-            id='tel'
-            value='${opentype == "U" ? computerVO.tel : "02-1234-1234" }'
-            required="required">
-          <label class='label_1' for='nickname'>등록자 별명</label>
-            <input type='text' name='nickname' id='nickname'
-            value='${opentype == "U" ? computerVO.nickname : "테스터등록자" }'
-            required="required">
-          <label class='label_1' for='passwd'>비밀번호</label> <input
-            type='password' name='passwd' id='passwd'
-            value='${opentype == "U" ? computerVO.passwd : "1234" }'
-            required="required">
-            <div class='right'>
+      <hr/>
+      <div class='inpo'>판매자 정보</div>
+         <div class='line_box' id='ul_box_2'></div>
+         <div class='row'>
+          <label class='col-xs-2 col-lg-2 need' for='userid'>등록자 ID</label> 
+          <input type='text' name='userid' id='userid' value='${opentype == "U" ? computerVO.userid : "chanmi" }'
+            class="col-xs-3 col-lg-3" required="required">
+         </div>
+         <div class='row'>
+          <label class='col-xs-2 col-lg-2 need' for='email'>등록자 이메일</label> 
+          <input type='text' name='email' id='email' value='${opentype == "U" ? computerVO.email : "chanmi@gmail.com" }'
+            class="col-xs-3 col-lg-3" required="required"> 
+         </div>
+         <div class='row'>
+          <label class='col-xs-2 col-lg-2 need' for='tel'>등록자 연락처</label> 
+          <input type='text' name='tel' id='tel' value='${opentype == "U" ? computerVO.tel : "02-1234-1234" }'
+            class="col-xs-3 col-lg-3" required="required">
+         </div>
+         <div class='row'>
+          <label class='col-xs-2 col-lg-2 need' for='nickname'>등록자 별명</label>
+          <input type='text' name='nickname' id='nickname' value='${opentype == "U" ? computerVO.nickname : "테스터등록자" }'
+            class="col-xs-3 col-lg-3" required="required">
+         </div>
+         
+         <div class='row'>
+          <label class='col-xs-2 col-lg-2 need' for='passwd'>비밀번호</label> 
+          <input type='password' name='passwd' id='passwd' value='${opentype == "U" ? computerVO.passwd : "1234" }'
+            class="col-xs-3 col-lg-3" required="required">
+         </div>
+            <div class='text_r'>
             <button type="submit">${opentype == "U"?"저장":"등록"}</button>
             <button type="button" onclick="location.href='./list.do'">목록</button>
           </div>
