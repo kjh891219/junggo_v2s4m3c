@@ -192,12 +192,44 @@
             type='password' name='passwd' id='passwd'
             value='${opentype == "U" ? computerVO.passwd : "1234" }'
             required="required"></li>
-          <li><label for="file2MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일 </label>
-            ${opentype == "U"? computerVO.file2:""}
+                 <li><label for="file1MF"
+            class="col-xs-2 col-lg-2 control-label">업로드 파일1 </label>
+            ${opentype == "U"? cheatVO.file1:""}
+            <div class="col-xs-10 col-lg-10">
+              <input type="file" class="form-control" name='file1MF'
+                id='file1MF' size='20'> <br> Preview(미리보기)
+              이미지 자동 생성됩니다.
+            </div></li>
+            <li><label for="file2MF"
+            class="col-xs-2 col-lg-2 control-label">업로드 파일2 </label>
+            ${opentype == "U"? cheatVO.file2:""}
             <div class="col-xs-10 col-lg-10">
               <input type="file" class="form-control" name='file2MF'
                 id='file2MF' size='20'> <br> Preview(미리보기)
+              이미지 자동 생성됩니다.
+            </div></li>
+            <li><label for="file3MF"
+            class="col-xs-2 col-lg-2 control-label">업로드 파일3 </label>
+            ${opentype == "U"? cheatVO.file3:""}
+            <div class="col-xs-10 col-lg-10">
+              <input type="file" class="form-control" name='file3MF'
+                id='file3MF' size='20'> <br> Preview(미리보기)
+              이미지 자동 생성됩니다.
+            </div></li>
+            <li><label for="file4MF"
+            class="col-xs-2 col-lg-2 control-label">업로드 파일4 </label>
+            ${opentype == "U"? cheatVO.file4:""}
+            <div class="col-xs-10 col-lg-10">
+              <input type="file" class="form-control" name='file4MF'
+                id='file4MF' size='20'> <br> Preview(미리보기)
+              이미지 자동 생성됩니다.
+            </div></li>
+            <li><label for="file5MF"
+            class="col-xs-2 col-lg-2 control-label">업로드 파일5 </label>
+            ${opentype == "U"? cheatVO.file5:""}
+            <div class="col-xs-10 col-lg-10">
+              <input type="file" class="form-control" name='file5MF'
+                id='file5MF' size='20'> <br> Preview(미리보기)
               이미지 자동 생성됩니다.
             </div></li>
           <li class='right'>

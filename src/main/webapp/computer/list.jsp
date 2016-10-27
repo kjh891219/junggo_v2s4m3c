@@ -93,17 +93,27 @@ $(function(){
               <td>${vo.ctno}</td>
               <td>${vo.deal_code}</td>
               <td>${vo.category}</td>
-              <TD><c:choose>
-                  <c:when test="${vo.file1 == null}"></c:when>
-                  <c:when test="${vo.file1 != null}">
-                    <IMG src='./storage/${vo.file1}'>
+              <td> <c:choose>
+              <c:when test="${vo.thumb == null}"></c:when>
+              <c:when test="${vo.thumb != null}">
+                <c:set var='thumb' value="${fn:toLowerCase(vo.thumb)}" />
+                <c:choose>
+                  <c:when test="${fn:endsWith(thumb, '.jpg')}">
+                    <IMG id='thumb' src='./storage/${vo.thumb}' >
                   </c:when>
-                  <c:when test="${vo.size2} > 0)">
-                    <A href='./read.do?ctno=${vo.ctno }'>${vo.file1}</A>
+                  <c:when test="${fn:endsWith(thumb, '.gif')}">
+                    <IMG id='thumb'  src='./storage/${vo.thumb}' >
                   </c:when>
-                  <c:otherwise></c:otherwise>
+                  <c:when test="${fn:endsWith(thumb, '.png')}">
+                    <IMG id='thumb'  src='./storage/${vo.thumb}' >
+                  </c:when>
+                  <c:otherwise>
+                    ${vo.thumb}
+                  </c:otherwise>
                 </c:choose>
-              </TD>
+                </c:when>
+            </c:choose>
+            </td>
               <td><A href='./read.do?ctno=${vo.ctno }'>${vo.title}</A></td>
               <td>${vo.cnt}</td>
               <td>${vo.nickname}</td>

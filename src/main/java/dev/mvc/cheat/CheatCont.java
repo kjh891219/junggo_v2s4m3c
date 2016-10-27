@@ -479,15 +479,15 @@ public class CheatCont {
    * @param rno
    * @return
    */
-  @RequestMapping(value = "/cheat/delete_reply.do", method = RequestMethod.GET)
-  public ModelAndView delete_reply(int rno, int ctno) {
+  @RequestMapping(value = "/cheat/delete_reply.do", method = RequestMethod.POST)
+  public ModelAndView delete_reply(int rno_del, int ctno_del) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/cheat/message");
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
    
-    if (cReplyDAO.delete_reply(rno) >= 1) {
-      mav.setViewName("redirect:/cheat/read.do?ctno=" + ctno);
+    if (cReplyDAO.delete_reply(rno_del) >= 1) {
+      mav.setViewName("redirect:/cheat/read.do?ctno=" + ctno_del);
       
     } else {
       msgs.add("답글 삭제에 실패했습니다.");
