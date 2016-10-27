@@ -37,10 +37,10 @@
   <!-- ----------------------------------------- -->
   <div class='container'>
   <DIV class='title'>컴퓨터 ${opentype == "U" ? "수정" : "등록" }</DIV>
-
+  <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
   <DIV class='content_form'>
-      <div class='content_menu' style='width: 100%;'>
+      <div class='content_menu'>
         <A href='./create.do?ctno=0&opentype=R'>등록</A>｜ 
         <A href='./read.do?ctno=${computerVO.ctno }'>상세보기</A>｜ 
         <A href='./create.do?ctno=${computerVO.ctno }&opentype=U'>수정</A>｜ 
@@ -50,16 +50,10 @@
       </div>
         <input type='hidden' id='opentype' name='opentype' value='${opentype }'> 
         <input type='hidden' name='ctno' id='ctno' value='${opentype == "U" ? computerVO.ctno : "0" }'>
-            <c:if test="${opentype == 'U'}">
-              <div class="col-xs-5">
-                <label for='deal_status'>*판매상태</label> <select name='deal_status' id='deal_status' class=" ">
-                  <option value="거래중" ${opentype == "U" && computerVO.deal_status =="거래중" ? "selected=selected":""}>거래중</option>
-                  <option value="거래완료" ${opentype == "U" && computerVO.deal_status =="거래완료" ? "selected=selected":""}>거래완료</option>
-                </select>
-              </div>
-          </c:if>
-          <label class='label_1' for='category'>분류</label> <select
-            id="category" name="category">
+         <div class='float_l _left'>
+          <label class='select need_e' for='category'>분류</label> 
+            <div class=''>
+            <select id="category" name="category" class="full">
               <option value="노트북/넷북"
                 ${opentype == "U" && computerVO.category =="노트북/넷북" ? "selected=selected":""}>노트북/넷북</option>
               <option value="데스크탑/본체"
@@ -71,38 +65,22 @@
               <option value="주변기기"
                 ${opentype == "U" && computerVO.category =="주변기기" ? "selected=selected":""}>주변기기</option>
           </select>
-            <div class="col-xs-5">
-              <label for='deal_code'>*거래구분</label> <select
-                name='deal_code' id="deal_code" class=" ">
+          </div>
+            <div class="">
+              <label for='deal_code' class='control-label need_e'>*거래구분</label> 
+               <select name='deal_code' id="deal_code" class="control-label full">
                 <option value="팝니다"
                   ${opentype == "U" && computerVO.deal_code =="팝니다" ? "selected=selected":""}>팝니다</option>
                 <option value="삽니다"
                   ${opentype == "U" && computerVO.deal_code =="삽니다" ? "selected=selected":""}>삽니다</option>
-              </select>
+               </select>
             </div>
-            <div class="col-xs-5">
-              <label for='product_code'>*상품구분</label> <select
-                name='product_code' id='product_code' class=" ">
-                <option value="중고품"
-                  ${opentype == "U" && computerVO.product_code =="중고품" ? "selected=selected":""}>중고품</option>
-                <option value="신상품"
-                  ${opentype == "U" && computerVO.product_code =="신상품" ? "selected=selected":""}>신상품</option>
-              </select>
-            </div>
-          
-            <div class="col-xs-5">
-              <label for='deal_way'>*거래방식</label> <select
-                name='deal_way' id='deal_way' class=" ">
-                <option value="직거래"
-                  ${opentype == "U" && computerVO.deal_way =="직거래" ? "selected=selected":""}>직거래</option>
-                <option value="택배"
-                  ${opentype == "U" && computerVO.deal_way =="택배" ? "selected=selected":""}>택배</option>
-
-              </select>
-            </div>
-            <div class="col-xs-5">
-              <label for='region'>*지역</label> <select name='region'
-                id='region' class="">
+         </div>   
+         <div  class='float_l _right' >
+            <div>
+              <label for='region' class='need_e'>*지역</label> 
+               <div>
+              <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10 full" >
                 <option value="서울"
                   ${opentype == "U" && computerVO.region =="서울" ? "selected=selected":""}>서울</option>
                 <option value="인천"
@@ -137,15 +115,100 @@
                   ${opentype == "U" && computerVO.region =="제주" ? "selected=selected":""}>제주</option>
               </select>
             </div>
+               <div>
+             
+                  <label for='deal_way' class='need_e'>*거래방식</label> 
+                  <div>
+                    <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10 full">
+                      <option value="직거래"
+                        ${opentype == "U" && computerVO.deal_way =="직거래" ? "selected=selected":""}>직거래</option>
+                      <option value="택배"
+                        ${opentype == "U" && computerVO.deal_way =="택배" ? "selected=selected":""}>택배</option>
+      
+                    </select>
+                  </div>
+               </div>
+            </div>
+            
+         </div>
+         <div class='both'></div>
+         <hr>
+         
          <div class='row'> 
-          <label class='col-xs-2 col-lg-2 need' for='title' class="col-xs-9 col-lg-9">제목</label> 
+          <label class='col-xs-2 col-lg-2 need' for='title' class="col-xs-9 col-lg-9 need">제목</label> 
             <input type='text' name='title' id='title' 
                value='${opentype == "U" ? computerVO.title : "컴퓨터 팔아요" }' class="col-xs-9 col-lg-9" required="required">
          </div>    
          <div class='row'>
            <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-           <textarea rows='10' name='content' id='content' required="required"> ${opentype == "U" ? computerVO.content : "꼭 보세요. 주의하세요." }</textarea>
+           <textarea rows='10' name='content' id='content' required="required" class="col-xs-9 col-lg-9"> ${opentype == "U" ? computerVO.content : "꼭 보세요. 주의하세요." }</textarea>
          </div>
+         <hr/>
+               
+         <span style="margin-left:18%;">      
+         Preview(미리보기) 이미지 자동 생성됩니다.
+         </span>
+         <div class='row'>
+          <label for="file1MF" class="col-xs-2 col-lg-2">업로드 파일1 </label>
+            ${opentype == "U"? cheatVO.file1:""}
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file1MF' id='file1MF' size='40'> <br>
+            </div>
+          </div>
+          <div class='row'>
+            <label for="file2MF" class="col-xs-2 col-lg-2">업로드 파일2 </label> 
+            ${opentype == "U"? cheatVO.file2:""}
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file2MF' id='file2MF' size='20'> <br>
+            </div>
+         </div>
+          <div class='row'>
+            <label for="file3MF" class="col-xs-2 col-lg-2">업로드 파일3 </label> 
+            ${opentype == "U"? cheatVO.file3:""}
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file3MF'
+                  id='file3MF' size='20'> <br>
+            </div>
+         
+          </div>
+          <div class='row'>
+            <label for="file4MF" class="col-xs-2 col-lg-2">업로드 파일4 </label> 
+            ${opentype == "U"? cheatVO.file4:""}
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file4MF'
+                  id='file4MF' size='20'> <br>
+            </div>
+          </div>
+          <div class='row'>
+            <label for="file5MF" class="col-xs-2 col-lg-2">업로드 파일5 </label> 
+            ${opentype == "U"? cheatVO.file5:""}
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file5MF'
+                  id='file5MF' size='20'> <br>
+            </div>
+          </div>
+         
+      <h3>추가항목</h3>   
+      <div class='inpo'>상품 정보</div>
+      <div class='line_box' id='ul_box_1'></div>
+            <c:if test="${opentype == 'U'}">
+              <div class="col-xs-5">
+                <label for='deal_status'>*판매상태</label> <select name='deal_status' id='deal_status' class=" ">
+                  <option value="거래중" ${opentype == "U" && computerVO.deal_status =="거래중" ? "selected=selected":""}>거래중</option>
+                  <option value="거래완료" ${opentype == "U" && computerVO.deal_status =="거래완료" ? "selected=selected":""}>거래완료</option>
+                </select>
+              </div>
+          </c:if>
+            <div class="col-xs-5">
+              <label for='product_code'>*상품구분</label> <select
+                name='product_code' id='product_code' class=" ">
+                <option value="중고품"
+                  ${opentype == "U" && computerVO.product_code =="중고품" ? "selected=selected":""}>중고품</option>
+                <option value="신상품"
+                  ${opentype == "U" && computerVO.product_code =="신상품" ? "selected=selected":""}>신상품</option>
+              </select>
+            </div>
+            
             <div class="col-xs-5">
               <label for='hprice'>*희망가격</label> <input type='number'
                 name='hprice' id='hprice' required="required"
@@ -187,47 +250,7 @@
             type='password' name='passwd' id='passwd'
             value='${opentype == "U" ? computerVO.passwd : "1234" }'
             required="required">
-                 <label for="file1MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일1 </label>
-            ${opentype == "U"? cheatVO.file1:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file1MF'
-                id='file1MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div>
-            <label for="file2MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일2 </label>
-            ${opentype == "U"? cheatVO.file2:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file2MF'
-                id='file2MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div>
-            <label for="file3MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일3 </label>
-            ${opentype == "U"? cheatVO.file3:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file3MF'
-                id='file3MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div>
-            <label for="file4MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일4 </label>
-            ${opentype == "U"? cheatVO.file4:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file4MF'
-                id='file4MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div>
-            <label for="file5MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일5 </label>
-            ${opentype == "U"? cheatVO.file5:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file5MF'
-                id='file5MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div>
-          <div class='right'>
+            <div class='right'>
             <button type="submit">${opentype == "U"?"저장":"등록"}</button>
             <button type="button" onclick="location.href='./list.do'">목록</button>
           </div>
