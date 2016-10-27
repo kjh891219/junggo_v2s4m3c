@@ -27,7 +27,7 @@
 
 
 
-<DIV class=container>
+<DIV class='container'>
 
 <DIV class='title'><span>글등록</span></DIV>
    <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>

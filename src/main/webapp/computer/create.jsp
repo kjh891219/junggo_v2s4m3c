@@ -34,11 +34,11 @@
 <body leftmargin="0" topmargin="0">
   <jsp:include page="/menu/top.jsp" flush='false' />
   <!-- ----------------------------------------- -->
-
+  <div class='container'>
   <DIV class='title'>컴퓨터 ${opentype == "U" ? "수정" : "등록" }</DIV>
 
-  <DIV class='content' style='width: 80%;'>
-    <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
+  <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
+  <DIV class='content_form'>
       <div class='content_menu' style='width: 100%;'>
         <A href='./create.do?ctno=0&opentype=R'>등록</A>｜ 
         <A href='./read.do?ctno=${computerVO.ctno }'>상세보기</A>｜ 
@@ -48,9 +48,8 @@
         <A href="javascript:location.reload();">새로고침</A>
       </div>
       <fieldset>
-        <input type='text' id='opentype' name='opentype' value='${opentype }'> 
-        <label>CTNO</label> 
-        <input type='text' name='ctno' id='ctno' value='${opentype == "U" ? computerVO.ctno : "0" }'>
+        <input type='hidden' id='opentype' name='opentype' value='${opentype }'> 
+        <input type='hidden' name='ctno' id='ctno' value='${opentype == "U" ? computerVO.ctno : "0" }'>
         <ul>
           <li>
             <div class="col-xs-5">
@@ -239,11 +238,12 @@
         </ul>
 
       </fieldset>
+      </DIV>
     </FORM>
-  </DIV>
 
   <!-- -------------------------------------------- -->
   <jsp:include page="/menu/bottom.jsp" flush='false' />
+  </div>
 </body>
 <!-- -------------------------------------------- -->
 </html>
