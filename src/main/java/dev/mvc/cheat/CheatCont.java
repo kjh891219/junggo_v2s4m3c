@@ -485,7 +485,8 @@ public class CheatCont {
     mav.setViewName("/cheat/message");
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
-    if (cReplyDAO.delete_reply(rno) == 1) {
+   
+    if (cReplyDAO.delete_reply(rno) >= 1) {
       mav.setViewName("redirect:/cheat/read.do?ctno=" + ctno);
       
     } else {
