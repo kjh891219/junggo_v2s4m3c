@@ -38,7 +38,7 @@ String root = request.getContextPath();
                   <li><a class='menu_link' href='<%=root %>/member/list.do' class='menu_style'><span></span>관리자다</a></li>
                 <%
                 }else{ }
-                %>
+                %> 
             </ul>
             <div style='clear:both;'></div>
       

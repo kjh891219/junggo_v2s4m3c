@@ -56,7 +56,7 @@ for (int i=0; i < cookies.length; i++){
                </li>
                <li class='center'>
                  <A href="./create.do">회원가입</A>
-               </li>
+               </li> 
              </ul>
             </div>
             <div class="modal-footer">
