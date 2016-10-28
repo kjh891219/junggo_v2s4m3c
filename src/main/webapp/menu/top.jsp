@@ -6,7 +6,7 @@ String root = request.getContextPath();
 
   
 <header>
-   <DIV style='width:87%; '> 
+   <DIV style='width:87%; '>  
             <ul class="member-list" style='float:right;'>
                <% if(session.getAttribute("userid") == null) { // 회원 로그인 여부 검사 %>
                <li class="login"><a class='menu_style'  href="#myModal" data-toggle="modal"><span></span>LOGIN</a></li>
