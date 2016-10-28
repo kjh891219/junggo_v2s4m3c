@@ -17,12 +17,12 @@ CREATE TABLE CAMERA_REPLY(
 alter table CAMERA_REPLY add(userid varchar2(20));
 alter table CAMERA_REPLY
 add constraint FK_CAMERA_REPLY_USERID FOREIGN KEY(userid)
-REFERENCES member(userid);
+REFERENCES member(userid) on delete cascade;
 
 alter table CAMERA_REPLY add(ctno number(6));
 alter table CAMERA_REPLY
 add constraint FK_CAMERA_REPLY FOREIGN KEY(ctno)
-REFERENCES CAMERA(ctno);
+REFERENCES CAMERA(ctno) on delete cascade;
 
 insert into CAMERA_REPLY(rno, nickname, passwd, rcomment, grpno, indent, ansnum, ctno, userid)
 values ((select NVL(MAX(rno),0)+1 as rno from camera_reply),

@@ -72,7 +72,7 @@ public class Camera_replyCont {
       PrintWriter writer = response.getWriter();
       writer.println
       ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
-       + "location.href = '../member/login.do';"
+      + "location.href = '../member/login.do';"
        + "</script>"); 
       session.setAttribute("url", "/camera_reply/list.do?ctno="+camera_replyVO.getCtno());
       

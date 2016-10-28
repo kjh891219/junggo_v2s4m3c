@@ -38,7 +38,19 @@
       }
     });
   });
+
   
+  $(function(){
+    $("iframe.myFrame").load(function(){ //iframe 컨텐츠가 로드 된 후에 호출됩니다.
+      $(this).height($(this).contents().find('body')[0].scrollHeight + 120);
+      /*       var frame = $(this).get(0);
+      var doc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+      $(this).height(doc.body.scrollHeight);
+      $(this).width(doc.body.scrollWidth); */
+    });
+  });
+  
+   
 </script>
 
 
@@ -233,10 +245,21 @@
   
 </DIV>
 
-<iframe src="${pageContext.request.contextPath}/camera_reply/list.do?ctno=${cameraVO.ctno}" scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;"></iframe>  
+
 
 <!-- -------------------------------------------- -->
 <%-- <jsp:include page="/menu/bottom.jsp" flush='false' /> --%>
 </body>
+
+<iframe src="${pageContext.request.contextPath}/camera_reply/list.do?ctno=${cameraVO.ctno}" class='myFrame' width="100%" style="border-style: none;"></iframe>  
+
+
+<script type="text/javascript">
+
+
+ </script>
+
+
+
 <!-- -------------------------------------------- -->
 </html> 

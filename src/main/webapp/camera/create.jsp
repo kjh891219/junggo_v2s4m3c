@@ -130,7 +130,7 @@
       <div class='line_box' id='ul_box_1'></div>
           <div class="row">
          <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label>
-         <input type="radio" name='product_code' value="중고품" ><span class='radio_text'>중고품</span>
+         <input type="radio" name='product_code' value="중고품"  checked="checked"><span class='radio_text'>중고품</span>
          <input type="radio" name='product_code' value="신상품" ><span class='radio_text'>신상품</span>
       </div>
         <div class="row"> 

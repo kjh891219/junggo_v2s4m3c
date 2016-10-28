@@ -1,5 +1,7 @@
 package dev.mvc.tmember;
  
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -395,25 +397,18 @@ public class MemberCont {
       return mav;
   }
   
-  @RequestMapping(value = "/member/logout.do", 
-                              method = RequestMethod.GET)
-  public ModelAndView logout(HttpSession session) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("/member/message"); // /webapp/member/message.jsp
-  
-    ArrayList<String> msgs = new ArrayList<String>();
-    ArrayList<String> links = new ArrayList<String>();
-  
-    msgs.add("이용해주셔서 감사합니다.");
-    links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
-  
+  @RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
+  public void logout(HttpSession session, HttpServletResponse response) throws IOException {
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+    String userid2 = session.getAttribute("userid").toString();
+
     session.invalidate(); // 모든 session 변수 삭제
-    
-    mav.addObject("msgs", msgs);
-    mav.addObject("links", links);
-    
-    return mav;
-  } 
+
+    PrintWriter writer = response.getWriter();
+    writer
+        .println("<script>" + "alert('" + userid2 + "님 이용해 주셔서 감사합니다');" + "location.href='./home.do';" + "</script>");
+  }
   
   /**
    * 탈퇴 신청
