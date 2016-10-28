@@ -29,7 +29,7 @@ for (int i=0; i < cookies.length; i++){
 }
 %>
 
-<FORM name='frm' method='POST' action='./login.do'>
+<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/member/login.do'>
 <input type='hidden' name='url_address' value='<%=url_address %>'> 
          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
