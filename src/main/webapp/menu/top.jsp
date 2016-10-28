@@ -4,7 +4,6 @@
 String root = request.getContextPath();
 %>
 
-  
 <header>
    <DIV style='width:87%; '>  
             <ul class="member-list" style='float:right;'>
