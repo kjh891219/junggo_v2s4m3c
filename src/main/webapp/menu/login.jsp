@@ -5,7 +5,7 @@
 String url_address = Tool.checkNull(request.getParameter("url_address")); // 로그인 후 이동할 주소
 
 System.out.println("--> 3) login_ck_form.jsp: url_address: " + url_address); 
-  
+ 
 Cookie[] cookies = request.getCookies();
 Cookie cookie = null;
  

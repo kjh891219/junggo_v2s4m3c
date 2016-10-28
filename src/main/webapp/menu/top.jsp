@@ -3,9 +3,20 @@
 <%
 String root = request.getContextPath();
 %>
- 
+<script>
+  function message(){
+    var url = './message/list.do?flag=recv';
+    var win = window.open(url, '쪽지함', 'width=600px, height=700px');
+    
+    var x = (screen.width - 500) / 2;
+    var y = (screen.height - 440) / 2;
+    
+    win.moveTo(x, y); // 화면 가운데로 이동
+  }
+</script>
+  
 <header>
-   <DIV style='width:87%; '>  
+   <DIV style='width:87%; '> 
             <ul class="member-list" style='float:right;'>
                <% if(session.getAttribute("userid") == null) { // 회원 로그인 여부 검사 %>
                <li class="login"><a class='menu_style'  href="#myModal" data-toggle="modal"><span></span>LOGIN</a></li>
@@ -13,6 +24,7 @@ String root = request.getContextPath();
                <% } else { %>
                <li class="logout"><a href="<%=root %>/member/logout.do" class='menu_style'>${userid }님 로그아웃</a></li>
                <li class="mytm"><a href="<%=root %>/member/mypage.jsp" class='menu_style'><span></span>마이 페이지</a></li>
+               <li class="message"><A href='javascript: message();'><img src="<%=root %>/images/message.png"/></a></li>
                <% } %>   
                <li class="orderDelivery"><a href="#" class='menu_style'><span></span>주문/배송</a></li>
                <li class="cart"><a href="#" class='menu_style'><span></span>장바구니</a></li>
