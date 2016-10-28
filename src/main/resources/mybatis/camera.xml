@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
  <!-- 조회 -->
   <select id="read" resultType="CameraVO" parameterType="int">
-    select ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, cnt, file1, file2, size2, file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10
+    select ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, cnt, file1, file2, size2, file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10, userid
     from camera
     where ctno = #{ctno}
   </select>
@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 테스트  -->
   <select id="test" resultType="MemberVO" parameterType="String">
     select nickname, email
-    from member_test 
+    from member 
     where userid=#{userid}
   </select> 
   <!-- 수정 -->

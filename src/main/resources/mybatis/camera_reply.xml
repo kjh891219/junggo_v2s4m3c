@@ -46,7 +46,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    #{indent}, #{ansnum}, #{ctno}, #{userid})
   </insert>
   
-  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+   delete from camera_reply where rno in (  
+  select a.rno from camera_reply a, (select ctno, grpno, indent, rno, ansnum from camera_reply where rno = #{rno}) b
+  where a.ctno = b.ctno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
   
          
 </mapper>

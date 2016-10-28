@@ -20,8 +20,8 @@
                <a class='left_list' onmouseenter="ShowCategoryLayer(0)">자동차</a>
                <div class='left_detail'>
                      <dl >
-                        <dt><a href='#' class='menu_style'>중고차</a></dt>
-                        <dt><a href='#' class='menu_style'>자동차용품</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/usedcar/list.do' class='menu_style'>중고차</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/carproduct/list.do' class='menu_style'>자동차용품</a></dt>
                      </dl>
                </div>
             </li>
@@ -39,9 +39,9 @@
                <a class='left_list' onmouseenter="ShowCategoryLayer(2)">모바일·게임</a>
                <div class='left_detail'>
                      <dl>
-                        <dt><a href='#' class='menu_style'>핸드폰</a></dt>
-                        <dt><a href='#' class='menu_style'>게임</a></dt>
-                        <dt><a href='#' class='menu_style'>게임기기</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/mobile/list.do' class='menu_style'>핸드폰</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/game/list.do' class='menu_style'>게임</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/gamedevice/list.do' class='menu_style'>게임기기</a></dt>
                      </dl>
                </div>
             </li>
@@ -49,7 +49,7 @@
                <a class='left_list' onmouseenter="ShowCategoryLayer(3)">컴퓨터</a>
                <div class='left_detail'>
                      <dl>
-                        <dt><a href='#' class='menu_style'>컴퓨터</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/computer/list.do' class='menu_style'>컴퓨터</a></dt>
                      </dl>
                </div>
             </li>
@@ -57,7 +57,7 @@
                <a class='left_list' onmouseenter="ShowCategoryLayer(3)">디지털·가전</a>
                <div class='left_detail'>
                      <dl>
-                        <dt><a href='#' class='menu_style'>음향기기</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/music/list.do' class='menu_style'>음향기기</a></dt>
                      </dl>
                </div>
             </li>

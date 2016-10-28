@@ -315,10 +315,11 @@ public class MemberCont {
         session.setAttribute("nickname", memberDAO.read_userid(memberVO.getUserid()).getNickname());
         session.setAttribute("act", act);
         session.setAttribute("mno", mno);
-        
+
         // ------------------------------------------------------------------
         // userid 저장 관련 쿠키 저장
         // ------------------------------------------------------------------
+        
         String userid_save = Tool.checkNull(memberVO.getUserid_save());
         if (userid_save.equals("Y")){ // id 저장 할 경우
           Cookie ck_userid = new Cookie("ck_userid", memberVO.getUserid()); // id 저장
@@ -362,7 +363,8 @@ public class MemberCont {
           mav.setViewName("redirect:" + memberVO.getUrl_address());
         }else{
           System.out.println("--> index.jsp 페이지로 이동합니다.");
-          System.out.println("dfdfdfdfdf"+session.getAttribute("url").toString());
+          //System.out.println("dfdfdfdfdf"+session.getAttribute("url").toString());
+          //session.setAttribute("url", "/index.jsp");
           String url = session.getAttribute("url").toString();
           
           mav.setViewName("redirect:/" + url);

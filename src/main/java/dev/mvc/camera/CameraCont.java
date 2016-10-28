@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -351,7 +350,7 @@ public class CameraCont {
   }
   
   @RequestMapping(value = "/camera/read.do", method = RequestMethod.GET)
-  public ModelAndView read(int ctno, SearchDTO searchDTO, HttpServletRequest request) {
+  public ModelAndView read(int ctno, SearchDTO searchDTO, HttpServletRequest request, HttpSession session) {
     ModelAndView mav = new ModelAndView();
     cameraDAO.increaseCnt(ctno); //조회수 증가
     mav.setViewName("/camera/read");
@@ -364,6 +363,7 @@ public class CameraCont {
     mav.addObject("cameraVO", cameraVO);
     mav.addObject("searchDTO", searchDTO);
     mav.addObject("root", request.getContextPath());
+
     return mav;
   }
   

@@ -117,8 +117,24 @@ public class Camera_replyCont {
   
   
   @RequestMapping(value = "/camera_reply/reply.do", method = RequestMethod.POST)
-  public ModelAndView reply(Camera_replyVO camera_replyVO, HttpServletRequest request) {
+  public ModelAndView reply(Camera_replyVO camera_replyVO, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
     ModelAndView mav = new ModelAndView();
+    
+    
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+    if (session.getAttribute("userid") == null){
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
+       + "location.href = '../member/login.do';"
+       + "</script>"); 
+      session.setAttribute("url", "/camera_reply/list.do?ctno="+camera_replyVO.getCtno());
+      
+    } 
+    
+    
+    
     
     mav.setViewName("redirect:/camera_reply/list.do?ctno="+camera_replyVO.getCtno());
     System.out.println("여기 들어옴");
@@ -138,6 +154,16 @@ public class Camera_replyCont {
    
    
     camera_replyDAO.reply(camera_replyVO); 
+    return mav;
+  }
+  
+  
+  
+  @RequestMapping(value = "/camera_reply/delete.do", method = RequestMethod.POST)
+  public ModelAndView delete(Camera_replyVO vo) {
+    ModelAndView mav = new ModelAndView();
+    camera_replyDAO.delete(vo.getRno());
+    mav.setViewName("redirect:/camera_reply/list.do?ctno="+vo.getCtno());// 확장자 명시
     return mav;
   }
   

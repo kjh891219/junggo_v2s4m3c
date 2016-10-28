@@ -29,9 +29,6 @@
 <DIV class='center-block'>
 <DIV class='title'>댓글 쓰기</DIV>
 <FORM name='frm' method='POST' action='./reply.do' class='form-inline'>
-  <input type="hidden" name="nickname" id="nickname" value='dfdf'>
-  <input type="hidden" name="ctno" id="ctno" value='1'>
-  <input type="hidden" name="userid" id="userid" value='master'>
   <div class="col-xs-5">    
         <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" class="form-group">댓글입력</textarea>
          <button type="submit" class="btn btn-success btn-lg">등록</button>

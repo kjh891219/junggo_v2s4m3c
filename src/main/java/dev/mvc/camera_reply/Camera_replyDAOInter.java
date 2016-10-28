@@ -15,4 +15,7 @@ public interface Camera_replyDAOInter {
   public Camera_replyVO read(int rno);
   
   public int reply(Camera_replyVO vo);
+  
+  
+  public int delete(int rno);
 }

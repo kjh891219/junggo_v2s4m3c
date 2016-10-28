@@ -38,6 +38,11 @@ public class Camera_replyDAO implements Camera_replyDAOInter{
   public int reply(Camera_replyVO vo) {
     return mybatis.insert("camera_reply.reply", vo);
   }
+
+  @Override
+  public int delete(int rno) {
+    return mybatis.delete("camera_reply.delete", rno);
+  }
   
   
 

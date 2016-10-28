@@ -1,3 +1,4 @@
+drop table game
 CREATE TABLE GAME(
     gno                               NUMBER(6)    NOT NULL    PRIMARY KEY,
     category                          VARCHAR2(20)     NOT NULL,
