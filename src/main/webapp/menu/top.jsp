@@ -16,21 +16,22 @@ String ck_userid = ""; // userid 저장 변수
 String ck_userid_save = ""; // userid 저장 여부를 체크하는 변수
 String ck_pwd = ""; // pwd 저장 변수
 String ck_pwd_save = ""; // pwd 저장 여부를 체크하는 변수
- 
-for (int i=0; i < cookies.length; i++){
-  cookie = cookies[i];
-  
-  if (cookie.getName().equals("ck_userid")){
-    ck_userid = cookie.getValue();         // test1@mail.com
-  }else if(cookie.getName().equals("ck_userid_save")){
-    ck_userid_save = cookie.getValue();  // Y, N
-  }else if (cookie.getName().equals("ck_pwd")){
-    ck_pwd = cookie.getValue();         // test1@mail.com
-  }else if(cookie.getName().equals("ck_pwd_save")){
-    ck_pwd_save = cookie.getValue();  // Y, N
+
+if(cookies != null) {  
+  for (int i=0; i < cookies.length; i++){
+    cookie = cookies[i];
+    
+    if (cookie.getName().equals("ck_userid")){
+      ck_userid = cookie.getValue();         // test1@mail.com
+    }else if(cookie.getName().equals("ck_userid_save")){
+      ck_userid_save = cookie.getValue();  // Y, N
+    }else if (cookie.getName().equals("ck_pwd")){
+      ck_pwd = cookie.getValue();         // test1@mail.com
+    }else if(cookie.getName().equals("ck_pwd_save")){
+      ck_pwd_save = cookie.getValue();  // Y, N
+    }
   }
 }
-
 
 
 %>
