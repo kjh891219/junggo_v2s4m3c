@@ -19,7 +19,7 @@ String root = request.getContextPath();
                <li class="message"><A href='javascript: message();'><img src="<%=root %>/images/message.png"/></a></li>
                <% } %>   
                <li class="orderDelivery"  style="background: url(./images/truck.png) no-repeat left center; background-size:20px;"><a href="#" class='menu_style'><span></span>주문/배송</a></li>
-               <li class="cart" style="background: url(./menu/images/cart.png) no-repeat left center; background-size:20px;"><a href="#" class='menu_style'><span></span>장바구니</a></li>
+               <li class="cart" style="background: url(./images/cart.png) no-repeat left center; background-size:20px;"><a href="#" class='menu_style'><span></span>장바구니</a></li>
                <!--
                <li class="cs"><a href="#none" class="on"><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
                <li class="cs" style="background: url(./images/headphones.png) no-repeat left center; background-size:18px;"><a href="#" class='menu_style'><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
