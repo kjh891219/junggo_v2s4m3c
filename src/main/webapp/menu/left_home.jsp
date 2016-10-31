@@ -2,23 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <DIV id="main_left">
    <div id="main_left_left">
-   <div style="margin-top:26px;height:50px;">
+   <div style="height:170px;">
    
    </div>
    <nav class='left_list_form'>
    <!-- <ul>카테고리</ul> -->
    <UL>
             <li>
-               <A class='left_list' id='menu_top'>카테고리</A>
-               <div class='left_detail'>
-                     <dl>
-                        <dt><a>상품검색하기</a></dt>
-                     </dl>
-               </div>
             </li>
             <li>
-               <a class='left_list' onmouseenter="ShowCategoryLayer(0)">자동차</a>
-               <div class='left_detail'>
+               <a class='left_list' id="left_list_f" onmouseenter="ShowCategoryLayer(0)">자동차</a>
+               <div class='left_detail' >
                      <dl >
                         <dt><a href='${pageContext.request.contextPath}/usedcar/list.do' class='menu_style'>중고차</a></dt>
                         <dt><a href='${pageContext.request.contextPath}/carproduct/list.do' class='menu_style'>자동차용품</a></dt>
@@ -91,6 +85,6 @@
    </UL>
    </nav>
    <!-- <div style="float:left;width:20%; height:460px; background-color:#3b78ce; "></div> -->
-   <div style="float:right;width:60%; height:460px; background-color:white; border:1px solid #3b78ce; "></div>
+   <div style="float:right;width:60%; height:409px; background-color:white; border:1px solid #3b78ce; "></div>
    </div>
 </DIV>
