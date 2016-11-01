@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="live_reply">
+
+  <insert id="create" parameterType="Live_ReplyVO">
+   insert into live_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, lno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from live_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from live_reply),
+   0, 0, #{lno}, #{userid})
+  </insert> 
+  
+  <select id="read" resultType="Live_ReplyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, rdate, lno, userid 
+    from live_REPLY
+    WHERE rno=#{rno}
+  </select>   
+  
+
+<update id="update" parameterType="Live_ReplyVO">
+ UPDATE live_reply 
+ SET rcomment=#{rcomment}
+ WHERE grno=#{grno}
+  </update> 
+    
+   <select id="live_replyList" resultType="Live_ReplyVO" parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, rdate, lno, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, rdate, lno, userid from live_REPLY order by grpno desc, ansnum asc)
+    WHERE lno=#{lno}
+  </select> 
+  
+  <delete id="delete" parameterType="int">
+   delete from live_reply where rno in (  
+  select a.rno from live_reply a, (select lno, grpno, indent, rno, ansnum from live_reply where rno = #{rno}) b
+  where a.lno = b.lno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+ 
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update live_reply
+   set cnt = cnt +1
+   where lno= #{lno}
+   
+   </update>  
+  <update id='updateAnsnum' parameterType="Live_ReplyVO">
+    UPDATE live_reply
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+ <!-- 답변 등록 -->
+   <insert id="reply" parameterType="Live_ReplyVO">
+    insert into live_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, lno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from live_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{lno}, #{userid})
+  </insert>
+      
+ <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM live_reply 
+      <choose>
+                    <when test="col == 'title'">
+                           where title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           where content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           where category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+ </select>     
+
+
+</mapper>

@@ -1,5 +1,6 @@
 package dev.mvc.mobile;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -36,6 +37,21 @@ public class MobileDAO implements MobileDAOInter {
   @Override
   public int delete(int mno) {
     return mybatis.delete("mobile.delete", mno);
+  }
+
+  @Override
+  public int increaseCnt(int mno) {
+    return mybatis.update("mobile.increaseCnt", mno);
+  }
+
+  @Override
+  public int count(HashMap hashMap) {
+    return mybatis.selectOne ("mobile.count", hashMap);
+  }
+
+  @Override
+  public List<MobileVO> list2(HashMap<String, Object> hashMap) {
+    return mybatis.selectList("mobile.list2", hashMap);
   }
 
 }

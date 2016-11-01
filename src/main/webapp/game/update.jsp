@@ -10,7 +10,14 @@
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
  
+<script type="text/JavaScript">
+  window.onload=function(){
+   CKEDITOR.replace('content');
+  };
+</script>
+  
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/javascript">
@@ -151,7 +158,7 @@ $(function(){
       <hr/>
       
      <div id='file2Panel' class="form-group">
-        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일</label>
+        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일1</label>
         <div class="col-xs-10 col-lg-10">
           <c:set var='file2' value="${fn:toLowerCase(vo.file2)}" />
           <c:choose>
@@ -171,10 +178,113 @@ $(function(){
         </div>
       </div>
       <div class="form-group">   
-        <label for="file2MF" class="col-xs-2 col-lg-2 control-label">업로드 파일</label>
+        <label for="file2MF" class="col-xs-2 col-lg-2 control-label">업로드 파일1</label>
         <div class="col-xs-10 col-lg-10">
           <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
           <br>
+        <div id='file2Panel' class="form-group">
+        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일2</label>
+        <div class="col-xs-10 col-lg-10">
+          <c:set var='file4' value="${fn:toLowerCase(vo.file4)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file4, '.jpg')}">
+              <IMG src='./storage/${vo.file4}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file4, '.gif')}">
+              <IMG id='file4'  src='./storage/${vo.file4}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file4, '.png')}">
+              <IMG id='file4'  src='./storage/${vo.file4}'>
+            </c:when>
+            <c:when test="${vo.file4.length() > 0}">
+              ${vo.file4 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </div>
+      <div class="form-group">   
+        <label for="file4MF" class="col-xs-2 col-lg-2 control-label">업로드 파일2</label>
+        <div class="col-xs-10 col-lg-10">
+          <input type="file" class="form-control" name='file4MF' id='file4MF' size='40' >
+          <br>
+       <div id='file2Panel' class="form-group">
+        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일3</label>
+        <div class="col-xs-10 col-lg-10">
+          <c:set var='file6' value="${fn:toLowerCase(vo.file6)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file6, '.jpg')}">
+              <IMG src='./storage/${vo.file6}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file6, '.gif')}">
+              <IMG id='file6'  src='./storage/${vo.file6}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file6, '.png')}">
+              <IMG id='file6'  src='./storage/${vo.file6}'>
+            </c:when>
+            <c:when test="${vo.file6.length() > 0}">
+              ${vo.file6 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </div>
+      <div class="form-group">   
+        <label for="file6MF" class="col-xs-2 col-lg-2 control-label">업로드 파일3</label>
+        <div class="col-xs-10 col-lg-10">
+          <input type="file" class="form-control" name='file6MF' id='file6MF' size='40' >
+          <br>
+       <div id='file2Panel' class="form-group">
+        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일4</label>
+        <div class="col-xs-10 col-lg-10">
+          <c:set var='file8' value="${fn:toLowerCase(vo.file8)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file8, '.jpg')}">
+              <IMG src='./storage/${vo.file8}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file8, '.gif')}">
+              <IMG id='file8'  src='./storage/${vo.file8}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file8, '.png')}">
+              <IMG id='file8'  src='./storage/${vo.file8}'>
+            </c:when>
+            <c:when test="${vo.file8.length() > 0}">
+              ${vo.file8 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </div>
+      <div class="form-group">   
+        <label for="file8MF" class="col-xs-2 col-lg-2 control-label">업로드 파일4</label>
+        <div class="col-xs-10 col-lg-10">
+          <input type="file" class="form-control" name='file8MF' id='file8MF' size='40' >
+          <br>
+       <div id='file2Panel' class="form-group">
+        <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일5</label>
+        <div class="col-xs-10 col-lg-10">
+          <c:set var='file10' value="${fn:toLowerCase(vo.file10)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file10, '.jpg')}">
+              <IMG src='./storage/${vo.file10}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file10, '.gif')}">
+              <IMG id='file10'  src='./storage/${vo.file10}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file10, '.png')}">
+              <IMG id='file10'  src='./storage/${vo.file10}'>
+            </c:when>
+            <c:when test="${vo.file10.length() > 0}">
+              ${vo.file10 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </div>
+      <div class="form-group">   
+        <label for="file10MF" class="col-xs-2 col-lg-2 control-label">업로드 파일5</label>
+        <div class="col-xs-10 col-lg-10">
+          <input type="file" class="form-control" name='file10MF' id='file10MF' size='40' >
+          <br>    
+        
+          
+                 
           Preview(미리보기) 이미지 자동 생성됩니다.
         </div>
       </div>  

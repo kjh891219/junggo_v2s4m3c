@@ -42,5 +42,60 @@ VALUES((SELECT NVL(MAX(mno), 0) + 1 as mno FROM mobile), #{category}, #{nickname
     WHERE mno = #{mno}
   </delete> 
       
-      
+    
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update mobile
+   set cnt = cnt +1
+   where mno= #{mno}
+   
+   </update>  
+  <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM mobile 
+      <choose>
+                 <when test="col == 'title'">
+                         where title LIKE '%' || #{word} || '%' 
+                      </when>
+                      <when test="col == 'content'">
+                         where content LIKE '%' || #{word} || '%' 
+                      </when>
+                     <when test="col == 'category'">
+                         where category LIKE '%' || #{word} || '%' 
+                       </when>
+                       <when test="col == 'title_content'">
+                          where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                       </when>      
+                </choose>
+  </select>                    
+                      
+   <!-- ********** 검색에 따른 변경 시작 ********** -->
+ <select id="list2" resultType="MobileVO" parameterType="HashMap" >
+    SELECT mno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, telecome, file1, file2, size2, cnt, userid, r
+    FROM(
+       SELECT mno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, telecome, file1, file2, size2, cnt, userid, rownum as r     
+           FROM(
+             SELECT mno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, telecome, file1, file2, size2, cnt,userid
+                 FROM mobile
+                       <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           WHERE category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY mno DESC
+             )
+    )
+    WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->                    
+                      
+ </select>        
 </mapper>

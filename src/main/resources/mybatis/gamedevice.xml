@@ -8,16 +8,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 INSERT INTO gamedevice(gdno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
- purc_date, userid)  
+ purc_date, file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, userid)  
 VALUES((SELECT NVL(MAX(gdno), 0) + 1 as gdno FROM gamedevice), #{category}, #{nickname}, #{passwd}, #{deal_way},
  #{deal_code}, #{product_code},  #{hprice}, #{region}, #{tel}, #{email}, #{quantity}, #{title}, #{content},
-  #{purc_date}, #{userid})
+  #{purc_date},  #{file1}, #{file2}, #{size2},  #{file3}, #{file4}, #{size4},  #{file5}, #{file6}, #{size6}, #{file7}, #{file8}, #{size8}, #{file9}, #{file10}, #{size10}, #{userid})
   </insert>
   
  <select id="list" resultType="GameDeviceVO">
    SELECT gdno,  category , nickname, passwd, deal_way, deal_code, 
    product_code, hprice, region, tel, email, quantity, title, content,
-   purc_date, wdate, cnt, userid
+   purc_date, wdate,  file1, file2, size2, cnt, userid
    FROM gamedevice 
    ORDER BY gdno ASC
   </select>
@@ -26,13 +26,15 @@ VALUES((SELECT NVL(MAX(gdno), 0) + 1 as gdno FROM gamedevice), #{category}, #{ni
  UPDATE gamedevice 
  SET category = #{category} , nickname = #{nickname}, passwd = #{passwd}, deal_way = #{deal_way}, deal_code = #{deal_code}, 
  product_code = #{product_code}, hprice = #{hprice}, region = #{region}, tel = #{tel}, email = #{email}, quantity = #{quantity}, 
- title = #{title}, content = #{content}, purc_date = #{purc_date} 
+ title = #{title}, content = #{content}, purc_date = #{purc_date}, file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, 
+ file3 = #{file3}, file4 = #{file4}, size4 = #{size4}, file5 = #{file5}, file6 = #{file6}, size6 = #{size6}, 
+ file7 = #{file7}, file8 = #{file8}, size8 = #{size8}, file9 = #{file9}, file10 = #{file10}, size10 = #{size10}  
  WHERE gdno=#{gdno}
 </update>     
    <select id="read" resultType="GameDeviceVO" parameterType="int">
   SELECT gdno,  category , nickname, passwd, deal_way, deal_code, 
   product_code, hprice, region, tel, email, quantity, title, content,
-  purc_date, wdate, cnt, userid
+  purc_date, wdate, file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, cnt, userid
   FROM gamedevice 
    WHERE gdno= #{gdno}
   </select> 
@@ -42,5 +44,64 @@ VALUES((SELECT NVL(MAX(gdno), 0) + 1 as gdno FROM gamedevice), #{category}, #{ni
     WHERE gdno = #{gdno}
   </delete> 
       
+ 
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update gamedevice
+   set cnt = cnt +1
+   where gdno= #{gdno}
+   
+   </update>  
+  <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM gamedevice 
+      <choose>
+                 <when test="col == 'title'">
+                         where title LIKE '%' || #{word} || '%' 
+                      </when>
+                      <when test="col == 'content'">
+                         where content LIKE '%' || #{word} || '%' 
+                      </when>
+                     <when test="col == 'category'">
+                         where category LIKE '%' || #{word} || '%' 
+                       </when>
+                       <when test="col == 'title_content'">
+                          where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                       </when>      
+                </choose>
+  </select>                    
+                      
+   <!-- ********** 검색에 따른 변경 시작 ********** -->
+ <select id="list2" resultType="GameDeviceVO" parameterType="HashMap" >
+    SELECT gdno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt, userid, r
+    FROM(
+       SELECT gdno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt, userid, rownum as r     
+           FROM(
+             SELECT gdno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt,userid
+                 FROM gamedevice
+                       <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           WHERE category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY gdno DESC
+             )
+    )
+    WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->                    
+                      
+ </select>     
       
+
+   
+           
 </mapper>

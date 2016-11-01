@@ -1,5 +1,6 @@
 package dev.mvc.gamedevice;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dev.mvc.game.GameVO;
@@ -40,5 +41,10 @@ public interface GameDeviceDAOInter {
    * @return 삭제된 레코드 갯수
    */
   public int delete(int gdno); 
+  
+  public int increaseCnt(int gdno);
+  
+  public int count(HashMap hashMap);  
 
+  public List<GameDeviceVO> list2(HashMap<String, Object> hashMap);
 }

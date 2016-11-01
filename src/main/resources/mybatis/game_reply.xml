@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="game_reply">
+
+  <insert id="create" parameterType="Game_ReplyVO">
+   insert into game_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, gno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from game_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from game_reply),
+   0, 0, #{gno}, #{userid})
+  </insert> 
+  
+  <select id="read" resultType="Game_ReplyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, rdate, gno, userid 
+    from GAME_REPLY
+    WHERE rno=#{rno}
+  </select>   
+  
+
+<update id="update" parameterType="Game_ReplyVO">
+ UPDATE game_reply 
+ SET rcomment=#{rcomment}
+ WHERE grno=#{grno}
+  </update> 
+    
+   <select id="game_replyList" resultType="Game_ReplyVO" parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, rdate, gno, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, rdate, gno, userid from GAME_REPLY order by grpno desc, ansnum asc)
+    WHERE gno=#{gno}
+  </select> 
+  
+  <delete id="delete" parameterType="int">
+   delete from game_reply where rno in (  
+  select a.rno from game_reply a, (select gno, grpno, indent, rno, ansnum from game_reply where rno = #{rno}) b
+  where a.gno = b.gno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+ 
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update game_reply
+   set cnt = cnt +1
+   where gdno= #{gdno}
+   
+   </update>  
+  <update id='updateAnsnum' parameterType="Game_ReplyVO">
+    UPDATE game_reply
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+ <!-- 답변 등록 -->
+   <insert id="reply" parameterType="Game_ReplyVO">
+    insert into GAME_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, gno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from game_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{gno}, #{userid})
+  </insert>
+      
+ <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM game_reply 
+      <choose>
+                    <when test="col == 'title'">
+                           where title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           where content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           where category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+ </select>     
+
+<!-- 답변에 따른 목록 -->
+  <select id="list" resultType="Game_ReplyVO" parameterType="HashMap" >
+SELECT grno, gno, content, grpno , indent, ansnum, r
+FROM(
+         SELECT grno, gno, content, indent, grpno , ansnum, rownum as r
+         FROM(
+                  SELECT grno, gno, content, grpno , indent, ansnum
+                  FROM game_reply
+                     WHERE gno=#{gno}
+                      ORDER BY grno DESC, ansnum ASC
+             )
+    )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select> 
+  
+      
+      
+</mapper>

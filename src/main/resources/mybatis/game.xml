@@ -8,10 +8,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 INSERT INTO game(gno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
- purc_date, file1, file2, size2, lev, genre, userid)  
+ purc_date, file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, lev, genre, userid)  
 VALUES((SELECT NVL(MAX(gno), 0) + 1 as gno FROM game), #{category}, #{nickname}, #{passwd}, #{deal_way},
  #{deal_code}, #{product_code},  #{hprice}, #{region}, #{tel}, #{email}, #{quantity}, #{title}, #{content},
-  #{purc_date}, #{file1}, #{file2}, #{size2}, #{lev}, #{genre}, #{userid})
+  #{purc_date}, #{file1}, #{file2}, #{size2},  #{file3}, #{file4}, #{size4},  #{file5}, #{file6}, #{size6}, #{file7}, #{file8}, #{size8}, #{file9}, #{file10}, #{size10}, #{lev}, #{genre}, #{userid})
   </insert>
  <select id="list" resultType="GameVO">
    SELECT gno,  category , nickname, passwd, deal_way, deal_code, 
@@ -21,18 +21,21 @@ VALUES((SELECT NVL(MAX(gno), 0) + 1 as gno FROM game), #{category}, #{nickname},
    ORDER BY gno ASC
   </select>
 <update id="update" parameterType="GameVO">
-   UPDATE game 
+ UPDATE game 
  SET category = #{category} , nickname = #{nickname}, passwd = #{passwd}, deal_way = #{deal_way}, deal_code = #{deal_code}, 
  product_code = #{product_code}, hprice = #{hprice}, region = #{region}, tel = #{tel}, email = #{email}, quantity = #{quantity}, 
- title = #{title}, content = #{content}, purc_date = #{purc_date}, file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, lev = #{lev}, genre = #{genre}
+ title = #{title}, content = #{content}, purc_date = #{purc_date}, file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, 
+ file3 = #{file3}, file4 = #{file4}, size4 = #{size4}, file5 = #{file5}, file6 = #{file6}, size6 = #{size6}, 
+ file7 = #{file7}, file8 = #{file8}, size8 = #{size8}, file9 = #{file9}, file10 = #{file10}, size10 = #{size10}, 
+ lev = #{lev}, genre = #{genre}
  WHERE gno=#{gno}
 </update>     
    <select id="read" resultType="GameVO" parameterType="int">
-   SELECT gno,  category , nickname, passwd, deal_way, deal_code, 
-   product_code, hprice, region, tel, email, quantity, title, content,
-   purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid
-  FROM game 
-   WHERE gno= #{gno}
+  SELECT gno,  category , nickname, passwd, deal_way, deal_code, 
+ product_code, hprice, region, tel, email, quantity, title, content,
+ purc_date, wdate, file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, cnt, lev, genre, userid
+FROM game 
+ WHERE gno= #{gno}
   </select> 
   
   <delete id="delete" parameterType="int">
@@ -53,7 +56,7 @@ VALUES((SELECT NVL(MAX(gno), 0) + 1 as gno FROM game), #{category}, #{nickname},
    SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
    FROM game 
       <choose>
-                        <when test="col == 'title'">
+                    <when test="col == 'title'">
                            where title LIKE '%' || #{word} || '%' 
                         </when>
                         <when test="col == 'content'">

@@ -1,7 +1,18 @@
+-----------------------------------------------------------
+ SELECT wdate
+    FROM usedcar
+    ORDER BY u_no ASC
+
+-----------------------------------------------------------
+
 /**********************************/
 /* Table Name: 회원+관리자    */
 /**********************************/
 DROP TABLE member
+DROP TABLE usedcar
+DROP TABLE c_comment
+DELETE * FROM usedcar
+commit
 
 CREATE TABLE member(
     userid                            VARCHAR2(20)     NOT NULL PRIMARY KEY,   -- 아이디
@@ -20,6 +31,7 @@ CREATE TABLE member(
     act                               CHAR(1)          NOT NULL,               -- 권한, M: 마스터, Y: 로그인 가능, N: 로그인 불가, H: 인증 대기
     droupout                          VARCHAR2(1)      DEFAULT 'N'   NOT NULL  -- 탈퇴 신청
 );
+
 
 1. 입력
 INSERT INTO member(userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
@@ -41,6 +53,8 @@ SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2
 FROM member
 ORDER BY mno ASC
 
+select * from member;
+select * from usedcar;
 3. 수정
 UPDATE member 
 SET pwd='0000'
@@ -54,7 +68,7 @@ DELETE FROM MEMBER WHERE mno='2'
 /**********************************/
 /* Table Name: 중고차 거래 게시판 */
 /**********************************/
-drop table usedcar
+DROP TABLE usedcar;
 CREATE TABLE usedcar(
 		u_no                          		NUMBER(10)		                                 NOT NULL   PRIMARY KEY,
 		nickname                      	VARCHAR2(20)		                               NOT NULL,
@@ -70,9 +84,17 @@ CREATE TABLE usedcar(
 		quantity                      		NUMBER(6)		     DEFAULT 0		             NOT NULL,
 		title                         		    VARCHAR2(200)		                             NOT NULL,
 		content                       		VARCHAR2(4000)		                           NOT NULL,
-		file1                               VARCHAR2(100)                                      NULL ,
-    file2                               VARCHAR2(50)                                        NULL,
-    size2                              NUMBER(9)        DEFAULT 0                      NULL,
+    thumb                            VARCHAR2(100)                                      NULL ,
+    file1                               VARCHAR2(50)                                        NULL,
+    size1                               NUMBER(9)          DEFAULT 0                   NULL,
+    file2                              VARCHAR2(50)                                         NULL,
+    size2                               NUMBER(9)          DEFAULT 0                   NULL,
+    file3                               VARCHAR2(50)                                        NULL,
+    size3                               NUMBER(9)          DEFAULT 0                   NULL,
+    file4                               VARCHAR2(50)                                        NULL,
+    size4                               NUMBER(9)          DEFAULT 0                   NULL,
+    file5                               VARCHAR2(50)                                        NULL,
+    size5                               NUMBER(9)          DEFAULT 0                   NULL,
 		purc_date                     		VARCHAR2(20)		                               NOT NULL,
 		userid                        		  VARCHAR2(20)		                               NOT NULL,
 		wdate                         		DATE		             DEFAULT sysdate		     NOT NULL,
@@ -126,17 +148,17 @@ COMMENT ON COLUMN comments.u_no is '중고차번호';
 2)삽입
  --member TABLE 삽입
 INSERT INTO member(userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
-                          auth, confirm, act, droupout)
+                          auth, confirm, act, dropout)
  VALUES('sol1', (SELECT NVL(MAX(mno), 0)+1 as mno FROM member), '1234', 'hansol', 'sol', 'test@daum.net', '010-0000-0000', '12345', '기본주소', '상세주소', sysdate,
               'VIL1476668797084', 'Y', 'M', 'N');
 
 INSERT INTO member(userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
-                          auth, confirm, act, droupout)
+                          auth, confirm, act, dropout)
  VALUES('PCM', (SELECT NVL(MAX(mno), 0)+1 as mno FROM member), '1234', 'chanmi', 'pic', 'test2@daum.net', '010-0000-0001', '12345', '기본주소', '상세주소', sysdate,
               'VIL1476668797084', 'Y', 'M', 'N');
 
 INSERT INTO member(userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
-                          auth, confirm, act, droupout)
+                          auth, confirm, act, dropout)
  VALUES('jae', (SELECT NVL(MAX(mno), 0)+1 as mno FROM member), '1234', 'jaeheon', 'heon', 'test3@daum.net', '010-0000-0002', '12345', '기본주소', '상세주소', sysdate,
               'VIL1476668797084', 'Y', 'M', 'N');
               
@@ -203,3 +225,7 @@ UPDATE usedcar
 SET content='팔아야 합니다'
 WHERE u_no=1;
 
+6)조회수 증가
+UPDATE usedcar
+SET u_cnt = u_cnt + 1
+WHERE u_no=1

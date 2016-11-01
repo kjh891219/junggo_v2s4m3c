@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd_reply">
+
+  <insert id="create" parameterType="Gd_ReplyVO">
+   insert into gd_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, gdno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from gd_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from gd_reply),
+   0, 0, #{gdno}, #{userid})
+  </insert> 
+  
+  <select id="read" resultType="Gd_ReplyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, rdate, gdno, userid 
+    from Gd_REPLY
+    WHERE rno=#{rno}
+  </select>   
+  
+
+<update id="update" parameterType="Gd_ReplyVO">
+ UPDATE gd_reply 
+ SET rcomment=#{rcomment}
+ WHERE grno=#{grno}
+  </update> 
+    
+   <select id="gd_replyList" resultType="Gd_ReplyVO" parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, rdate, gdno, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, rdate, gdno, userid from GD_REPLY order by grpno desc, ansnum asc)
+    WHERE gdno=#{gdno}
+  </select> 
+  
+  <delete id="delete" parameterType="int">
+   delete from gd_reply where rno in (  
+  select a.rno from gd_reply a, (select gdno, grpno, indent, rno, ansnum from gd_reply where rno = #{rno}) b
+  where a.gdno = b.gdno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+ 
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update gd_reply
+   set cnt = cnt +1
+   where gdno= #{gdno}
+   
+   </update>  
+  <update id='updateAnsnum' parameterType="Gd_ReplyVO">
+    UPDATE gd_reply
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+ <!-- 답변 등록 -->
+   <insert id="reply" parameterType="Gd_ReplyVO">
+    insert into GD_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, gdno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from gd_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{gdno}, #{userid})
+  </insert>
+      
+ <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM game_reply 
+      <choose>
+                    <when test="col == 'title'">
+                           where title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           where content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           where category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+ </select>     
+
+
+</mapper>

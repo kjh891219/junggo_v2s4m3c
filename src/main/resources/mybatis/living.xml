@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="living">
+
+<insert id="create" parameterType="LivingVO">
+
+INSERT INTO living (lno, category , nickname, passwd, deal_way, deal_code, 
+ product_code, hprice, region, tel, email, quantity, title, content,
+ purc_date, file1, file2, size2, file3, file4, size4, file5, file6 ,
+ size6, file7, file8, size8, file9, file10, size10, userid)  
+VALUES((SELECT NVL(MAX(lno), 0) + 1 as lno FROM living), #{category}, #{nickname}, #{passwd}, #{deal_way},
+ #{deal_code}, #{product_code},  #{hprice}, #{region}, #{tel}, #{email}, #{quantity}, #{title}, #{content},
+  #{purc_date},  #{file1}, #{file2}, #{size2},  #{file3}, #{file4}, #{size4}, #{file5}, #{file6}, #{size6}, 
+  #{file7}, #{file8}, #{size8}, #{file9}, #{file10}, #{size10}, #{userid})
+  </insert>
+  
+ <select id="list" resultType="LivingVO">
+   SELECT lno,  category , nickname, passwd, deal_way, deal_code, 
+   product_code, hprice, region, tel, email, quantity, title, content,
+   purc_date, wdate,  file1, file2, size2, cnt, telecome, userid
+   FROM living 
+   ORDER BY mno ASC
+  </select>
+
+ <update id="update" parameterType="LivingVO">
+ UPDATE living 
+ SET category = #{category} , nickname = #{nickname}, passwd = #{passwd}, deal_way = #{deal_way}, deal_code = #{deal_code}, 
+ product_code = #{product_code}, hprice = #{hprice}, region = #{region}, tel = #{tel}, email = #{email}, quantity = #{quantity}, 
+ title = #{title}, content = #{content}, purc_date = #{purc_date}, file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, 
+ file3 = #{file3}, file4 = #{file4}, size4 = #{size4}, file5 = #{file5}, file6 = #{file6}, size6 = #{size6}, 
+ file7 = #{file7}, file8 = #{file8}, size8 = #{size8}, file9 = #{file9}, file10 = #{file10}, size10 = #{size10}
+ WHERE lno=#{lno}
+</update>     
+   <select id="read" resultType="LivingVO" parameterType="int">
+  SELECT lno,  category , nickname, passwd, deal_way, deal_code, 
+  product_code, hprice, region, tel, email, quantity, title, content,
+  purc_date, wdate,  file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, cnt,userid
+  FROM living 
+   WHERE lno= #{lno}
+  </select> 
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM living
+    WHERE lno = #{lno}
+  </delete> 
+  
+   
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update living
+   set cnt = cnt +1
+   where lno= #{lno}
+   </update>
+ <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM living 
+      <choose>
+                 <when test="col == 'title'">
+                         where title LIKE '%' || #{word} || '%' 
+                      </when>
+                      <when test="col == 'content'">
+                         where content LIKE '%' || #{word} || '%' 
+                      </when>
+                     <when test="col == 'category'">
+                         where category LIKE '%' || #{word} || '%' 
+                       </when>
+                       <when test="col == 'title_content'">
+                          where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                       </when>      
+      </choose>
+  </select>   
+     <!-- ********** 검색에 따른 변경 시작 ********** -->
+ <select id="list2" resultType="LivingVO" parameterType="HashMap" >
+    SELECT lno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt, userid, r
+    FROM(
+       SELECT lno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt, userid, rownum as r     
+           FROM(
+             SELECT lno,  category , nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, wdate, file1, file2, size2, cnt, userid
+                 FROM living
+                       <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           WHERE category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY lno DESC
+             )
+    )
+    WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->                    
+                      
+ </select>                 
+                
+     
+      
+      
+</mapper>

@@ -1,41 +1,41 @@
 /**********************************/
 /* Table Name: 음향/기기/악기 */
 /**********************************/
+
 drop table music
 delete from music
 select * from music
 CREATE TABLE music(
-    ctno                              NUMBER(6)    NOT NULL,
-    title                             VARCHAR2(200)    DEFAULT ''    NULL ,
-    deal_code                         VARCHAR2(20)     NOT NULL,
-    product_code                      VARCHAR2(20)     NOT NULL,
-    category                          VARCHAR2(20)     NOT NULL,
-    region                            VARCHAR2(20)     DEFAULT ''    NOT NULL,
-    deal_way                          VARCHAR2(20)     NOT NULL,
-    purc_date                         VARCHAR2(20)     DEFAULT ''    NOT NULL,
-    quantity                          NUMBER(6)    DEFAULT 0     NOT NULL,
-    hprice                            NUMBER(15)     DEFAULT 0     NOT NULL,
-    content                           VARCHAR2(4000)     NOT NULL,
-    cnt                               NUMBER(6)    DEFAULT 0     NOT NULL,
-    nickname                          VARCHAR2(20)     NOT NULL,
-    userid                            VARCHAR2(20)     NOT NULL,
-    passwd                            VARCHAR2(20)     NOT NULL,
-    tel                               VARCHAR2(14)     DEFAULT ''    NOT NULL,
-    email                             VARCHAR2(100)    DEFAULT ''    NOT NULL,
-    wdate                             DATE     DEFAULT sysdate     NOT NULL,
-    deal_status                       VARCHAR2(20)     DEFAULT ''     NOT NULL,
-    thumb                   VARCHAR2(100)        NULL ,
-    file1                   VARCHAR2(50)         NULL ,
-    size1                   NUMBER(9)        DEFAULT 0       NULL ,
-    file2                   VARCHAR2(50)         NULL ,
-    size2                   NUMBER(9)        DEFAULT 0       NULL ,
-    file3                   VARCHAR2(50)         NULL ,
-    size3                   NUMBER(9)        DEFAULT 0       NULL ,
-    file4                   VARCHAR2(50)         NULL ,
-    size4                   NUMBER(9)        DEFAULT 0       NULL ,
-    file5                   VARCHAR2(50)         NULL ,
-    size5                   NUMBER(9)        DEFAULT 0       NULL ,
-  PRIMARY KEY (ctno),
+   ctno                               NUMBER(6)                                  NOT NULL,
+    nickname                         VARCHAR2(20)                              NOT NULL,
+    passwd                             VARCHAR2(20)                              NOT NULL,
+    category                           CHAR(20)                                    NOT NULL,
+    deal_way                          VARCHAR2(20)                              NOT NULL,
+    deal_code                         VARCHAR2(20)                              NOT NULL,
+    product_code                    VARCHAR2(20)                              NOT NULL,
+    h_price                              NUMBER(15)         DEFAULT 0         NOT NULL,
+    region                             VARCHAR2(20)                              NOT NULL,
+    tel                                  VARCHAR2(14)                              NOT NULL ,
+    email                              VARCHAR2(100)                             NOT NULL ,
+    quantity                          NUMBER(6)          DEFAULT 0           NOT NULL ,
+    title                                VARCHAR2(200)                             NOT NULL,
+    content                           VARCHAR2(4000)                           NOT NULL,
+    thumb                            VARCHAR2(100)                                   NULL ,
+    file1                               VARCHAR2(50)                                     NULL,
+    size1                               NUMBER(9)          DEFAULT 0                NULL,
+    file2                              VARCHAR2(50)                                     NULL,
+    size2                               NUMBER(9)          DEFAULT 0                NULL,
+    file3                               VARCHAR2(50)                                     NULL,
+    size3                               NUMBER(9)          DEFAULT 0                NULL,
+    file4                               VARCHAR2(50)                                     NULL,
+    size4                               NUMBER(9)          DEFAULT 0                NULL,
+    file5                               VARCHAR2(50)                                     NULL,
+    size5                               NUMBER(9)          DEFAULT 0                NULL,
+    purc_date                         VARCHAR2(20)                             NOT NULL ,
+    userid                             VARCHAR2(20)                              NOT NULL,
+    wdate                             DATE                  DEFAULT sysdate   NOT NULL,
+    ct_cnt                              NUMBER(6)          DEFAULT 0           NOT NULL,
+    PRIMARY KEY(ctno),
   FOREIGN KEY (userid) REFERENCES member (userid)
 );
 
@@ -69,7 +69,7 @@ INSERT INTO music (ctno, title, deal_code, product_code
         , passwd, tel, email, wdate, deal_status, thumb, file1, size1, file2, size2, file3, size3, file4, size4, file5, size5 )
 values((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM music), '피아노 판매합니다','팝니다', '새상품'
 , '피아노', '경기도', '택배', '2015-01-01', 1
-, 1000000, '1년 미만 사용한 상태 최상 피아노입니다', 0, '정직한거래자', 'chanmi'
+, 1000000, '1년 미만 사용한 상태 최상 피아노입니다', 0, '정직한거래자', 'sol1'
 , '1234', '010-0292-0909','test1@naver.com', sysdate, 'N', '', '', 0,'',0,'',0,'',0,'',0);
 
 INSERT INTO music (ctno, title, deal_code, product_code

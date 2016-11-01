@@ -1,4 +1,4 @@
-drop table game
+drop table game;
 CREATE TABLE GAME(
     gno                               NUMBER(6)    NOT NULL    PRIMARY KEY,
     category                          VARCHAR2(20)     NOT NULL,
@@ -19,7 +19,19 @@ CREATE TABLE GAME(
     file1                             VARCHAR2(100)        NULL ,
     file2                             VARCHAR2(50)         NULL ,
     size2                             NUMBER(9)        DEFAULT 0       NULL ,
-    cnt                               NUMBER(6)    DEFAULT 0     NOT NULL,
+    file3                             VARCHAR2(100)        NULL ,
+    file4                             VARCHAR2(50)         NULL ,
+    size4                             NUMBER(9)        DEFAULT 0       NULL ,
+    file5                             VARCHAR2(100)        NULL ,
+    file6                             VARCHAR2(50)         NULL ,
+    size6                             NUMBER(9)        DEFAULT 0       NULL ,
+    file7                             VARCHAR2(100)        NULL ,
+    file8                             VARCHAR2(50)         NULL ,
+    size8                             NUMBER(9)        DEFAULT 0       NULL ,
+    file9                             VARCHAR2(100)        NULL ,
+    file10                            VARCHAR2(50)         NULL ,
+    size10                            NUMBER(9)        DEFAULT 0       NULL ,
+    cnt                               NUMBER(6)        DEFAULT 0     NOT NULL,
     lev                               VARCHAR2(15)     NULL,
     genre                             VARCHAR2(10)     NULL ,
     userid                            VARCHAR2(20)     NULL,
@@ -58,36 +70,36 @@ drop table game;
 
 SELECT gno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
- purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid
+ purc_date, wdate, file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, cnt, lev, genre, userid
 FROM game 
 ORDER BY gno ASC;
 
 1등록 
 INSERT INTO game(gno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
- purc_date, file1, file2, size2, lev, genre, userid)  
+ purc_date, file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, lev, genre, userid)  
 VALUES((SELECT NVL(MAX(gno), 0) + 1 as gno FROM game), 'category', 'nickname', 'passwd', 'deal_way',
  'deal_code', 'pruduct_code',  240000, 'region', '010-2312-5123', 'acd@naver.com', 1, 'title', 'content',
-  '10년4월', 'fall_m.jpg', 'fall.jpg', 0, 'lev', 'genre', (select userid from member_test where userid='master'));
+  '10년4월', 'fall_m.jpg', 'fall.jpg', 0, 'fall2_m.jpg', 'fall2.jpg', 0,'fall3_m.jpg', 'fall3.jpg', 0,'fall4_m.jpg', 'fall4.jpg', 0,'fall5_m.jpg', 'fall5.jpg', 0,'lev', 'genre', (select userid from member_test where userid='master'));
 
 INSERT INTO game(gno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
- purc_date, file1, file2, size2, lev, genre, userid)  
+ purc_date,file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, lev, genre, userid)  
 VALUES((SELECT NVL(MAX(gno), 0) + 1 as gno FROM game), 'ps4', '홍길동', '1234', '직거래',
  '팝니다', '중고품',  240000, '서울', '010-2312-5123', 'acd@naver.com', 1, 'ps4팝니다', '싸게팝니다',
-  '10년4월', 'fall_m.jpg', 'fall.jpg', 0, '★★★', 'RPG', (select userid from member_test where userid='master'));
+  '10년4월', 'fall_m.jpg', 'fall.jpg', 0, 'fall2_m.jpg', 'fall2.jpg', 0,'fall3_m.jpg', 'fall3.jpg', 0,'fall4_m.jpg', 'fall4.jpg', 0,'fall5_m.jpg', 'fall5.jpg', 0,'★★★', 'RPG', (select userid from member_test where userid='master'));
   
 INSERT INTO game(gno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
- purc_date, file1, file2, size2, lev, genre, userid)  
+ purc_date, file1, file2, size2, file3, file4, size4, file5, file6 ,size6, file7, file8, size8, file9, file10, size10, lev, genre, userid)  
 VALUES((SELECT NVL(MAX(gno), 0) + 1 as gno FROM game), 'xbox', '이순신', '1234', '택배',
  '팝니다', '중고품',  140000, '경기도', '010-2312-5123', 'acd@naver.com', 1, 'xbox팝니다', '싸아게팝니다',
-  '10년3월', 'fall_m.jpg', 'fall.jpg', 0, '★★★★', '액션', (select userid from member_test where userid='master'));  
+  '10년3월', 'fall_m.jpg', 'fall.jpg', 0, 'fall2_m.jpg', 'fall2.jpg', 0,'fall3_m.jpg', 'fall3.jpg', 0,'fall4_m.jpg', 'fall4.jpg', 0,'fall5_m.jpg', 'fall5.jpg', 0, '★★★★', '액션', (select userid from member_test where userid='master'));  
   
 2.조회 
 SELECT gno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
- purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid
+ purc_date, wdate, file1, file2, size2,  file3, size3, file4, size4, file5, size5, file6, size6, cnt, lev, genre, userid
 FROM game 
 WHERE gno = 1;
 
@@ -95,7 +107,7 @@ WHERE gno = 1;
 UPDATE game 
 SET category = 'category2' , nickname = 'nickname2', passwd = 'passwd2', deal_way = 'deal_way2', deal_code = 'deal_code2', 
  product_code = 'product_code2', hprice = 1000, region = '인천', tel = '2014284092', email = '후후후@naver.com', quantity = 3, 
- title = 'title2', content = 'content2', purc_date = '2008년', file1='snow_m.jpg', file2='snow_a.jpg', size2='1500', lev = 'lev2', genre = 'genre2'
+ title = 'title2', content = 'content2', purc_date = '2008년', file1='snow_m.jpg', file2='snow_a.jpg', size2='1500',  file3='snow_a1.jpg', size3='1500',  file4='snow_a2.jpg', size4='1500',  file5='snow_a3.jpg', size5='1500',  file6='snow_a4.jpg', size6='1500', lev = 'lev2', genre = 'genre2'
 WHERE gno=1;
 4.삭제 
 
@@ -105,9 +117,10 @@ WHERE gno = 1;
 5.목록
 SELECT gno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
- purc_date, wdate, cnt, lev, genre, userid
+ purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid
 FROM game 
 ORDER BY gno ASC;
+
 
 DROP TABLE game_reply;
 CREATE TABLE game_reply(

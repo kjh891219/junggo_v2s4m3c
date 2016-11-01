@@ -1,5 +1,6 @@
 package dev.mvc.mobile;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface MobileDAOInter {
@@ -28,6 +29,12 @@ public List<MobileVO> list();
    * <delete id="delete" parameterType="int">
    */
  public int delete(int mno);
+ 
+ public int increaseCnt(int mno);
+ 
+ public int count(HashMap hashMap);
+ 
+ public List<MobileVO> list2(HashMap<String, Object> hashMap);
  
   
 }

@@ -1,5 +1,6 @@
 package dev.mvc.gamedevice;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -36,4 +37,17 @@ public class GameDeviceDAO implements GameDeviceDAOInter {
  public int delete(int gdno) {
  return mybatis.delete("gamedevice.delete", gdno);
  }
+@Override
+public int increaseCnt(int gdno) {
+  return mybatis.update("gamedevice.increaseCnt", gdno);
+}
+@Override
+public int count(HashMap hashMap) {
+  return mybatis.selectOne("gamedevice.count", hashMap);
+}
+@Override
+public List<GameDeviceVO> list2(HashMap<String, Object> hashMap) {
+  return mybatis.selectList("gamedevice.list2", hashMap);
+}
+
 }

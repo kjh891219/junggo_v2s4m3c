@@ -47,7 +47,7 @@
                <a href='${pageContext.request.contextPath}/mobile/list.do' class='menu_style'>핸드폰</a>
             </li>
             <li>
-               <a href='#' class='menu_style'>생활용품</a>
+               <a href='${pageContext.request.contextPath}/living/list.do' class='menu_style'>생활용품</a>
             </li>
             <li>
                <a href='#' class='menu_style'>스포츠</a>
@@ -61,7 +61,7 @@
          <a href='#' class='menu_top'>커뮤니티</a>
          <ul class='left_list_detail' id='left_list_detail_2'>
             <li>
-               <a href='#' class='menu_style'>공지사항</a>
+               <a href='${pageContext.request.contextPath}/notice/list.do' class='menu_style'>공지사항</a>
             </li>
             <li>
                <a href='${pageContext.request.contextPath}/reviews/list.do' class='menu_style'>이용후기</a>

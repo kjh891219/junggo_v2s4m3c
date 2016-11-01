@@ -19,7 +19,7 @@ public class GameDAO implements GameDAOInter {
    public int create(GameVO vo){   
      return mybatis.insert("game.create", vo);
    }
-   
+
    @Override
    public List<GameVO> list() { 
      return mybatis.selectList("game.list");

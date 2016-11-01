@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+<insert id="create" parameterType="NoticeVO">
+INSERT INTO notice(noticeno, nickname, title, content,file1, file2, size2, userid)  
+VALUES((SELECT NVL(MAX(noticeno), 0) + 1 as noticeno FROM notice), #{nickname},#{title}, #{content}, #{file1}, #{file2}, 
+#{size2}, #{userid})
+  </insert>
+
+<update id="update" parameterType="NoticeVO">
+ UPDATE notice
+ SET nickname = #{nickname}, title = #{title}, content = #{content}, file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, userid=#{userid}
+ WHERE noticeno=#{noticeno}
+</update>     
+   <select id="read" resultType="NoticeVO" parameterType="int">
+  SELECT noticeno, nickname, title, content, wdate, file1, file2, size2, cnt, userid
+FROM notice 
+ WHERE noticeno= #{noticeno}
+  </select> 
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM notice
+    WHERE noticeno = #{noticeno}
+  </delete> 
+ 
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update notice
+   set cnt = cnt +1
+   where noticeno= #{noticeno}
+   
+   </update>  
+      
+ <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM notice 
+      <choose>
+                    <when test="col == 'title'">
+                           where title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           where content LIKE '%' || #{word} || '%' 
+                        </when>
+                      <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+ </select>     
+      
+      
+  <!-- ********** 검색에 따른 변경 시작 ********** -->
+ <select id="list2" resultType="NoticeVO" parameterType="HashMap" >
+    SELECT noticeno, nickname, title, wdate, cnt, userid, r
+    FROM(
+       SELECT noticeno, nickname, title, wdate, cnt, userid, rownum as r     
+           FROM(
+             SELECT noticeno, nickname, title, wdate, cnt, userid
+                 FROM notice
+                       <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY noticeno DESC
+             )
+    )
+    WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->
+  </select>  
+      
+      
+      
+</mapper>

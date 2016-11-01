@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mo_reply">
+
+  <insert id="create" parameterType="Mo_ReplyVO">
+   insert into mo_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, mno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from mo_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from mo_reply),
+   0, 0, #{mno}, #{userid})
+  </insert> 
+  
+  <select id="read" resultType="Mo_ReplyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, rdate, mno, userid 
+    from mo_REPLY
+    WHERE rno=#{rno}
+  </select>   
+  
+
+<update id="update" parameterType="Mo_ReplyVO">
+ UPDATE mo_reply 
+ SET rcomment=#{rcomment}
+ WHERE grno=#{grno}
+  </update> 
+    
+   <select id="mo_replyList" resultType="Mo_ReplyVO" parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, rdate, mno, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, rdate, mno, userid from mo_REPLY order by grpno desc, ansnum asc)
+    WHERE mno=#{mno}
+  </select> 
+  
+  <delete id="delete" parameterType="int">
+   delete from mo_reply where rno in (  
+  select a.rno from mo_reply a, (select mno, grpno, indent, rno, ansnum from mo_reply where rno = #{rno}) b
+  where a.mno = b.mno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+ 
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   update mo_reply
+   set cnt = cnt +1
+   where gdno= #{gdno}
+   
+   </update>  
+  <update id='updateAnsnum' parameterType="Mo_ReplyVO">
+    UPDATE mo_reply
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+ <!-- 답변 등록 -->
+   <insert id="reply" parameterType="Mo_ReplyVO">
+    insert into mo_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, mno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from mo_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{mno}, #{userid})
+  </insert>
+      
+ <!--  검색 리스트 수 -->
+ <select id = "count" resultType="int" parameterType="HashMap">
+   SELECT COUNT (*) as cnt  <!-- 여기서 cnt는 별명 * = cnt -->
+   FROM mo_reply 
+      <choose>
+                    <when test="col == 'title'">
+                           where title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           where content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'category'">
+                           where category LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+ </select>     
+
+<!-- 답변에 따른 목록 -->
+  <select id="list" resultType="Mo_ReplyVO" parameterType="HashMap" >
+SELECT grno, mno, content, grpno , indent, ansnum, r
+FROM(
+         SELECT grno, mno, content, indent, grpno , ansnum, rownum as r
+         FROM(
+                  SELECT grno, mno, content, grpno , indent, ansnum
+                  FROM mo_reply
+                     WHERE mno=#{mno}
+                      ORDER BY grno DESC, ansnum ASC
+             )
+    )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select> 
+  
+      
+      
+</mapper>
