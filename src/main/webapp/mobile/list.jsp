@@ -215,8 +215,8 @@ $(document).ready(function(){
             <td class="td">${mobileVO.file2}</td>
     <TD class='td'>${mobileVO.category}</TD>
     <TD class='td'>${mobileVO.telecome}</TD>
-    <TD class='td'><A href="./read.do?mno=${mobileVO.mno}">${mobileVO.nickname}</A></TD>
-    <TD class='td'><A href="./read.do?mno=${mobileVO.mno}">${mobileVO.title}</A></TD>
+    <TD class='td'>${mobileVO.nickname}</A></TD>
+    <TD class='td'><A href="./read.do?mno=${mobileVO.mno}" style="color: black;">${mobileVO.title}</A></TD>
     <TD class='td'>${mobileVO.hprice}</TD>
     <TD class='td'>${mobileVO.deal_way}</TD>
     <TD class='td'>${mobileVO.region}</TD>

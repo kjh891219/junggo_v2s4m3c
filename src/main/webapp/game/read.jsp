@@ -227,10 +227,11 @@
   
 
 <DIV style="text-align: right;">
+ <c:if test="${(gameVO.userid eq userid)}">
   <button type='button' onclick="location.href='./update.do?gno=${gameVO.gno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
   <button type='button' onclick="location.href='./delete.do?gno=${gameVO.gno}&col=${searchDTO.col}&word=${searchDTO.word}'">삭제</button>
+  </c:if>
   <button type='button' onclick="location.href='./list.do'">목록</button>
-  
 </DIV>
 
 <iframe src="${pageContext.request.contextPath}/game_reply/list.do?gno=${gameVO.gno}" scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;"></iframe>  

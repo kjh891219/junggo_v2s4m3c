@@ -179,7 +179,6 @@ $(document).ready(function(){
     <TH>조회수</TH>
     <TH>평점</TH>
     <TH>등록일</TH>
-    <TH>기타</TH>
   </TR>
   </thead>
 
@@ -207,19 +206,14 @@ $(document).ready(function(){
             </td>
             <td class="td">${vo.file2}</td>
     <TD>${vo.category}</TD>
-    <TD><A href="./read.do?gno=${vo.gno}">${vo.nickname}</A></TD>
-    <TD><A href="./read.do?gno=${vo.gno}">${vo.title}</A></TD>
+    <TD>${vo.nickname}</A></TD>
+    <TD><A href="./read.do?gno=${vo.gno}" style="color: black;">${vo.title}</A></TD>
     <TD>${vo.hprice}</TD>
     <TD>${vo.deal_way}</TD>
     <TD>${vo.region}</TD>
     <TD>${vo.cnt}</TD>
     <TD>${vo.lev}</TD>
     <TD>${vo.wdate.substring(0,10) }</TD>
-    <TD>
-      <A href="./passwd.do?gno=${vo.gno}"><IMG src='./images/passwd.png' title='패스워드 변경'></A>
-      <A href="./update.do?gno=${vo.gno}"><IMG src='./images/update.png' title='수정'></A>
-      <A href="./delete.do?gno=${vo.gno}"><IMG src='./images/delete.png' title='삭제'></A>
-    </TD>
  </TR>
 </c:forEach>
 </tbody> 

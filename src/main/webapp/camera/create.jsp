@@ -155,7 +155,7 @@
               </div>
             <div class="row">
                <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
-              <input type='text' name='tel' id='tel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
+              <input type='text' name='tel' id='tel'  required="required" value='${tel}' class="col-xs-3 col-lg-3"> 
             </div>
             <div class="row">  
               <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>

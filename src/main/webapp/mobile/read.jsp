@@ -220,8 +220,10 @@
   </div>
   
   <DIV style="text-align: right;">
+  <c:if test="${(mobileVO.userid eq userid)}">
   <button type='button' onclick="location.href='./update.do?mno=${mobileVO.mno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
   <button type='button' onclick="location.href='./delete.do?mno=${mobileVO.mno}&col=${searchDTO.col}&word=${searchDTO.word}'">삭제</button>
+  </c:if>
   <button type='button' onclick="location.href='./list.do'">목록</button>
   
 </DIV>

@@ -27,14 +27,16 @@
 <!-- ----------------------------------------- -->
 <DIV class=container>
 <DIV class='title'>상품등록</DIV>
- 
+ <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data">
+<input type='hidden' name='userid' id='userid' value= '${userid }'/>
+ <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
 <DIV class='content_form'>
 
      <DIV class="">
      <div class="float_l _left">
       <div class="">
-
+        <label class="select need_e" for='category'>분류</label>
        <div>
         <select name = 'category' id="category" class="full">
          <option value = "사무용품" selected="selected">사무용품</option>
@@ -129,7 +131,7 @@
       <div class='line_box' id='ul_box_1'></div>
           <div class="row">
          <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label>
-         <input type="radio" name='product_code' value="중고품" ><span class='radio_text'>중고품</span>
+         <input type="radio" name='product_code' value="중고품" checked="checked"><span class='radio_text'>중고품</span>
          <input type="radio" name='product_code' value="신상품" ><span class='radio_text'>신상품</span>
 
       </div>
@@ -150,25 +152,18 @@
       <div class='inpo'>판매자 정보</div>
         <div class='line_box' id='ul_box_2'></div>
           <div class="row">
-            <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
-            <input type='text' name='tel' id='tel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
-          </div>
-          <div class="row">
-            <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
-            <input type='text' name='nickname' id='nickname' value= '투투' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
+              <input type='text' name='nickname' id='nickname' value= '${nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              </div>
+            <div class="row">
+               <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
+              <input type='text' name='tel' id='tel'  required="required" value='${tel}' class="col-xs-3 col-lg-3"> 
             </div>
-          <div class="row">
-              <label class='col-xs-2 col-lg-2 need' for='userid'>아이디</label>
-              <input type='text' name='userid' id='userid' value='master' required="required" class="col-xs-3 col-lg-3">
-          </div>
-          <div class="row">
-              <label class='col-xs-2 col-lg-2 need' for='passwd'>패스워드</label>
-              <input type='password' name='passwd' id='passwd' value='1234' required="required" class="col-xs-3 col-lg-3">
-          </div>
-          <div class="row">  
-            <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
-            <input type='text' name='email' id='email'  required="required" value='qwlkjdja@naver'  class="col-xs-3 col-lg-3">
-          </div>
+            <div class="row">  
+              <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
+              <input type='text' name='email' id='email'  required="required" value='${email }'  class="col-xs-3 col-lg-3">
+            </div>
+  
   
       <hr/>
 

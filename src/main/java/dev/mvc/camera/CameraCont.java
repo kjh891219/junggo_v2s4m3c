@@ -145,11 +145,13 @@ public class CameraCont {
     
     String userid = session.getAttribute("userid").toString();
     String pwd = session.getAttribute("pwd").toString();
+    String tel = session.getAttribute("tel").toString();
     MemberVO memberVO = cameraDAO.test(userid);
     
     mav.addObject("memberVO", memberVO);
     mav.addObject("userid", userid);
     mav.addObject("pwd", pwd);
+    mav.addObject("tel", tel);
     System.out.println(memberVO);
     
     

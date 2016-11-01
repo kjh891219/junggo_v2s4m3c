@@ -210,8 +210,8 @@ $(document).ready(function(){
             </td>
             <td class="td">${vo.file2}</td>
     <TD class='td'>${livingVO.category}</TD>
-    <TD class='td'><A href="./read.do?lno=${livingVO.lno}">${livingVO.nickname}</A></TD>
-    <TD class='td'><A href="./read.do?lno=${livingVO.lno}">${livingVO.title}</A></TD>
+    <TD class='td'>${livingVO.nickname}</TD>
+    <TD class='td'><A href="./read.do?lno=${livingVO.lno}" style="color: black;">${livingVO.title}</A></TD>
     <TD class='td'>${livingVO.hprice}</TD>
     <TD class='td'>${livingVO.deal_way}</TD>
     <TD class='td'>${livingVO.region}</TD>

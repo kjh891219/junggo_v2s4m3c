@@ -1,11 +1,14 @@
 package dev.mvc.notice;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +32,33 @@ public class NoticeCont {
  private NoticeDAOInter noticeDAO;
 
  @RequestMapping(value = "/notice/create.do", method = RequestMethod.GET)
- public ModelAndView create() {
+ public ModelAndView create(HttpSession session, HttpServletResponse response) throws IOException {
    System.out.println("--> create() GET called.");
    ModelAndView mav = new ModelAndView();
    mav.setViewName("/notice/create"); // /webapp/member/create.jsp
+   
+   response.setCharacterEncoding("UTF-8");
+   response.setContentType("text/html; charset=UTF-8");
+   if (session.getAttribute("userid") == null ){
+     PrintWriter writer = response.getWriter();
+     writer.println
+     ("<script>alert('관리자만 사용이 가능합니다.');" 
+      + "location.href = '../member/login.do';"
+      + "</script>"); 
+     session.setAttribute("url", "notice/list.do");//
+    
+     
+     
+   } else {
+     PrintWriter writer = response.getWriter();
+     writer.println
+     ("<script>" 
+         + "location.href = './create.jsp';"
+         + "</script>");
+     
+   }
+   
+   
    return mav;
  }
 

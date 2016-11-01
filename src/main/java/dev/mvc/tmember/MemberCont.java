@@ -316,6 +316,7 @@ public class MemberCont {
         session.setAttribute("pwd", memberVO.getPwd());
         session.setAttribute("nickname", memberDAO.read_userid(memberVO.getUserid()).getNickname());
         session.setAttribute("email", memberDAO.read_userid(memberVO.getUserid()).getEmail());
+        session.setAttribute("tel", memberDAO.read_userid(memberVO.getUserid()).getTel());
         session.setAttribute("act", act);
         session.setAttribute("mno", mno);
 

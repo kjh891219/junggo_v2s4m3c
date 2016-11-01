@@ -19,7 +19,6 @@ UPDATE member
     UPDATE member 
     SET confirm='Y', act='Y'
     WHERE userid='sol'
-    
 SELECT nickname
     FROM member
     WHERE userid NOT IN ('chanmi');

@@ -212,8 +212,8 @@ $(document).ready(function(){
             </td>
             <td class="td">${gamedeviceVO.file2}</td>
     <TD>${gamedeviceVO.category}</TD>
-    <TD><A href="./read.do?gdno=${gamedeviceVO.gdno}">${gamedeviceVO.nickname}</A></TD>
-    <TD><A href="./read.do?gdno=${gamedeviceVO.gdno}">${gamedeviceVO.title}</A></TD>
+    <TD>${gamedeviceVO.nickname}</TD>
+    <TD><A href="./read.do?gdno=${gamedeviceVO.gdno}" style="color: black;">${gamedeviceVO.title}</A></TD>
     <TD>${gamedeviceVO.hprice}</TD>
     <TD>${gamedeviceVO.deal_way}</TD>
     <TD>${gamedeviceVO.region}</TD>

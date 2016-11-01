@@ -184,7 +184,7 @@ $(document).ready(function(){
   <TR>
     <TD class='td'>${vo.noticeno}</TD>
     <TD class='td'>${vo.nickname}</TD>
-    <TD class='td'><A href="./read.do?noticeno=${vo.noticeno}">${vo.title}</A></TD>
+    <TD class='td'><A href="./read.do?noticeno=${vo.noticeno}" style="color: black;">${vo.title}</A></TD>
     <TD class='td'>${vo.cnt}</TD>
     <TD class='td'>${vo.wdate.substring(0,10) }</TD>
     <TD class='td'>

@@ -54,9 +54,9 @@ public class Live_ReplyCont {
      PrintWriter writer = response.getWriter();
      writer.println   
      ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
-      + "location.href = '../member/login.do';"
+      + "parent.location.href = '../member/login.do';" 
       + "</script>"); 
-     session.setAttribute("url", "/live_reply/list.do?lno="+live_replyVO.getLno());
+     session.setAttribute("url", "living/read.do?lno="+live_replyVO.getLno());
      
    } 
    
@@ -119,9 +119,9 @@ public class Live_ReplyCont {
      PrintWriter writer = response.getWriter();
      writer.println
      ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
-      + "location.href = '../member/login.do';"
+      + "parent.location.href = '../member/login.do';" 
       + "</script>"); 
-     session.setAttribute("url", "/live_reply/list.do?lno="+live_replyVO.getLno());
+     session.setAttribute("url", "live_reply/read.do?lno="+live_replyVO.getLno());
      
    } 
    

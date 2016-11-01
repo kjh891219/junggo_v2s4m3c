@@ -54,9 +54,9 @@ public class Mo_ReplyCont {
       PrintWriter writer = response.getWriter();
       writer.println   
       ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
-       + "location.href = '../member/login.do';"
+       + "parent.location.href = '../member/login.do';"
        + "</script>"); 
-      session.setAttribute("url", "/mo_reply/list.do?mno="+mo_replyVO.getMno());
+      session.setAttribute("url", "mobile/read.do?mno="+mo_replyVO.getMno());
       
     } 
     
@@ -119,9 +119,9 @@ public class Mo_ReplyCont {
       PrintWriter writer = response.getWriter();
       writer.println
       ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
-       + "location.href = '../member/login.do';"
+       + "parent.location.href = '../member/login.do';"
        + "</script>"); 
-      session.setAttribute("url", "/mo_reply/list.do?mno="+mo_replyVO.getMno());
+      session.setAttribute("url", "mobile/list.do?mno="+mo_replyVO.getMno());
       
     } 
     

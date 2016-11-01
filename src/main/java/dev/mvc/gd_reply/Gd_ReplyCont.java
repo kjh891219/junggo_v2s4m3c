@@ -54,9 +54,9 @@ public class Gd_ReplyCont {
      PrintWriter writer = response.getWriter();
      writer.println   
      ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
-      + "location.href = '../member/login.do';"
+         + "parent.location.href = '../member/login.do';" 
       + "</script>"); 
-     session.setAttribute("url", "/gd_reply/list.do?gdno="+gd_replyVO.getGdno());
+     session.setAttribute("url", "gamedevice/read.do?gdno="+gd_replyVO.getGdno());
      
    } 
    
@@ -119,9 +119,9 @@ public class Gd_ReplyCont {
      PrintWriter writer = response.getWriter();
      writer.println
      ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
-      + "location.href = '../member/login.do';"
+      + "parent.location.href = '../member/login.do';" 
       + "</script>"); 
-     session.setAttribute("url", "/gd_reply/list.do?gdno="+gd_replyVO.getGdno());
+     session.setAttribute("url", "gamedevice/read.do?gdno="+gd_replyVO.getGdno());
      
    } 
    

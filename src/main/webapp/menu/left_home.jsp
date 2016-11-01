@@ -76,7 +76,7 @@
                <a class='left_list' onmouseenter="ShowCategoryLayer(3)"  id="left_list_8" >스포츠·리빙</a>
                <div class='left_detail'>
                      <dl>
-                        <dt><a href='#' class='menu_style'>생활용품</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/living/list.do' class='menu_style'>생활용품</a></dt>
                         <dt><a href='#' class='menu_style'>스포츠</a></dt>
                      </dl>
                </div>
