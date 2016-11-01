@@ -69,10 +69,7 @@ public class MobileCont {
     MultipartFile file8MF = mobileVO.getFile8MF();
     MultipartFile file10MF = mobileVO.getFile10MF();
     size2 = file2MF.getSize();
-    size4 = file4MF.getSize();
-    size6 = file6MF.getSize();
-    size8 = file8MF.getSize();
-    size10 = file10MF.getSize();
+
     // System.out.println("file2MF.getSize(): " + file2MF.getSize());
     if (file2MF.getSize() > 0) {
       file2 = Upload.saveFileSpring(file2MF, upDir);
@@ -93,7 +90,8 @@ public class MobileCont {
     mobileVO.setFile2(file2); // 원본 이미지
     mobileVO.setSize2(size2); // 원본 이미지
    
-    
+    size4 = file4MF.getSize();
+
     // -------------------------------------------------------------------
     if (file4MF.getSize() > 0) {
       file4 = Upload.saveFileSpring(file4MF, upDir);
@@ -115,7 +113,8 @@ public class MobileCont {
     mobileVO.setSize4(size4); // 원본 이미지
     
     
-    
+    size6 = file6MF.getSize();
+
     // -------------------------------------------------------------------
     if (file6MF.getSize() > 0) {
       file6 = Upload.saveFileSpring(file6MF, upDir);
@@ -138,7 +137,8 @@ public class MobileCont {
     
     
     
-    
+    size8 = file8MF.getSize();
+
     // -------------------------------------------------------------------
     if (file8MF.getSize() > 0) {
       file8 = Upload.saveFileSpring(file8MF, upDir);
@@ -162,7 +162,7 @@ public class MobileCont {
     // -------------------------------------------------------------------
     
     
-    
+    size10 = file10MF.getSize();
     if (file10MF.getSize() > 0) {
       file10 = Upload.saveFileSpring(file10MF, upDir);
       mobileVO.setFile10(file10); // 전송된 파일명 저장

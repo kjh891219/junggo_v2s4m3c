@@ -100,6 +100,7 @@ DELETE FROM mobile
 WHERE mno = 1;
 
 5.¸ñ·Ï
+select * from mobile;
 SELECT mno,  category , nickname, passwd, deal_way, deal_code, 
  product_code, hprice, region, tel, email, quantity, title, content,
  purc_date, wdate, cnt, telecome ,userid
