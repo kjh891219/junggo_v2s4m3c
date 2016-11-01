@@ -8,11 +8,15 @@
 <meta charset="UTF-8"> 
 <title></title> 
 
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
-<script type="text/JavaScript"
-          src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-<script type="text/javascript" src="../js/tool.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link href="./css/style.css" rel="Stylesheet" type="text/css">
 
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 
@@ -21,43 +25,142 @@
 <script type="text/JavaScript">
   window.onload=function(){
    CKEDITOR.replace('content');
-   
-   find('email_dns').addEventListener('change', email_dns_p);
+
 
   };
 
-  function email_dns_p(){
-    // alert('변경됨 ' + find('email_dns').value);
-    // find('email').value = find('email_dns').value;
-    var email = find('email').value;
-    var position = email.indexOf('@'); // test1@mail.com
-    if (position >= 0){
-      email = email.substring(0, position); // test1
-    }
-    var email_dns = find('email_dns').value;
-    if (email_dns == 'none'){ // 직접 입력
-      find('email').value = email + '@';
-      find('email').focus(); // 입력 커서 이동
-    }else{
-      find('email').value = email + '@' + email_dns;
-    }
-  }
   
   </script>
+
+<style type="text/css">
+
+/* 전체 스타일 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  *{ 
+    font-family: 'Nanum Gothic', serif;
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;  
+  }
+  
+  .label_1{
+    color:black;
+  }
+  
+  a{
+   color:white;
+  }
+  
+/* left를 제외한 스타일 */
+  body{
+   width:80%;
+   margin-left:130px;
+  }
+  
+/* top 스타일 */
+ .top_select{
+     color: black; 
+ }
+  header{ 
+    height: 35px; 
+    background-color: #e6e6e6; 
+    font-family: 맑은 고딕;  
+    text-align: center;
+  }
+  .member-list {
+    margin:5px 8px 0 0;
+  
+  }
+  
+ .member-list li {
+    float:left;
+    list-style: none;
+    padding-left:8px;
+  }
+ .member-list li a {
+    font-size:12px;
+  }
+
+/* left */  
+
+   /* 로고 */
+   #logo {
+      width:70px;
+      margin:20px auto;
+   }
+   #logo img {
+      width:70px;
+   }
+   
+  #main_left {
+    position:fixed; 
+    top:0;
+    left:0;
+  }
+  
+  #main_left_left{
+    width:130px; 
+    height:100%;
+    float:left;
+    color:white;
+    background-color: #737373;
+  }
+  
+   #main_left_detail{
+      display:none;
+      position:absolute;
+      left:130px;
+      width:130px;
+      height:100%;
+      
+      background-color:#575757;
+   }
+  
+  .left_list_form {
+    padding:10px;
+  }
+  
+  .left_list{
+    padding-bottom:8px;
+  }
+
+/* index 안에 있는 태그 스타일 */
+ .list_tag{
+   color : black;
+ }
+   .container{
+      width:100%;
+   }
+   
+   nav ul li {
+      list-style:none;
+      margin-left: 20px;
+   }
+   nav {
+      margin-top:30px;
+   }
+   footer{
+      text-align: center;
+   }
+ 
+ 
+</style>
 
 
 </head> 
 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
-<jsp:include page="/menu/top.jsp" flush='false' />
+<body>
+ <div class="container">
+     <jsp:include page="/menu/top.jsp" flush='false' />
+     <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
      
   <div class='content_menu' style='width: 90%;'>
-    <A href='../usedcar/list.do'>게시판 목록</A> > 
+    <A href='../usedcar/list.do' class='top_select'>게시판 목록</A> > 
 <%--     <A href='./list.do?u_no=${usedcarVO.u_no }'>${usedcarVO.title }</A>｜
     <A href='./create.do?u_no=${usedcarVO.u_no }'>중고차 등록</A>｜ --%>
-    <A href="javascript:location.reload();">새로고침</A>
+    <A href="javascript:location.reload();" class='top_select'>새로고침</A>
   </div>
   
   <DIV class='content' style='width: 90%;'>
@@ -70,21 +173,21 @@
       <ul>
        <li>
 
-         <label class='label' for='passwd'>비밀번호</label>
+         <label class='label_1' for='passwd'>비밀번호</label>
         <input type='password' name='passwd' id='passwd' value=' ${usedcarVO.passwd}' required="required"><br><br>
-         <label class='label' for='nickname'>닉네임</label>
+         <label class='label_1' for='nickname'>닉네임</label>
         <input type='text' name='nickname' id='nickname' value=' ${usedcarVO.nickname} '  required="required">
        </li>
        
        <li>
-        <label class='label' for='category'>카테고리 코드</label>
+        <label class='label_1' for='category'>카테고리 코드</label>
         <select name='category' id='category'>
           <option value="hyundai" selected="selected">HYUNDAI</option>
           <option value="kia" >KIA</option>
           <option value="chevrolet" >쉐보레</option>
           <option value="benz" >BENZ</option>
         </select>
-        <label class='label' for='deal_code'>거래구분 코드</label>
+        <label class='label_1' for='deal_code'>거래구분 코드</label>
         <select name='deal_code' id='deal_code'>
           <option value="sale" selected="selected">팝니다</option>
           <option value="buy">삽니다</option>
@@ -92,7 +195,7 @@
       </li>
        
        <li>
-        <label class='label' for='region'>거래 지역</label>
+        <label class='label_1' for='region'>거래 지역</label>
         <select name='region' id='region' >
            <option value="서울" selected="selected">서울</option>
            <option value="인천">인천</option>
@@ -111,7 +214,7 @@
            <option value="충북">충북</option>
            <option value="제주">제주</option>
         </select>
-          <label class='label' for='deal_way'>거래방식</label>
+          <label class='label_1' for='deal_way'>거래방식</label>
         <select name='deal_way' id='deal_way'>
           <option value="field" selected="selected">현장거래</option>
           <option value="delivery">택배</option>
@@ -119,15 +222,15 @@
       </li>
        
         <li>
-        <label class='label' for='h_price'>희망가격</label>
+        <label class='label_1' for='h_price'>희망가격</label>
         <input type='text' name='h_price' id='h_price' value='${usedcarVO.h_price }' >
       </li>
       
       <li>
-        <label class='label' for='purc_date'>구입시기</label>
+        <label class='label_1' for='purc_date'>구입시기</label>
         <input type='text' name='purc_date' id='purc_date' value=' ${usedcarVO.purc_date }' >
        
-       <label class='label' for='product_code'>거래방식</label>
+       <label class='label_1' for='product_code'>거래방식</label>
         <select name='product_code' id='product_code'>
           <option value="old" selected="selected">중고</option>
           <option value="new">신상</option>
@@ -135,7 +238,7 @@
       </li>
        
        <li>
-        <label class='label' for='title'>제목</label>
+        <label class='label_1' for='title'>제목</label>
         <input type='text' name='title' id='title' size='50' value=' ${usedcarVO.title}' ' required="required">
       </li>
       
@@ -145,29 +248,50 @@
           <textarea class="form-control" name='content' id='content'  rows='10' style='width: 100%;'>${usedcarVO.content}</textarea>
         </div>
       </li>
+
+       <li>
+      <label for="content" >등록된 파일1</label>
+        <div>
+          <c:set var='file1' value="${fn:toLowerCase(usedcarVO.file1)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file1, '.jpg')}">
+              <IMG src='./storage/${usedcarVO.thumb}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file1, '.gif')}">
+              ${usedcarVO.file1 } 
+            </c:when>
+            <c:when test="${fn:endsWith(file1, '.png')}">
+              ${usedcarVO.file1 } 
+            </c:when>
+            <c:when test="${usedcarVO.file1.length() > 0}">
+              ${usedcarVO.file1 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </li>
       
       <li>
-      <label for="file2MF" >업로드 파일</label>
+      <label for="file1MF" >업로드 파일</label>
         <div>
-          <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
+          <input type="file" class="form-control" name='file1MF' id='file1MF' size='40' >
           <br>
           Preview(미리보기) 이미지 자동 생성됩니다.
         </div>
       </li>
       
-      <li>
-      <label for="content" >등록된 파일</label>
+     <li>
+      <label for="content" >등록된 파일2</label>
         <div>
           <c:set var='file2' value="${fn:toLowerCase(usedcarVO.file2)}" />
           <c:choose>
             <c:when test="${fn:endsWith(file2, '.jpg')}">
-              <IMG src='./storage/${usedcarVO.file1}'>
+              ${usedcarVO.file2}
             </c:when>
             <c:when test="${fn:endsWith(file2, '.gif')}">
-              <IMG id='file2'  src='./storage/${usedcarVO.file2}'>
+              ${usedcarVO.file2}
             </c:when>
             <c:when test="${fn:endsWith(file2, '.png')}">
-              <IMG id='file2'  src='./storage/${usedcarVO.file2}'>
+             ${usedcarVO.file2}
             </c:when>
             <c:when test="${usedcarVO.file2.length() > 0}">
               ${usedcarVO.file2 } 
@@ -176,25 +300,111 @@
         </div>
       </li>
       
-        <li>
-        <label for='email'>E-mail</label><br>
-        <input type='email' name='email' id='email' required="required"  value = ' ${usedcarVO.email }' style='width: 35%;'>
-         <select name='email_dns'' id='email_dns'>
-          <option value='none' selected="selected">직접 입력</option>
-          <option value="daum.net" >daum.net</option>
-          <option value='gmail.com'>gmail.com</option>
-          <option value="naver.com" >naver.com</option>
-          <option value='nate.com'>nate.com</option>
-          <option value="google.com" >google.com</option>
-          <option value="nate.com" >nate.com</option>
-        </select>
-      </li>
-    <%--   
       <li>
-        <label for='tel'>Tel</label><br>
-        <input type='text' name='tel' id='tel' size='14' value=' ${usedcarVO.tel } ' required="required">
-      </li> --%>
+      <label for="file2MF" >업로드 파일2</label>
+        <div>
+          <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
+          <br>
+          Preview(미리보기) 이미지 자동 생성됩니다.
+        </div>
+      </li>
+     
       
+     <li>
+      <label for="content" >등록된 파일3</label>
+        <div>
+          <c:set var='file3' value="${fn:toLowerCase(usedcarVO.file3)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file3, '.jpg')}">
+              ${usedcarVO.file3 } 
+            </c:when>
+            <c:when test="${fn:endsWith(file3, '.gif')}">
+              ${usedcarVO.file3 } 
+            </c:when>
+            <c:when test="${fn:endsWith(file3, '.png')}">
+              ${usedcarVO.file3 } 
+            </c:when>
+            <c:when test="${usedcarVO.file3.length() > 0}">
+              ${usedcarVO.file3 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </li>
+      
+      <li>
+      <label for="file3MF" >업로드 파일3</label>
+        <div>
+          <input type="file" class="form-control" name='file3MF' id='file3MF' size='40' >
+          <br>
+          Preview(미리보기) 이미지 자동 생성됩니다.
+        </div>
+      </li>
+      
+      <li>
+      <label for="content" >등록된 파일4</label>
+        <div>
+          <c:set var='file4' value="${fn:toLowerCase(usedcarVO.file4)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file4, '.jpg')}">
+              ${usedcarVO.file4 } 
+            </c:when>
+            <c:when test="${fn:endsWith(file4, '.gif')}">
+              ${usedcarVO.file4 } 
+            </c:when>
+            <c:when test="${fn:endsWith(file4, '.png')}">
+              ${usedcarVO.file4 } 
+            </c:when>
+            <c:when test="${usedcarVO.file4.length() > 0}">
+              ${usedcarVO.file4 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </li>
+      
+      <li>
+      <label for="file4MF" >업로드 파일4</label>
+        <div>
+          <input type="file" class="form-control" name='file4MF' id='file4MF' size='40' >
+          <br>
+          Preview(미리보기) 이미지 자동 생성됩니다.
+        </div>
+      </li>
+      
+            <li>
+      <label for="content" >등록된 파일5</label>
+        <div>
+          <c:set var='file5' value="${fn:toLowerCase(usedcarVO.file5)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file5, '.jpg')}">
+              ${usedcarVO.file5 } 
+            </c:when>
+            <c:when test="${fn:endsWith(file5, '.gif')}">
+              ${usedcarVO.file5 } 
+            </c:when>
+            <c:when test="${fn:endsWith(file5, '.png')}">
+              ${usedcarVO.file5 } 
+            </c:when>
+            <c:when test="${usedcarVO.file5.length() > 0}">
+              ${usedcarVO.file5 } 
+            </c:when>
+          </c:choose>
+        </div>
+      </li>
+      
+      <li>
+      <label for="file5MF" >업로드 파일5</label>
+        <div>
+          <input type="file" class="form-control" name='file5MF' id='file5MF' size='40' >
+          <br>
+          Preview(미리보기) 이미지 자동 생성됩니다.
+        </div>
+      </li>
+      
+      <li>
+        <label for='email'>E-mail</label><br>
+        <input type='text' name='email' id='email'  required="required" value='${usedcarVO.email }' class="form-control-lg-10-lg-10-lg-10">
+      </li>
+
         </ul> 
         </div>
         
@@ -206,7 +416,7 @@
     </FORM>
   </DIV>
 
-
+</div>
      <jsp:include page="/menu/bottom.jsp" flush='false' />     
 
 </body>

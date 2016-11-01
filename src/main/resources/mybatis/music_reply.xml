@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "music_reply">
+   
+  <!-- 등록 --> 
+  <insert id="create" parameterType="Music_replyVO">
+   insert into MUSIC_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, ctno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from music_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from music_reply),
+   0, 0, #{ctno}, #{userid})
+  </insert> 
+  
+  <select id="music_replyList" resultType="Music_replyVO"  parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, rdate, ctno, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, rdate, ctno, userid from MUSIC_REPLY order by grpno desc, ansnum asc)
+    WHERE ctno=#{ctno}
+  </select>
+  
+  
+  
+  <!-- **********       답변 관련 시작       ********** -->
+  <!-- 답변 순서 변경 -->
+  <update id='updateAnsnum' parameterType="Music_replyVO">
+    UPDATE MUSIC_REPLY
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+  
+  
+  
+  <select id="read" resultType="Music_replyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, rdate, ctno, userid 
+    from MUSIC_REPLY
+    WHERE rno=#{rno}
+  </select> 
+ 
+ <insert id="reply" parameterType="Music_replyVO">
+    insert into MUSIC_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, ctno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from music_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{ctno}, #{userid})
+  </insert>
+  
+    <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+   delete from music_reply where rno in (  
+  select a.rno from music_reply a, (select ctno, grpno, indent, rno, ansnum from music_reply where rno = #{rno}) b
+  where a.ctno = b.ctno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+  
+         
+</mapper>

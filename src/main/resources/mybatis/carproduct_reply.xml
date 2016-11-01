@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "carproduct_reply">
+   
+  <!-- 등록 --> 
+  <insert id="create" parameterType="Carproduct_replyVO">
+   insert into CARPRODUCT_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, p_no, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from carproduct_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from carproduct_reply),
+   0, 0, #{p_no}, #{userid})
+  </insert> 
+  
+  <select id="carproduct_replyList" resultType="Carproduct_replyVO"  parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, rdate, p_no, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, rdate, p_no, userid from CARPRODUCT_REPLY order by grpno desc, ansnum asc)
+    WHERE p_no=#{p_no}
+  </select>
+  
+  
+  
+  <!-- **********       답변 관련 시작       ********** -->
+  <!-- 답변 순서 변경 -->
+  <update id='updateAnsnum' parameterType="Carproduct_replyVO">
+    UPDATE CARPRODUCT_REPLY
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+  
+  
+  
+  <select id="read" resultType="Carproduct_replyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, rdate, p_no, userid 
+    from CARPRODUCT_REPLY
+    WHERE rno=#{rno}
+  </select> 
+ 
+ <insert id="reply" parameterType="Carproduct_replyVO">
+    insert into CARPRODUCT_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, p_no, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from carproduct_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{p_no}, #{userid})
+  </insert>
+  
+    <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+   delete from carproduct_reply where rno in (  
+  select a.rno from carproduct_reply a, (select p_no, grpno, indent, rno, ansnum from carproduct_reply where rno = #{rno}) b
+  where a.p_no = b.p_no and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+  
+         
+</mapper>

@@ -9,15 +9,31 @@
 <meta charset="UTF-8"> 
 <title></title> 
  
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
-<script type="text/JavaScript"
-          src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-<script type="text/javascript" src="../js/tool.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link href="./css/style.css" rel="Stylesheet" type="text/css">
+
 <script type="text/javascript">
 $(function(){
   $('#panel_frm').hide();
 });
+
+  function profile(nickname, userid){
+    var url = '../member/profile.do?nickname='+nickname;
+    var encodedInputString=escape(url);
+    var win = window.open(url, '프로필', 'width=617.5px, height=600px');
+    
+    var x = (screen.width - 500) / 2;
+    var y = (screen.height - 440) / 2;
+    
+    win.moveTo(x, y); // 화면 가운데로 이동
+  }
  
 function create(){
   $('#panel_frm').show();
@@ -46,17 +62,130 @@ function update(codeno, sort, seqno){
 
 
 </script>
+<style type="text/css">
+
+/* 전체 스타일 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  *{ 
+    font-family: 'Nanum Gothic', serif;
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;  
+  }
+  
+  a{
+   color:white;
+  }
+  
+/* left를 제외한 스타일 */
+  body{
+   width:80%;
+   margin-left:130px;
+  }
+  
+/* top 스타일 */
+ .top_select{
+     color: black; 
+ }
+  header{ 
+    height: 35px; 
+    background-color: #e6e6e6; 
+    font-family: 맑은 고딕;  
+    text-align: center;
+  }
+  .member-list {
+    margin:5px 8px 0 0;
+  
+  }
+  
+ .member-list li {
+    float:left;
+    list-style: none;
+    padding-left:8px;
+  }
+ .member-list li a {
+    font-size:12px;
+  }
+
+/* left */  
+
+   /* 로고 */
+   #logo {
+      width:70px;
+      margin:20px auto;
+   }
+   #logo img {
+      width:70px;
+   }
+   
+  #main_left {
+    position:fixed; 
+    top:0;
+    left:0;
+  }
+  
+  #main_left_left{
+    width:130px; 
+    height:100%;
+    float:left;
+    color:white;
+    background-color: #737373;
+  }
+  
+   #main_left_detail{
+      display:none;
+      position:absolute;
+      left:130px;
+      width:130px;
+      height:100%;
+      
+      background-color:#575757;
+   }
+  
+  .left_list_form {
+    padding:10px;
+  }
+  
+  .left_list{
+    padding-bottom:8px;
+  }
+
+/* index 안에 있는 태그 스타일 */
+ .list_tag{
+   color : black;
+ }
+   .container{
+      width:100%;
+   }
+   
+   nav ul li {
+      list-style:none;
+      margin-left: 20px;
+   }
+   nav {
+      margin-top:30px;
+   }
+   footer{
+      text-align: center;
+   }
+ 
+ 
+</style>
+
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
-<jsp:include page="/menu/top.jsp" flush='false' />
+<body>
+<div class="container">
+     <jsp:include page="/menu/top.jsp" flush='false' />
+     <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
  <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
- <A href='../carproduct/list.do'>자동차 용품 목록</A>>
- <A href='./create.do?'>등록</A>｜
- <A href="javascript:location.reload();">새로고침</A>
-      <select name="col"> 
+    <input type='hidden' name='userid' id='userid' value='${carproductVO.userid}'>
+ <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>자동차 용품 목록</A>>
+ <A href='./create.do?' class='top_select'>등록</A>｜
+ <A href="javascript:location.reload();"  class='top_select'>새로고침</A>
+      <select name="col">  
         <option value="">선택</option> 
         <option value="title" ${searchDTO.col == "title" ? "selected=selected" : "" }>제목</option> 
         <option value="category" ${searchDTO.col == "category" ? "selected=selected" : "" }>카테고리</option> 
@@ -100,7 +229,8 @@ function update(codeno, sort, seqno){
     <col style='width: 10%;'/>
     <col style='width: 10%;'/>
     <col style='width: 10%;'/>
-    <col style='width: 10%;'/>
+    <col style='width: 5%;'/>
+    <col style='width: 5%;'/>
     <col style='width: 10%;'/>
     <col style='width: 10%;'/>
     <col style='width: 5%;'/>
@@ -113,6 +243,7 @@ function update(codeno, sort, seqno){
     <TH class='th'>번호</TH>
     <TH class='th'>제목</TH>
     <TH class='th'>카테고리</TH>
+    <TH class='th'>이미지</TH>
     <TH class='th'>거래구분</TH>
     <TH class='th'>거래지역</TH>
     <TH class='th'>거래방식</TH>
@@ -128,14 +259,21 @@ function update(codeno, sort, seqno){
   <TR>
     <TD class='td'>${vo.p_no}</TD>
     <TD class='td'>
-    <a href="./read.do?p_no=${vo.p_no}">${vo.title}</a>
+    <a href="./read.do?p_no=${vo.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"  class='list_tag' >${vo.title}</a>
     </TD>
     <TD class='td'>${vo.category}</TD>
+    <TD class='td'> 
+       <c:if test="${vo.thumb.length() > 0}">
+         <IMG src='./storage/${vo.thumb}' >
+       </c:if>
+   </TD>
     <TD class='td'>${vo.deal_code}</TD>
     <TD class='td'>${vo.region}</TD>
     <TD class='td'>${vo.deal_way}</TD>
     <TD class='td'>${vo.h_price}</TD>
-    <TD class='td'>${vo.nickname}</TD>
+    <TD class='td'>
+    <A href="javascript: profile(' ${vo.nickname}' ,' ${vo.nickname}') ;" class='list_tag' >${vo.nickname}</A> 
+    </TD>
     <TD class='td'>${vo.product_code}</TD>
     <TD class='td'>${vo.p_cnt}</TD>
     <TD class='td'>${vo.wdate}</TD>
@@ -155,6 +293,7 @@ function update(codeno, sort, seqno){
 
   <DIV class='bottom'>${paging}</DIV>
 <!-- -------------------------------------------- -->
+</div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 <!-- -------------------------------------------- -->

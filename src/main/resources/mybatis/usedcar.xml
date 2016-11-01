@@ -5,41 +5,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- Oracle 기반 -->
  <mapper namespace = "usedcar">
-  <insert id="create" parameterType="UsedcarVO">
+ <!-- 입력 -->
+   <insert id="create" parameterType="UsedcarVO">
     INSERT INTO usedcar(u_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, file1, file2, size2, email, tel, wdate)
+                                     h_price, purc_date, region, title, content, thumb, file1, size1, 
+                                     file2, size2, file3, size3, file4, size4, file5, size5, email, tel, wdate)
    VALUES ((SELECT NVL(MAX(u_no), 0)+1 as u_no FROM usedcar), #{nickname}, #{userid}, #{passwd}, #{category},
                                    #{deal_way},#{deal_code}, #{product_code}, #{h_price} , #{purc_date},#{region},
-                                   #{title},#{content},#{file1},#{file2},#{size2},#{email},#{tel}, sysdate)
+                                   #{title},#{content},#{thumb},#{file1},#{size1}, #{file2},#{size2},
+                                   #{file3}, #{size3}, #{file4}, #{size4}, #{file5}, #{size5}, #{email},#{tel}, sysdate)
   </insert>
-  
-     <!-- 검색을하지 않는 전체 목록 -->
-<!--   <select id="list" resultType="UsedcarVO">
-    SELECT u_no, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, u_cnt, wdate
-    FROM usedcar
-    ORDER BY u_no ASC
-  </select> -->
   
    <!-- 수정 -->
     <update id="update" parameterType="UsedcarVO">
-    UPDATE usedcar 
+    UPDATE usedcar
     SET passwd=#{passwd}, nickname=#{nickname}, title=#{title}, category=#{category}, deal_code=#{deal_code},
-         region=#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, content=#{content},
-         h_price=#{h_price}, product_code=#{product_code}, file1=#{file1}, file2=#{file2}, size2=#{size2},
-         email=#{email}
+         region=#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, content=#{content}, h_price=#{h_price}, 
+         product_code=#{product_code}, thumb=#{thumb}, file1=#{file1}, size1=#{size1}, file2=#{file2},
+         size2=#{size2}, file3=#{file3}, size3=#{size3}, file4=#{file4}, size4=#{size4},
+         file5=#{file5}, size5=#{size5}, email=#{email}
     WHERE u_no=#{u_no}
   </update> 
   
 <!--조회  --> 
    <select id="read" resultType="UsedcarVO" parameterType="int">
-    SELECT u_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, file1, file2, size2, email, tel, wdate
+   SELECT u_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
+                                     h_price, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     file3, size3, file4, size4, file5, size5, email, tel, wdate
     FROM usedcar
     WHERE u_no=#{u_no}
   </select>  
   
+      <!-- 테스트  -->
+  <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member 
+    where userid=#{userid}
+    </select>
+  
   <!-- 조회수 증가 -->
-    <update id="increaseCnt" parameterType="UsedcarVO">
+    <update id="increaseCnt" parameterType="int">
     UPDATE usedcar
     SET u_cnt = u_cnt + 1
     WHERE u_no=#{u_no}
@@ -54,8 +59,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
    <!-- ********** 검색에 따른 변경 시작 ********** -->
   <select id="list2" resultType="UsedcarVO" parameterType="HashMap" >
-    SELECT u_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, file1, file2, size2, email, tel, wdate   
+   SELECT u_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
+                                     h_price, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     file3, size3, file4, size4, file5, size5, email, tel, wdate, u_cnt   
     FROM usedcar
     <choose>
       <when test="col == 'title'">
@@ -92,19 +98,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          WHERE title LIKE '%' || #{word} || '%'   OR category LIKE '%' || #{word} || '%' 
       </when>     
     </choose>
-  </select>        
- 
+  </select>
   <!-- ********** 검색에 따른 변경 종료 ********** -->
 
   
   
   <!-- ********** 페이징에 따른 변경 시작 ********** -->
- <select id="list" resultType="UsedcarVO" parameterType="HashMap" >
- SELECT  u_no, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, u_cnt, wdate, r
+<select id="list" resultType="UsedcarVO" parameterType="HashMap" >
+ SELECT  u_no, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, u_cnt, wdate, thumb, r
   FROM(
-           SELECT  u_no, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, u_cnt, wdate, rownum as r
+           SELECT  u_no, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, u_cnt, wdate, thumb,  rownum as r
            FROM(
-                    SELECT u_no, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, u_cnt, wdate
+                    SELECT u_no, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, u_cnt, wdate, thumb 
                     FROM usedcar
                 <choose>
                     <when test="col == 'title'">
@@ -125,7 +130,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          )
            
     WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
-  </select>   
+  </select> 
+
 
   <!-- ********** 페이징에 따른 변경 종료 ********** -->
   

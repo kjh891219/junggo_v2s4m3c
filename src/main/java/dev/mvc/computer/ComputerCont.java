@@ -1,11 +1,14 @@
 package dev.mvc.computer;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.camera.CameraVO;
 import dev.mvc.computer.ComputerVO;
 import web.tool.Paging;
 import web.tool.SearchDTO;
@@ -41,18 +45,47 @@ public class ComputerCont {
    * @param opentype
    *          : U(수정), R(등록)
    * @return
+   * @throws IOException 
    */
   @RequestMapping(value = "/computer/create.do", method = RequestMethod.GET)
-  public ModelAndView create(int ctno, String opentype) {
+  public ModelAndView create(int ctno, String opentype, HttpServletResponse response, HttpSession session) throws IOException {
     System.out.println("--> create() GET called");
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/computer/create"); // /webapp/computer/create.jsp
-    if (opentype.equals("U")) {
-      System.out.println("--> create() GET called [U].");
-      mav.addObject("computerVO", computerDAO.read(ctno));
+    
+    
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+    if (session.getAttribute("userid") == null ){
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
+       + "location.href = '../member/login.do';"
+       + "</script>"); 
+      session.setAttribute("url", "computer/list.do");//
+     
+      
+      
+    } else {
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>" 
+          + "location.href = './create.jsp';"
+          + "</script>");
+      
     }
-
-    mav.addObject("opentype", opentype);
+    
+    String userid = session.getAttribute("userid").toString();
+    String pwd = session.getAttribute("pwd").toString(); 
+    String email = session.getAttribute("email").toString();
+    String nickname = session.getAttribute("nickname").toString();
+    
+    
+    mav.addObject("userid", userid);
+    mav.addObject("pwd", pwd);
+    mav.addObject("nickname", nickname);
+    mav.addObject("email", email);
+    
     return mav;
   }
   
@@ -74,31 +107,6 @@ public class ComputerCont {
     ArrayList<String> links = new ArrayList<String>();
     mav.setViewName("/computer/message"); // /webapp/computer/message.jsp
 
-    /* 진입 모드 Log */
-    if (opentype.equals("U")) {
-      System.out.println("--> create() POST 수정 모드.");
-    } else if (opentype.equals("R")) {
-      System.out.println("--> create() POST 등록 모드.");
-    }
-
-    /* 수정인 경우 비밀번호 체크 */
-    if (opentype.equals("U")) {
-      System.out.println("--> create() POST 수정 모드.");
-
-      HashMap<String, Object> hashMap = new HashMap<String, Object>();
-      hashMap.put("ctno", computerVO.getCtno());
-      hashMap.put("passwd", computerVO.getPasswd());
-
-      if (computerDAO.passwordCheck(hashMap) == 0) {
-        mav.setViewName("/computer/message"); // /webapp/computer/message.jsp
-        msgs.add("비밀번호가 틀렸습니다.");
-        links.add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
-        links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
-        mav.addObject("msgs", msgs);
-        mav.addObject("links", links);
-
-      }
-    }
 
     // -------------------------------------------------------------------
     // 파일 전송 관련
@@ -118,112 +126,6 @@ public class ComputerCont {
     MultipartFile file4MF = computerVO.getFile4MF();
     MultipartFile file5MF = computerVO.getFile5MF();
     
-    if (opentype.equals("U")) {
-      
-      ComputerVO oldVO = computerDAO.read(computerVO.getCtno());
-      /*파일 저장 1*/ 
-      if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
-        file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
-        computerVO.setFile1(file1); // 새로운 파일명 저장
-        computerVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
-
-        // -------------------------------------------------------------------
-        // Thumb 파일 생성
-        // -------------------------------------------------------------------
-        if (Tool.isImage(file1)) { // 이미지인지 검사
-          Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-          thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
-        } else {
-          thumb = "";
-        }
-        // -------------------------------------------------------------------
-
-      } else {
-        thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
-        file1 = oldVO.getFile1();
-      }
-      computerVO.setThumb(thumb);
-      computerVO.setFile1(file1);
-      
-      /*파일 저장 file1MF*/ 
-      if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
-        file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
-        computerVO.setFile1(file1); // 새로운 파일명 저장
-        computerVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
-
-        // -------------------------------------------------------------------
-        // Thumb 파일 생성
-        // -------------------------------------------------------------------
-        if (Tool.isImage(file1)) { // 이미지인지 검사
-          Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-          thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
-        } else {
-          thumb = "";
-        }
-        // -------------------------------------------------------------------
-
-      } else {
-        thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
-        file1 = oldVO.getFile1();
-      }
-      computerVO.setThumb(thumb);
-      computerVO.setFile1(file1);
-      
-      /*파일 저장 file2MF */  
-      if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile2());  // 기존 등록된 파일 삭제
-        file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
-        computerVO.setFile2(file2);  // 새로운 파일명 저장
-        computerVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
-      
-      } else {
-        file2 = oldVO.getFile2();
-      }
-     
-      computerVO.setFile2(file2);
-      
-      /*파일 저장 file3MF */  
-      if (file3MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile3());  // 기존 등록된 파일 삭제
-        file3 = Upload.saveFileSpring(file3MF, upDir); // 새로운 파일 저장
-        computerVO.setFile3(file3);  // 새로운 파일명 저장
-        computerVO.setSize3(file3MF.getSize()); // 새로운 크기 저장
-      
-      } else {
-        file3 = oldVO.getFile3();
-      }
-     
-      computerVO.setFile3(file3);
-      
-      /*파일 저장 file4MF */  
-      if (file4MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile4());  // 기존 등록된 파일 삭제
-        file4 = Upload.saveFileSpring(file4MF, upDir); // 새로운 파일 저장
-        computerVO.setFile4(file4);  // 새로운 파일명 저장
-        computerVO.setSize4(file4MF.getSize()); // 새로운 크기 저장
-      
-      } else {
-        file4 = oldVO.getFile4();
-      }
-     
-      computerVO.setFile4(file4);
-      
-      
-      /*파일 저장 file5MF */  
-      if (file5MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
-        Tool.deleteFile(upDir, oldVO.getFile5());  // 기존 등록된 파일 삭제
-        file5 = Upload.saveFileSpring(file5MF, upDir); // 새로운 파일 저장
-        computerVO.setFile5(file5);  // 새로운 파일명 저장
-        computerVO.setSize5(file5MF.getSize()); // 새로운 크기 저장
-      
-      } else {
-        file5 = oldVO.getFile5();
-      }
-     
-      computerVO.setFile5(file5);
-    } else {
       /*파일 저장 file1MF */  
       if (file1MF.getSize() > 0) {
         file1 = Upload.saveFileSpring(file1MF, upDir);
@@ -280,26 +182,20 @@ public class ComputerCont {
  
       computerVO.setFile5(file5); // 원본 이미지
 
+
+    if (computerDAO.create(computerVO) == 1) {
+      msgs.add("등록 처리 완료했습니다.");
+      msgs.add("감사합니다.");
+      links.add("<button type='button' onclick=\"location.href='./login.do'\">로그인</button>");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    } else {
+      msgs.add("등록에 실패했습니다.");
+      msgs.add("죄송하지만 다시한번 시도해주세요.");
+      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
+      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     }
     
-    int result = 0;
-    if (opentype.equals("U")) {
-      result = computerDAO.update(computerVO);
-    } else {
-      result = computerDAO.create(computerVO);
-    }
-
-    if (result == 1) {
-      msgs.add("저장을 완료했습니다.");
-      links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
-    } else {
-      mav.setViewName("/computer/message"); // /webapp/computer/message.jsp
-      msgs.add("저장을 실패했습니다.");
-      links.add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
-      mav.addObject("msgs", msgs);
-      mav.addObject("links", links);
-    }
+    links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
 
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
@@ -401,17 +297,8 @@ public class ComputerCont {
 
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
-    HashMap<String, Object> hashMap = new HashMap<String, Object>();
-    hashMap.put("ctno", ctno);
-    hashMap.put("passwd", passwd);
-    if (computerDAO.passwordCheck(hashMap) == 0) {
-      msgs.add("비밀번호가 틀렸습니다.");
-      links.add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
-      mav.addObject("msgs", msgs);
-      mav.addObject("links", links);
-      return mav;
-    }
+    
+
 
     if (computerDAO.delete(ctno) == 1) {
       mav.setViewName("redirect:/computer/list.do");
@@ -428,5 +315,133 @@ public class ComputerCont {
   }
 
  
+  @RequestMapping(value="/computer/update.do", 
+      method=RequestMethod.GET)
+  public ModelAndView update(int ctno){  
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/computer/update"); 
+    mav.addObject("computerVO", computerDAO.read(ctno)); 
+    return mav;
+ 
+  }
+  
+  @RequestMapping(value = "/computer/update.do", method = RequestMethod.POST)
+  public ModelAndView update(ComputerVO computerVO, HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView();
+ 
+    ArrayList<String> msgs = new ArrayList<String>();
+    ArrayList<String> links = new ArrayList<String>();
+    
+    String thumb = "";
+    String file1 = "";
+    String file2 = "";
+    String file3 = "";
+    String file4 = "";
+    String file5 = "";
+     
+    String upDir = Tool.getRealPath(request, "/computer/storage");
+    MultipartFile file1MF = computerVO.getFile1MF();
+    MultipartFile file2MF = computerVO.getFile2MF();
+    MultipartFile file3MF = computerVO.getFile3MF();
+    MultipartFile file4MF = computerVO.getFile4MF();
+    MultipartFile file5MF = computerVO.getFile5MF();
+    
+    
+    ComputerVO oldVO = computerDAO.read(computerVO.getCtno());
+    
+    
+    /*파일 저장 file1MF*/ 
+    if (file1MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+      Tool.deleteFile(upDir, oldVO.getFile1()); // 기존 등록된 파일 삭제
+      file1 = Upload.saveFileSpring(file1MF, upDir); // 새로운 파일 저장
+      computerVO.setFile1(file1); // 새로운 파일명 저장
+      computerVO.setSize1(file1MF.getSize()); // 새로운 크기 저장
 
+      // -------------------------------------------------------------------
+      // Thumb 파일 생성
+      // -------------------------------------------------------------------
+      if (Tool.isImage(file1)) { // 이미지인지 검사
+        Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
+        thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
+      } else {
+        thumb = "";
+      }
+      // -------------------------------------------------------------------
+
+    } else {
+      thumb = oldVO.getThumb(); // 파일 업로드를하지 않는 경우
+      file1 = oldVO.getFile1();
+    }
+    computerVO.setThumb(thumb);
+    computerVO.setFile1(file1);
+    
+    /*파일 저장 file2MF */  
+    if (file2MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+      Tool.deleteFile(upDir, oldVO.getFile2());  // 기존 등록된 파일 삭제
+      file2 = Upload.saveFileSpring(file2MF, upDir); // 새로운 파일 저장
+      computerVO.setFile2(file2);  // 새로운 파일명 저장
+      computerVO.setSize2(file2MF.getSize()); // 새로운 크기 저장
+    
+    } else {
+      file2 = oldVO.getFile2();
+    }
+   
+    computerVO.setFile2(file2);
+    
+    /*파일 저장 file3MF */  
+    if (file3MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+      Tool.deleteFile(upDir, oldVO.getFile3());  // 기존 등록된 파일 삭제
+      file3 = Upload.saveFileSpring(file3MF, upDir); // 새로운 파일 저장
+      computerVO.setFile3(file3);  // 새로운 파일명 저장
+      computerVO.setSize3(file3MF.getSize()); // 새로운 크기 저장
+    
+    } else {
+      file3 = oldVO.getFile3();
+    }
+   
+    computerVO.setFile3(file3);
+    
+    /*파일 저장 file4MF */  
+    if (file4MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+      Tool.deleteFile(upDir, oldVO.getFile4());  // 기존 등록된 파일 삭제
+      file4 = Upload.saveFileSpring(file4MF, upDir); // 새로운 파일 저장
+      computerVO.setFile4(file4);  // 새로운 파일명 저장
+      computerVO.setSize4(file4MF.getSize()); // 새로운 크기 저장
+    
+    } else {
+      file4 = oldVO.getFile4();
+    }
+   
+    computerVO.setFile4(file4);
+    
+    
+    /*파일 저장 file5MF */  
+    if (file5MF.getSize() > 0) { // 새로운 파일을 전송하는지 확인
+      Tool.deleteFile(upDir, oldVO.getFile5());  // 기존 등록된 파일 삭제
+      file5 = Upload.saveFileSpring(file5MF, upDir); // 새로운 파일 저장
+      computerVO.setFile5(file5);  // 새로운 파일명 저장
+      computerVO.setSize5(file5MF.getSize()); // 새로운 크기 저장
+    
+    } else {
+      file5 = oldVO.getFile5();
+    }
+   
+    computerVO.setFile5(file5);
+ 
+    
+    if (computerDAO.update(computerVO) == 1) {
+      // 수정후 조회로 자동 이동
+      mav.setViewName("redirect:/computer/read.do?ctno=" + computerVO.getCtno());
+    } else {
+      msgs.add("게시판 수정에 실패 하셨습니다.");
+      links
+          .add("<button type='button' onclick=\"history.back()\">다시 시도</button>");
+      links
+          .add("<button type='button' onclick=\"location.href='./list.do'>목록</button>");
+      mav.addObject("msgs", msgs);
+      mav.addObject("links", links);
+    }
+    
+    return mav;
+  }
 }

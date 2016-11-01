@@ -3,6 +3,7 @@ package dev.mvc.usedcar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dev.mvc.tmember.MemberVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,20 +29,12 @@ public class UsedcarDAO implements UsedcarDAOInter{
     return mybatis.insert("usedcar.create", vo);
   }
   
-/*  @Override
-  public List<UsedcarVO> list2() {
-    return mybatis.selectList("usedcar.list2");
-  } */
   
   @Override
   public List<UsedcarVO> list(HashMap hashmap) {
     return mybatis.selectList("usedcar.list", hashmap);
   }
-  
-/*  @Override
-  public List<UsedcarVO> list3(HashMap hashmap) {
-    return mybatis.selectList("usedcar.list3", hashmap);
-  }*/
+
 
   @Override
   public int update(UsedcarVO usedcarVO) {
@@ -68,16 +61,15 @@ public class UsedcarDAO implements UsedcarDAOInter{
     return mybatis.selectOne("usedcar.count", hashmap);
   }
 
-  @Override
-  public List<UsedcarVO> list() {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
   @Override
   public List<UsedcarVO> list2(HashMap hashmap) {
-    // TODO Auto-generated method stub
-    return null;
+    return mybatis.selectList("usedcar.list2", hashmap);
+  }
+  
+  @Override
+  public MemberVO test(String userid) { 
+    return mybatis.selectOne("usedcar.test", userid);
   }
 
 

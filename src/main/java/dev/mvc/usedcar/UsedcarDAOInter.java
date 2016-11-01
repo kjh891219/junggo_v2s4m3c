@@ -3,6 +3,7 @@ package dev.mvc.usedcar;
 import java.util.HashMap;
 import java.util.List;
 
+import dev.mvc.tmember.MemberVO;
 import dev.mvc.usedcar.UsedcarVO;
 
 
@@ -15,15 +16,7 @@ public interface UsedcarDAOInter {
    * @return 등록된 레코드 수
    */
   public int create(UsedcarVO vo);
-  
-  /**
-   * 게시글 전체 목록
-   * <select id="list" resultType="CodeVO">
-   * @return 코드 목록
-   */
-  public List<UsedcarVO> list();
- 
-  
+
   /**
    * 한건의 레코드 삭제
    * <delete id="delete" parameterType="int">
@@ -76,10 +69,17 @@ public interface UsedcarDAOInter {
 
   /**
    * 검색 목록
-   * <select id="list3" resultType="UsedcarVO" parameterType="HashMap" > 
+   * <select id="list" resultType="UsedcarVO" parameterType="HashMap" > 
    * @param hashmap 검색 조건
    * @return
    */
   public List<UsedcarVO> list(HashMap hashmap);
+
+  /**
+   * 회원정보(닉네임, 이메일) 가져오기
+   * @param userid
+   * @return
+   */
+  public MemberVO test(String userid);
 
 }

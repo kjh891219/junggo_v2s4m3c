@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Oracle 기반 -->
+ <mapper namespace = "carproduct">
+ 
+ <!-- 입력 -->
+  <insert id="create" parameterType="CarproductVO">
+    INSERT INTO carproduct(p_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
+                                     h_price, purc_date, region, title, content, thumb, file1, size1, 
+                                     file2, size2, file3, size3, file4, size4, file5, size5, email, tel, wdate)
+   VALUES ((SELECT NVL(MAX(p_no), 0)+1 as p_no FROM carproduct), #{nickname}, #{userid}, #{passwd}, #{category},
+                                   #{deal_way},#{deal_code}, #{product_code}, #{h_price} , #{purc_date},#{region},
+                                   #{title},#{content},#{thumb},#{file1},#{size1}, #{file2},#{size2},
+                                   #{file3}, #{size3}, #{file4}, #{size4}, #{file5}, #{size5}, #{email},#{tel}, sysdate)
+  </insert>
+  
+  
+  
+  <!--조회  --> 
+   <select id="read" resultType="CarproductVO" parameterType="int">
+    SELECT p_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
+                                     h_price, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     file3, size3, file4, size4, file5, size5, email, tel, wdate
+    FROM carproduct
+    WHERE p_no=#{p_no}
+  </select>  
+  
+    <!-- 테스트  -->
+  <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member 
+    where userid=#{userid}
+    </select>
+
+    <!-- 조회수 증가 -->
+     <update id="increaseCnt" parameterType="int">
+    UPDATE carproduct
+    SET p_cnt = p_cnt + 1
+    WHERE p_no=#{p_no}
+  </update> 
+  
+  
+ <!-- 수정 -->
+<update id="update" parameterType="CarproductVO">
+    UPDATE carproduct 
+    SET passwd=#{passwd}, nickname=#{nickname}, title=#{title}, category=#{category}, deal_code=#{deal_code},
+         region=#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, content=#{content}, h_price=#{h_price}, 
+         product_code=#{product_code}, thumb=#{thumb}, file1=#{file1}, size1=#{size1}, file2=#{file2},
+         size2=#{size2}, file3=#{file3}, size3=#{size3}, file4=#{file4}, size4=#{size4},
+         file5=#{file5}, size5=#{size5}, email=#{email}
+    WHERE p_no=#{p_no}
+  </update> 
+  
+    <!-- 삭제 -->
+   <delete id="delete" parameterType="int">
+    DELETE FROM carproduct
+    WHERE p_no=#{p_no}
+  </delete>
+  
+
+  
+   <!-- ********** 검색에 따른 변경 시작 ********** -->
+  <select id="list2" resultType="CarproductVO" parameterType="HashMap" >
+    SELECT p_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
+                                     h_price, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     file3, size3, file4, size4, file5, size5, email, tel, wdate, thumb, p_cnt   
+    FROM carproduct
+    <choose>
+      <when test="col == 'title'">
+         WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'category'">
+         WHERE category LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'nickname'">
+         WHERE title LIKE '%' || #{word} || '%'  
+      </when> 
+      <when test="col == 'title_category'">
+         WHERE title LIKE '%' || #{word} || '%'   OR category LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+    
+    ORDER BY p_no DESC
+  </select>        
+ 
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM carproduct
+    <choose>
+      <when test="col == 'title'">
+        WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'category'">
+        WHERE category LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'nickname'">
+        WHERE nickname LIKE '%' || #{word} || '%'
+      </when>      
+      <when test="col == 'title_category'">
+         WHERE title LIKE '%' || #{word} || '%'   OR category LIKE '%' || #{word} || '%' 
+      </when>     
+    </choose>
+  </select>
+ 
+  <!-- ********** 검색에 따른 변경 종료 ********** -->
+  
+  
+  <!-- ********** 페이징에 따른 변경 시작 ********** -->
+<select id="list" resultType="CarproductVO" parameterType="HashMap" >
+ SELECT  p_no, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, p_cnt, wdate, thumb, r
+  FROM(
+           SELECT  p_no, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, p_cnt, wdate, thumb, rownum as r
+           FROM(
+                    SELECT p_no, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, p_cnt, wdate, thumb
+                    FROM carproduct
+                <choose>
+                    <when test="col == 'title'">
+                      WHERE title LIKE '%' || #{word} || '%' 
+                    </when>
+                    <when test="col == 'category'">
+                      WHERE category LIKE '%' || #{word} || '%' 
+                    </when>
+                    <when test="col == 'nickname'">
+                      WHERE nickname LIKE '%' || #{word} || '%'
+                    </when>      
+                    <when test="col == 'title_category'">
+                      WHERE title LIKE '%' || #{word} || '%'   OR category LIKE '%' || #{word} || '%' 
+                   </when>     
+                 </choose>
+                      ORDER BY p_no DESC
+               )
+         )
+           
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select> 
+
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+  
+  
+  </mapper>

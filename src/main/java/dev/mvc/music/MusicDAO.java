@@ -1,5 +1,5 @@
 package dev.mvc.music;
-
+ 
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,17 +7,25 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository("dev.mvc.music.MusicDAO")
-public class MusicDAO implements MusicDAOInter {
-  @Autowired
-  private SqlSessionTemplate mybatis; // MyBATIS 3 ¿¬°á °´Ã¼
+import dev.mvc.tmember.MemberVO;
+import dev.mvc.usedcar.UsedcarVO;
 
-  public MusicDAO() {
-    System.out.println("--> MusicDAO created.");
+@Repository("dev.mvc.music.MusicDAO")
+public class MusicDAO implements MusicDAOInter{
+  
+  @Autowired
+  private SqlSessionTemplate mybatis; 
+  
+  public MusicDAO(){ 
+     System.out.println("--> MusicDAO created.");
   }
 
   @Override
   public int create(MusicVO vo) {
+    /*      
+    <mapper namespace = "code">
+    <insert id="create" parameterType="CodeVO">
+    */      
     return mybatis.insert("music.create", vo);
   }
 
@@ -26,34 +34,40 @@ public class MusicDAO implements MusicDAOInter {
     return mybatis.selectOne("music.read", ctno);
   }
 
+  
   @Override
-  public int update(MusicVO musicVO) {
-    return mybatis.update("music.update", musicVO);
-  }
-
-  @Override
-  public List<MusicVO> list(HashMap hashMap) {
-    return mybatis.selectList("music.list", hashMap);    
-  }
-
-  @Override
-  public int delete(int ctno) {
+  public int delete(int ctno) { 
     return mybatis.delete("music.delete", ctno);
   }
 
   @Override
-  public int count(HashMap hashMap) {
-    return mybatis.selectOne("music.count", hashMap);
+  public int update(MusicVO musicVO) {
+    return mybatis.update("music.update", musicVO);
+  }
+  
+  @Override
+  public int increaseCnt(int ctno) {
+    return mybatis.update("music.increaseCnt", ctno);
+  }
+  
+  @Override
+  public int count(HashMap hashmap) {
+    return mybatis.selectOne("music.count", hashmap);
   }
 
   @Override
-  public int passwordCheck(HashMap hashMap) {
-    return mybatis.selectOne("music.passwordCheck", hashMap);
+  public List<MusicVO> list(HashMap hashmap) {
+    return mybatis.selectList("music.list", hashmap);
+  }
+  
+  @Override
+  public List<MusicVO> list2(HashMap hashmap) {
+    return mybatis.selectList("music.list2", hashmap);
   }
 
   @Override
-  public int setCnt(int ctno) {
-    return mybatis.update("music.setCnt", ctno);
+  public MemberVO test(String userid) { 
+    return mybatis.selectOne("music.test", userid);
   }
-
+  
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "computer_reply">
+   
+  <!-- 등록 --> 
+  <insert id="create" parameterType="Computer_replyVO">
+   insert into nreply(rno, nickname, rcomment, grpno, indent, ansnum, ctno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from nreply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from nreply),
+   0, 0, #{ctno}, #{userid})
+  </insert> 
+  
+  <select id="nreplyList" resultType="Computer_replyVO"  parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, wdate, ctno, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, wdate, ctno, userid from nreply order by grpno desc, ansnum asc)
+    WHERE ctno=#{ctno}
+  </select>
+  
+  
+  
+  <!-- **********       답변 관련 시작       ********** -->
+  <!-- 답변 순서 변경 -->
+  <update id='updateAnsnum' parameterType="Computer_replyVO">
+    UPDATE nreply
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+  
+  
+  
+  <select id="read" resultType="Computer_replyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, wdate, ctno, userid 
+    from nreply
+    WHERE rno=#{rno}
+  </select> 
+ 
+ <insert id="reply" parameterType="Computer_replyVO">
+    insert into nreply(rno, nickname, rcomment, grpno, indent, ansnum, ctno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from nreply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{ctno}, #{userid})
+  </insert>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+   delete from nreply where rno in (  
+  select a.rno from nreply a, (select ctno, grpno, indent, rno, ansnum from nreply where rno = #{rno}) b
+  where a.ctno = b.ctno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+  
+         
+</mapper>

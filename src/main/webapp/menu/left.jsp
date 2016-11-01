@@ -64,7 +64,7 @@
                <a href='#' class='menu_style'>공지사항</a>
             </li>
             <li>
-               <a href='#' class='menu_style'>이용후기</a>
+               <a href='${pageContext.request.contextPath}/reviews/list.do' class='menu_style'>이용후기</a>
             </li>
             <li>
                <a href='${pageContext.request.contextPath}/cheat/list.do' class='menu_style'>허위상품신고</a>

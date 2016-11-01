@@ -34,12 +34,34 @@ public class CarproductVO {
   private String title;
   /** 내용 */
   private String content;
+  
   /** Preview 소형 이미지 200 X 150, 자동 생성됨*/
-  private String file1;
+  private String thumb;
   /** 업로드 파일 */
-  private String file2;
+  private String file1 = "";
   /** 업로드된 파일 크기 */
-  private long size2;
+  private long size1 = 0;
+  
+  /** 업로드 파일 */
+  private String file2 = "";
+  /** 업로드된 파일 크기 */
+  private long size2 = 0;
+
+  /** 업로드 파일 */
+  private String file3 = "";
+  /** 업로드된 파일 크기 */
+  private long size3 = 0;
+  
+  /** 업로드 파일 */
+  private String file4 = "";
+  /** 업로드된 파일 크기 */
+  private long size4 = 0;
+
+  /** 업로드 파일 */
+  private String file5 = "";
+  /** 업로드된 파일 크기 */
+  private long size5 = 0;
+  
   /** 구입시기 */
   private String purc_date;
   /** 글등록일 */
@@ -48,9 +70,30 @@ public class CarproductVO {
   private int     p_cnt;
   
   /** Framework에서 자동 주입되는 업로드 파일 객체 */  
+  private MultipartFile file1MF;
+  /** size1의 컴마 저장 출력용 변수 */
+  private String size1Label;
+  
+  /** Framework에서 자동 주입되는 업로드 파일 객체 */  
   private MultipartFile file2MF;
   /** size2의 컴마 저장 출력용 변수 */
   private String size2Label;
+  
+  /** Framework에서 자동 주입되는 업로드 파일 객체 */  
+  private MultipartFile file3MF;
+  /** size3의 컴마 저장 출력용 변수 */
+  private String size3Label;
+  
+  /** Framework에서 자동 주입되는 업로드 파일 객체 */  
+  private MultipartFile file4MF;
+  /** size4의 컴마 저장 출력용 변수 */
+  private String size4Label;
+  
+  /** Framework에서 자동 주입되는 업로드 파일 객체 */  
+  private MultipartFile file5MF;
+  /** size5의 컴마 저장 출력용 변수 */
+  private String size5Label;
+  
   public int getP_no() {
     return p_no;
   }
@@ -141,14 +184,26 @@ public class CarproductVO {
   public void setContent(String content) {
     this.content = content;
   }
+  public String getThumb() {
+    return (thumb != null)?thumb:"";
+  }
+  public void setThumb(String thumb) {
+    this.thumb = thumb;
+  }
   public String getFile1() {
-    return file1;
+    return (file1 != null)?file1:"";
   }
   public void setFile1(String file1) {
     this.file1 = file1;
   }
+  public long getSize1() {
+    return size1;
+  }
+  public void setSize1(long size1) {
+    this.size1 = size1;
+  }
   public String getFile2() {
-    return file2;
+    return (file2 != null)?file2:"";
   }
   public void setFile2(String file2) {
     this.file2 = file2;
@@ -158,6 +213,42 @@ public class CarproductVO {
   }
   public void setSize2(long size2) {
     this.size2 = size2;
+  }
+  public String getFile3() {
+    return (file3 != null)?file3:"";
+  }
+  public void setFile3(String file3) {
+    this.file3 = file3;
+  }
+  public long getSize3() {
+    return size3;
+  }
+  public void setSize3(long size3) {
+    this.size3 = size3;
+  }
+  public String getFile4() {
+    return (file4 != null)?file4:"";
+  }
+  public void setFile4(String file4) {
+    this.file4 = file4;
+  }
+  public long getSize4() {
+    return size4;
+  }
+  public void setSize4(long size4) {
+    this.size4 = size4;
+  }
+  public String getFile5() {
+    return (file5 != null)?file5:"";
+  }
+  public void setFile5(String file5) {
+    this.file5 = file5;
+  }
+  public long getSize5() {
+    return size5;
+  }
+  public void setSize5(long size5) {
+    this.size5 = size5;
   }
   public String getPurc_date() {
     return purc_date;
@@ -188,7 +279,55 @@ public class CarproductVO {
   }
   public void setSize2Label(String size2Label) {
     this.size2Label = size2Label;
-  } 
+  }
+  public MultipartFile getFile4MF() {
+    return file4MF;
+  }
+  public void setFile4MF(MultipartFile file4mf) {
+    file4MF = file4mf;
+  }
+  public String getSize4Label() {
+    return size4Label;
+  }
+  public void setSize4Label(String size4Label) {
+    this.size4Label = size4Label;
+  }
+  public MultipartFile getFile1MF() {
+    return file1MF;
+  }
+  public void setFile1MF(MultipartFile file1mf) {
+    file1MF = file1mf;
+  }
+  public String getSize1Label() {
+    return size1Label;
+  }
+  public void setSize1Label(String size1Label) {
+    this.size1Label = size1Label;
+  }
+  public MultipartFile getFile3MF() {
+    return file3MF;
+  }
+  public void setFile3MF(MultipartFile file3mf) {
+    file3MF = file3mf;
+  }
+  public String getSize3Label() {
+    return size3Label;
+  }
+  public void setSize3Label(String size3Label) {
+    this.size3Label = size3Label;
+  }
+  public MultipartFile getFile5MF() {
+    return file5MF;
+  }
+  public void setFile5MF(MultipartFile file5mf) {
+    file5MF = file5mf;
+  }
+  public String getSize5Label() {
+    return size5Label;
+  }
+  public void setSize5Label(String size5Label) {
+    this.size5Label = size5Label;
+  }
   
   
 }

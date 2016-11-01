@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Oracle 기반 -->
+ <mapper namespace = "reviews">
+ 
+ <!-- 입력 -->
+   <insert id="create" parameterType="ReviewsVO">
+    INSERT INTO reviews(r_no, seller_nick, nickname, passwd, t_category ,
+                                title, content, userid, thumb, file1, size1,
+                                file2, size2, file3, size3, file4, size4,
+                                file5, size5, wdate)
+   VALUES ((SELECT NVL(MAX(r_no), 0)+1 as r_no FROM reviews), #{seller_nick}, #{nickname}, #{passwd}, #{t_category},
+                #{title}, #{content}, #{userid}, #{thumb}, #{file1}, #{size1},
+                 #{file2}, #{size2}, #{file3}, #{size3}, #{file4}, #{size4},
+                 #{file5}, #{size5}, sysdate)
+  </insert>
+  
+      <!-- 테스트  -->
+  <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member 
+    where userid=#{userid}
+    </select>
+  
+    <!--조회  --> 
+   <select id="read" resultType="ReviewsVO" parameterType="int">
+    SELECT r_no, seller_nick, nickname, passwd, t_category,
+              title, content, userid, thumb, file1, size1,
+              file2, size2, file3, size3, file4, size4,
+              file5, size5, wdate
+    FROM reviews
+    WHERE r_no=#{r_no}
+  </select>  
+  
+      <!-- 조회수 증가 -->
+     <update id="increaseCnt" parameterType="int">
+    UPDATE reviews
+    SET r_cnt = r_cnt + 1
+    WHERE r_no=#{r_no}
+  </update> 
+  
+   <!-- 수정 -->
+<update id="update" parameterType="ReviewsVO">
+    UPDATE reviews 
+    SET passwd=#{passwd}, nickname=#{nickname}, seller_nick=#{seller_nick}, title=#{title}, t_category=#{t_category},
+         content=#{content}, thumb=#{thumb}, file1=#{file1}, size1=#{size1}, file2=#{file2},size2=#{size2},
+         file3=#{file3}, size3=#{size3}, file4=#{file4}, size4=#{size4}, file5=#{file5}, size5=#{size5}
+    WHERE r_no=#{r_no}
+  </update> 
+  
+      <!-- 삭제 -->
+   <delete id="delete" parameterType="int">
+    DELETE FROM reviews
+    WHERE r_no=#{r_no}
+  </delete>
+  
+   <!-- ********** 검색에 따른 변경 시작 ********** -->
+  <select id="list2" resultType="ReviewsVO" parameterType="HashMap" >
+    SELECT SELECT  r_no, title, t_category, seller_nick, nickname, r_cnt, wdate, p_cnt, thumb   
+    FROM reviews
+    <choose>
+      <when test="col == 'title'">
+         WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 't_category'">
+         WHERE t_category LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'nickname'">
+         WHERE title LIKE '%' || #{word} || '%'  
+      </when> 
+      <when test="col == 'title_t_category">
+         WHERE title LIKE '%' || #{word} || '%'   OR t_category LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+    
+    ORDER BY r_no DESC
+  </select>        
+ 
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM reviews
+    <choose>
+      <when test="col == 'title'">
+        WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 't_category'">
+        WHERE t_category LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'nickname'">
+        WHERE nickname LIKE '%' || #{word} || '%'
+      </when>      
+      <when test="col == 'title_t_category'">
+         WHERE title LIKE '%' || #{word} || '%'   OR t_category LIKE '%' || #{word} || '%' 
+      </when>     
+    </choose>
+  </select>
+ 
+  <!-- ********** 검색에 따른 변경 종료 ********** -->
+  
+  
+  
+  
+<!-- ********** 페이징에 따른 변경 시작 ********** -->
+<select id="list" resultType="ReviewsVO" parameterType="HashMap" >
+ SELECT  r_no, title, t_category, seller_nick, nickname, r_cnt, wdate, thumb, r
+  FROM(
+           SELECT  r_no, title, t_category, seller_nick, nickname, r_cnt, wdate, thumb, rownum as r
+           FROM(
+                    SELECT r_no, title, t_category, seller_nick, nickname, r_cnt, wdate, thumb
+                    FROM reviews
+                <choose>
+                    <when test="col == 'title'">
+                      WHERE title LIKE '%' || #{word} || '%' 
+                    </when>
+                    <when test="col == 't_category'">
+                      WHERE category LIKE '%' || #{word} || '%' 
+                    </when>
+                    <when test="col == 'nickname'">
+                      WHERE nickname LIKE '%' || #{word} || '%'
+                    </when>      
+                    <when test="col == 'title_t_category'">
+                      WHERE title LIKE '%' || #{word} || '%'   OR t_category LIKE '%' || #{word} || '%' 
+                   </when>     
+                 </choose>
+                      ORDER BY r_no DESC
+               )
+         )
+           
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select> 
+
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+  
+ 
+</mapper>

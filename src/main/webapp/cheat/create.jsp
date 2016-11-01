@@ -6,12 +6,15 @@
 <meta charset="UTF-8"> 
 <title></title> 
 
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    
+<script type="text/JavaScript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/tool.js"></script>
+<link href="/junggo/css/style.css" rel="Stylesheet" type="text/css">
+<script src="/junggo/js/event.js"></script>
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/JavaScript">
@@ -40,18 +43,9 @@ $(function(){
 <DIV class='content' style='width: 80%;'>
 <FORM name='frm' method='POST' action='./create.do'
  enctype="multipart/form-data">
-      <div class='content_menu' style='width: 100%;'>
-        <A href='./create.do?ctno=0&opentype=R'>등록</A>｜ <A
-          href='./read.do?ctno=${cheatVO.ctno }'>상세보기</A>｜ <A
-          href='./create.do?ctno=${cheatVO.ctno }&opentype=U'>수정</A>｜ <A
-          href='./list.do'>목록</A>｜ <A
-          href='./delete.do?ctno=${cheatVO.ctno }'>삭제</A>｜ <A
-          href="javascript:location.reload();">새로고침</A>
-      </div>
       <fieldset>
-        <input type='text' id='opentype' name='opentype'
-          value='${opentype }'> <label>CTNO</label> 
-          <input type='text' name='ctno' id='ctno' value='${opentype == "U" ? cheatVO.ctno : "0" }'>
+        <DIV class='title'><span>글등록</span></DIV>
+         <label>CTNO</label>         
         <ul>
           <li><label class='label_1' for='title'>제목</label> <input
             type='text' name='title' id='title'
@@ -197,12 +191,12 @@ $(function(){
                 id='file5MF' size='20'> <br> Preview(미리보기)
               이미지 자동 생성됩니다.
             </div></li>
-          <li class='right'>
-            <button type="submit">${opentype == "U"?"저장":"등록"}</button>
-            <button type="button" onclick="location.href='./list.do'">목록</button>
-          </li>
+         
         </ul>
-
+      <div class='text_r' >
+        <button type="submit" class="btn btn-success btn-lg">등록</button>
+        <button type="button" onclick="location.href='./list.jsp'" class="btn btn-danger btn-lg">취소</button>
+      </div>
       </fieldset>
 </FORM>
 </DIV>
