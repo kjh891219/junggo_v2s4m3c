@@ -51,7 +51,7 @@ for (int i=0; i < cookies.length; i++){
                <li class="cart"><a href="#" class='menu_style'><span></span>장바구니</a></li>
                <!--
                <li class="cs"><a href="#none" class="on"><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
-               <li class="cs"><a class='menu_style'  id="downs">커뮤니티<img id="down_img" style="width:20px;"src="./menu/images/drop_down.png"></a>
+               <li class="cs"><a class='menu_style'  id="downs">커뮤니티<img id="down_img" style="width:20px;"src="./images/drop_down.png"></a>
                   <div id="down_b" style="display:none; position:absolute; margin-left:17px; width:70px; border:1px solid black;">
                      <dl style="margin-top:7px;">
                         <dd><a href="#">고객센터</a></dd>

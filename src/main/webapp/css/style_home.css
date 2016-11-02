@@ -178,8 +178,6 @@
   
   .login{
    background: url(${pageContext.request.contextPath}/images/login.png) no-repeat left center;
-   background-size:16px; 
-   background-position: 6px
   }
   .join{
    background: url(${pageContext.request.contextPath}/images/login.png) no-repeat left center;
