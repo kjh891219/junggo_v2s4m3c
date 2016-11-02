@@ -34,19 +34,10 @@ for (int i=0; i < cookies.length; i++){
 
 
 %>
-<script>
-  function message(){
-    var url = '<%=root%>/message/list.do?flag=recv';
-    var win = window.open(url, '쪽지함', 'width=600px, height=700px');
-    var x = (screen.width - 500) / 2;
-    var y = (screen.height - 440) / 2;
-    
-    win.moveTo(x, y); // 화면 가운데로 이동
-  }
-</script>
   
 <header>
-   <DIV style='width:87%; '> 
+   <DIV id="member">
+   <DIV id="member_b" > 
             <ul class="member-list" style='float:right;'>
                <% if(session.getAttribute("userid") == null) { // 회원 로그인 여부 검사 %>
                <li class="login"><a class='menu_style'  href="#myModal" data-toggle="modal"><span></span>LOGIN</a></li>
@@ -60,7 +51,15 @@ for (int i=0; i < cookies.length; i++){
                <li class="cart"><a href="#" class='menu_style'><span></span>장바구니</a></li>
                <!--
                <li class="cs"><a href="#none" class="on"><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
-               <li class="cs"><a href="#" class='menu_style'><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
+               <li class="cs"><a class='menu_style'  id="downs">커뮤니티<img id="down_img" style="width:20px;"src="./menu/images/drop_down.png"></a>
+                  <div id="down_b" style="display:none; position:absolute; margin-left:17px; width:70px; border:1px solid black;">
+                     <dl style="margin-top:7px;">
+                        <dd><a href="#">고객센터</a></dd>
+                        <dd><a href="#">공지사항</a></dd>
+                        <dd><a href="#">Q&A</a></dd>
+                     </dl>
+                  </div>
+               </li>
                <%
                 String act = (String) session.getAttribute("act");
                 if ((Tool.checkNull(act)).equals("M")){
@@ -73,9 +72,21 @@ for (int i=0; i < cookies.length; i++){
             <div style='clear:both;'></div>
       
    </DIV>
+   </DIV>
+   <div id="logo">
+      <img class="logo" alt="" src="./menu/images/logo.png" >
+   </DIV>
+   <DIV id="category_b">
+   <DIV id="category">
+       <A href="#" id='menu_top' style="width:20%; background-color:#F6F6F6; float:left" >카테고리</A>
+       <div class='search float_r' style="margin-right:3%;">
+            <span style="display:inline-block; width:400px;"><input type="text" style="width:100%; height:40px; border:none;"></span>
+            <span style="display:inline-block; vertical-align:top; margin-top:15px;">검색</span>
+       </div>
    
             <div style='clear:both;'></div>
-            </header>
+  </header>
+  
   <FORM name='frm' method='POST'
     action='${pageContext.request.contextPath}/member/login.do'>
     <input type='hidden' name='url_address' value='<%=url_address%>'>

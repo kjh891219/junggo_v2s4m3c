@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 
 function message(){
-   var url = './message/list.do?flag=recv';
+   var url = '${pageContext.request.contextPath}/message/list.do?flag=recv';
    var win = window.open(url, '쪽지함', 'width=600px, height=700px');
    
    var x = (screen.width - 500) / 2;
