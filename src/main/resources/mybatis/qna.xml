@@ -8,45 +8,150 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
   <!-- 문의글 등록 -->
   <insert id="create" parameterType="QnAVO">
-   INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
-    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),#{title}, #{content}, sysdate, #{file1}, #{file2}, #{size2}, 
-    #{categoryno},(SELECT userid FROM member WHERE userid = #{userid}))
+   INSERT INTO qna(qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+					tel, email, passwd, cnt, replycnt, grpno, indent, ansnum)  
+    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),#{title}, #{content}, sysdate, #{file1}, #{file2}, #{file3}, 
+    #{size1}, #{size2}, #{size3}, #{categoryno}, (SELECT userid FROM member WHERE userid = #{userid}), 
+    (SELECT nickname FROM member WHERE userid = #{userid}), (SELECT tel FROM member WHERE userid = #{userid}),
+     (SELECT email FROM member WHERE userid = #{userid}), (SELECT pwd FROM member WHERE userid = #{userid}),
+    0, 0, (SELECT NVL(MAX(grpno), 0) + 1 as grpno FROM qna), 0, 0)
   </insert>
  
-  <!-- 전체 목록 출력 -->
-  <select id="list" resultType="QnAVO">
-   select qnano, title, content, qdate, categoryno, userid 
-   FROM qna
-   ORDER BY qnano DESC
-  </select>
-  
    <!-- 아이디별 목록 출력 -->
+   <!-- 
    <select id="idlist" parameterType="string">
-   select qnano, title, content, qdate, categoryno, userid
+   select qnano, title, content, qdate, categoryno, userid, nickname
    FROM qna
    where userid = #{userid}
    </select>
-   
+    -->
    <!-- 한 건의 대한 조회 -->
    <select id="read" resultType="QnAVO" parameterType="int">
-    select qnano, title, content, qdate, file1, file2, size2, categoryno, userid
-    from qna
-    where qnano = #{qnano}
+    SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname, tel, email, grpno, indent, ansnum
+    FROM qna
+    WHERE qnano = #{qnano}
    </select>
   
   <!-- 문의 글 삭제 -->
   <select id="delete" parameterType="int">
-    delete qna
-    where qnano = #{qnano}
+    DELETE qna
+    WHERE qnano = #{qnano}
    </select>
+   
   <!-- 문의글 수정 -->
-  
   <select id="update" parameterType="QnAVO">
    UPDATE qna
-   SET title = #{title}, content = #{content}, file1 = #{file1}, file2 = #{file2}, size2 = #{size2}
+   SET title = #{title}, content = #{content}, file1 = #{file1}, file2 = #{file2}, file3 = #{file3}, size1 = #{size1}, size2 = #{size2}, size3 = #{size3},
+   		categoryno = #{categoryno}
    WHERE qnano = #{qnano}
   </select>
    
-
+    <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   UPDATE qna
+   SET cnt = cnt +1
+   WHERE qnano= #{qnano}
+   
+   </update>
+   
+  <!-- ********** 검색에 따른 변경 시작 ********** -->
+   <select id="count" resultType="int" parameterType="HashMap">
+      SELECT COUNT(qnano) as cnt
+      FROM qna
+      <choose>
+      <when test="col == 'title'">
+        WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        WHERE content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+   
+   </select>
+     
+  <!-- ********** 검색에 따른 변경 종료 ********** -->
+  
+  <!-- ********** 페이징에 따른 변경 시작 ********** -->
+  <!-- 
+   <select id="list" resultType="QnAVO" parameterType="HashMap">
+      SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum, r
+      FROM(
+         SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum, rownum as r
+         FROM(
+            SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum
+            FROM qna
+            <choose>
+               <when test="col == 'title'">
+                  WHERE title LIKE '%' || #{word} || '%' 
+               </when>
+               <when test="col == 'content'">
+                  WHERE content LIKE '%' || #{word} || '%' 
+               </when>
+               <when test="col == 'title_content'">
+                  WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+               </when>      
+            </choose>
+            ORDER BY qnano DESC
+         )
+      )
+     WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+   </select>
+    -->
+   <!-- ********** 페이징에 따른 변경 종료 ********** -->
+   
+    <!-- **********       답변 관련 시작       ********** -->
+  <!-- 답변 순서 변경 -->
+  <update id='updateAnsnum' parameterType="QnAVO">
+    UPDATE qna
+    SET ansnum = ansnum + 1
+    WHERE categoryno=#{categoryno} AND grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+ 
+  <!-- 답변 등록 -->
+  <insert id="reply" parameterType="QnAVO">
+    INSERT INTO qna(qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum)  
+    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna), #{title}, #{content}, sysdate, #{file1}, #{file2}, #{file3}, 
+    #{size1}, #{size2}, #{size3}, #{categoryno}, #{userid}, 
+    #{nickname}, #{tel},#{email}, #{passwd},
+    0, 0, #{grpno}, #{indent}, #{ansnum})
+  </insert>
+ 
+  <!-- 답변에 따른 목록 -->
+  <select id="list" resultType="QnAVO" parameterType="HashMap" >
+    SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum, r
+    FROM(
+             SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum, rownum as r
+             FROM(
+                      SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum
+                      FROM qna
+ 
+                      <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY grpno DESC, ansnum ASC
+             )
+    )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select> 
+ 
+  <!-- **********       답변 관련 종료       ********** -->
 
 </mapper>

@@ -2,11 +2,10 @@
 /**********************************/
 /* Table Name: 문의게시판 */
 /**********************************/
-select table_name from user_tables;
 
 -- 테이블 이름 변경
 alter table qna Rename to qna_1;
-alter table member Rename to member_t;
+alter table member_1 Rename to member_2;
 -- 컬럼추가
 alter table qna add(qfile2 VARCHAR2(100) NULL) ;
 alter table qna add(
@@ -15,10 +14,15 @@ alter table qna add(
         grpno                 NUMBER(7)        DEFAULT 0       NOT NULL,
         indent                NUMBER(2)        DEFAULT 0       NOT NULL,
         ansnum              NUMBER(5)        DEFAULT 0       NOT NULL);
+alter table qna add(
+    nickname                VARCHAR2(30)  DEFAULT ''   NOT NULL,
+          tel                               VARCHAR2(14)     DEFAULT ''    NOT NULL,
+      email                             VARCHAR2(100)    DEFAULT ''    NOT NULL,
+    passwd               VARCHAR2(10)   DEFAULT ''  NOT NULL);
 -- 컬럼명 변경
 alter table test rename column osy to osy79;
 -- 컬럼 타입 변경
-alter table test modify(osy79 varchar(10));
+alter table qna modify(passwd varchar(20));
 -- 컬럼 삭제
 alter table qna drop(cnt, replycnt,grpno, indent, ansnum);
 
@@ -30,83 +34,74 @@ CREATE TABLE QnA(
       title                               VARCHAR2(200)      NOT NULL,
       content                             VARCHAR2(4000)     NOT NULL,
       qdate                               VARCHAR2(20)       NOT NULL,
-      file1                               VARCHAR2(100)                    NULL ,
-      file2                               VARCHAR2(50)                     NULL ,
+      file1                               VARCHAR2(100)    DEFAULT ''       NULL ,
+      file2                               VARCHAR2(50)     DEFAULT ''       NULL ,
+      file3                               VARCHAR2(100)    DEFAULT ''       NULL ,
+      size1                               NUMBER(9)        DEFAULT 0       NULL ,
       size2                               NUMBER(9)        DEFAULT 0       NULL ,
+      size3                               NUMBER(9)        DEFAULT 0       NULL,
       categoryno                          NUMBER(6)          NOT NULL ,
       userid                              VARCHAR2(20)       NOT NULL ,
+      nickname                            VARCHAR2(30)      DEFAULT ''   NOT NULL,
+      tel                                 VARCHAR2(14)     DEFAULT ''    NOT NULL,
+      email                               VARCHAR2(100)    DEFAULT ''    NOT NULL,
+      passwd                              VARCHAR2(20)      DEFAULT ''  NOT NULL,
+      cnt                                 NUMBER(7)        DEFAULT 0       NOT NULL,
+      replycnt                            NUMBER(7)        DEFAULT 0       NOT NULL,
+      grpno                               NUMBER(7)        DEFAULT 0       NOT NULL,
+      indent                              NUMBER(2)        DEFAULT 0       NOT NULL,
+      ansnum                              NUMBER(5)        DEFAULT 0       NOT NULL,
   FOREIGN KEY (userid) REFERENCES member (userid)
 );
 
  -- 테이블 조회 
-SELECT * FROM QnA;
-   SELECT categoryno, sort
-   FROM category
-   ORDER BY categoryno DESC;
-
-select qnano, title, content, qdate, qfile, cate.sort, userid 
-FROM qna, CATEGORY cate 
-where qna.categoryno = cate.categoryno 
-ORDER BY qnano DESC;
+--SELECT * FROM QnA;
+--   SELECT categoryno, sort
+--   FROM category
+--   ORDER BY categoryno DESC;
+--
+--select qnano, title, content, qdate, qfile, cate.sort, userid 
+--FROM qna, CATEGORY cate 
+--where qna.categoryno = cate.categoryno 
+--ORDER BY qnano DESC;
 
 -- 조인 조회
-select cate.sort FROM QnA, category cate where qna.categoryno = cate.categoryno and qnano = 1;
-select cate.sort FROM QnA, category cate where qna.categoryno = cate.categoryno;
+--select cate.sort FROM QnA, category cate where qna.categoryno = cate.categoryno and qnano = 1;
+--select cate.sort FROM QnA, category cate where qna.categoryno = cate.categoryno;
 
 1) 등록
 
-INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
-VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),'로그인이 되지 않습니다',
-        '해결해주세요', sysdate, '', '', 0, 1, 
-        (SELECT userid FROM member WHERE userid = 'chanmi'));
-
-INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
-VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),'배송문의합니다',
-        '상품을 받아보지 못했습니다', sysdate, '', '', 0, 2, 
-        (SELECT userid FROM member WHERE userid = 'chanmi'));
+INSERT INTO qna(qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+					tel, email, passwd, cnt, replycnt, grpno, indent, ansnum)  
+VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna), '로그인이 되지 않습니다',
+        '해결해주세요', sysdate, '', '', '', 0, 0, 0, 1, (SELECT userid FROM member WHERE userid = 'chanmi'),
+        (SELECT nickname FROM member WHERE userid = 'chanmi'), (SELECT tel FROM member WHERE userid = 'chanmi'), 
+        (SELECT email FROM member WHERE userid = 'chanmi'), (SELECT pwd FROM member WHERE userid = 'chanmi'),
+        0, 0, 0, 0, 0);
         
-INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)
-VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),'기타문의',
-        '화면이 보이지 않습니다', sysdate, '', '', 0, 3, 
-        (SELECT userid FROM member WHERE userid = 'chanmi'));
+INSERT INTO qna(qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+					tel, email, passwd, cnt, replycnt, grpno, indent, ansnum)  
+VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna), '배송문의합니다',
+        '상품을 받아보지 못했습니다', sysdate, '', '', '', 0, 0, 0, 2, (SELECT userid FROM member WHERE userid = 'chanmi'),
+        (SELECT nickname FROM member WHERE userid = 'chanmi'), (SELECT tel FROM member WHERE userid = 'chanmi'), 
+        (SELECT email FROM member WHERE userid = 'chanmi'), (SELECT pwd FROM member WHERE userid = 'chanmi'),
+        0, 0, 0, 0, 0);
         
-   INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
-    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),'상품 미수취', '상품을 받아보지 못했습니다', sysdate, 
-    null, null, 0, 
-    2, (SELECT userid FROM member WHERE userid ='chanmi' ));
-
-    INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
-    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),'상품 미수취1', '상품을 받아보지 못했습니다', sysdate, 
-    null, null, 0, 
-    2, (SELECT userid FROM member WHERE userid ='user1' ));
-
-    INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
-    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),'상품 미수취2', '상품을 받아보지 못했습니다', sysdate, 
-    null, null, 0, 
-    2, (SELECT userid FROM member WHERE userid ='user2' ));
-
-    INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
-    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),'상품 미수취3', '상품을 받아보지 못했습니다', sysdate, 
-    null, null, 0, 
-    2, (SELECT userid FROM member WHERE userid ='user1' ));
-
-    INSERT INTO qna(qnano, title, content, qdate, file1, file2, size2, categoryno, userid)  
-    VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),'상품 미수취4', '상품을 받아보지 못했습니다', sysdate, 
-    null, null, 0, 
-    2, (SELECT userid FROM member WHERE userid ='user2' ));
-    
+INSERT INTO qna(qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+					tel, email, passwd, cnt, replycnt, grpno, indent, ansnum)  
+VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna), '기타문의',
+        '화면이 보이지 않습니다', sysdate, '', '', '', 0, 0, 0, 1, (SELECT userid FROM member WHERE userid = 'chanmi'),
+        (SELECT nickname FROM member WHERE userid = 'chanmi'), (SELECT tel FROM member WHERE userid = 'chanmi'), 
+        (SELECT email FROM member WHERE userid = 'chanmi'), (SELECT pwd FROM member WHERE userid = 'chanmi'),
+        0, 0, 0, 0, 0);
+        
 SELECT * FROM qna;
         
- QNANO TITLE        CONTENT        QDATE    FILE1 FILE2 SIZE2 CATEGORYNO USERID
- ----- ------------ -------------- -------- ----- ----- ----- ---------- ------
-     1 로그인이 되지 않습니다 해결해주세요         16/10/26 NULL  NULL      0          1 chanmi
-     2 배송문의합니다      상품을 받아보지 못했습니다 16/10/26 NULL  NULL      0          2 chanmi
-     3 기타문의         화면이 보이지 않습니다   16/10/26 NULL  NULL      0          3 chanmi
-     4 상품 미수취       상품을 받아보지 못했습니다 16/10/26 NULL  NULL      0          2 chanmi
-     5 상품 미수취1      상품을 받아보지 못했습니다 16/10/26 NULL  NULL      0          2 user1
-     6 상품 미수취2      상품을 받아보지 못했습니다 16/10/26 NULL  NULL      0          2 user2
-     7 상품 미수취3      상품을 받아보지 못했습니다 16/10/26 NULL  NULL      0          2 user1
-     8 상품 미수취4      상품을 받아보지 못했습니다 16/10/26 NULL  NULL      0          2 user2
+ QNANO TITLE        CONTENT        QDATE    FILE1 FILE2 SIZE2 CATEGORYNO USERID CNT REPLYCNT GRPNO INDENT ANSNUM FILE3 SIZE1 SIZE3 NICKNAME TEL           EMAIL               PASSWD
+ ----- ------------ -------------- -------- ----- ----- ----- ---------- ------ --- -------- ----- ------ ------ ----- ----- ----- -------- ------------- ------------------- ------
+     3 기타문의         화면이 보이지 않습니다   16/10/31 NULL  NULL      0          1 chanmi   0        0     0      0      0 NULL      0     0 찬미       000-1111-1111 chanmi910@naver.com 1234
+     1 로그인이 되지 않습니다 해결해주세요         16/10/31 NULL  NULL      0          1 chanmi   0        0     0      0      0 NULL      0     0 찬미       000-1111-1111 chanmi910@naver.com 1234
+     2 배송문의합니다      상품을 받아보지 못했습니다 16/10/31 NULL  NULL      0          2 chanmi   0        0     0      0      0 NULL      0     0 찬미       000-1111-1111 chanmi910@naver.com 1234
 
 2) 조회 
 
@@ -174,7 +169,9 @@ WHERE qnano =  5;
 DELETE FROM qna 
 WHERE qnano = 7; 
 
-
+SELECT qnano, title, rownum
+FROM qna
+ORDER BY title ASC;
 
 5) 검색
 -- title

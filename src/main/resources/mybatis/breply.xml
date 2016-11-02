@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "breply">
+   <!-- 등록 -->
+   <insert id="create"  parameterType="BreplyVO">
+   INSERT INTO  breply(rno, rcomment, bno, userid, nickname, wdate, grpno, indent, ansnum)
+   VALUES ((SELECT NVL(MAX(rno), 0)+1 as rno FROM breply), #{rcomment}, #{bno},
+      #{userid} , #{nickname}, sysdate, #{grpno}, 0, 0)
+
+   </insert>
+   
+   <!-- 댓글 목록 -->
+   <select id="list" resultType="BreplyVO" parameterType="int">
+      SELECT rno, rcomment, bno, userid, nickname, wdate, grpno, indent, ansnum, r
+      FROM (SELECT rno, rcomment, bno, userid, nickname, wdate, grpno, indent, ansnum, rownum as r
+         FROM (SELECT rno, rcomment, bno, userid, nickname, wdate, grpno, indent, ansnum
+            FROM breply
+               ORDER BY grpno DESC, ansnum ASC
+         
+         )
+      )
+      WHERE bno = #{bno}
+      
+   </select>
+   
+   <!-- 댓글 순서 변경 -->
+   <update id="updateAnsnum" parameterType="BreplyVO">
+      UPDATE breply
+      SET ansnum = ansnum + 1
+      WHERE grpno = #{grpno} AND ansnum > #{ansnum} 
+   </update>
+   
+   <!-- 댓글 조회 -->
+   <select id="read" resultType="BreplyVO" parameterType="int">
+      SELECT rno, rcomment, bno, userid, nickname, wdate, grpno, indent, ansnum
+      FROM breply
+      WHERE rno = #{rno}
+   </select>
+   
+   <!-- 대댓글 -->
+   <insert id="reply" parameterType="BreplyVO">
+      INSERT INTO  breply(rno, rcomment, bno, userid, nickname, wdate, grpno, indent, ansnum)
+      VALUES ((SELECT NVL(MAX(rno), 0)+1 as rno FROM breply), #{rcomment}, #{bno},
+      #{userid} , #{nickname}, sysdate, #{grpno}, #{indent}, #{ansnum})
+      
+   </insert>
+   
+   <!-- 댓글 삭제 -->
+   <delete id="delete" parameterType="int">
+      DELETE FROM breply WHERE rno in (
+         SELECT rply.rno FROM breply rply, 
+            (SELECT bno, grpno, indent, rno, ansnum FROM breply WHERE rno = #{rno}) cmt
+      WHERE rply.bno = cmt.bno and rply.grpno = cmt.grpno and rply.indent >= cmt.indent and  rply.rno >= cmt.rno and rply.ansnum >= cmt.ansnum)
+   </delete>
+   
+   
+   
+</mapper> 

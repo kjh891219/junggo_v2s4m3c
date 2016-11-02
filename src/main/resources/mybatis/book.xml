@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "book">
+   <!-- 도서상품 글작성 -->
+   <insert id="create"  parameterType="BookVO">
+   INSERT INTO book(bno, title, deal_code, product_code, category, region, deal_way, deal_state, purc_date, 
+              quantity, hprice, btitle, publisher, bwriter, content, cnt, userid, nickname, tel, email, wdate, thumb, file1, file2,
+              file3, file4, file5, size1, size2, size3, size4, size5)  
+   VALUES((SELECT NVL(MAX(bno), 0) + 1 as bno FROM book), #{title}, #{deal_code}, #{product_code}, #{category},
+     #{region}, #{deal_way}, #{deal_state}, #{purc_date}, #{quantity}, #{hprice}, #{btitle}, #{publisher}, #{bwriter},
+     #{content}, 0, (SELECT userid FROM member WHERE userid = 'chanmi'), #{nickname}, #{tel}, #{email},
+     sysdate, #{thumb}, #{file1}, #{file2}, #{file3}, #{file4}, #{file5}, #{size1}, #{size2}, #{size3}, #{size4}, #{size5})
+   </insert>
+   
+   
+   <!-- 조회 -->
+   <select id="read" resultType="BookVO" parameterType="int">
+   		SELECT bno, title, deal_code, product_code, category, region, deal_way, deal_state, purc_date, 
+              quantity, hprice, btitle, publisher, bwriter, content, cnt, userid, nickname, tel, email, wdate, thumb, 
+              file1, file2, file3, file4, file5, size1, size2, size3, size4, size5
+        FROM book
+        WHERE bno = #{bno}
+   </select>
+   
+   <!-- 게시물 수정 -->
+   <update id="update" parameterType="BookVO" >
+   		UPDATE book
+		SET title=#{title}, deal_code=#{deal_code}, product_code=#{product_code}, category=#{category},
+		   region=#{region}, deal_way=#{deal_way}, deal_state=#{deal_state}, purc_date=#{purc_date}, quantity=#{quantity}, 
+		   hprice=#{hprice}, btitle=#{btitle}, publisher=#{publisher}, bwriter=#{bwriter}, 
+		   content=#{content}, thumb=#{thumb}, file1=#{file1}, file2=#{file2}, file3=#{file3}, file4=#{file4}, file5=#{file5},
+		   size1=#{size1}, size2=#{size2}, size3=#{size3}, size4=#{size4}, size5=#{size5}
+		WHERE bno=#{bno}
+   </update>
+   
+   <!-- 게시물 삭제 -->
+   <delete id="delete" parameterType="int">
+   		DELETE book
+   		WHERE bno=#{bno}
+   </delete>
+   
+    
+ <!-- 조회수 증가 -->
+   <update id ="increaseCnt" parameterType ="int">
+   UPDATE book
+   SET cnt = cnt +1
+   WHERE bno= #{bno}
+   
+   </update>  
+   
+   
+     <!-- ********** 검색에 따른 변경 시작 ********** -->
+ 
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(bno) as cnt
+    FROM book
+    <choose>
+      <when test="col == 'title'">
+        WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        WHERE content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+  </select>        
+ 
+  <!-- ********** 검색에 따른 변경 종료 ********** -->
+  
+  <!-- ********** 페이징에 따른 변경 시작 ********** -->
+  <select id="list" resultType="BookVO" parameterType="HashMap" >
+  SELECT bno, title, deal_code, product_code, category, region, deal_way, deal_state, purc_date, 
+           quantity, hprice, btitle, publisher, bwriter, content, cnt, userid, wdate, thumb, file1, file2,
+           file3, file4, file5, size1, size2, size3, size4, size5, nickname, tel, email, r
+  FROM(
+   SELECT bno, title, deal_code, product_code, category, region, deal_way, deal_state, purc_date, 
+           quantity, hprice, btitle, publisher, bwriter, content, cnt, userid, wdate, thumb, file1, file2,
+           file3, file4, file5, size1, size2, size3, size4, size5, nickname, tel, email, rownum  as r
+   FROM(
+     SELECT bno, title, deal_code, product_code, category, region, deal_way, deal_state, purc_date, 
+            quantity, hprice, btitle, publisher, bwriter, content, cnt, userid, wdate, thumb, file1, file2,
+            file3, file4, file5, size1, size2, size3, size4, size5, nickname, tel, email
+      FROM book
+     <choose>
+         <when test="col == 'title'">
+            WHERE title LIKE '%' || #{word} || '%' 
+         </when>
+         <when test="col == 'content'">
+            WHERE content LIKE '%' || #{word} || '%' 
+         </when>
+         <when test="col == 'title_content'">
+            WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+         </when>      
+       </choose>
+       ORDER BY bno DESC
+    )
+   )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select>  
+     
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+   
+   
+</mapper> 

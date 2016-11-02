@@ -33,7 +33,6 @@ $(function(){
 <DIV class='title'>문의사항 등록</DIV>
 <FORM name='frm' method='POST' action='./create.do'
               enctype="multipart/form-data">
-<input type='hidden' name='file1' id='file1'>
               
 <DIV class='content_form'>
    <DIV>
@@ -56,17 +55,45 @@ $(function(){
         <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">내용</textarea>
       </div>
       <hr/>
-      <div class="row" >   
-      <label for="file2" class="col-xs-2 col-lg-2">업로드 파일2</label>
-        <div class="col-xs-9 col-lg-9">
-          <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
-          Preview(미리보기) 이미지 자동 생성됩니다.
+      <div class='row'>
+      <label for="file1" class="col-xs-2 col-lg-2">업로드 파일1 </label>
+        <div class="col-xs-10 col-lg-10">
+           <input type="file" class="form-control" name='file1MF' id='file1MF' size='40'> <br>
+        </div>
+      </div>
+      <div class='row'>
+        <label for="file2" class="col-xs-2 col-lg-2">업로드 파일2 </label> 
+        <div class="col-xs-10 col-lg-10">
+           <input type="file" class="form-control" name='file2MF' id='file2MF' size='20'> <br>
+        </div>
+     </div>
+      <div class='row'>
+        <label for="file3" class="col-xs-2 col-lg-2">업로드 파일3 </label> 
+        <div class="col-xs-10 col-lg-10">
+           <input type="file" class="form-control" name='file3MF'
+              id='file3MF' size='20'> <br>
         </div>
        </div>
       <hr>
       <div class="row">
          <label class='col-xs-2 col-lg-2' for='userid'>작성자</label>
-         <input type='text' name='userid' id='userid' value='chanmi' class="col-xs-3 col-lg-3">
+         <span class="col-xs-3 col-lg-3">${memberVO.userid}</span>
+         <input type='hidden' name='userid' id='userid' value='chanmi' class="col-xs-3 col-lg-3">
+      </div>
+      <div class='row'>
+       <label class='col-xs-2 col-lg-2 ' for='email'>이메일</label> 
+       <span class="col-xs-3 col-lg-3">${memberVO.email}</span> 
+       <input type="hidden" name="email" value="${memberVO.email}"> 
+      </div>
+      <div class='row'>
+       <label class='col-xs-2 col-lg-2 ' for='tel'>등록자 연락처</label> 
+       <span class="col-xs-3 col-lg-3">${memberVO.tel}</span> 
+       <input type="hidden" name="tel" value="${memberVO.tel}"> 
+      </div>
+      <div class='row'> 
+       <label class='col-xs-2 col-lg-2 ' for='nickname'>등록자 별명</label>
+       <span class="col-xs-3 col-lg-3">${memberVO.nickname}</span> 
+       <input type="hidden" name="nickname" value="${memberVO.nickname}"> 
       </div>   
       <!-- 
       <div class="row">  
@@ -76,7 +103,7 @@ $(function(){
        -->
       <div class='text_r' >
         <button type="submit" class="btn btn-success btn-lg">등록</button>
-        <button type="button" onclick="location.href='./list.jsp'" class="btn btn-danger btn-lg">취소</button>
+        <button type="button" onclick="location.href='./list.do'" class="btn btn-danger btn-lg">취소</button>
       </div>
     </DIV>
   </DIV>    

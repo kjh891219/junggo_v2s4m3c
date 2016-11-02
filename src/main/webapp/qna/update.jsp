@@ -59,28 +59,44 @@ $(function(){
         <textarea name='content' id='content' rows='10' style='width: 100%;'>${qnaVO.content}</textarea>
       </li>
       <li>
-        <div id="file2Panel">
-           <c:set var='file2' value="${fn:toLowerCase(qnaVO.file2)}" />
-           <c:choose>
-             <c:when test="${fn:endsWith(file2, '.jpg')}">
-                등록된 이미지: <IMG id='file2' src='./storage/${qnaVO.file2}'>
-             </c:when>
-             <c:when test="${fn:endsWith(file2, '.gif')}" >
-                등록된 이미지: <IMG id='file2'  src='./storage/${qnaVO.file2}'>
-             </c:when>
-             <c:when test="${fn:endsWith(file2, '.png')}">
-                등록된 이미지: <IMG id='file2'  src='./storage/${qnaVO.file2}'>
-             <c:when test="${qnaVO.file2.length() > 0}">
-                등록된 파일: ${qnaVO.file2 } 
-             </c:when>
-             </c:when>
-           </c:choose>
+         
+         <span style="margin-left:18%;">      
+         Preview(미리보기) 이미지 자동 생성됩니다.
+         </span>
+         <div class='row'>
+          <label for="file1" class="col-xs-2 col-lg-2">업로드 파일1 </label>
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file1MF' id='file1MF' size='40'> <br>
+            </div>
+          </div>
+          <div class='row'>
+            <label for="file2" class="col-xs-2 col-lg-2">업로드 파일2 </label> 
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file2MF' id='file2MF' size='20'> <br>
+            </div>
          </div>
-      </li>
-      
-      <li>
-        <label for='file2MF' class='label'>업로드 파일</label><!-- 추후 구현 -->
-         <input type="file" name='file2MF' id='file2MF' size='40' >
+          <div class='row'>
+            <label for="file3" class="col-xs-2 col-lg-2">업로드 파일3 </label> 
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file3MF'
+                  id='file3MF' size='20'> <br>
+            </div>
+         
+          </div>
+          <div class='row'>
+            <label for="file4" class="col-xs-2 col-lg-2">업로드 파일4 </label> 
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file4MF'
+                  id='file4MF' size='20'> <br>
+            </div>
+          </div>
+          <div class='row'>
+            <label for="file5" class="col-xs-2 col-lg-2">업로드 파일5 </label> 
+            <div class="col-xs-10 col-lg-10">
+               <input type="file" class="form-control" name='file5MF'
+                  id='file5MF' size='20'> <br>
+            </div>
+          </div>
       </li>
  
       <li class='right'>

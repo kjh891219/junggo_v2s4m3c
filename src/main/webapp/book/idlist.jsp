@@ -29,36 +29,8 @@ $(function(){
 </head> 
 <!-- ----------------------------------------- -->
 <body>
-<jsp:include page="/menu/top.jsp" flush='false' />
-<%-- <jsp:include page="/menu/left.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 <div class="container">
-   <form name="frm" method="GET" action="./list.do"> 
-    <div class='content_menu' style='width: 100%;'>
-     <A href='./create.do?'>등록</A>｜
-      <A href="javascript:location.reload();">새로고침</A>
-    </div>
-
-      <select name="col"> 
-        <option value="">선택</option> 
-        <option value="title" ${searchDTO.col == "title" ? "selected=selected" : "" }>제목</option> 
-        <option value="content" ${searchDTO.col == "content" ? "selected=selected" : "" }>내용</option> 
-        <option value="title_content" ${searchDTO.col == "title_content" ? "selected=selected" : "" }>제목+내용</option> 
-        <option value="total" ${searchDTO.col == "" ? "selected=selected" : "" }>전체 목록</option>
-      </select>
-      <c:choose>
-        <c:when test="${searchDTO.col != 'total' }"> <!-- 검색 상태 -->
-          <input type="text" name="word" size="15" value="${searchDTO.word }">
-        </c:when>
-        <c:when test="${searchDTO.col == 'total' }"> <!-- 전체 레코드 -->
-          <input type="text" name="word" size="15" value="">
-        </c:when>
-      </c:choose>
-     
-      <input type="submit" value="검색">
-    
-  </form> 
-
 <DIV class='title'>문의게시판</DIV>
 
 <TABLE class='table'>
@@ -79,10 +51,11 @@ $(function(){
     <TH class='th'>관리</TH>
   </TR>
  
-   <c:forEach var="vo" items="${list }">
+   <c:forEach var="vo" items="${idlist }">
   <TR>
-    <TD class='td'>${vo.rownum}</TD>
-      <c:choose>
+    <TD class='td'>${vo.qnano}</TD>
+    <%-- <TD class='td'>${vo.sort}</TD> --%>
+         <c:choose>
       <c:when test="${vo.categoryno == '1'}">
       <TD class='td'>회원가입 및 로그인</TD>
       </c:when>
@@ -92,19 +65,12 @@ $(function(){
       <c:when test="${vo.categoryno == '3'}">
       <TD class='td'>기타문의</TD>
       </c:when>
-      </c:choose>
-      
-    <TD class='td'>
-      <c:choose>
-      <c:when test="${vo.ansnum == 0 }"></c:when>
-      <c:when test="${vo.ansnum > 0 }">
-         <c:forEach var="indent"  begin="1" end="${vo.indent }" step="1">　</c:forEach></c:when>
-      </c:choose>
-    <A href="./read.do?qnano=${vo.qnano}&col=${searchDTO.col}&word=${searchDTO.word}">${vo.title }</A></TD>
+    </c:choose>
+    <TD class='td'><A href="./read.do?qnano=${vo.qnano}">${vo.title }</A></TD>
     <TD class='td'>${vo.userid }</TD>
     <TD class='td'>${vo.qdate}</TD>
     <TD class='td'>
-      <a href="./reply.do?qnano=${vo.qnano}&categoryno=${vo.categoryno}&col=${searchDTO.col}&word=${searchDTO.word}"><span>답변</span><!-- <img src="./images/reply.png" title="답변" border='0'/> --></a>
+      <A href="./passwd.do?qnano=${vo.qnano}"><IMG src='../menu/images/passwd.ico' title='패스워드 변경'></A>
       <A href="./read.do?qnano=${vo.qnano}"><IMG src='../menu/images/update.png' width="16px" title='수정'></A>
       <A href="./delete.do?qnano=${vo.qnano}"><IMG src='../menu/images/delete.png' width="16px" title='삭제'></A>
     </TD>
@@ -113,14 +79,11 @@ $(function(){
  </c:forEach>
 </TABLE>
  
-   <DIV class='bottom'>${paging}</DIV>
- 
 <DIV class='bottom text_r'>
   <button type='button' onclick="location.href='./create.do'">등록</button>
   <button type='button' onclick="location.reload();">새로 고침</button>
 </DIV>
 <!-- -------------------------------------------- -->
-<jsp:include page="/menu/bottom.jsp" flush='false' />
 </div>
 </body>
 
