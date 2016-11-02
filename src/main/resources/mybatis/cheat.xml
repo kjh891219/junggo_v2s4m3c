@@ -8,15 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     INSERT INTO CHEAT (ctno,
     title, gubun, region, occurday, buyprice, cheatid, cheattel,
     cheatemail, cnt, content, email, tel, userid, nickname, passwd,
-    thumb, file1, size1, file2, size2, file3, size3, file4, size4,
-    file5, size5)
+     file1, file2, size2, file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10)
     VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM cheat)
     ,#{title}, #{gubun}, #{region}, #{occurday}, #{buyprice},
     #{cheatid}, #{cheattel}, #{cheatemail}
     , 0, #{content}, #{email},
-    #{tel}, #{userid}, #{nickname}, #{passwd}, #{thumb}, #{file1},
-    #{size1}, #{file2}, #{size2}, #{file3}, #{size3}, #{file4},
-    #{size4}, #{file5}, #{size5})
+    #{tel}, #{userid}, #{nickname}, #{passwd},   #{file1} , #{file2} , #{size2},
+               #{file3}, #{file4}, #{size4}, #{file5}, #{file6}, #{size6}, #{file7}, #{file8}, #{size8}, #{file9}, #{file10}, #{size10} )
   </insert>
 
   <!-- 정보수정 -->
@@ -28,11 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     , buyprice = #{buyprice}, cheatid = #{cheatid}, cheattel = #{cheattel}
     , cheatemail = #{cheatemail}, cnt = 0, content = #{content}
     , email = #{email}, tel = #{tel}, userid = #{userid}, nickname =
-    #{nickname}, passwd = #{passwd}
-    , thumb = #{thumb}, file1 = #{file1} , size1 = #{size1}, file2 =
-    #{file2}, size2 = #{size2}, file3 = #{file3}, size3 = #{size3},
-    file4 = #{file4}, size4 = #{size4}, file5 = #{file5}, size5 =
-    #{size5}
+    #{nickname}, passwd = #{passwd}, 
+      file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, file3 = #{file3}, file4 = #{file4},
+     size4 = #{size4}, file5 = #{file5}, file6 = #{file6}, size6 = #{size6}, file7 = #{file7}, file8 = #{file8}, size8 = #{size8},
+     file9 = #{file9}, file10 = #{file10}, size10 = #{size10}
     WHERE ctno = #{ctno} and passwd = #{passwd}
   </update>
 
@@ -41,14 +38,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT
     ctno, title, gubun, region, occurday, buyprice, cheatid, cheattel,
     cheatemail, cnt, content, email, tel, userid, nickname, passwd,
-    wdate, thumb, file1, size1, file2, size2, file3, size3, file4,
-    size4, file5, size5
+    wdate, file1, file2, size2, file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10
     FROM cheat
-    WHERE CTNO = #{ctno}
+    WHERE ctno = #{ctno}
   </select>
 
   <!-- 전체 레코드 수 검색 -->
-  <select id="count" resultType="int" parameterType="Map">
+  <select id="count" resultType="int" parameterType="HashMap">
     SELECT count(ctno) as cnt
     FROM cheat
 
@@ -68,21 +64,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
 
   <!-- 조건 검색 -->
-  <select id="list" resultType="CheatVO" parameterType="Map">
+  <select id="list3" resultType="CheatVO" parameterType="HashMap">
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
     cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
-    passwd, wdate, thumb, file1, size1, file2, size2, file3, size3,
-    file4, size4, file5, size5, r
+    passwd, wdate, file1, file2, size2, r
     FROM(
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
     cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
-    passwd, wdate, thumb, file1, size1, file2, size2, file3, size3, file4, size4,
-    file5, size5, rownum as r
+    passwd, wdate, file1, file2, size2, rownum as r
     FROM(
     SELECT ctno, title, gubun, region, occurday, buyprice, cheatid,
     cheattel, cheatemail, cnt, content, email, tel, userid, nickname,
-    passwd, wdate, thumb, file1, size1, file2, size2, file3, size3, file4, size4,
-    file5, size5
+    passwd, wdate,  file1, file2, size2
     FROM cheat
 
     <choose>
@@ -106,23 +99,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 허위상품신고글 삭제 -->
   <delete id="delete" parameterType="int">
     DELETE FROM cheat
-    WHERE ctno
-    =
-    #{ctno}
+    WHERE ctno = #{ctno}
   </delete>
 
   <!-- 비밀번호체크 -->
-  <select id="passwordCheck" resultType="int" parameterType="Map">
+  <select id="passwordCheck" resultType="int" parameterType="HashMap">
     SELECT COUNT(*) as cnt
     FROM cheat
     WHERE ctno=#{ctno} AND passwd=#{passwd}
   </select>
 
-  <update id="setCnt" parameterType="int">
+  <update id="increaseCnt" parameterType="int">
     UPDATE cheat
     SET cnt = cnt + 1
     WHERE ctno = #{ctno}
   </update>
 
+<!-- 테스트  -->
+  <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member
+    where userid=#{userid}   
+    </select>
 
 </mapper>

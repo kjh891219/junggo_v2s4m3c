@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "product_reply">
+   
+  <!-- 등록 --> 
+  <insert id="create" parameterType="Product_replyVO">
+   insert into product_reply(rno, nickname, rcomment, grpno, indent, ansnum, pno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from product_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from product_reply),
+   0, 0, #{pno}, #{userid})
+  </insert> 
+  
+  <select id="product_replyList" resultType="Product_replyVO"  parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, wdate, pno, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, wdate, pno, userid from product_reply order by grpno desc, ansnum asc)
+    WHERE pno=#{pno}
+  </select>
+  
+  
+  
+  <!-- **********       답변 관련 시작       ********** -->
+  <!-- 답변 순서 변경 -->
+  <update id='updateAnsnum' parameterType="Product_replyVO">
+    UPDATE product_reply
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+  
+  
+  
+  <select id="read" resultType="Product_replyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, wdate, pno, userid 
+    from product_reply
+    WHERE rno=#{rno}
+  </select> 
+ 
+ <insert id="reply" parameterType="Product_replyVO">
+    insert into product_reply(rno, nickname, rcomment, grpno, indent, ansnum, pno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from product_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{pno}, #{userid})
+  </insert>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+   delete from product_reply where rno in (  
+  select a.rno from product_reply a, (select pno, grpno, indent, rno, ansnum from product_reply where rno = #{rno}) b
+  where a.pno = b.pno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+  
+         
+</mapper>

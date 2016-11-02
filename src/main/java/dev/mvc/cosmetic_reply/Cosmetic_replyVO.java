@@ -1,49 +1,33 @@
-package dev.mvc.cheat;
+package dev.mvc.cosmetic_reply;
 
-public class CReplyVO {
+public class Cosmetic_replyVO {
+ 
   private int rno;
-  private String rcomment;
-  private int ctno;
-  private String userid;
   private String nickname;
-  private String passwd;
+  private String rcomment;
   private String wdate;
   private int grpno;
   private int indent;
   private int ansnum;
-  
-  public CReplyVO(){}
-  
+  private int cno;
+  private String userid;
   public int getRno() {
     return rno;
   }
   public void setRno(int rno) {
     this.rno = rno;
   }
+  public String getNickname() {
+    return nickname;
+  }
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
+  }
   public String getRcomment() {
     return rcomment;
   }
   public void setRcomment(String rcomment) {
     this.rcomment = rcomment;
-  }
-  public int getCtno() {
-    return ctno;
-  }
-  public void setCtno(int ctno) {
-    this.ctno = ctno;
-  }
-  public String getUserid() {
-    return userid;
-  }
-  public void setUserid(String userid) {
-    this.userid = userid;
-  }
- 
-  public String getPasswd() {
-    return passwd;
-  }
-  public void setPasswd(String passwd) {
-    this.passwd = passwd;
   }
   public String getWdate() {
     return wdate;
@@ -69,12 +53,18 @@ public class CReplyVO {
   public void setAnsnum(int ansnum) {
     this.ansnum = ansnum;
   }
-
-  public String getNickname() {
-    return nickname;
+  public int getCno() {
+    return cno;
   }
-
-  public void setNickname(String nickname) {
-    this.nickname = nickname;
+  public void setCno(int cno) {
+    this.cno = cno;
   }
+  public String getUserid() {
+    return userid;
+  }
+  public void setUserid(String userid) {
+    this.userid = userid;
+  }
+  
+  
 }

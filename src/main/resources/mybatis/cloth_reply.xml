@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "cloth_reply">
+   
+  <!-- 등록 --> 
+  <insert id="create" parameterType="Cloth_replyVO">
+   insert into cloth_reply(rno, nickname, rcomment, grpno, indent, ansnum, clothno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from cloth_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from cloth_reply),
+   0, 0, #{clothno}, #{userid})
+  </insert> 
+  
+  <select id="cloth_replyList" resultType="Cloth_replyVO"  parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, wdate, clothno, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, wdate, clothno, userid from cloth_reply order by grpno desc, ansnum asc)
+    WHERE clothno=#{clothno}
+  </select>
+  
+  
+  
+  <!-- **********       답변 관련 시작       ********** -->
+  <!-- 답변 순서 변경 -->
+  <update id='updateAnsnum' parameterType="Cloth_replyVO">
+    UPDATE cloth_reply
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+  
+  
+  
+  <select id="read" resultType="Cloth_replyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, wdate, clothno, userid 
+    from cloth_reply
+    WHERE rno=#{rno}
+  </select> 
+ 
+ <insert id="reply" parameterType="Cloth_replyVO">
+    insert into cloth_reply(rno, nickname, rcomment, grpno, indent, ansnum, clothno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from cloth_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{clothno}, #{userid})
+  </insert>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+   delete from cloth_reply where rno in (  
+  select a.rno from cloth_reply a, (select clothno, grpno, indent, rno, ansnum from cloth_reply where rno = #{rno}) b
+  where a.clothno = b.clothno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+ 
+  </delete> 
+  
+         
+</mapper>

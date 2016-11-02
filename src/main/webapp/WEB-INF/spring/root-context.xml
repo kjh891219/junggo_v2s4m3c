@@ -24,7 +24,9 @@
                    dev.mvc.carproduct_reply, dev.mvc.music_reply, dev.mvc.reviews, 
                    dev.mvc.reviews_reply, dev.mvc.usedcar_reply, dev.mvc.game_reply, 
                    dev.mvc.gd_reply, dev.mvc.live_reply, dev.mvc.living, dev.mvc.mo_reply, 
-                   dev.mvc.notice, dev.mvc.nt_reply"
+                   dev.mvc.notice, dev.mvc.nt_reply, dev.mvc.cheat_reply, dev.mvc.cloth, 
+                   dev.mvc.cloth_reply, dev.mvc.cosmetic_reply, dev.mvc.product, 
+                   dev.mvc.product_reply, dev.mvc.sports, dev.mvc.sports_reply"
                    />
     <property name="mapperLocations" value="classpath:mybatis/*.xml" />
   </bean>

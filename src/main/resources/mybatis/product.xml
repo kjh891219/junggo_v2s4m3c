@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "product">
+  <insert id="create" parameterType="ProductVO">
+   INSERT INTO product(pno, 
+               category, nickname, passwd, deal_code, product_code, region, deal_way, hprice,  purc_date, quantity, 
+               email, tel, title, content, userid , file1, file2, size2, file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10)
+   
+   VALUES((SELECT NVL(MAX(pno), 0)+1 as pno FROM product),
+               #{category}, #{nickname}, #{passwd}, #{deal_code}, #{product_code}, #{region}, #{deal_way}, 
+               #{hprice},  #{purc_date}, #{quantity}, #{email}, #{tel}, #{title}, #{content}, #{userid}, #{file1} , #{file2} , #{size2},
+               #{file3}, #{file4}, #{size4}, #{file5}, #{file6}, #{size6}, #{file7}, #{file8}, #{size8}, #{file9}, #{file10}, #{size10} )
+  </insert>
+ 
+ <!-- 검색을 하지 않는 전체 목록 --> 
+  <select id="list" resultType="ProductVO">
+  SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
+  FROM product
+  </select>
+  
+   
+  <select id="read" resultType="ProductVO" parameterType="int">
+    SELECT pno, category, nickname, passwd, deal_code, product_code, region, deal_way, hprice,  purc_date, quantity, 
+              email, tel, title, content, userid, file1, file2, size2, cnt ,
+              file3, file4, size4, file5, file6, size6, file7, file8, size8, file9, file10, size10
+    FROM product
+    WHERE pno = #{pno}
+  </select>
+  
+  <update id ="update" parameterType="ProductVO">
+     UPDATE product
+     SET  category= #{category}, nickname = #{nickname}, passwd = #{passwd}, deal_way = #{deal_way}, 
+                       deal_code = #{deal_code}, product_code = #{product_code}, hprice = #{hprice}, region = #{region}, tel = #{tel}, 
+                      email = #{email}, quantity = #{quantity}, title = #{title}, content = #{content}, 
+                      purc_date = #{purc_date} , file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, file3 = #{file3}, file4 = #{file4},
+                      size4 = #{size4}, file5 = #{file5}, file6 = #{file6}, size6 = #{size6}, file7 = #{file7}, file8 = #{file8}, size8 = #{size8},
+                      file9 = #{file9}, file10 = #{file10}, size10 = #{size10}    
+     WHERE pno = #{pno}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM product
+    WHERE pno=#{pno}
+  </delete>
+  
+  <update id = "increaseCnt" parameterType = "int" >
+  UPDATE product
+  SET cnt = cnt + 1
+  WHERE pno = #{pno}
+  </update> 
+    
+    
+     <!-- ********** 검색에 따른 변경 시작 ********** -->
+  <select id="list2" resultType="ProductVO" parameterType="HashMap" >
+   SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
+  FROM product
+  
+    <choose>
+      <when test="col == 'title'">
+         AND title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+         AND content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+         AND title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+    
+    ORDER BY pno DESC
+  </select>        
+ 
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM product
+    <choose>
+      <when test="col == 'title'">
+        WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        WHERE content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+  </select>        
+ 
+  <!-- ********** 검색에 따른 변경 종료 ********** -->   
+    
+ <!-- ********** 페이징에 따른 변경 시작 ********** -->
+    <select id="list3" resultType="ProductVO" parameterType="HashMap" >
+    SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, r
+        FROM(
+           SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, rownum as r
+              FROM (
+                    SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
+                    FROM product
+                    <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY pno DESC
+             )
+    )
+    
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select>  
+     
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+    <!-- 테스트  -->
+  <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member
+    where userid=#{userid}   
+    </select>
+
+</mapper>

@@ -119,6 +119,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      
   <!-- ********** 페이징에 따른 변경 종료 ********** -->
  
-    
-    
+  <!-- 테스트  -->
+  <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member
+    where userid=#{userid}   
+    </select>
  </mapper>

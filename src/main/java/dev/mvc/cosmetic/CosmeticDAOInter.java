@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import dev.mvc.cosmetic.CosmeticVO;
+import dev.mvc.tmember.MemberVO;
 
 public interface CosmeticDAOInter {
   /**
@@ -77,4 +78,12 @@ public interface CosmeticDAOInter {
    */
   public List<CosmeticVO> list3(HashMap hashmap);
 
+  /**
+   * 회원정보(닉네임, 이메일) 가져오기
+   * @param userid
+   * @return
+   */
+  public MemberVO test(String userid);
+  
+  
 }

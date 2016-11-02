@@ -1,11 +1,14 @@
 package dev.mvc.cosmetic;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.tmember.MemberVO;
 import web.tool.Paging;
 import web.tool.SearchDTO;
 import web.tool.Tool;
@@ -33,11 +37,41 @@ public class CosmeticCont {
   
   @RequestMapping(value = "/cosmetic/create.do", 
       method = RequestMethod.GET)
-  public ModelAndView create() {
+  public ModelAndView create(HttpSession session, HttpServletResponse response) throws IOException {
     System.out.println("--> create() GET called."); 
+    
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/cosmetic/create"); // /webapp/cosmetic/create.jsp
 
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+    if (session.getAttribute("userid") == null ){
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
+       + "location.href = '../member/login.do';"
+       + "</script>"); 
+      session.setAttribute("url",  "cosmetic/list.do");//
+      
+    }else{
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>"
+          + "location.href = './create.jsp'; "
+          + "</script>");
+      session.setAttribute("url", "cosmetic/list.do"); 
+    }
+    
+    String userid = session.getAttribute("userid").toString();
+    String pwd = session.getAttribute("pwd").toString();
+    MemberVO memberVO = cosmeticDAO.test(userid);
+    
+    mav.addObject("memberVO", memberVO);
+    mav.addObject("userid", userid);
+    mav.addObject("pwd", pwd);
+    System.out.println(memberVO);
+    
+    
     return mav;
   }
   
@@ -168,7 +202,7 @@ public class CosmeticCont {
       }
       // -------------------------------------------------------------------
     }
-    cosmeticVO.setFile9(file10); // Thumb 이미지
+    cosmeticVO.setFile9(file9); // Thumb 이미지
     cosmeticVO.setFile10(file10); // 원본 이미지
     // -------------------------------------------------------------------
  
@@ -185,7 +219,6 @@ public class CosmeticCont {
       msgs.add("죄송하지만 다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
     }
-    links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
 
@@ -307,7 +340,7 @@ public class CosmeticCont {
       cosmeticVO.setSize4Label(Tool.unit(cosmeticVO.getSize4()));
       cosmeticVO.setSize6Label(Tool.unit(cosmeticVO.getSize6()));
       cosmeticVO.setSize8Label(Tool.unit(cosmeticVO.getSize8()));
-      cosmeticVO.setSize8Label(Tool.unit(cosmeticVO.getSize10()));
+      cosmeticVO.setSize10Label(Tool.unit(cosmeticVO.getSize10()));
       
       mav.addObject("cosmeticVO", cosmeticVO);
       mav.addObject("searchDTO", searchDTO);

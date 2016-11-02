@@ -3,56 +3,53 @@ package dev.mvc.cheat;
 import java.util.HashMap;
 import java.util.List;
 
-import dev.mvc.cheat.CheatVO;
+import dev.mvc.tmember.MemberVO;
 
 public interface CheatDAOInter {
-  public int create(CheatVO cheatVO);
-  /** 
-   * 조건목록조회
+
+ /**
+  * 레코드를 등록합니다.
+  * <insert id="create" parameterType="CheatVO">
+  * @param vo 등록할 데이터 객체
+  * @return 등록된 레코드 수
+  */
+  public int create(CheatVO vo);
+  
+  /**
+   * 회원 전체 목록
+   * <select id="list3" resultType="CheatVO" parameterType="HashMap">
+   * @param
    * @return
    */
- 
+  public List<CheatVO> list();
+  
+  /**
+   * <select id="read" resultType="CheatVO" parameterType="int">
+   * @param ctno
+   * @return
+   */
   public CheatVO read(int ctno);
   
   /**
-   * 수정
-   * @param codeVO
+   * 
+   * @param vo
    * @return
    */
-  public int update(CheatVO cheatVO);
-  /**
-   * 삭제
-   * @param ctno
-   * @return
-   */
+  public int update(CheatVO vo);
+  
   public int delete(int ctno);
   
-  /**
-   * 조회 조건 검색
-   * @param hashMap
-   * @return
-   */
-  public List<CheatVO> list(HashMap hashMap);
+  public int increaseCnt(int ctno);
+  
+  public int count(HashMap hashmap);
+  
+  public List<CheatVO> list3(HashMap hashmap);
   
   /**
-   * 조회된 전체 레코드 수
-   * @param hashMap
+   * 회원정보(닉네임, 이메일) 가져오기
+   * @param userid
    * @return
    */
-  public int count(HashMap hashMap);
+  public MemberVO test(String userid);
   
-  /**
-   * 비밀번호 체크
-   * @param hashMap
-   * @return
-   */
-  public int passwordCheck(HashMap hashMap);
-  
-  
-  /**
-   * 조회수 증가
-   * @param ctno
-   * @return
-   */
-  public int setCnt(int ctno);
 }

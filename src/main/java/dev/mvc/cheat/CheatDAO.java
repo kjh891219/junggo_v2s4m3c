@@ -7,18 +7,26 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dev.mvc.tmember.MemberVO;
+
 @Repository("dev.mvc.cheat.CheatDAO")
 public class CheatDAO implements CheatDAOInter {
-  @Autowired
-  private SqlSessionTemplate mybatis; // MyBATIS 3 연결 객체
 
-  public CheatDAO() {
-    System.out.println("--> CheatDAO created.");
-  }
+@Autowired
+private SqlSessionTemplate mybatis; //mybatis 연결
+
+public CheatDAO(){
+  System.out.println("--> CheatDAO created.");
+}
 
   @Override
   public int create(CheatVO vo) {
     return mybatis.insert("cheat.create", vo);
+  }
+
+  @Override
+  public List<CheatVO> list() {
+    return mybatis.selectList("cheat.list");
   }
 
   @Override
@@ -27,13 +35,8 @@ public class CheatDAO implements CheatDAOInter {
   }
 
   @Override
-  public int update(CheatVO cheatVO) {
-    return mybatis.update("cheat.update", cheatVO);
-  }
-
-  @Override
-  public List<CheatVO> list(HashMap hashMap) {
-    return mybatis.selectList("cheat.list", hashMap);    
+  public int update(CheatVO vo) {
+    return mybatis.update("cheat.update", vo);
   }
 
   @Override
@@ -42,18 +45,23 @@ public class CheatDAO implements CheatDAOInter {
   }
 
   @Override
-  public int count(HashMap hashMap) {
-    return mybatis.selectOne("cheat.count", hashMap);
+  public int increaseCnt(int ctno) {
+    return mybatis.update("cheat.increaseCnt", ctno);
   }
 
   @Override
-  public int passwordCheck(HashMap hashMap) {
-    return mybatis.selectOne("cheat.passwordCheck", hashMap);
+  public int count(HashMap hashmap) {
+    return mybatis.selectOne("cheat.count", hashmap);
   }
 
   @Override
-  public int setCnt(int ctno) {
-    return mybatis.update("cheat.setCnt", ctno);
+  public List<CheatVO> list3(HashMap hashmap) {
+    return mybatis.selectList("cheat.list3", hashmap);
+  }
+
+  @Override
+  public MemberVO test(String userid) {
+    return mybatis.selectOne("cheat.test", userid);
   }
 
 }

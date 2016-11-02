@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -15,194 +16,149 @@
 <script type="text/javascript" src="../js/tool.js"></script>
 <link href="/junggo/css/style.css" rel="Stylesheet" type="text/css">
 <script src="/junggo/js/event.js"></script>
-<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="../js/tool.js"></script>
-<script type="text/JavaScript">
-  window.onload=function(){
-    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
-  };
-</script>
-<script type="text/javascript">
-$(function(){
-  /* 수정일 경우 자료 조회 */
-  if ('${opentype }' == 'U'){
-  
-  }
-});
-</script>
+
 
 </head> 
-
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<jsp:include page="/menu/top.jsp" flush='false' />
+   <jsp:include page="/menu/top.jsp" flush='false' />
+   <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
 
-<DIV class='title'>허위상품신고 ${opentype == "U" ? "수정" : "등록" }</DIV>
 
-<DIV class='content' style='width: 80%;'>
-<FORM name='frm' method='POST' action='./create.do'
- enctype="multipart/form-data">
-      <fieldset>
-        <DIV class='title'><span>글등록</span></DIV>
-         <label>CTNO</label>         
-        <ul>
-          <li><label class='label_1' for='title'>제목</label> <input
-            type='text' name='title' id='title'
-            value='${opentype == "U" ? cheatVO.title : "허위상품 신고합니다" }'
-            required="required"></li>
-          <li><label class='label_1' for='gubun'>구분</label> <select
-            id="gubun" name="gubun">
+<DIV class=container>
 
-              <option value="물품미발송"
-                ${opentype == "U" && cheatVO.gubun =="물품미발송" ? "selected=selected":""}>물품미발송</option>
-              <option value="상태불량"
-                ${opentype == "U" && cheatVO.gubun =="상태불량" ? "selected=selected":""}>상태불량</option>
-              <option value="이미테이션"
-                ${opentype == "U" && cheatVO.gubun =="이미테이션" ? "selected=selected":""}>이미테이션</option>
-              <option value="택배착불"
-                ${opentype == "U" && cheatVO.gubun =="택배착불" ? "selected=selected":""}>택배착불</option>
-              <option value="더치트,사이버안전국 등록자"
-                ${opentype == "U" && cheatVO.gubun =="더치트,사이버안전국 등록자" ? "selected=selected":""}>더치트,사이버안전국
-                등록자</option>
-          </select>
+<DIV class='title'><span>글등록</span></DIV>
+   <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
+<FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data"> 
+ <input type='hidden' name='userid' id='userid' value= '${userid }'/>
+ <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
 
-            <div class="col-xs-5">
-              <label for='region'>*지역</label> <select name='region'
-                id='region' class="">
-                <option value="서울"
-                  ${opentype == "U" && cheatVO.region =="서울" ? "selected=selected":""}>서울</option>
-                <option value="인천"
-                  ${opentype == "U" && cheatVO.region =="인천" ? "selected=selected":""}>인천</option>
-                <option value="대구"
-                  ${opentype == "U" && cheatVO.region =="대구" ? "selected=selected":""}>대구</option>
-                <option value="대전"
-                  ${opentype == "U" && cheatVO.region =="대전" ? "selected=selected":""}>대전</option>
-                <option value="광주"
-                  ${opentype == "U" && cheatVO.region =="광주" ? "selected=selected":""}>광주</option>
-                <option value="울산"
-                  ${opentype == "U" && cheatVO.region =="울산" ? "selected=selected":""}>울산</option>
-                <option value="부산"
-                  ${opentype == "U" && cheatVO.region =="부산" ? "selected=selected":""}>부산</option>
-                <option value="경기"
-                  ${opentype == "U" && cheatVO.region =="경기" ? "selected=selected":""}>경기</option>
-                <option value="강원"
-                  ${opentype == "U" && cheatVO.region =="강원" ? "selected=selected":""}>강원</option>
-                <option value="경북"
-                  ${opentype == "U" && cheatVO.region =="경북" ? "selected=selected":""}>경북</option>
-                <option value="경남"
-                  ${opentype == "U" && cheatVO.region =="경남" ? "selected=selected":""}>경남</option>
-                <option value="전북"
-                  ${opentype == "U" && cheatVO.region =="전북" ? "selected=selected":""}>전북</option>
-                <option value="전남"
-                  ${opentype == "U" && cheatVO.region =="전남" ? "selected=selected":""}>전남</option>
-                <option value="충남"
-                  ${opentype == "U" && cheatVO.region =="충남" ? "selected=selected":""}>충남</option>
-                <option value="충북"
-                  ${opentype == "U" && cheatVO.region =="충북" ? "selected=selected":""}>충북</option>
-                <option value="제주"
-                  ${opentype == "U" && cheatVO.region =="제주" ? "selected=selected":""}>제주</option>
+<DIV class='content_form'>
+     <DIV class="">
+     <div class="float_l _left">
+      <div class="">
+        <label class="select need_e" for='gubun'>신고구분</label>
+        <div>
+        <select name='gubun' id="gubun" class="full">
+                   <option value="물품미발송" selected="selected">물품미발송</option>
+           <option value="상태불량">상태불량</option>
+           <option value="이미테이션">이미테이션</option>
+           <option value="택배착불">택배착불</option>
+        </select>
+        </div>
+      </div>
+       </div>
+        <div class='float_l _right' >
+        <div class="">  
+           <label for='region' class='need_e'>지역</label>
+           <div>
+              <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10 full" >
+                 <option value="서울" selected="selected">서울</option>
+                 <option value="인천">인천</option>
+                 <option value="대구">대구</option>
+                 <option value="대전">대전</option>
+                 <option value="광주">광주</option>
+                 <option value="울산">울산</option>
+                 <option value="부산">부산</option>
+                 <option value="경기">경기</option>
+                 <option value="강원">강원</option>
+                 <option value="경북">경북</option>
+                 <option value="경남">경남</option>
+                 <option value="전북">전북</option>
+                 <option value="전남">전남</option>
+                 <option value="충남">충남</option>
+                 <option value="충북">충북</option>
+                 <option value="제주">제주</option>
               </select>
-            </div></li>
-          <li><label class='label_1' for=occurday>발생일자</label> <input
-            type='date' name='occurday' id='occurday'
-            value='${opentype == "U" ? cheatVO.occurday : "2016-10-20" }'
-            required="required"> <label class='label_1'
-            for='buyprice'>구매금액</label> <input type='number'
-            name='buyprice' id='buyprice'
-            value=${opentype == "U" ? cheatVO.buyprice : 30000 }
-            required="required"></li>
-          <li><label class='label_1' for='cheatid'>허위상품등록자
-              ID</label> <input type='text' name='cheatid' id='cheatid'
-            value='${opentype == "U" ? cheatVO.cheatid : "badman1" }'>
-
-            <label class='label_1' for='cheattel'>허위상품등록자 전화번호</label> <input
-            type='text' name='cheattel' id='cheattel'
-            value='${opentype == "U" ? cheatVO.cheattel : "02-1234-4567" }'>
-          </li>
-          <li><label class='label_1' for='cheatemail'>허위상품등록자
-              이메일</label> <input type='text' name='cheatemail' id='cheatemail'
-            value='${opentype == "U" ? cheatVO.cheatemail : "badman@gmail.com" }'>
-
-            <label class='label_1' for='hit'>조회수</label> <input
-            type='text' name='cnt' id='cnt'
-            value='${opentype == "U" ? cheatVO.cnt : 0 }'></li>
-          <li><label class='label_1' for='content'>사건 내용</label>
-            <div>
-              <textarea name='content' id='content' required="required"> ${opentype == "U" ? cheatVO.content : "꼭 보세요. 주의하세요." }</textarea>
-            </div></li>
-          <li><label class='label_1' for='userid'>등록자 ID</label> <input
-            type='text' name='userid' id='userid'
-            value='${opentype == "U" ? cheatVO.userid : "chanmi" }'
-            required="required"></li>
-          <li><label class='label_1' for='email'>등록자 이메일</label> <input
-            type='text' name='email' id='email'
-            value='${opentype == "U" ? cheatVO.email : "chanmi@gmail.com" }'
-            required="required"> <label class='label_1'
-            for='tel'>등록자 연락처</label> <input type='text' name='tel'
-            id='tel'
-            value='${opentype == "U" ? cheatVO.tel : "02-1234-1234" }'
-            required="required"></li>
-          <li><label class='label_1' for='nickname'>등록자 별명</label>
-            <input type='text' name='nickname' id='nickname'
-            value='${opentype == "U" ? cheatVO.nickname : "테스터등록자" }'
-            required="required"></li>
-          <li><label class='label_1' for='passwd'>비밀번호</label> <input
-            type='password' name='passwd' id='passwd'
-            value='${opentype == "U" ? cheatVO.passwd : "1234" }'
-            required="required"></li>
-          <li><label for="file1MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일1 </label>
-            ${opentype == "U"? cheatVO.file1:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file1MF'
-                id='file1MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div></li>
-            <li><label for="file2MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일2 </label>
-            ${opentype == "U"? cheatVO.file2:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file2MF'
-                id='file2MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div></li>
-            <li><label for="file3MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일3 </label>
-            ${opentype == "U"? cheatVO.file3:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file3MF'
-                id='file3MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div></li>
-            <li><label for="file4MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일4 </label>
-            ${opentype == "U"? cheatVO.file4:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file4MF'
-                id='file4MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div></li>
-            <li><label for="file5MF"
-            class="col-xs-2 col-lg-2 control-label">업로드 파일5 </label>
-            ${opentype == "U"? cheatVO.file5:""}
-            <div class="col-xs-10 col-lg-10">
-              <input type="file" class="form-control" name='file5MF'
-                id='file5MF' size='20'> <br> Preview(미리보기)
-              이미지 자동 생성됩니다.
-            </div></li>
-         
-        </ul>
+           </div>
+     </div>  
+       </div>
+      <div class='both'></div>
+      </DIV>
+      <hr/>
+      <div class="row">
+        <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
+        <input type='text' name='title' id='title' required="required" value='' class="col-xs-9 col-lg-9">
+      </div>
+      <div class="row">
+        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9"></textarea>
+      </div>
+      <hr/>
+        <div class="row need">   
+        <label for='file2MF' class='col-xs-2 col-lg-2'>업로드 파일</label>
+        <input type="file" name='file2MF' id='file2MF' size='40'>
+      </div>
+      <div class="row choice" >   
+        <label for='file4MF' class='col-xs-2 col-lg-2'>업로드 파일</label>
+        <input type="file" name='file4MF' id='file4MF' size='40'>
+      </div>
+      <div class="row choice">   
+        <label for='file6MF' class='col-xs-2 col-lg-2'>업로드 파일</label>
+        <input type="file" name='file6MF' id='file6MF' size='40'>
+      </div>
+      <div class="row choice">   
+        <label for='file8MF' class='col-xs-2 col-lg-2'>업로드 파일</label>
+        <input type="file" name='file8MF' id='file8MF' size='40'>
+      </div>
+      <div class="row choice">   
+        <label for='file10MF' class='col-xs-2 col-lg-2'>업로드 파일</label>
+        <input type="file" name='file10MF' id='file10MF' size='40'>
+      </div>
+      <hr>
+            <div class='inpo'>사기 정보</div>
+         <div class='line_box' id='ul_box_2'></div>
+            <div class="row">
+              <label for='cheatid' class='col-xs-2 col-lg-2 need'>'허위상품등록자 ID</label>
+              <input type='text' name='cheatid' id='cheatid' value= '흰둥이'' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              </div>
+            <div class="row">
+               <label for='cheattel'  class='col-xs-2 col-lg-2 need'>허위상품등록자연락처</label>
+              <input type='text' name='cheattel' id='cheattel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
+            </div>
+            <div class="row">  
+              <label for='cheatemail' class='col-xs-2 col-lg-2 need'>허위상품등록자이메일</label>
+              <input type='text' name='cheatemail' id='cheatemail'  required="required" value='qwkjd@nqwk.com'  class="col-xs-3 col-lg-3">
+            </div>
+  
+      <h3>추가항목</h3>
+      <div class='inpo'>신고자 정보</div>
+      <div class='line_box' id='ul_box_1'></div>
+        <div class="row"> 
+        <label for='buyprice class='col-xs-2 col-lg-2 need'>사기금액</label>
+        <input type='text' name='buyprice' id='buyprice'  required="required" value='100000' class="col-xs-3 col-lg-3">원
+        </div>
+        <div class="row">       
+        <label for='occurday'  class='col-xs-2 col-lg-2 choice'>발생시기</label>
+        <input type='text' name='occurday' id='occurday' value='2016년10월' class="col-xs-3 col-lg-3"> 
+        </div>
+        <div class='line_box' id='ul_box_2'></div>
+            <div class="row">
+              <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
+              <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              </div>
+            <div class="row">
+               <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
+              <input type='text' name='tel' id='tel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
+            </div>
+            <div class="row">  
+              <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
+              <input type='text' name='email' id='email'  required="required" value='${memberVO.email }'  class="col-xs-3 col-lg-3">
+            </div>
+  
+      <hr/>
+      
       <div class='text_r' >
         <button type="submit" class="btn btn-success btn-lg">등록</button>
         <button type="button" onclick="location.href='./list.jsp'" class="btn btn-danger btn-lg">취소</button>
       </div>
-      </fieldset>
+      </div>
 </FORM>
 </DIV>
-
 <!-- -------------------------------------------- -->
-<jsp:include page="/menu/bottom.jsp" flush='false' />
+ <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 <!-- -------------------------------------------- -->
 </html> 
+

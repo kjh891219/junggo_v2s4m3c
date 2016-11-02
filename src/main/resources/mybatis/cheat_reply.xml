@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cheat_reply">
+
+ <insert id="create" parameterType="Cheat_replyVO">
+   insert into cheat_reply(rno, nickname, rcomment, grpno, indent, ansnum, ctno, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from cheat_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from cheat_reply),
+   0, 0, #{ctno}, #{userid})
+  </insert> 
+
+  <insert id="reply" parameterType="Cheat_replyVO">
+    INSERT INTO cheat_reply (rno, rcomment, ctno, userid, nickname,  grpno, indent, ansnum)
+    VALUES((SELECT NVL(MAX(rno), 0) + 1 as rno FROM cheat_reply),
+    #{rcomment}, #{ctno}, #{userid}, #{nickname},   #{grpno}, #{indent}, #{ansnum})
+  </insert>
+
+  <update id='updateAnsnum' parameterType="Cheat_replyVO">
+    UPDATE cheat_reply
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+
+  <!-- 답변 1건 조회 -->
+   <select id="read" resultType="Cheat_replyVO" parameterType="int">
+    SELECT rno, rcomment, ctno, userid, nickname,  wdate, grpno, indent, ansnum
+      FROM cheat_reply
+     WHERE rno=#{rno}
+  </select> 
+  
+  <!-- 조건 검색 -->
+  <select id="cheat_replyList" resultType="Cheat_replyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, wdate, ctno, userid, rownum as r
+    from (select rno, nickname, rcomment, grpno, indent, ansnum, wdate, ctno, userid from cheat_reply order by grpno desc, ansnum asc)
+    WHERE ctno=#{ctno}
+   order by grpno DESC, ansnum ASC
+  </select>
+  
+  <!-- 댓글 등록 시 메인글번호에 해당하는 답글 중 grpno MAX 값 가져오기-->
+  <!--  <select id="getMaxgrpno" resultType="int" parameterType="int">
+    SELECT nvl(max(grpno),0) grpno
+    FROM cheat_reply
+    WHERE ctno=#{ctno}
+  </select>  -->
+  
+    <!-- 허위상품신고 답글 삭제 -->
+  <delete id="delete" parameterType="int">
+   delete from cheat_reply where rno in (  
+  select a.rno from cheat_reply a, (select ctno, grpno, indent, rno, ansnum from cheat_reply where rno = #{rno}) b
+  where a.ctno = b.ctno and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+  </delete>
+  
+</mapper>

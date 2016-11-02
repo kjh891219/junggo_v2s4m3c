@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dev.mvc.tmember.MemberVO;
+
 @Repository("dev.mvc.cosmetic.CosmeticDAO")
 public class CosmeticDAO implements CosmeticDAOInter {
   
@@ -61,6 +63,11 @@ public class CosmeticDAO implements CosmeticDAOInter {
   @Override
   public List<CosmeticVO> list3(HashMap hashmap) {
     return mybatis.selectList("cosmetic.list3", hashmap);
+  }
+
+  @Override
+  public MemberVO test(String userid) {
+    return mybatis.selectOne("cosmetic.test", userid);
   }
 
  
