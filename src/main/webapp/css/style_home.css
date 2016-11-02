@@ -177,7 +177,9 @@
   }
   
   .login{
-   background: url(${pageContext.request.contextPath}/images/login.png) no-repeat left center;
+   background-image:url("./images/login.png");
+   background-repeat:no-repeat;
+   background-position: left center;
   }
   .join{
    background: url(${pageContext.request.contextPath}/images/login.png) no-repeat left center;
