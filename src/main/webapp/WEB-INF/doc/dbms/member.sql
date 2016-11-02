@@ -1,5 +1,5 @@
 -- 테이블 다 지우기
-
+DROP TABLE usedcar;
 DROP TABLE rv_comment;
 DROP TABLE review;
 DROP TABLE message;
@@ -19,6 +19,7 @@ UPDATE member
     UPDATE member 
     SET confirm='Y', act='Y'
     WHERE userid='sol'
+    
 SELECT nickname
     FROM member
     WHERE userid NOT IN ('chanmi');

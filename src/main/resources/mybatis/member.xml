@@ -109,13 +109,8 @@ MEMBER TABLE
     UPDATE member
     SET passwd=#{passwd}
     WHERE mno=#{mno}
-  </update>
-  
-   <delete id="delete" parameterType="int">
-    DELETE FROM member
-    WHERE mno=#{mno}
-  </delete>  
-  -->
+  </update> -->
+ 
  
   
   <!-- 관리자 권한 조회 -->
@@ -139,5 +134,87 @@ MEMBER TABLE
       WHERE userid=#{userid} AND pwd=#{pwd}
   </select>
   
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM member
+      <if test = 'dropout == "Y"'> 
+         where dropout= 'Y'
+      </if>
+    <!-- <choose>
+      <when test="col == 'title'">
+        where title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        where content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'category'">
+        where category LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose> -->
+  </select>        
+ 
+  <!-- ********** 검색에 따른 변경 종료 ********** -->  
+  
+  
+  <!-- ********** 페이징에 따른 변경 시작 ********** -->
+  <select id="list2" resultType="MemberVO" parameterType="HashMap" >
+  SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
+                          auth, confirm, act, dropout, r
+  from (
+      SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
+                          auth, confirm, act, dropout, rownum as r
+      from (
+          SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
+                          auth, confirm, act, dropout  
+          FROM member
+      <if test = 'dropout == "Y"'> 
+         where dropout= 'Y'
+      </if>
+      ORDER BY mno asc
+      )
+    )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select>  
+     
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+  
+  
+  
+  
+  <!-- ************ 관리자 메뉴 *************** -->
+  <!-- 회원 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM member
+    WHERE mno=#{mno}
+  </delete>  
+  
+  <!-- 회원 권한 변경 -->
+  <update id="act_update" parameterType="Map">
+  UPDATE member
+  SET act=#{act}
+  WHERE mno=#{mno}
+  </update> 
+  
+  
+  
+  <!-- ********************************************** 마이 페이지 시작 ********************************************************  -->
+  <select id="art_list" resultType="ArtVO" parameterType="String" >
+  select ano as my_no, deal_code, title, hprice, deal_way, region, wdate, cnt, 
+  (select count(ano) from art where userid=#{userid}) as my_cnt
+  from art
+  WHERE userid=#{userid}
+  order by ano desc
+  </select>  
+  <select id="camera_list" resultType="CameraVO" parameterType="String" >
+  select ctno as my_no, deal_code, title, hprice, deal_way, region, wdate, cnt,
+  (select count(ctno) from camera where userid=#{userid}) as my_cnt
+  from camera
+  WHERE userid=#{userid}
+  order by ctno desc
+  </select>  
+  <!-- ********************************************** 마이 페이지 끝   ********************************************************  -->
 </mapper>
 

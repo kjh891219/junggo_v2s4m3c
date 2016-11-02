@@ -27,7 +27,7 @@
                    dev.mvc.notice, dev.mvc.nt_reply, dev.mvc.cheat_reply, dev.mvc.cloth, 
                    dev.mvc.cloth_reply, dev.mvc.cosmetic_reply, dev.mvc.product, 
                    dev.mvc.product_reply, dev.mvc.sports, dev.mvc.sports_reply,
-                   dev.mvc.book, dev.mvc.breply"
+                   dev.mvc.book, dev.mvc.breply, dev.mvc.art, dev.mvc.art_reply"
                    />
     <property name="mapperLocations" value="classpath:mybatis/*.xml" />
   </bean>

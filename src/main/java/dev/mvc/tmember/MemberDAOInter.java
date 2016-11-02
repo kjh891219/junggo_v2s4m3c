@@ -3,6 +3,9 @@ package dev.mvc.tmember;
 import java.util.HashMap;
 import java.util.List;
 
+import dev.mvc.art.ArtVO;
+import dev.mvc.camera.CameraVO;
+
 
 
 public interface MemberDAOInter {
@@ -44,6 +47,21 @@ public interface MemberDAOInter {
    * @return 회원 목록
    */
   public List<MemberVO> list();
+  
+  /**
+   * 회원 전체 목록 - 페이징!!!!!!!
+   * <select id="list" resultType="MemberVO">
+   * @return 회원 목록
+   */
+  public List<MemberVO> list2(HashMap map);
+  
+  /**
+   * 검색된 레코드 수
+   * <select id="count" resultType="int" parameterType="HashMap" >
+   * @param hashmap 검색 조건
+   * @return
+   */
+  public int count(HashMap hashmap);
   
   /**
    * 회원 정보 조회
@@ -122,4 +140,40 @@ public interface MemberDAOInter {
    * @return
    */
   public int checkEmail_update(HashMap map);
+  
+  /**
+   * 회원 삭제 - 관리자
+   * @param mno
+   * @return
+   */
+  public int delete(int mno); 
+  
+  /**
+   * 회원 권한 변경
+   * <update id="act_update" parameterType="Map">
+   * @param map
+   * @return
+   */
+  public int act_update(HashMap map);
+  
+  /**
+   * 마이 페이지
+   * @param userid
+   * @return
+   */
+  public List<ArtVO> art_list(String userid);
+  public List<CameraVO> camera_list(String userid);
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }

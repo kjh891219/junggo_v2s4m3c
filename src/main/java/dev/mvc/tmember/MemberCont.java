@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.camera.CameraCont;
+import dev.mvc.art.ArtVO;
+import dev.mvc.camera.CameraVO;
+import web.tool.Paging;
+import web.tool.SearchDTO;
 import web.tool.Tool;
 
 @Controller
@@ -34,7 +38,7 @@ public class MemberCont {
     System.out.println("--> MemberCont created.");
   }
   
-  @RequestMapping(value = "/member/home.do", method = RequestMethod.GET)
+  @RequestMapping(value = "/home.do", method = RequestMethod.GET)
   public ModelAndView home() {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/index"); // member에 create.do가 들어올 경우 이동 -> /webapp/member/create.jsp
@@ -128,12 +132,12 @@ public class MemberCont {
       msgs.add("가입해주셔서 감사합니다.");
       msgs.add("이메일 인증 시 로그인이 가능합니다.");
       links.add("<button type='button' onclick=\"location.href='./login.do'\">로그인</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
     } else {
       msgs.add("회원 가입에 실패했습니다.");
       msgs.add("죄송하지만 다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
     }
  
     mav.addObject("msgs", msgs);
@@ -236,14 +240,14 @@ public class MemberCont {
    * 
    * @return
    */
-  @RequestMapping(value = "/member/list.do", method = RequestMethod.GET)
+/*  @RequestMapping(value = "/member/list.do", method = RequestMethod.GET)
   public ModelAndView list() {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/member/list"); //  /webapp/member/list.jsp
     mav.addObject("list", memberDAO.list());
  
     return mav;
-  }
+  }*/
   
   @RequestMapping(value = "/member/read.do", method = RequestMethod.GET)
   public ModelAndView read(int mno) {
@@ -251,6 +255,87 @@ public class MemberCont {
     mav.setViewName("/member/read");
     mav.addObject("memberVO", memberDAO.read(mno));
  
+    return mav;
+  }
+  
+  /**
+   * 전체 목록을 출력합니다.
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/member/list.do", method = RequestMethod.GET)
+  public ModelAndView list(SearchDTO searchDTO, HttpServletRequest request, String dropout) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/list");
+    
+    System.out.println(dropout);
+    
+    // HashMap hashMap = new HashMap();
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("col", searchDTO.getCol());
+    hashMap.put("word", searchDTO.getWord());
+    hashMap.put("dropout", dropout);
+    
+    
+    
+    int recordPerPage = 10; // 페이지당 출력할 레코드 갯수
+    // 페이지에서 출력할 시작 레코드 번호 계산, nowPage는 1부터 시작
+    int beginOfPage = (searchDTO.getNowPage() - 1) * 10; 
+    // 1 page: 0
+    // 2 page: 10
+    // 3 page: 20
+    int startNum = beginOfPage + 1; // 시작 rownum, 1
+    int endNum = beginOfPage + recordPerPage; // 종료 rownum, 10
+    hashMap.put("startNum", startNum);
+    hashMap.put("endNum", endNum);
+    
+    
+    
+    
+    System.out.println(searchDTO.getCol());
+    System.out.println(searchDTO.getWord());
+    
+    
+    int totalRecord = 0;
+    List<MemberVO> list = memberDAO.list2(hashMap);
+    Iterator<MemberVO> iter = list.iterator();
+    
+    while (iter.hasNext() == true) { // 다음 요소 검사
+      MemberVO vo = iter.next(); // 요소 추출
+      vo.setUserid(vo.getUserid());
+      vo.setMno(vo.getMno());
+      vo.setPwd(vo.getPwd());
+      vo.setName(vo.getName());
+      vo.setNickname(vo.getNickname());
+      vo.setEmail(vo.getEmail());
+      vo.setAddress1(vo.getAddress1());
+      vo.setAddress2(vo.getAddress2());
+      vo.setAuth(vo.getAuth());
+      vo.setConfirm(vo.getConfirm());
+      vo.setAct(vo.getAct());
+      vo.setDropout(vo.getDropout());
+      vo.setMdate(vo.getMdate().substring(0, 10));
+      
+    }
+    
+    mav.addObject("list", list);
+    mav.addObject("root", request.getContextPath());
+    
+    
+    totalRecord = memberDAO.count(hashMap);
+    mav.addObject("totalRecord", memberDAO.count(hashMap));
+    
+    String paging = new Paging().paging5(
+        totalRecord, 
+        searchDTO.getNowPage(), 
+        recordPerPage, 
+        searchDTO.getCol(), 
+        searchDTO.getWord());
+    mav.addObject("paging", paging);
+    
+    System.out.println(paging);
+    
+    
     return mav;
   }
   
@@ -272,12 +357,12 @@ public class MemberCont {
     if (memberDAO.confirm(memberVO) == 1) {
       msgs.add("이메일 인증이 완료되었습니다.");
       links.add("<button type='button' onclick=\"location.href='./login.do'\">로그인</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
     } else {
       msgs.add("이메일 인증이 실패했습니다.");
       msgs.add("죄송하지만 다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
     }
  
     mav.addObject("msgs", msgs);
@@ -286,16 +371,17 @@ public class MemberCont {
     return mav;
   }
   
-  @RequestMapping(value = "/member/login.do", 
+  @RequestMapping(value = "/login.do", 
                               method = RequestMethod.GET)
-  public ModelAndView login() {
+  public ModelAndView login(HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/member/login_ck_form"); // /webapp/member/login_ck_form.jsp
+  
+    mav.setViewName("/menu/login"); // /webapp/member/login_ck_form.jsp
 
     return mav;
   }
   
-  @RequestMapping(value = "/member/login.do", 
+  @RequestMapping(value = "/login.do", 
                               method = RequestMethod.POST)
   public ModelAndView login(MemberVO memberVO, 
                                          HttpSession session, 
@@ -314,16 +400,14 @@ public class MemberCont {
       if ("MY".indexOf(act) >= 0){ // 로그인 권한 있음. M: Master, Y:일반 회원
         session.setAttribute("userid", memberVO.getUserid());
         session.setAttribute("pwd", memberVO.getPwd());
-        session.setAttribute("nickname", memberDAO.read_userid(memberVO.getUserid()).getNickname());
-        session.setAttribute("email", memberDAO.read_userid(memberVO.getUserid()).getEmail());
-        session.setAttribute("tel", memberDAO.read_userid(memberVO.getUserid()).getTel());
         session.setAttribute("act", act);
         session.setAttribute("mno", mno);
-
+        session.setAttribute("email", memberDAO.read_userid(memberVO.getUserid()).getEmail());
+        session.setAttribute("nickname", memberDAO.read_userid(memberVO.getUserid()).getNickname());
+        session.setAttribute("tel", memberDAO.read_userid(memberVO.getUserid()).getTel());
         // ------------------------------------------------------------------
         // userid 저장 관련 쿠키 저장
         // ------------------------------------------------------------------
-        
         String userid_save = Tool.checkNull(memberVO.getUserid_save());
         if (userid_save.equals("Y")){ // id 저장 할 경우
           Cookie ck_userid = new Cookie("ck_userid", memberVO.getUserid()); // id 저장
@@ -362,19 +446,12 @@ public class MemberCont {
         // ------------------------------------------------------------------
       
         String url_address = Tool.checkNull(memberVO.getUrl_address());
-       
         if (url_address.length() > 0){
           mav.setViewName("redirect:" + memberVO.getUrl_address());
         }else{
           System.out.println("--> index.jsp 페이지로 이동합니다.");
-          //System.out.println("dfdfdfdfdf"+session.getAttribute("url").toString());
-          //session.setAttribute("url", "/index.jsp");
           String url = session.getAttribute("url").toString();
-          
           mav.setViewName("redirect:/" + url);
-         
-          
-          
         }
     
         } else {
@@ -382,7 +459,7 @@ public class MemberCont {
           msgs.add("현재 계정이 사용 불가합니다.");
           msgs.add("관리자에게 문의해주세요.");
           links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-          links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+          links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
         }
       
       } else {
@@ -390,7 +467,7 @@ public class MemberCont {
         msgs.add("로그인에 실패했습니다.");
         msgs.add("죄송하지만 다시한번 시도해주세요.");
         links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-        links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+        links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
       }
       
       mav.addObject("msgs", msgs);
@@ -399,18 +476,23 @@ public class MemberCont {
       return mav;
   }
   
-  @RequestMapping(value = "/member/logout.do", method = RequestMethod.GET)
+  @RequestMapping(value = "/member/logout.do", 
+                              method = RequestMethod.GET)
   public void logout(HttpSession session, HttpServletResponse response) throws IOException {
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html; charset=UTF-8");
     String userid2 = session.getAttribute("userid").toString();
-
+    
     session.invalidate(); // 모든 session 변수 삭제
 
     PrintWriter writer = response.getWriter();
-    writer
-        .println("<script>" + "alert('" + userid2 + "님 이용해 주셔서 감사합니다');" + "location.href='./home.do';" + "</script>");
-  }
+    writer.println
+    ("<script>"
+        + "alert('" + userid2 + "님 이용해 주셔서 감사합니다');"
+        + "location.href='../home.do';"
+        + "</script>"
+        );
+  } 
   
   /**
    * 탈퇴 신청
@@ -445,7 +527,7 @@ public class MemberCont {
   }
   
   /**
-   * 패스워드 변경 폼 출력
+   * 패스워드 확인 폼 출력
    * @param mno 회원 번호
    * @return
    */
@@ -479,16 +561,16 @@ public class MemberCont {
   }
   
   /**
-   * 패스워드 삭제 폼 출력
-   * @param mno 삭제할 글 번호
+   * 회원 삭제 - 지금 메시지가 관계가 맺어져 있어서 메시지가 존재하면 삭제가 안 됨
+   * @param mno 
    * @return
    */
   @RequestMapping(value = "/member/delete.do", method = RequestMethod.GET)
   public ModelAndView delete(int mno) {
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/member/delete"); // /webapp/member/delete.jsp
-    mav.addObject("mno", mno);
-    
+    memberDAO.delete(mno);
+    //mav.setViewName("/member/list.do"); 
+    mav.setViewName("redirect:/member/list.do");
     return mav;
   }
   
@@ -500,7 +582,7 @@ public class MemberCont {
   * @return
   */
   @RequestMapping(value = "/member/update.do", method = RequestMethod.POST)
-  public ModelAndView emailConfirm(MemberVO memberVO, String updateFlag, HttpSession session) {
+  public ModelAndView update(MemberVO memberVO, String updateFlag, HttpSession session) {
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
     
@@ -583,11 +665,84 @@ public class MemberCont {
     return mav;
     
   }
+  
+  /**
+   * 권한 변경 폼
+   * @param mno
+   * @return
+   */
+  @RequestMapping(value = "/member/act_update.do", method = RequestMethod.GET)
+  public ModelAndView act_update(String mno)   {
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("mno", mno);
+    mav.setViewName("/member/act_form"); 
+    return mav;
+}
+  
+  /**
+   * 권한 변경
+   * @param mno
+   * @param act
+   * @param response
+   * @throws IOException
+   */
+  @RequestMapping(value = "/member/act_update.do", method = RequestMethod.POST)
+  public void act_update(String mno, String act, HttpServletResponse response) throws IOException {
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    System.out.println("컨트롤"+mno);
+    System.out.println("컨트롤"+act);
+    map.put("mno", mno);
+    map.put("act", act);
+    int sendOK = memberDAO.act_update(map); 
+    if (sendOK == 1) {
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>"
+          + "opener.location.reload();"
+          + "window.close();"
+          + "</script>"
+          );
+  } else {
+    PrintWriter writer = response.getWriter();
+    writer.println
+    ("<script>alert('실패했습니다.');" 
+     + "</script>"
+        );
+  }
 
 }
+  
+  @RequestMapping(value = "/member/mylist.do", method = RequestMethod.GET)
+  public ModelAndView mylist(HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/mylist");
+    String userid = session.getAttribute("userid").toString();
+    
+    List<ArtVO> art_list = memberDAO.art_list(userid);
+    Iterator<ArtVO> art_iter = art_list.iterator();
+    while (art_iter.hasNext() == true) { // 다음 요소 검사
+      ArtVO vo = art_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<CameraVO> camera_list = memberDAO.camera_list(userid);
+    Iterator<CameraVO> camera_iter = camera_list.iterator();
+    while (camera_iter.hasNext() == true) { // 다음 요소 검사
+      CameraVO vo = camera_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("art_list", art_list);
+    hashMap.put("camera_list", camera_list);
 
-
-
+    mav.addObject("hashMap", hashMap);
+    return mav;
+  }
+}
 
 
 //javamail lib 이 필요합니다.

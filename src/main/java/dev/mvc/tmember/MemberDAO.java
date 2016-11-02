@@ -8,6 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dev.mvc.art.ArtVO;
+import dev.mvc.camera.CameraVO;
+
  
 @Repository("dev.mvc.tmember.MemberDAO")
 public  class MemberDAO implements MemberDAOInter{
@@ -59,6 +62,12 @@ public  class MemberDAO implements MemberDAOInter{
   @Override
   public List<MemberVO> list() {
     return mybatis.selectList("member.list");
+  }
+  
+  @Override
+  public List<MemberVO> list2(HashMap map) {
+    System.out.println(map.get("dropout"));
+    return mybatis.selectList("member.list2", map);
   }
 
   @Override
@@ -112,6 +121,34 @@ public  class MemberDAO implements MemberDAOInter{
   @Override
   public int checkEmail_update(HashMap map) {
     return mybatis.selectOne("member.checkEmail_update", map);
+  }
+
+  @Override
+  public int delete(int mno) {
+    return mybatis.delete("member.delete", mno);
+  }
+
+  @Override
+  public int count(HashMap hashmap) {
+    return mybatis.selectOne("member.count", hashmap);
+  }
+
+  @Override
+  public int act_update(HashMap map) {
+    System.out.println("´Ù¿À");
+    System.out.println(map.get("mno"));
+    System.out.println(map.get("act"));
+    return mybatis.update("member.act_update", map);
+  }
+
+  @Override
+  public List<ArtVO> art_list(String userid) {
+    return mybatis.selectList("member.art_list", userid);
+  }
+
+  @Override
+  public List<CameraVO> camera_list(String userid) {
+    return mybatis.selectList("member.camera_list", userid);
   }
    
   

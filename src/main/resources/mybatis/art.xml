@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "art">
+
+  <!-- 등록 --> 
+ <insert id="create" parameterType="ArtVO">
+   insert into art(ano ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, userid, thumb, file1, file2, file3, file4, file5, size1, size2, size3, size4, size5) 
+   values ((SELECT NVL(MAX(ano), 0)+1 as ano FROM art),
+   #{category}, #{nickname}, #{passwd}, #{deal_way}, #{deal_code}, #{product_code}, #{hprice}, #{region}, #{tel}, #{email}, #{quantity}, #{title}, #{content}, #{purc_date}, #{userid}, #{thumb}, #{file1}, #{file2}, #{file3}, #{file4}, #{file5}, #{size1}, #{size2}, #{size3}, #{size4}, #{size5} )
+  </insert>
+  
+  <select id="list" resultType="ArtVO">
+  select ano ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, userid, thumb, file1, file2, file3, file4, file5, size1, size2, size3, size4, size5
+  from art
+  ORDER BY ano DESC   
+  </select>  
+  
+  <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM art
+    <choose>
+      <when test="col == 'title'">
+        where title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        where content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'category'">
+        where category LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+  </select>        
+ 
+  <!-- ********** 검색에 따른 변경 종료 ********** -->  
+  
+  
+  <!-- ********** 페이징에 따른 변경 시작 ********** -->
+  <select id="list3" resultType="ArtVO" parameterType="HashMap" >
+  SELECT ano, nickname, passwd, deal_way, deal_code, product_code, hprice, region, quantity, title, purc_date, wdate, thumb, file1, size1, r
+  from (
+      SELECT ano, nickname, passwd, deal_way, deal_code, product_code, hprice, region, quantity, title, purc_date, wdate, thumb, file1, size1, rownum as r
+      from (
+          SELECT ano, nickname, passwd, deal_way, deal_code, product_code, hprice, region, quantity, title, purc_date, wdate, thumb, file1, size1  
+          FROM art
+      <choose>
+      <when test="col == 'title'">
+         where title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+         where content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'category'">
+         where category LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+         where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+      ORDER BY ano DESC
+      )
+    )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select>  
+     
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+  
+  <!--조회  --> 
+   <select id="read" resultType="ArtVO" parameterType="int">
+   SELECT ano,  nickname, userid, passwd, category, deal_way, deal_code, product_code,
+                                     hprice, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     file3, size3, file4, size4, file5, size5, email, tel, wdate
+    FROM art
+    WHERE ano=#{ano}
+  </select> 
+  
+  <!-- 조회수 증가 -->
+  <update id="increaseCnt" parameterType="int">
+    UPDATE art
+    SET cnt = cnt + 1
+    WHERE ano=#{ano}
+  </update> 
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM art
+    WHERE ano=#{ano}
+  </delete>
+  
+   <!-- 수정 -->
+  <update id="update" parameterType="ArtVO">
+      UPDATE art 
+      SET passwd=#{passwd}, nickname=#{nickname}, title=#{title}, category=#{category}, deal_code=#{deal_code},
+           region=#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, content=#{content}, hprice=#{hprice}, 
+           product_code=#{product_code}, thumb=#{thumb}, file1=#{file1}, size1=#{size1}, file2=#{file2},
+           size2=#{size2}, file3=#{file3}, size3=#{size3}, file4=#{file4}, size4=#{size4},
+           file5=#{file5}, size5=#{size5}, email=#{email}
+      WHERE ano=#{ano}
+    </update> 
+</mapper>

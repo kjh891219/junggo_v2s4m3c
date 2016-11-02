@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- Oracle 기반 -->
+<mapper namespace = "art_reply">
+   
+  <!-- 등록 --> 
+  <insert id="create" parameterType="Art_replyVO">
+   insert into ART_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, ano, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from art_reply),
+   #{nickname}, #{rcomment}, (select NVL(MAX(grpno),0)+1 as grpno from art_reply),
+   0, 0, #{ano}, #{userid})
+  </insert> 
+  
+  <select id="art_replyList" resultType="Art_replyVO"  parameterType="int">
+  select rno, nickname, rcomment, grpno, indent, ansnum, rdate, ano, userid, rownum as r
+  from (select rno, nickname, rcomment, grpno, indent, ansnum, rdate, ano, userid from ART_REPLY order by grpno desc, ansnum asc)
+    WHERE ano=#{ano}
+  </select>
+  
+  
+  
+  <!-- **********       답변 관련 시작       ********** -->
+  <!-- 답변 순서 변경 -->
+  <update id='updateAnsnum' parameterType="Art_replyVO">
+    UPDATE ART_REPLY
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>
+  
+  
+  
+  <select id="read" resultType="Art_replyVO" parameterType="int">
+    select rno, nickname, rcomment, grpno, indent, ansnum, rdate, ano, userid 
+    from Art_REPLY
+    WHERE rno=#{rno}
+  </select> 
+ 
+ <insert id="reply" parameterType="Art_replyVO">
+    insert into ART_REPLY(rno, nickname, rcomment, grpno, indent, ansnum, ano, userid)
+   values ((select NVL(MAX(rno),0)+1 as rno from art_reply),
+   #{nickname}, #{rcomment}, #{grpno},
+   #{indent}, #{ansnum}, #{ano}, #{userid})
+  </insert>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+   delete from art_reply where rno in (  
+  select a.rno from art_reply a, (select ano, grpno, indent, rno, ansnum from art_reply where rno = #{rno}) b
+  where a.ano = b.ano and a.grpno = b.grpno and a.indent >= b.indent and  a.rno >= b.rno and a.ansnum >= b.ansnum)
+  </delete> 
+  
+  
+         
+</mapper>
