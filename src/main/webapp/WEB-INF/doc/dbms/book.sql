@@ -136,8 +136,8 @@ CREATE TABLE breply(
     indent                NUMBER(2)        DEFAULT 0       NOT NULL,
     ansnum              NUMBER(5)        DEFAULT 0       NOT NULL,
     PRIMARY KEY(rno),
-    FOREIGN KEY (userid) REFERENCES member (userid),
-    FOREIGN KEY (bno) REFERENCES book (bno)
+    FOREIGN KEY (userid) REFERENCES member (userid) on delete cascade,
+    FOREIGN KEY (bno) REFERENCES book (bno) on delete cascade
 );
 
 

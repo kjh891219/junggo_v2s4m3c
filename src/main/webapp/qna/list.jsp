@@ -21,6 +21,25 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+<script>
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 이용이 가능합니다');
+       window.openModal();
+       <%session.setAttribute("url", "qna/list.do");%>
+       return false;
+       <% } else { %>
+       location.href='./create.do';
+       return true;
+       <% } %> 
+     }
+</script>
+
 <script type="text/javascript">
 $(function(){
  
@@ -76,7 +95,7 @@ $(function(){
     <TH class='th'>제목</TH>
     <TH class='th'>작성자</TH>
     <TH class='th'>작성일</TH>
-    <TH class='th'>관리</TH>
+    <c:if test="${(userid eq 'master')}"><TH class='th'>관리</TH></c:if>
   </TR>
  
    <c:forEach var="vo" items="${list }">
@@ -104,9 +123,9 @@ $(function(){
     <TD class='td'>${vo.userid }</TD>
     <TD class='td'>${vo.qdate}</TD>
     <TD class='td'>
-      <a href="./reply.do?qnano=${vo.qnano}&categoryno=${vo.categoryno}&col=${searchDTO.col}&word=${searchDTO.word}"><span>답변</span><!-- <img src="./images/reply.png" title="답변" border='0'/> --></a>
-      <A href="./read.do?qnano=${vo.qnano}"><IMG src='../menu/images/update.png' width="16px" title='수정'></A>
-      <A href="./delete.do?qnano=${vo.qnano}"><IMG src='../menu/images/delete.png' width="16px" title='삭제'></A>
+      <c:if test="${(userid eq 'master')}"><a href="./reply.do?qnano=${vo.qnano}&categoryno=${vo.categoryno}&col=${searchDTO.col}&word=${searchDTO.word}"><span>답변</span><!-- <img src="./images/reply.png" title="답변" border='0'/> --></a></c:if>
+      <c:if test="${(userid eq 'master')}"><A href="./read.do?qnano=${vo.qnano}"><IMG src='../menu/images/update.png' width="16px" title='수정'></A></c:if>
+      <c:if test="${(userid eq 'master')}"><A href="./delete.do?qnano=${vo.qnano}"><IMG src='../menu/images/delete.png' width="16px" title='삭제'></A></c:if>
     </TD>
     
   </TR>
@@ -116,7 +135,7 @@ $(function(){
    <DIV class='bottom'>${paging}</DIV>
  
 <DIV class='bottom text_r'>
-  <button type='button' onclick="location.href='./create.do'">등록</button>
+  <button type='button' onclick="create_login();">등록</button>
   <button type='button' onclick="location.reload();">새로 고침</button>
 </DIV>
 <!-- -------------------------------------------- -->

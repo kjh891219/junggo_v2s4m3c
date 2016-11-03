@@ -94,17 +94,21 @@ public class BookCont {
    * @return 
    */
   @RequestMapping(value = "/book/create.do", method = RequestMethod.GET)
-  public ModelAndView create() {
+  public ModelAndView create(HttpSession session) {
     System.out.println("--> create() GET called.");
     ModelAndView mav = new ModelAndView(); 
     mav.setViewName("/book/create"); // /webapp/code/create.jsp
     
  
-    MemberVO memberVO = memberDAO.read_userid("chanmi");
-    System.out.println(memberVO.getEmail());
-    System.out.println(memberVO.getNickname());
-    System.out.println(memberVO.getPwd());
-    mav.addObject("memberVO", memberVO);
+    String userid = session.getAttribute("userid").toString();
+    String pwd = session.getAttribute("pwd").toString();
+    String tel = session.getAttribute("tel").toString();
+    String email = session.getAttribute("email").toString();
+    
+    mav.addObject("userid", userid);
+    mav.addObject("pwd", pwd);
+    mav.addObject("tel", tel);
+    mav.addObject("email", email);
     
     return mav;
   }
@@ -194,7 +198,7 @@ public class BookCont {
     bookVO.setSize2(size5); // 원본 이미지
     // -------------------------------------------------------------------
       
-    bookVO.setUserid("chanmi"); // 회원 연동시 변경
+    
   /*    Integer itg = (Integer)(session.getAttribute("mno"));
     bookVO.setMno(itg.intValue());*/
     

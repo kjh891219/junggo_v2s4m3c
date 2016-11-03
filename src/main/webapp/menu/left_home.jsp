@@ -67,8 +67,8 @@
                <a class='left_list' >여가</a>
                <div class='left_detail'>
                      <dl>
-                        <dt><a href='#' class='menu_style'>문화&예술</a></dt>
-                        <dt><a href='#' class='menu_style'>도서</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/art/list.do' class='menu_style'>문화&예술</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/book/list.do' class='menu_style'>도서</a></dt>
                      </dl>
                </div>
             </li>
@@ -77,7 +77,7 @@
                <div class='left_detail'>
                      <dl>
                         <dt><a href='${pageContext.request.contextPath}/living/list.do' class='menu_style'>생활용품</a></dt>
-                        <dt><a href='#' class='menu_style'>스포츠</a></dt>
+                        <dt><a href='${pageContext.request.contextPath}/sports/list.do' class='menu_style'>스포츠</a></dt>
                      </dl>
                </div>
             </li>

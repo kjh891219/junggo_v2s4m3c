@@ -26,6 +26,8 @@
   <DIV class='title'>책 등록</DIV>
   <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
+   <input type='hidden' name='userid' id='userid' value= '${userid }'/>
+   <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
   <DIV class='content_form'>
       <div class='content_menu'>
         <A href='./create.do'>등록</A>｜ 
@@ -185,25 +187,23 @@
       <hr/>
       <div class='inpo'>판매자 정보</div>
          <div class='line_box' id='ul_box_2'></div>
-         <div class='row'>
-          <label class='col-xs-2 col-lg-2 need' for='userid'>등록자 ID</label>
-          <span class="col-xs-3 col-lg-3">${memberVO.userid}</span>
+          <div class='row'> 
+          <label class='col-xs-2 col-lg-2 need' for='nickname'>등록자 별명</label>
+          <span class="col-xs-3 col-lg-3">${nickname}</span> 
+          <input type="hidden" name="nickname" value="${nickname}"> 
+         </div>
+           <div class='row'>
+          <label class='col-xs-2 col-lg-2 need' for='tel'>등록자 연락처</label> 
+          <span class="col-xs-3 col-lg-3">${tel}</span> 
+          <input type="hidden" name="tel" value="${tel}"> 
          </div>
          <div class='row'>
           <label class='col-xs-2 col-lg-2 need' for='email'>등록자 이메일</label> 
-          <span class="col-xs-3 col-lg-3">${memberVO.email}</span> 
-          <input type="hidden" name="email" value="${memberVO.email}"> 
+          <span class="col-xs-3 col-lg-3">${email}</span> 
+          <input type="hidden" name="email" value="${email}"> 
          </div>
-         <div class='row'>
-          <label class='col-xs-2 col-lg-2 need' for='tel'>등록자 연락처</label> 
-          <span class="col-xs-3 col-lg-3">${memberVO.tel}</span> 
-          <input type="hidden" name="tel" value="${memberVO.tel}"> 
-         </div>
-         <div class='row'> 
-          <label class='col-xs-2 col-lg-2 need' for='nickname'>등록자 별명</label>
-          <span class="col-xs-3 col-lg-3">${memberVO.nickname}</span> 
-          <input type="hidden" name="nickname" value="${memberVO.nickname}"> 
-         </div>
+       
+        
             <div class='text_r'>
             <button type="submit">등록</button>
             <button type="button" onclick="location.href='./list.do'">목록</button>

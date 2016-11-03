@@ -39,6 +39,12 @@ $(function(){
    });
  });
 </script>
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
@@ -236,8 +242,10 @@ $(function(){
    
      <li class='right'>
       <button type="button" onclick="location.href='./list.do?bno=${bookVO.bno}&col=${searchDTO.col}&word=${searchDTO.word}'">목록보기</button>
+      <c:if test="${(bookVO.userid eq userid)}">
       <button type="button" onclick="location.href='./update.do?bno=${bookVO.bno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
       <button type="button" onclick="location.href='./delete.do?bno=${bookVO.bno}'">삭제</button>
+      </c:if>
      </li>
                
     </ul>

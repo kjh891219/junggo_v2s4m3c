@@ -23,6 +23,26 @@ $(function(){
 });
 </script>
 
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+<script>
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 이용이 가능합니다');
+       window.openModal();
+       <%session.setAttribute("url", "book/list.do");%>
+       return false;
+       <% } else { %>
+       location.href='./create.do';
+       return true;
+       <% } %> 
+     }
+</script>
+
+
 <style type="text/css">
    .li:hover{
       background-color:gray;
@@ -42,7 +62,7 @@ $(function(){
      
   <form name="frm" method="GET" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
-     <A href='./create.do?'>글쓰기</A>｜
+     <A href='#' onclick="create_login();">글쓰기</A>｜
       <A href="javascript:location.reload();">새로고침</A>
     </div>
 

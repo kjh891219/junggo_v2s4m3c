@@ -19,6 +19,15 @@ $(function(){
   $('#panel_frm').hide();
 });
 function create(rno){
+  
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 사용이 가능합니다.');
+  window.parent.openModal();
+  <%String bno = request.getParameter("bno");%>
+  <%session.setAttribute("url", "book/read.do?bno="+bno);%>
+  return false;
+  <% } else { %>
+  
   var e = window.event, btn = e.target || e.srcElement; 
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
@@ -36,6 +45,8 @@ function create(rno){
    "</FORM>"+
    "</DIV><hr>"; 
   $('#comment'+rno).html(tag);  
+  return true;
+  <% } %>
  }  
  
 function create_cancel(frm){
