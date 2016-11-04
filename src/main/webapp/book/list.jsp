@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="web.tool.*" %>
  
 <!DOCTYPE html>
@@ -23,46 +24,33 @@ $(function(){
 });
 </script>
 
-<script>
-window.openModal = function() {
-  $( '#myModal' ).modal( 'show' );
-  }
-</script>
-<script>
-     function create_login() {
-       <% if( session.getAttribute("userid") == null) { %>
-       alert('로그인 한 사용자만 이용이 가능합니다');
-       window.openModal();
-       <%session.setAttribute("url", "book/list.do");%>
-       return false;
-       <% } else { %>
-       location.href='./create.do';
-       return true;
-       <% } %> 
-     }
-</script>
-
-
 <style type="text/css">
    .li:hover{
-      background-color:gray;
+      background-color:#dcdcdc;
    }
-   li{
+   .content_from li{
       border-top:1px solid gray;
    }
+     *{ 
+    font-family: dotum,"돋움";
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;  
+    list-style: none;
+  }
 </style>
  
 <script type="text/javascript">
 </script>
 </head>
  
-<body leftmargin="0" topmargin="0">
+<body leftmargin="0" topmargin="0" style="">
   <jsp:include page="/menu/top.jsp" flush='false' />
 <div class="container">
      
   <form name="frm" method="GET" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
-     <A href='#' onclick="create_login();">글쓰기</A>｜
+     <A href='./create.do?'>글쓰기</A>｜
       <A href="javascript:location.reload();">새로고침</A>
     </div>
 
@@ -91,41 +79,45 @@ window.openModal = function() {
       <c:forEach var="vo" items="${list }">
       <li>
       <div class="li" style="margin-top:5px; margin-bottom:5px;">
-         <div class='float_l' style="width:20%;">
-            <div class='float_l'>${vo.bno}</div>
-            <div class='float_l text_c' style="width:90%;" >
+         <div class='float_l' style="width:25%; min-width: 220px; padding-right:30px;">
+            <div class='float_l' style="width:7%;">${vo.bno}</div>
+            <div class='float_l text_c' style="width:90%; line-height: 150px; border:1px solid lightgray;" >
               <c:set var='file1' value="${fn:toLowerCase(vo.file1)}" />
               <c:choose>
                 <c:when test="${fn:endsWith(file1, '.jpg')}">
-                  <IMG id='file1' style="max-height:100px;" src='./storage/${vo.file1}' >
+                  <a href="./read.do?bno=${vo.bno}"><IMG id='file1' style="max-width:150px;" src='./storage/${vo.file1}' ></a>
                 </c:when>
-                <c:when test="${fn:endsWith(file2, '.gif')}" >
-                  <IMG id='file1'  style="max-height:100px;"  src='./storage/${vo.file1}'>
+                <c:when test="${fn:endsWith(file1, '.gif')}" >
+                  <a href="./read.do?bno=${vo.bno}"><IMG id='file1'  style="max-width:150px;"  src='./storage/${vo.file1}'></a>
                 </c:when>
-                <c:when test="${fn:endsWith(file2, '.png')}">
-                  <IMG id='file1' style="max-height:100px;"  src='./storage/${vo.file1}'>
+                <c:when test="${fn:endsWith(file1, '.png')}">
+                  <a href="./read.do?bno=${vo.bno}"><IMG id='file1' style="max-width:150px;"  src='./storage/${vo.file1}'></a>
                 </c:when>
+                <c:otherwise>
+                  <a href="./read.do?bno=${vo.bno}"><span style="line-height:inherit; font-size:11px;">미리보기 이미지가 없습니다. </span></a>
+                </c:otherwise>
               </c:choose>
             </div>
             <div class='both'></div>
             </div>
-         <div class='float_l' style="width:60%;">
+         <div class='float_l' style="width:55%; min-width: 350px;">
             <span>[${vo.deal_code }]</span>
             <span>[${vo.product_code }]</span>
             <strong><a href="./read.do?bno=${vo.bno}">${vo.title }</a></strong>
-            <span><img >${vo.deal_state }</span>
-            <div>
-            <span>카테고리 > ${vo.category }</span>
+            <span> ${vo.deal_state =='거래중'?"<img src='../images/deal00.png' style='width:50px'>":"<img src='../images/deal01.png' style='width:50px'>" }</span>
+            
+            <div style="margin-top:65px;">
+               <span>카테고리 > ${vo.category }</span>
             </div>
             <span>지역 > ${vo.region }</span>
             <div>
-            <span>조회수 : ${vo.cnt } ·</span>
-            <span>등록일 : ${vo.wdate.substring(0,10) }</span>
+               <span>조회수 : ${vo.cnt } ·</span>
+               <span>등록일 : ${vo.wdate.substring(0,10) }</span>
             </div>
          </div>
-         <div class='float_l' style="width:20%;">
+         <div class='float_l text_r' style="width:20%; margin-top:40px; padding-right:30px; min-width: 150px;">
             <span>
-               <strong>${vo.hprice}</strong>
+               <strong style="font-family: dotum,'돋움'; font-size: 30px;"><fmt:formatNumber value="${vo.hprice }" pattern="#,###원"/></strong>
             </span>
                <div>
                <span>${vo.userid }</span>
