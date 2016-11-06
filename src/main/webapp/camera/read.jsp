@@ -53,82 +53,50 @@
    
 </script>
 
+<style type="text/css">
+
+/* 전체 스타일 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  
+/* left를 제외한 스타일 */
+  body{
+   width:80%;
+   margin-left:130px;
+  }
+  
+ 
+</style>
+
+
+
+
 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
-<h1 style="text-align: center;">${cameraVO.title}</h1>
-<div style="float: left;">
-  내용 : ${cameraVO.content}
+<div>
+ <h1 style="padding-left: 0px; margin: 0; padding: 10px; float: left; display: block; font-size: 20px; line-height: 22px; font-weight: bold; color: #444;">
+  <a href="${pageContext.request.contextPath}/camera/list.do">카메라 게시판</a>
+ </h1>
 </div>
-<div style="float: right;">
-<h2><상품정보></h2>
-<table border="1">
-  <tr>
-  <td style="text-align: center;">거래구분</td>
-  <td style="text-align: center;">${cameraVO.deal_code}</td>
-  <tr>
-  <td style="text-align: center;">분류</td>
-  <td style="text-align: center;">${cameraVO.category}</td>
-  </tr>
-  <tr>
-  <td style="text-align: center;">상품구분</td>
-  <td style="text-align: center;">${cameraVO.product_code}</td>
-  </tr>
-  <tr>
-  <td style="text-align: center;">거래지역</td>
-  <td style="text-align: center;">${cameraVO.region}</td>
-  </tr>
-  <tr>
-  <td style="text-align: center;">거래방식</td>
-  <td style="text-align: center;">${cameraVO.deal_way}</td>
-  </tr>
-  <tr>
-  <td style="text-align: center;">구입시기</td>
-  <td style="text-align: center;">${cameraVO.purc_date}</td>
-  </tr>
-  <tr>
-  <td style="text-align: center;">수량</td>
-  <td style="text-align: center;">${cameraVO.quantity}</td>
-  </tr>
-  <tr>
-  <td style="text-align: center;">희망가격</td>
-  <td style="text-align: center;">${cameraVO.hprice}</td>
-  </tr>       
-</table>  
+<div style="clear: both;"></div>
 
-
-<h2><판매자 정보></h2>
- <table border="1">
-  <tr>
-  <td style="text-align: center;">판매자</td>
-  <td style="text-align: center;">${cameraVO.nickname}</td>
-  <tr>
-  <tr>
-  <td style="text-align: center;">이메일</td>
-  <td style="text-align: center;">${cameraVO.email}</td>
-  <tr>
-  <tr>
-  <td style="text-align: center;">전화번호</td>
-  <td style="text-align: center;">${cameraVO.tel}</td>
-  <tr>
- </table>
+<div style="padding: 11px; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FCFCFC; line-height: 1.5em; display: block;">
+<span style="float: right; display: inline; font-weight: 400; letter-spacing: 0; color: #444; font-size: 12px;">${cameraVO.wdate}</span>
+<h1 style="font-size: 20px; font-weight: bold; color: #444; overflow: hidden; margin: 0; padding: 0 8px; line-height: 18px;">${cameraVO.title}</h1>
 </div>
-<div  style="clear: both;">
-           <li>
-            <label for="file1" style="width:150px;">업로드 파일: </label>
-            <span>
-              <c:if test="${cameraVO.size2 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/camera/storage&filename=${cameraVO.file2}'>${cameraVO.file2}</A> (${cameraVO.size2Label})
-              </c:if>
-            </span>    
-            <div id='file2Panel'>
+<div style="clear: both;"></div>
+<div style="width: 1040px; margin-top: 40px; ">
+  <div style="float: left; width: 400px; position: relative; z-index: 15; display: block; ">
+    <div style="position: relative; text-align: center; border-left: 1px solid #dadada; border-right: 1px solid #dadada; border-top: 1px solid #dadada; border-bottom: 1px solid #dadada; display: block; ">
+      <div style="display: table; width: 400px; height: 400px; text-align: center; vertical-align: top;">
+        <span style="width: 400px; text-align: center;">
               <c:set var='file2' value="${fn:toLowerCase(cameraVO.file2)}" />
               <c:choose>
                 <c:when test="${fn:endsWith(file2, '.jpg')}">
-                  <IMG id='file2' src='./storage/${cameraVO.file2}' >
+                  <IMG id='file2' src='./storage/${cameraVO.file2}' style="margin-top: 50px;">
                 </c:when>
                 <c:when test="${fn:endsWith(file2, '.gif')}">
                   <IMG id='file2'  src='./storage/${cameraVO.file2}' >
@@ -137,113 +105,61 @@
                   <IMG id='file2'  src='./storage/${cameraVO.file2}'' >
                 </c:when>
               </c:choose>
-            </div>
-          </li>
-          
-          <li>
-            <label for="file3" style="width:150px;">업로드 파일: </label>
-            <span>
-              <c:if test="${cameraVO.size4 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/camera/storage&filename=${cameraVO.file4}'>${cameraVO.file4}</A> (${cameraVO.size4Label})
-              </c:if>
-            </span>    
-            <div id='file4Panel'>
-              <c:set var='file4' value="${fn:toLowerCase(cameraVO.file4)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file4, '.jpg')}">
-                  <IMG id='file4' src='./storage/${cameraVO.file4}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file4, '.gif')}">
-                  <IMG id='file4'  src='./storage/${cameraVO.file4}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file4, '.png')}">
-                  <IMG id='file4'  src='./storage/${cameraVO.file4}'' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-          
-          <li>
-            <label for="file5" style="width:150px;">업로드 파일: </label>
-            <span>
-              <c:if test="${cameraVO.size6 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/camera/storage&filename=${cameraVO.file6}'>${cameraVO.file6}</A> (${cameraVO.size6Label})
-              </c:if>
-            </span>    
-            <div id='file6Panel'>
-              <c:set var='file6' value="${fn:toLowerCase(cameraVO.file6)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file6, '.jpg')}">
-                  <IMG id='file6' src='./storage/${cameraVO.file6}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file6, '.gif')}">
-                  <IMG id='file6'  src='./storage/${cameraVO.file6}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file6, '.png')}">
-                  <IMG id='file6'  src='./storage/${cameraVO.file6}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-          
-           <li>
-            <label for="file7" style="width:150px;">업로드 파일: </label>
-            <span>
-              <c:if test="${cameraVO.size8 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/camera/storage&filename=${cameraVO.file8}'>${cameraVO.file8}</A> (${cameraVO.size8Label})
-              </c:if>
-            </span>    
-            <div id='file8Panel'>
-              <c:set var='file8' value="${fn:toLowerCase(cameraVO.file8)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file8, '.jpg')}">
-                  <IMG id='file8' src='./storage/${cameraVO.file8}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file8, '.gif')}">
-                  <IMG id='file8'  src='./storage/${cameraVO.file8}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file8, '.png')}">
-                  <IMG id='file8'  src='./storage/${cameraVO.file8}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-          
-           <li>
-            <label for="file9" style="width:150px;">업로드 파일: </label>
-            <span>
-              <c:if test="${cameraVO.size10 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/camera/storage&filename=${cameraVO.file10}'>${cameraVO.file10}</A> (${cameraVO.size10Label})
-              </c:if>
-            </span>    
-            <div id='file10Panel'>
-              <c:set var='file10' value="${fn:toLowerCase(cameraVO.file10)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file10, '.jpg')}">
-                  <IMG id='file10' src='./storage/${cameraVO.file10}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file10, '.gif')}">
-                  <IMG id='file10'  src='./storage/${cameraVO.file10}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file10, '.png')}">
-                  <IMG id='file10'  src='./storage/${cameraVO.file10}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-</div>
-<DIV style="text-align: right;">
-   <c:if test="${(cameraVO.userid eq userid)}">
-  <button type='button' onclick="location.href='./update.do?ctno=${cameraVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
-  <button type='button' onclick="location.href='./delete.do?ctno=${cameraVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'">삭제</button>
-  </c:if>
-  <button type='button' onclick="location.href='./list.do'">목록</button>
+         <div style="position: relative; float: right; width: 400px; margin-top: 50px; ">
+          <strong style="font-size: 28px; font-weight: bold; color: #111; margin-top: 21px; text-align:center;">
+           희망가격 :  ${cameraVO.hprice }
+          </strong>
+       </div>     
+              
+        </span>
+       
+      </div>
+    
+    </div>
+  </div>
+  <div style="position: relative; float: right; width: 580px; padding-right: 30px;">
+   <strong style="font-size: 20px; font-weight: bold; color: #111; margin-top: 21px; text-align:center;">
+           판매자 정보
+   </strong>
+   <table style="width: 100%; border-top: 1px solid #cccccc; border-spacing: 0; display: table; border-collapse: separate; border-color: grey;'">
+    <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit;">
+    <tr>
+      <th style="padding: 14px 10px 14px 20px; background: #f5f5f5; font: normal 12px '맑은 고딕'; color: #333; text-align: left; vertical-align: top; border-bottom: 1px solid #e5e5e5; letter-spacing: 0">
+        판매자
+      </th>
+      <td style="padding: 14px 10px 14px 20px;  font: normal 12px '맑은 고딕'; color: #666; text-align: left; vertical-align: top; border-bottom: 1px solid #e5e5e5; letter-spacing: 0">
+        ${cameraVO.nickname }
+      </td>
+    </tr>
+    <tr>
+      <th style="padding: 14px 10px 14px 20px; background: #f5f5f5; font: normal 12px '맑은 고딕'; color: #333; text-align: left; vertical-align: top; border-bottom: 1px solid #e5e5e5; letter-spacing: 0">
+        이메일
+      </th>
+      <td style="padding: 14px 10px 14px 20px;  font: normal 12px '맑은 고딕'; color: #666; text-align: left; vertical-align: top; border-bottom: 1px solid #e5e5e5; letter-spacing: 0">
+        ${cameraVO.email }
+      </td>
+    </tr>
+    <tr>
+      <th style="padding: 14px 10px 14px 20px; background: #f5f5f5; font: normal 12px '맑은 고딕'; color: #333; text-align: left; vertical-align: top; border-bottom: 1px solid #e5e5e5; letter-spacing: 0">
+        전화번호
+      </th>
+      <td style="padding: 14px 10px 14px 20px;  font: normal 12px '맑은 고딕'; color: #666; text-align: left; vertical-align: top; border-bottom: 1px solid #e5e5e5; letter-spacing: 0">
+        ${cameraVO.tel }
+      </td>
+    </tr>
+    </tbody>
+   </table>
+  </div>
   
-</DIV>
+</div>
+
+
+
+
+
+
+
+
 
 
 

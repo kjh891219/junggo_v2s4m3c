@@ -135,9 +135,9 @@ $(document).ready(function(){
  
 </style>
 </head> 
- <div class="container">
+<div style="margin: 0px; border: 0px solid rgb(255, 255, 255); border-image-source: none; width: 100%; float: left; background-image: none; background-color: transparent; background-position: 0px 0px; background-repeat: repeat;">
      <jsp:include page="/menu/top.jsp" flush='false' />
-     <jsp:include page="/menu/left.jsp" flush='false' />
+
 
 
   <form name="frmSearch" method="get" action="./list.do"> 
@@ -165,6 +165,16 @@ $(document).ready(function(){
 
 
 
+<div style="margin: 0px; border: 0px solid rgb(255, 255, 255); border-image-source: none; width: 100%; float: left; background-image: none; background-color: transparent; background-position: 0px 0px; background-repeat: repeat;">
+  <h2 style="background: #f6f6f6; color:#696969; height: 29px; border-bottom: 1px solid #ddd; margin: 0; padding: 0 0 0 15px; font: bold 14px Arial; display: block; -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;">
+   <span style="padding: 7px 0; display: block;">
+     <a style="display: block; text-decoration: none; cursor: auto; color: #444;">카메라 게시판</a>
+   </span>
+  </h2>
+ </div>
 <div class="container" style="margin: auto;">
  <table class="table table-hover" style='width: 100%;'>
     <thead>
@@ -199,7 +209,7 @@ $(document).ready(function(){
                 <c:set var='file2' value="${fn:toLowerCase(vo.file1)}" />
                 <c:choose>
                   <c:when test="${fn:endsWith(file2, '.jpg')}">
-                    <IMG id='file2' src='./storage/${vo.file1}' >
+                    <IMG id='file2' src='./storage/${vo.file1}' width="70" height="50">
                   </c:when>
                   <c:when test="${fn:endsWith(file2, '.gif')}">
                     <IMG id='file2'  src='./storage/${vo.file1}' >

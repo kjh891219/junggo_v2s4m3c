@@ -89,17 +89,7 @@ for (int i=0; i < cookies.length; i++){
       <img class="logo" alt="" src="${pageContext.request.contextPath}/images/logo.png" >
    </DIV>
    <DIV id="category_b">
-   <DIV id="category">
-       <A href="#" id='menu_top' style="width:20%; background-color:#F6F6F6; float:left" >카테고리</A>
-       <div class='search float_r' style="margin-right:3%;">
-       <!-- 
-            <span style="display:inline-block; width:400px;"><input type="text" style="width:100%; height:40px; border: 1px solid blue;"></span>
-            <span style="display:inline-block; vertical-align:top; margin-top:15px;">검색</span>
-        -->
-       </div>
    
-            <div style='clear:both;'></div>
-   </DIV>
    </DIV>
   </header>
   <FORM name='frm' method='POST'
