@@ -133,7 +133,7 @@ for (int i=0; i < cookies.length; i++){
           </div>
           <div class="modal-body">
             <ul>
-              <li class='center'><label class='' for='userid'>아이디</label>
+              <li class='row'><label class='col-xs-2 col-lg-2 ' for='userid'>아이디</label>
                 <input type='text' name='userid' id='userid'
                 value='<%=ck_userid%>' style='width: 50%;'
                 autocomplete="off"> <label> <input
@@ -141,15 +141,16 @@ for (int i=0; i < cookies.length; i++){
                   <%=(ck_userid_save.equals("Y")) ? "checked='checked'" : ""%>>
                   저장
               </label></li>
-              <li class='center'><label class='' for='pwd'>패스워드</label>
+              <li class='row'>
+               <label class='col-xs-2 col-lg-2 ' for='pwd'>패스워드</label>
                 <input type='password' name='pwd' id='pwd'
                 value='<%=ck_pwd%>' style='width: 50%;'
-                autocomplete="off"> <label> <input
-                  type='checkbox' name='pwd_save' value='Y'
+                autocomplete="off"> 
+                <label> 
+               <input type='checkbox' name='pwd_save' value='Y'
                   <%=(ck_pwd_save.equals("Y")) ? "checked='checked'" : ""%>>
                   저장
               </label></li>
-              <li class='center'><A href="./create.do">회원가입</A></li>
             </ul>
           </div>
           <div class="modal-footer">
