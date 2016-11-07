@@ -24,7 +24,7 @@
    $(document).ready(function() {
        
        $(".photo_img img").attr("src",$("#file1").parent("a").attr("href"));
-       
+       $(".list_wrap ul li").height("80px").css("border","0.5px solid gray");
        
        //Slide Gallery 이미지 샐랙터
        $(".list_wrap ul li").click(function() {
@@ -71,7 +71,7 @@ $(function(){
 <!-- ----------------------------------------- -->
    <div class="container"> 
 
-<DIV class='content'>
+<DIV class='content_form'>
   <div class='content_menu' style='width: 100%;'>
     <A href='../book/list.do'>게시판 목록</A> >
     <A href='./list.do?bno=${bookVO.bno}'>${bookVO.title }</A>｜
@@ -126,6 +126,9 @@ $(function(){
                                  <IMG id='file1' class="gallery" src='./storage/${bookVO.file1}' width="80" >
                               </a>
                             </c:when>
+                            <c:otherwise>
+                              <div style="width:100px; height:100px; border:1px solid lightgary;">이미지가 없습니다.</div>                            
+                            </c:otherwise>
                           </c:choose>
                         </li>
                         <li class="float_l">
@@ -146,6 +149,9 @@ $(function(){
                                  <IMG id='file2' class="gallery" src='./storage/${bookVO.file2}' width="80" >
                               </a>
                             </c:when>
+                            <c:otherwise>
+                              <div style="width:100px; height:100px; border:1px solid lightgary;">이미지가 없습니다.</div>                            
+                            </c:otherwise>
                           </c:choose>
                         </li>
                         <li class="float_l">
@@ -166,6 +172,9 @@ $(function(){
                                  <IMG id='file3' class="gallery" src='./storage/${bookVO.file3}' width="80" >
                               </a>
                             </c:when>
+                            <c:otherwise>
+                              <div style="width:100px; height:100px; border:1px solid lightgary;">이미지가 없습니다.</div>                            
+                            </c:otherwise>
                           </c:choose>
                         </li>
                         <li class="float_l">
@@ -186,6 +195,9 @@ $(function(){
                                  <IMG id='file4' class="gallery" src='./storage/${bookVO.file4}' width="80" >
                               </a>
                             </c:when>
+                            <c:otherwise>
+                              <div style="width:100px; height:100px; border:1px solid lightgary;">이미지가 없습니다.</div>                            
+                            </c:otherwise>
                           </c:choose>
                         </li>
                         <li class="float_l">
@@ -206,6 +218,9 @@ $(function(){
                                  <IMG id='file5' class="gallery" src='./storage/${bookVO.file5}' width="80" >
                               </a>
                             </c:when>
+                            <c:otherwise>
+                              <div style="width:80px; height:80px; border:1px solid gray;"><p style="font-size:9px; line-height: 50px;">이미지 없음</p></div>                            
+                            </c:otherwise>
                           </c:choose>
                         </li>
                     </ul>
