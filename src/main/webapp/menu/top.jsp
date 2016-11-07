@@ -52,20 +52,35 @@ for (int i=0; i < cookies.length; i++){
    <DIV id="member_b" > 
             <ul class="member-list" style='float:right;'>
                <% if(session.getAttribute("userid") == null) { // 회원 로그인 여부 검사 %>
-               <li class="login"><a class='menu_style'  href="#myModal" data-toggle="modal"><span></span>LOGIN</a></li>
-               <li class="join"><a href="<%=root %>/member/create.do" class='menu_style'><span></span>JOIN</a></li>
+               <li class="login"  style=" background:url(${pageContext.request.contextPath}/images/login.png) no-repeat left center; background-size:15px; background-position: 6px; ">
+                     <a class='menu_style'  href="#myModal" data-toggle="modal"><span></span>LOGIN</a>
+               </li>
+               <li class="join" style="background: url(${pageContext.request.contextPath}/images/join.png) no-repeat left center; background-size:18px; background-position: 6px;">
+                     <a href="<%=root %>/member/create.do" class='menu_style'><span></span>JOIN</a>
+               </li>
                <% } else { %>
-               <li class="logout"><a href="<%=root %>/member/logout.do" class='menu_style'>${userid }님 로그아웃</a></li>
-               <li class="mytm"><a href="<%=root %>/member/mylist.do" class='menu_style'><span></span>마이 페이지</a></li>
-               <li class="message"><A href='javascript: message();'><img src="<%=root %>/images/message.png"/></a></li>
+               <li class="logout" style="background: url(${pageContext.request.contextPath}/images/logout.png) no-repeat left center; background-size:16px; background-position: 6px;">
+                     <a href="<%=root %>/member/logout.do" class='menu_style'>${userid }님 로그아웃</a>
+               </li>
+               <li class="mytm" style="background: url(${pageContext.request.contextPath}/images/logout.png) no-repeat left center; background-size:16px; background-position: 6px;">
+                     <a href="<%=root %>/member/mylist.do" class='menu_style'><span></span>마이 페이지</a>
+               </li>
+               <li class="message" style="background: url(${pageContext.request.contextPath}/images/truck.png) no-repeat left center; background-size:20px;">
+                     <A href='javascript: message();'><img src="<%=root %>/images/message.png"/></a>
+               </li>
                <% } %>   
-               <li class="orderDelivery"><a href="#" class='menu_style'><span></span>주문/배송</a></li>
-               <li class="cart"><a href="#" class='menu_style'><span></span>장바구니</a></li>
+               <li class="orderDelivery" style="background: url(${pageContext.request.contextPath}/images/truck.png) no-repeat left center; background-size:20px;">
+                     <a href="#" class='menu_style'><span></span>주문/배송</a>
+               </li>
+               <li class="cart" style="background: url(${pageContext.request.contextPath}/images/cart.png) no-repeat left center; background-size:20px;">
+                     <a href="#" class='menu_style'><span></span>장바구니</a>
+               </li>
                <!--
                <li class="cs"><a href="#none" class="on"><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
-                <li class="cs"><a class='menu_style'  id="downs">커뮤니티<img id="down_img" style="width:20px;"src="./images/drop_down.png"></a>
+                <li class="cs" style="background: url(${pageContext.request.contextPath}/images/headphones.png) no-repeat left center; background-size:18px;  background-position: 6px;">
+                  <a class='menu_style'  id="downs">커뮤니티<img id="down_img" style="width:20px;"src="${pageContext.request.contextPath}/images/drop_down.png"></a>
                   <div id="down_b" style="display:none; position:absolute; margin-left:17px; width:70px; border:1px solid black;">
-                     <dl style="margin-top:7px;">
+                     <dl style="margin:7px 0; background-color:white;">
                         <dd><a href="#">고객센터</a></dd>
                         <dd><a href="#">공지사항</a></dd>
                         <dd><a href="#">Q&A</a></dd>
@@ -89,6 +104,17 @@ for (int i=0; i < cookies.length; i++){
       <img class="logo" alt="" src="${pageContext.request.contextPath}/images/logo.png" >
    </DIV>
    <DIV id="category_b">
+   <DIV id="category">
+       <A id='menu_top' style="width:20%; background-color:#F6F6F6; float:left" >카테고리</A>
+       <div class='search float_r' style="margin-right:3%;">
+       <!-- 
+            <span style="display:inline-block; width:400px;"><input type="text" style="width:100%; height:40px; border: 1px solid blue;"></span>
+            <span style="display:inline-block; vertical-align:top; margin-top:15px;">검색</span>
+        -->
+       </div>
+   
+            <div style='clear:both;'></div>
+   </DIV>
    
    </DIV>
   </header>
