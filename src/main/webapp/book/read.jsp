@@ -22,7 +22,7 @@
 <script type="text/javascript">
 
    $(document).ready(function() {
-       
+     
        $(".photo_img img").attr("src",$("#file1").parent("a").attr("href"));
       
        //Slide Gallery 이미지 샐랙터
@@ -112,7 +112,8 @@ $(function(){
                 <img src="http://i1.daumcdn.net/cfs.tistory/static/images/xBoxReplace_250.png" width="100%" height="100%" >
             </p>
             <div class="photo_list">
-                <div class="list_wrap" style="width: 400px;"><ul>
+                <div class="list_wrap" style="width: 400px;">
+                      <ul>
                         <li>
                           <c:set var='file1' value="${fn:toLowerCase(bookVO.file1)}" />
                           <c:choose>
