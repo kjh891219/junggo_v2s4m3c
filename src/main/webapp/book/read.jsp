@@ -15,19 +15,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<link href="${pageContext.request.contextPath}/css/style.css?ver=2" rel="Stylesheet" type="text/css">
 <script type="text/javascript" src="../js/tool.js"></script>
-<script type="text/javascript" src="../js/event.js"></script>
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
-<style type="text/css">
-        *{ 
-    font-family: dotum,"돋움";
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-    list-style: none;
-    
-  }
-</style>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/event.js?ver=2"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 
@@ -76,11 +66,12 @@ $(function(){
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-   <div class="container"> 
     <jsp:include page="/menu/top.jsp" flush='false' />
+    <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
+   <div class="container"> 
 
-<DIV class='content_form'>
+<DIV class='content'>
   <div class='content_menu' style='width: 100%;'>
     <A href='../book/list.do'>게시판 목록</A> >
     <A href='./list.do?bno=${bookVO.bno}'>${bookVO.title }</A>｜
@@ -225,8 +216,8 @@ $(function(){
         
          <div class="both"></div>
         </li>
-         <li class="float_r" style="width:43%; margin:40px 0;">
-         <div style="width:100%;" class="float_r">
+         <li class="float_l" style="width:33%; margin:40px 0;">
+         <div style="min-width:350px; width:100%;" >
          <strong>상품정보</strong>
          <div style="border-left:4px solid #B0E0E6;  padding-left:20px;">
             <table style='width: 100%;'> 
