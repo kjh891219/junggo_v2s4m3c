@@ -29,6 +29,26 @@ $(document).ready(function(){
    
 });
 </script>
+
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+<script>
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 이용이 가능합니다');
+       window.openModal();
+       <%session.setAttribute("url", "cloth/list.do");%>
+       return false;
+       <% } else { %>
+       location.href='./create.do';
+       return true;
+       <% } %> 
+     }
+</script>
+
 <style type="text/css">
 
 /* 전체 스타일 */
@@ -223,7 +243,7 @@ $(document).ready(function(){
 
 </div>
 <div style="text-align: center;">
-<button type='button' onclick="location.href='./create.do'" class="btn btn-success btn-lg">등록</button>
+<button type='button' onclick="create_login();" class="btn btn-success btn-lg">등록</button>
 <button type='button' onclick="location.reload();" class="btn btn-danger btn-lg">새로 고침</button>
 </div>
 </div>

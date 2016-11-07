@@ -20,6 +20,15 @@ $(function(){
 });
 
 function create(rno){
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 사용이 가능합니다.');
+  window.parent.openModal();
+  <%String p_no = request.getParameter("p_no");%>
+  <%session.setAttribute("url", "carproduct/read.do?p_no="+p_no);%>
+  return false;
+  <% } else { %>
+  
+  
   var e = window.event, btn = e.target || e.srcElement; 
 
   alert("댓글을 달 글 번호: "+rno);
@@ -38,6 +47,8 @@ function create(rno){
    "</FORM>"+
    "</DIV>"; 
   $('#comment'+rno).html(tag);  
+  return true;
+  <% } %>
  }  
  
 

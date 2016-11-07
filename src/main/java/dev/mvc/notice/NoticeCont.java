@@ -120,7 +120,7 @@ public class NoticeCont {
  
  
 @RequestMapping(value = "/notice/list.do", method = RequestMethod.GET)
-public ModelAndView list2(SearchDTO searchDTO, HttpServletRequest request) {
+public ModelAndView list2(SearchDTO searchDTO, HttpServletRequest request, HttpSession session) {
   ModelAndView mav = new ModelAndView();
   mav.setViewName("/notice/list");// /webapp/game/list.jsp
 
@@ -155,6 +155,7 @@ public ModelAndView list2(SearchDTO searchDTO, HttpServletRequest request) {
   }
   mav.addObject("list", list);
   mav.addObject("root", request.getContextPath());
+  
   
   
   totalRecord = noticeDAO.count(hashMap);

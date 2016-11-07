@@ -60,8 +60,27 @@ function update(codeno, sort, seqno){
   $('#sort').focus();
 }
 
-
 </script>
+
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+<script>
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 이용이 가능합니다');
+       window.openModal();
+       <%session.setAttribute("url", "carproduct/list.do");%>
+       return false;
+       <% } else { %>
+       location.href='./create.do';
+       return true;
+       <% } %> 
+     }
+</script>
+
 <style type="text/css">
 
 /* 전체 스타일 */
@@ -182,9 +201,6 @@ function update(codeno, sort, seqno){
  <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
     <input type='hidden' name='userid' id='userid' value='${carproductVO.userid}'>
- <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>자동차 용품 목록</A>>
- <A href='./create.do?' class='top_select'>등록</A>｜
- <A href="javascript:location.reload();"  class='top_select'>새로고침</A>
       <select name="col">  
         <option value="">선택</option> 
         <option value="title" ${searchDTO.col == "title" ? "selected=selected" : "" }>제목</option> 
@@ -287,7 +303,7 @@ function update(codeno, sort, seqno){
 </TABLE>
  
 <DIV class='bottom'>
-  <button type='button' onclick="location.href='./create.do'">등록</button>
+  <button type='button' onclick="create_login()">등록</button>
   <button type='button' onclick="location.reload();">새로 고침</button>
 </DIV>
 

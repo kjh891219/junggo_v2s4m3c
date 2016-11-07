@@ -111,6 +111,7 @@ select * from camera order by ctno desc;
  * 카메라 테이블 입력(멤버 테이블의 nickname과 userid를 가져온다)
  */
 
+delete from camera 
 
 insert into CAMERA(ctno ,category, nickname, passwd, deal_way, deal_code, product_code, hprice, region, tel, email, quantity, title, content, purc_date, userid) 
 values ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM CAMERA),

@@ -30,6 +30,14 @@
   });
   
 </script>
+
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+
+
 <style type="text/css">
 
 /* 전체 스타일 */

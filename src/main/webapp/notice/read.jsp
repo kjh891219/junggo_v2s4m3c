@@ -41,12 +41,16 @@
   });
   
 </script>
-
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
+<jsp:include page="/menu/top.jsp" flush='false' /> 
 <!-- ----------------------------------------- -->
 
 
@@ -89,7 +93,7 @@
   </div>
 
 <DIV style="text-align: right;">
-  <c:if test="${(noticeVO.userid eq userid)}">
+  <c:if test="${(userid eq 'master')}">
   <button type='button' onclick="location.href='./update.do?noticeno=${noticeVO.noticeno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
   <button type='button' onclick="location.href='./delete.do?noticeno=${noticeVO.noticeno}&col=${searchDTO.col}&word=${searchDTO.word}'">삭제</button>
   </c:if>

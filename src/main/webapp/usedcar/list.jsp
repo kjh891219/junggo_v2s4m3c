@@ -62,6 +62,26 @@ function update(codeno, sort, seqno){
 
 </script>
 
+<script type="text/javascript">
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+<script>
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 이용이 가능합니다');
+       window.openModal();
+       <%session.setAttribute("url", "usedcar/list.do");%>
+       return false;
+       <% } else { %>
+       location.href='./create.do';
+       return true;
+       <% } %> 
+     }
+</script>
+
+
 <style type="text/css">
 
 /* 전체 스타일 */
@@ -287,7 +307,7 @@ function update(codeno, sort, seqno){
 </TABLE>
  
 <DIV class='bottom'>
-  <button type='button' onclick="location.href='./create.do'">등록</button>
+  <button type='button' onclick="create_login();">등록</button>
   <button type='button' onclick="location.reload();">새로 고침</button>
 </DIV>
 

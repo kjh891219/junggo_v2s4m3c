@@ -33,6 +33,14 @@ $(function(){
 
 </script>
 
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+
+
+
 </head>
 
 <!-- ----------------------------------------- -->

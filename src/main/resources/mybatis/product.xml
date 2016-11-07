@@ -93,11 +93,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
  <!-- ********** 페이징에 따른 변경 시작 ********** -->
     <select id="list3" resultType="ProductVO" parameterType="HashMap" >
-    SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, r
+    SELECT pno, category, title, hprice, wdate, region,deal_code, deal_way, nickname, file1, file2, size2, cnt, r
         FROM(
-           SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, rownum as r
+           SELECT pno, category, title, hprice, wdate, region, deal_code, deal_way, nickname, file1, file2, size2, cnt, rownum as r
               FROM (
-                    SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
+                    SELECT pno, category, title, hprice, wdate, region, deal_code, deal_way, nickname, file1, file2, size2, cnt
                     FROM product
                     <choose>
                         <when test="col == 'title'">

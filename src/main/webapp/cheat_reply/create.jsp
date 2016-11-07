@@ -16,7 +16,20 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 
-
+<script>
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 사용이 가능합니다.');
+       window.parent.openModal();
+       <%String ctno = request.getParameter("ctno");%>
+       <%session.setAttribute("url", "cheat/read.do?ctno="+ctno);%>
+       return false;
+       <% } else { %>
+       return true;
+       <% } %>
+       
+     }
+      </script>
 
 </head> 
 <!-- ----------------------------------------- -->
@@ -28,7 +41,7 @@
     
 <DIV class='center-block'>
 <DIV class='title'>댓글 쓰기</DIV>
-<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/cheat_reply/create.do' class='form-inline'>
+<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/cheat_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="ctno" id="ctno" value='<%=request.getParameter("ctno")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>

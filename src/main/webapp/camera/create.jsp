@@ -18,6 +18,18 @@
 <script src="/junggo/js/event.js"></script>
 
 
+
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+ 
+<script type="text/JavaScript">
+  window.onload=function(){
+    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+  };
+</script>
+
+
+
+
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">

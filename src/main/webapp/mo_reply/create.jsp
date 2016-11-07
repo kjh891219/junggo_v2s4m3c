@@ -16,6 +16,21 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 
+<script>
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 사용이 가능합니다.');
+       window.parent.openModal();
+       <%String mno = request.getParameter("mno");%>
+       <%session.setAttribute("url", "mobile/read.do?mno="+mno);%>
+       return false;
+       <% } else { %>
+       return true;
+       <% } %>
+       
+     }
+      </script>
+
 
 
 </head> 
@@ -28,7 +43,7 @@
     
 <DIV class='center-block'>
 <DIV class='title'>댓글 쓰기</DIV>
-<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/mo_reply/create.do' class='form-inline'>
+<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/mo_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="mno" id="mno" value='<%=request.getParameter("mno")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>

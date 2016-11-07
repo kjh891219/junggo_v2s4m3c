@@ -48,7 +48,7 @@ public class ComputerCont {
    * @throws IOException 
    */
   @RequestMapping(value = "/computer/create.do", method = RequestMethod.GET)
-  public ModelAndView create(int ctno, String opentype, HttpServletResponse response, HttpSession session) throws IOException {
+  public ModelAndView create(HttpServletResponse response, HttpSession session) throws IOException {
     System.out.println("--> create() GET called");
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/computer/create"); // /webapp/computer/create.jsp

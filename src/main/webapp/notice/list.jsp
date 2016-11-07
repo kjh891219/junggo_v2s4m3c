@@ -29,6 +29,25 @@ $(document).ready(function(){
    
 });
 </script>
+
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+<script>
+function create_login() {
+  <% if( session.getAttribute("userid")== null) { %>
+ alert('관리자만 등록이 가능합니다');
+  <%session.setAttribute("url", "notice/list.do");%>
+      return false;      
+  <% } else if(session.getAttribute("userid").equals("master")){ %>
+      location.href='./create.do';
+      return true;   
+  <% } %> 
+}
+</script>
+
 <style type="text/css">
 
 /* 전체 스타일 */
@@ -173,7 +192,7 @@ $(document).ready(function(){
     <TH class='th'>제목</TH>
     <TH class='th'>조회수</TH>
     <TH class='th'>등록일</TH>
-    <TH class='th'>기타</TH>
+    <c:if test="${(userid eq 'master')}"><TH class='th'>기타</TH></c:if>
   </TR>
  
   </thead>
@@ -188,9 +207,8 @@ $(document).ready(function(){
     <TD class='td'>${vo.cnt}</TD>
     <TD class='td'>${vo.wdate.substring(0,10) }</TD>
     <TD class='td'>
-      <A href="./passwd.do?noticeno=${vo.noticeno}"><IMG src='./images/passwd.png' title='패스워드 변경'></A>
-      <A href="./update.do?noticeno=${vo.noticeno}"><IMG src='./images/update.png' title='수정'></A>
-      <A href="./delete.do?noticeno=${vo.noticeno}"><IMG src='./images/delete.png' title='삭제'></A>
+      <c:if test="${(userid eq 'master')}"><A href="./update.do?noticeno=${vo.noticeno}"><IMG src='./images/update.png' title='수정'></A></c:if>
+      <c:if test="${(userid eq 'master')}"><A href="./delete.do?noticeno=${vo.noticeno}"><IMG src='./images/delete.png' title='삭제'></A></c:if>
     </TD>
     
   </TR>
@@ -200,7 +218,7 @@ $(document).ready(function(){
 </div>
 
 <DIV class='bottom'>
-  <button type='button' onclick="location.href='./create.do'">등록</button>
+  <button type='button' onclick="create_login();">등록</button>
   <button type='button' onclick="location.reload();">새로 고침</button>
 </DIV>
 </div>

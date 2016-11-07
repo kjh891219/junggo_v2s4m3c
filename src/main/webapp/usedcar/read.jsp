@@ -31,6 +31,13 @@
   });
   
 </script>
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+
+
 
 <style type="text/css">
 

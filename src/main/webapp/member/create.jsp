@@ -6,16 +6,11 @@
 <meta charset="UTF-8">
 <title></title>
  
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
-<script src="/junggo/js/event.js"></script>
+<script type="text/JavaScript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/tool.js"></script>
  
 <script type="text/javascript">
   
@@ -33,7 +28,7 @@
         } else {
           $('#panel_pwd').css('color','#FF0000')
           $('#panel_pwd').html('일치하지 않습니다');
-          $('#pwd2').focus();
+          $.cookie('checkPwd', 'NO');
         }
       });
     
@@ -94,6 +89,7 @@
     }else if(data.cnt == 1){
       $('#panel_nickname').css('color', '#FF0000');
       $('#panel_nickname').html('닉네임이 중복됩니다.');
+      $.cookie('checkNickname', 'NO');
     }
   }
 
@@ -105,6 +101,7 @@
     }else if(data.cnt == 1){
       $('#panel_email').css('color', '#FF0000');
       $('#panel_email').html('이미 사용 중인 이메일입니다.');
+      $.cookie('checkEmail', 'NO');
     }
   }
   
@@ -118,10 +115,10 @@
 <body leftmargin="0" topmargin="0">
 <jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
- <DIV class='container'>
+ 
 <DIV class='title'>회원가입</DIV>
  
-<DIV class='content_form'>
+<DIV class='content'>
 <FORM name='frm' method='POST' action='./create.do'
            onsubmit = 'return send()'>
   <fieldset>
@@ -256,7 +253,6 @@
  
 <!-- -------------------------------------------- -->
 <jsp:include page="/menu/bottom.jsp" flush='false' />
-</DIV>
 </body>
 <!-- -------------------------------------------- -->
 </html> 

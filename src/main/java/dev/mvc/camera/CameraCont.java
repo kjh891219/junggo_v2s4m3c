@@ -190,7 +190,7 @@ public class CameraCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file2)) {
-        file1 = Tool.preview(upDir, file2, 120, 80);
+        file1 = Tool.preview(upDir, file2, 250, 250);
       } else {
         file1 = "";
       }
@@ -209,7 +209,7 @@ public class CameraCont {
  // -------------------------------------------------------------------
     // 파일 전송2
     // -------------------------------------------------------------------
-    String file3 = "";
+    /*String file3 = "";
     String file4 = "";
     String upDir2 = Tool.getRealPath(request, "/camera/storage");
     MultipartFile file4MF = cameraVO.getFile4MF();
@@ -323,7 +323,7 @@ public class CameraCont {
     cameraVO.setFile9(file9); // Thumb 이미지
     cameraVO.setFile10(file10); // 원본 이미지
     // -------------------------------------------------------------------
-    
+*/    
     
     
     
@@ -451,7 +451,7 @@ public class CameraCont {
  // -------------------------------------------------------------------
     // 파일 전송 관련2
     // -------------------------------------------------------------------
-    String file3 = "";
+   /* String file3 = "";
     String file4 = "";
 
     String upDir2 = Tool.getRealPath(request, "/camera/storage");
@@ -595,7 +595,7 @@ public class CameraCont {
     cameraVO.setFile9(file9); 
     cameraVO.setFile10(file10);
     
-    
+    */
     
     
     

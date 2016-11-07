@@ -11,7 +11,7 @@ String root = request.getContextPath();
    <UL>
       <li class='left_list'><a href='<%=root %>/member/checkPwd.do?mno=${mno}&flag=1'>정보 수정</a></li>
       <li class='left_list'><a href='<%=root %>/member/checkPwd.do?mno=${mno}&flag=2'>회원 탈퇴</a></li>
-      <li class='left_list'><a href='#'>내가 쓴 글</a></li>
+      <li class='left_list'><a href='<%=root %>/member/mylist.do'>내가 쓴 글</a></li>
    </UL>
    </nav>
    </div>

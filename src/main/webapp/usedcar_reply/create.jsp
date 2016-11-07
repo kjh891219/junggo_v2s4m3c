@@ -15,7 +15,20 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
-
+<script>
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 사용이 가능합니다.');
+       window.parent.openModal();
+       <%String u_no = request.getParameter("u_no");%>
+       <%session.setAttribute("url", "usedcar/read.do?u_no="+u_no);%>
+       return false;
+       <% } else { %>
+       return true;
+       <% } %>
+       
+     }
+      </script>
 
 
 </head> 
@@ -28,7 +41,7 @@
     
 <DIV class='center-block'>
 <DIV class='title'>댓글 쓰기</DIV>
-<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/usedcar_reply/create.do' class='form-inline'>
+<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/usedcar_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="u_no" id="u_no" value='<%=request.getParameter("u_no")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>

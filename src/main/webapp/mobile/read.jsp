@@ -41,11 +41,17 @@
   
 </script>
 
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
+
 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
+<jsp:include page="/menu/top.jsp" flush='false' /> 
 <!-- ----------------------------------------- -->
 <h1 style="text-align: center;">${mobileVO.title}</h1>
 <div style="float: left;">

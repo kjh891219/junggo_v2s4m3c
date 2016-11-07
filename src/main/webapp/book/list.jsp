@@ -17,6 +17,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
  
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
+<script type="text/javascript" src="../js/event.js?ver=1"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -45,7 +46,8 @@ $(function(){
 </head>
  
 <body leftmargin="0" topmargin="0" style="">
-  <jsp:include page="/menu/old_top.jsp" flush='false' />
+  <jsp:include page="/menu/top.jsp" flush='false' />
+  <jsp:include page="/menu/left.jsp" flush='false' />
 <div class="container">
      
   <form name="frm" method="GET" action="./list.do"> 
