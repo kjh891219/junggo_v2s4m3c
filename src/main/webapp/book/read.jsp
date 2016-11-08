@@ -68,6 +68,18 @@ $(function(){
  
  
 </script>
+
+<style type="text/css">
+   .gallery{
+      width:80px; 
+      height:80px; 
+      vertical-align:middle; 
+      display:table-cell; 
+      text-align: center; 
+      background:lightgray;
+      /* box-shadow:2px 2px 2px gray;  */
+   }
+</style>
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
@@ -108,8 +120,8 @@ $(function(){
      
         <li class="float_l" style="margin:40px 0; margin-right:15%;">
             <div class="photo_gallery">
-            <p class="photo_img" style="width:400px; height:400px; border:1px solid lightgray; border-bottom:none;">
-                <img src="http://i1.daumcdn.net/cfs.tistory/static/images/xBoxReplace_250.png" width="100%" height="100%" >
+            <p class="photo_img" style="width:400px; height:400px; vertical-align:middle; display:table-cell; ">
+                <img src="http://i1.daumcdn.net/cfs.tistory/static/images/xBoxReplace_250.png" width="100%" style="margin: auto 0 ;" >
             </p>
             <div class="photo_list">
                 <div class="list_wrap" style="width: 400px;">
@@ -118,22 +130,22 @@ $(function(){
                           <c:set var='file1' value="${fn:toLowerCase(bookVO.file1)}" />
                           <c:choose>
                             <c:when test="${fn:endsWith(file1, '.jpg')}">
-                              <a href="./storage/${bookVO.file1}">
-                                 <IMG id='file1' class="gallery" src='./storage/${bookVO.file1}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file1}">
+                                 <IMG id='file1' src='./storage/${bookVO.file1}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file1, '.gif')}">
-                              <a href="./storage/${bookVO.file1}">
-                                 <IMG id='file1' class="gallery" src='./storage/${bookVO.file1}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file1}">
+                                 <IMG id='file1' src='./storage/${bookVO.file1}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file1, '.png')}">
-                              <a href="./storage/${bookVO.file1}">
-                                 <IMG id='file1' class="gallery" src='./storage/${bookVO.file1}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file1}">
+                                 <IMG id='file1' src='./storage/${bookVO.file1}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:otherwise>
-                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                           
+                              <div class="gallery"><p style="font-size:9px;">이미지<br>없음</p></div>                             
                             </c:otherwise>
                           </c:choose>
                         </li>
@@ -141,22 +153,22 @@ $(function(){
                           <c:set var='file2' value="${fn:toLowerCase(bookVO.file2)}" />
                           <c:choose>
                             <c:when test="${fn:endsWith(file2, '.jpg')}">
-                              <a href="./storage/${bookVO.file2}">
-                                 <IMG id='file2' class="gallery" src='./storage/${bookVO.file2}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file2}">
+                                 <IMG id='file2' src='./storage/${bookVO.file2}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file2, '.gif')}">
-                              <a href="./storage/${bookVO.file2}">
-                                 <IMG id='file2' class="gallery" src='./storage/${bookVO.file2}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file2}">
+                                 <IMG id='file2' src='./storage/${bookVO.file2}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file2, '.png')}">
-                              <a href="./storage/${bookVO.file2}">
-                                 <IMG id='file2' class="gallery" src='./storage/${bookVO.file2}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file2}">
+                                 <IMG id='file2' src='./storage/${bookVO.file2}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:otherwise>
-                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                           
+                              <div class="gallery"><p style="font-size:9px;">이미지<br>없음</p></div>                             
                             </c:otherwise>
                           </c:choose>
                         </li>
@@ -164,22 +176,22 @@ $(function(){
                           <c:set var='file3' value="${fn:toLowerCase(bookVO.file3)}" />
                           <c:choose>
                             <c:when test="${fn:endsWith(file3, '.jpg')}">
-                              <a href="./storage/${bookVO.file3}">
-                                 <IMG id='file3' class="gallery" src='./storage/${bookVO.file3}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file3}">
+                                 <IMG id='file3' src='./storage/${bookVO.file3}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file3, '.gif')}">
-                              <a href="./storage/${bookVO.file3}">
-                                 <IMG id='file3' class="gallery" src='./storage/${bookVO.file3}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file3}">
+                                 <IMG id='file3' src='./storage/${bookVO.file3}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file3, '.png')}">
-                              <a href="./storage/${bookVO.file3}">
-                                 <IMG id='file3' class="gallery" src='./storage/${bookVO.file3}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file3}">
+                                 <IMG id='file3' src='./storage/${bookVO.file3}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:otherwise>
-                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                           
+                              <div class="gallery"><p style="font-size:9px;">이미지<br>없음</p></div>                             
                             </c:otherwise>
                           </c:choose>
                         </li>
@@ -187,22 +199,22 @@ $(function(){
                           <c:set var='file4' value="${fn:toLowerCase(bookVO.file4)}" />
                           <c:choose>
                             <c:when test="${fn:endsWith(file4, '.jpg')}">
-                              <a href="./storage/${bookVO.file4}">
-                                 <IMG id='file4' class="gallery" src='./storage/${bookVO.file4}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file4}">
+                                 <IMG id='file4' src='./storage/${bookVO.file4}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file4, '.gif')}">
-                              <a href="./storage/${bookVO.file4}">
-                                 <IMG id='file4' class="gallery" src='./storage/${bookVO.file4}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file4}">
+                                 <IMG id='file4' src='./storage/${bookVO.file4}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file4, '.png')}">
-                              <a href="./storage/${bookVO.file4}">
-                                 <IMG id='file4' class="gallery" src='./storage/${bookVO.file4}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file4}">
+                                 <IMG id='file4' src='./storage/${bookVO.file4}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:otherwise>
-                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                           
+                              <div class="gallery"><p style="font-size:9px;">이미지<br>없음</p></div>                             
                             </c:otherwise>
                           </c:choose>
                         </li>
@@ -210,22 +222,22 @@ $(function(){
                           <c:set var='file5' value="${fn:toLowerCase(bookVO.file5)}" />
                           <c:choose>
                             <c:when test="${fn:endsWith(file5, '.jpg')}">
-                              <a href="./storage/${bookVO.file5}">
-                                 <IMG id='file5' class="gallery" src='./storage/${bookVO.file5}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file5}">
+                                 <IMG id='file5' src='./storage/${bookVO.file5}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file5, '.gif')}">
-                              <a href="./storage/${bookVO.file5}">
-                                 <IMG id='file5' class="gallery" src='./storage/${bookVO.file5}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file5}">
+                                 <IMG id='file5' src='./storage/${bookVO.file5}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:when test="${fn:endsWith(file5, '.png')}">
-                              <a href="./storage/${bookVO.file5}">
-                                 <IMG id='file5' class="gallery" src='./storage/${bookVO.file5}' width="80" height="80" >
+                              <a class="gallery" href="./storage/${bookVO.file5}">
+                                 <IMG id='file5' src='./storage/${bookVO.file5}' width="100%" height="100%">
                               </a>
                             </c:when>
                             <c:otherwise>
-                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                            
+                              <div class="gallery"><p style="font-size:9px;">이미지<br>없음</p></div>                            
                             </c:otherwise>
                           </c:choose>
                         </li>
