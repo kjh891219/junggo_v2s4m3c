@@ -8,7 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository("dev.mvc.tmember.MessageDAO")
+@Repository("dev.mvc.message.MessageDAO")
 public class MessageDAO implements MessageDAOInter{
     
   @Autowired
@@ -30,9 +30,9 @@ public class MessageDAO implements MessageDAOInter{
 
   @Override
   public int visible(HashMap map) {
-    System.out.println("DAO");
+/*    System.out.println("DAO");
     System.out.println(map.get("msg_no_arr"));
-    System.out.println(map.get("userid"));
+    System.out.println(map.get("userid"));*/
     return mybatis.update("message.visible", map);
   }
   
@@ -45,4 +45,16 @@ public class MessageDAO implements MessageDAOInter{
   public List<MessageVO> list(HashMap hashmap) {
     return mybatis.selectList("message.list", hashmap);
   }
+
+  @Override
+  public int read_ck(HashMap map) {
+    return mybatis.update("message.read_ck", map);
+  }
+
+  @Override
+  public int delete(HashMap map) {
+    return mybatis.delete("message.delete", map);
+  }
+  
+  
 }

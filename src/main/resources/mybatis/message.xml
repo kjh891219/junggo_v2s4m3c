@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
+  
 <!-- Oracle 기반 -->
 <mapper namespace = "message">
   <!-- 메시지 하나만 조회 -->
@@ -43,7 +43,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       </when>
       <when test="col == 'title_content'">
         AND (title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%')
-      </when>      
+      </when>     
+      <when test="col == 'id'">
+              <choose>
+              <when test="flag == 'recv'">
+               AND sendid=#{word} 
+              </when>
+              <when test="flag == 'send'">
+               AND receiveid=#{word} 
+              </when>
+            </choose>
+      </when> 
     </choose>
   </select> 
   
@@ -111,6 +121,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
               #{msg_no}
             </foreach>
   </update>
+  
+  <!-- 회원용 - 받은 메시지 읽기: read_ck를 Y로 -->
+  <update id="read_ck" parameterType="Map">
+  UPDATE message
+  SET read_ck = 'Y'
+  WHERE receiveid=#{userid} and msg_no=#{msg_no}
+  </update>
+  
+   <!-- 메시지 조회 -->
+<!--  <select id="msg_date" resultType="List">
+  DELETE FROM message 
+  WHERE <![CDATA[ msg_date >= ADD_MONTHS(sysdate, -1) AND msg_date <= sysdate]]>
+  </select> -->
+  
+  
+  <!-- 메시지 삭제 -->
+  <delete id="delete" parameterType="Map">
+  DELETE FROM message 
+     <choose>
+      <when test="date == '-999'">
+      </when>
+      <otherwise> 
+        WHERE <![CDATA[ msg_date >= ADD_MONTHS(sysdate, #{date}) AND msg_date <= sysdate]]> 
+      </otherwise>
+    </choose>   
+    </delete>
   
   
 </mapper>

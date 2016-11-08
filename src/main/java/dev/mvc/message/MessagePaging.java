@@ -82,7 +82,7 @@ public class MessagePaging {
     int _nowPage = (nowGrp-1) * pagePerBlock; // 10개 이전 페이지로 이동 
     if (nowGrp >= 2){ 
      // str.append("<span class='span_box_1'><A href='./list.do?col="+col+"&word="+word+"&nowPage="+_nowPage+"'>이전</A></span>"); 
-      str.append("<span class='span_box_1'><A href='./list.do?flag="+flag+"&col="+col+"&word="+word+"&nowPage="+_nowPage+"'>이전</A></span>"); 
+      str.append("<span class='span_box_1'><A href='./list_msg.do?flag="+flag+"&col="+col+"&word="+word+"&nowPage="+_nowPage+"'>이전</A></span>"); 
     } 
  
     for(int i=startPage; i<=endPage; i++){ 
@@ -93,13 +93,13 @@ public class MessagePaging {
       if (nowPage == i){ 
         str.append("<span class='span_box_2'>"+i+"</span>"); 
       }else{ 
-        str.append("<span class='span_box_1'><A href='./list.do?flag="+flag+"&col="+col+"&word="+word+"&nowPage="+i+"'>"+i+"</A></span>");   
+        str.append("<span class='span_box_1'><A href='./list_msg.do?flag="+flag+"&col="+col+"&word="+word+"&nowPage="+i+"'>"+i+"</A></span>");   
       } 
     } 
      
     _nowPage = (nowGrp * pagePerBlock)+1; // 10개 다음 페이지로 이동 
     if (nowGrp < totalGrp){ 
-      str.append("<span class='span_box_1'><A href='./list.do?flag="+flag+"&col="+col+"&word="+word+"&nowPage="+_nowPage+"'>다음</A></span>"); 
+      str.append("<span class='span_box_1'><A href='./list_msg.do?flag="+flag+"&col="+col+"&word="+word+"&nowPage="+_nowPage+"'>다음</A></span>"); 
     } 
     str.append("</DIV>"); 
      

@@ -37,7 +37,7 @@ for (int i=0; i < cookies.length; i++){
 %>
 <script>
   function message(){
-    var url = '<%=root%>/message/list.do?flag=recv';
+    var url = '<%=root%>/message/list_msg.do?flag=recv';
     var win = window.open(url, '쪽지함', 'width=600px, height=700px');
     var x = (screen.width - 500) / 2;
     var y = (screen.height - 440) / 2;

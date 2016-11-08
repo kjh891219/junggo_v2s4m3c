@@ -19,12 +19,21 @@ $(function(){
 });
 </script>
 <style>
+/* 전체 스타일 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  *{ 
+    font-family: 'Nanum Gothic', serif;
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;  
+  }
 
 body {
     width:100%;
     margin: 0px auto;
 }
 table{
+    width:100%;
 }
 </style>
 </head> 
@@ -34,12 +43,12 @@ table{
 <body>
 <div>
 <input type='hidden' value='${flag }' name='flag'>
-<table width="600" height="50">
+<table style="height:50px">
 <tr>
     <td align="center" valign="middle" bgcolor="#EBEBEB">
-        <table width="590" height="40" border="0" cellspacing="0" cellpadding="0">
+        <table style="width: 95%; height:40px">
         <tr> 
-            <td width="25" align="center" bgcolor="#FFFFFF" ><img src="../skin/member/junggo/img/icon_01.gif" width="5" height="5"></td>
+            <td width="25" align="center" bgcolor="#FFFFFF" ><img src="../images/message.png"></td>
             <td width="165" align="left" bgcolor="#FFFFFF" ><font color="#666666"><b>내 쪽지함</b></font></td>
             <td width="400" bgcolor="#FFFFFF" ></td>
         </tr>
@@ -47,19 +56,18 @@ table{
 </tr>
 </table>
 
-<table width="600">
+<table>
 <tr> 
     <td width="600" height="20" colspan="14"></td>
 </tr>
 <tr> 
     <td width="30" height="24"></td>
-    <td width="99" align="center" valign="middle"><a href="./list.do?flag=recv">받은 쪽지</a></td>
+    <td width="99" align="center" valign="middle"><a href="./list_msg.do?flag=recv">받은 쪽지</a></td>
     <td width="2" align="center" valign="middle">&nbsp;</td>
-    <td width="99" align="center" valign="middle"><a href="./list.do?flag=send">보낸 쪽지</a></td>
+    <td width="99" align="center" valign="middle"><a href="./list_msg.do?flag=send">보낸 쪽지</a></td>
     <td width="2" align="center" valign="middle">&nbsp;</td>
     <td width="99" align="center" valign="middle"><a href="./create.do">쪽지 보내기</a></td>
     <td width="2" align="center" valign="middle">&nbsp;</td>
-    <td width="100" valign="middle" bgcolor="#EFEFEF">&nbsp;</td>
     <td width="148" align="left" valign="middle"></td>
     <td width="30" height="24"></td>
 </tr>
@@ -67,10 +75,10 @@ table{
 
 
 <form name=fmemoform method=post action="./create.do" style="margin:0px;">
-<table width="600">
+<table>
 <tr> 
     <td height="300" align="center" valign="top">
-        <table width="540">
+        <table style="width: 90%;">
         <tr> 
             <td height="30" align="right" style="padding-right:0px;">
                         </td>
@@ -80,7 +88,7 @@ table{
         </tr>
         <tr> 
             <td width="540" height="2" align="center" valign="top" bgcolor="#FFFFFF">
-                <table width=100% cellpadding=1 cellspacing=1 border=0>
+                <table>
                 <tr bgcolor=#E1E1E1 align=center> 
                     <td width="30%" height="24" rowspan="2"><b>받는 회원 아이디</b></td>
                     <td width=70% align="center"><input type=text name="receiveid" required style="width:95%;"></td>
@@ -110,7 +118,7 @@ table{
 <tr>
     <td height="40" align="center" valign="bottom">
         <input type=submit value="전송">&nbsp;&nbsp;
-        <a href="javascript:window.close();">닫기</a></td>
+<!--         <a href="javascript:window.close();">닫기</a></td> -->
 </tr>
 </table>
 </form>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import web.tool.Paging;
 import web.tool.SearchDTO;
 import web.tool.Tool;
 
@@ -26,7 +27,7 @@ import web.tool.Tool;
 @Controller
 public class MessageCont {
   @Autowired
-  @Qualifier("dev.mvc.tmember.MessageDAO")
+  @Qualifier("dev.mvc.message.MessageDAO")
   private MessageDAOInter messageDAO;
   
   public MessageCont(){
@@ -40,7 +41,11 @@ public class MessageCont {
    * @return
    */
   @RequestMapping(value = "/message/read_msg.do", method = RequestMethod.GET)
-  public ModelAndView read_msg(int msg_no, String flag, SearchDTO searchDTO) {
+  public ModelAndView read_msg(int msg_no, String flag, SearchDTO searchDTO, HttpSession session) {
+    String userid = session.getAttribute("userid").toString();
+    if(flag.equals("recv")) {
+      read_ck(msg_no, userid); // 아래 read_ck 호출 - 읽음 표시
+    }
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/message/read"); //  /webapp/member/read.jsp
     MessageVO messageVO = messageDAO.read_msg(msg_no);
@@ -48,6 +53,21 @@ public class MessageCont {
     mav.addObject("flag", flag);
     mav.addObject("searchDTO", searchDTO);
     return mav;
+  }
+  
+  /**
+   * 받은 메시지 읽음 표시
+   * @param msg_no 메시지 번호
+   * @param session 아이디
+   * @return
+   */
+  @RequestMapping(value = "/message/read_ck.do", method = RequestMethod.GET)
+  public void read_ck(int msg_no, String userid) {
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("userid", userid);
+    hashMap.put("msg_no", msg_no);
+    
+    messageDAO.read_ck(hashMap);
   }
   
   
@@ -59,8 +79,8 @@ public class MessageCont {
    * @param flag
    * @return
    */
-  @RequestMapping(value = "/message/list.do", method = RequestMethod.GET)
-  public ModelAndView list(SearchDTO searchDTO, HttpServletRequest request, HttpSession session, String flag) {
+  @RequestMapping(value = "/message/list_msg.do", method = RequestMethod.GET)
+  public ModelAndView list_msg(SearchDTO searchDTO, HttpServletRequest request, HttpSession session, String flag) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/message/list_msg"); // /webapp/member/list.jsp
     
@@ -113,6 +133,68 @@ public class MessageCont {
         flag);
     mav.addObject("paging", paging);
     mav.addObject("flag", flag);
+    mav.addObject("totalRecord", totalRecord);
+    
+    return mav;
+  }
+  
+  /**
+   * 관리자용 - 모든 메시지 조회
+   * 페이징 + 검색 전체 목록
+   * @param searchDTO
+   * @param request
+   * @param session
+   * @param flag
+   * @return
+   */
+  @RequestMapping(value = "/message/list.do", method = RequestMethod.GET)
+  public ModelAndView all_msg(SearchDTO searchDTO, HttpServletRequest request) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/all_msg"); // /webapp/member/list.jsp
+    
+    // HashMap hashMap = new HashMap();
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("col", searchDTO.getCol());
+    hashMap.put("word", searchDTO.getWord());
+    
+    int recordPerPage = 10; // 페이지당 출력할 레코드 갯수
+    // 페이지에서 출력할 시작 레코드 번호 계산, nowPage는 1부터 시작
+    int beginOfPage = (searchDTO.getNowPage() - 1) * 10; 
+    // 1 page: 0
+    // 2 page: 10
+    // 3 page: 20
+    int startNum = beginOfPage + 1; // 시작 rownum, 1
+    int endNum = beginOfPage + recordPerPage; // 종료 rownum, 10
+    hashMap.put("startNum", startNum);
+    hashMap.put("endNum", endNum);
+    
+    int totalRecord = 0;
+    List<MessageVO> list = messageDAO.list(hashMap);
+    Iterator<MessageVO> iter = list.iterator();
+    
+    while (iter.hasNext() == true) { // 다음 요소 검사
+      MessageVO vo = iter.next(); // 요소 추출
+      vo.setMsg_no(vo.getMsg_no()); 
+      vo.setReceiveid(vo.getReceiveid()); 
+      vo.setSendid(vo.getSendid()); 
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));  
+      vo.setContent(Tool.textLength(vo.getContent(), 10));
+      vo.setMsg_date(vo.getMsg_date().substring(0, 10));  // 년월일
+    }
+    
+    mav.addObject("list", list);
+    mav.addObject("root", request.getContextPath());
+    
+    totalRecord = messageDAO.count(hashMap); // hashMap - col, word, userid, flag, startNum, endNum
+    mav.addObject("totalRecord", messageDAO.count(hashMap));
+    
+    String paging = new Paging().paging5(
+        totalRecord, 
+        searchDTO.getNowPage(), 
+        recordPerPage, 
+        searchDTO.getCol(), 
+        searchDTO.getWord());
+    mav.addObject("paging", paging);
     mav.addObject("totalRecord", totalRecord);
     
     return mav;
@@ -175,18 +257,45 @@ public class MessageCont {
       PrintWriter writer = response.getWriter();
       writer.println
       ("<script>alert('메시지가 " + sendOK + "개 삭제되었습니다');" 
-       + "location.href = './list.do?flag=" + flag + "';"
+       + "location.href = './list_msg.do?flag=" + flag + "';"
        + "</script>"
           );
   } else {
     PrintWriter writer = response.getWriter();
     writer.println
     ("<script>alert('삭제할 메시지를 선택해 주세요');" 
-     + "location.href = './list.do?flag=" + flag + "';"
+     + "location.href = './list_msg.do?flag=" + flag + "';"
      + "</script>"
         );
   }
   return;
+  }
+  
+  @RequestMapping(value = "/message/delete.do", method = RequestMethod.POST)
+  public void delete(String date, HttpServletResponse response) throws IOException {
+    response.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+    
+    System.out.println("삭제 버튼 값: "+date);
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("date", date);
+    int deleteOK = messageDAO.delete(hashMap);
+    
+    if (deleteOK != 0) {
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>alert('메시지가 " + deleteOK + "개 삭제되었습니다');" 
+       + "location.href = './list.do';"
+       + "</script>"
+          );
+    } else {
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>alert('삭제할 메시지가 없습니다');" 
+       + "location.href = './list.do';"
+       + "</script>"
+          );
+    }
   }
   
   

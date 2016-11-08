@@ -1,7 +1,7 @@
 package dev.mvc.message;
 
 /*
- * CREATE TABLE message(
+CREATE TABLE message(
     msg_no                            NUMBER(6)         NOT NULL   PRIMARY KEY, -- 번호
     sendid                            VARCHAR2(20)      NOT NULL,               -- 보낸 사람
     receiveid                         VARCHAR2(20)      NOT NULL,               -- 받는 사람
@@ -12,8 +12,9 @@ package dev.mvc.message;
     visible_recv                      CHAR(1)           DEFAULT 'Y' NOT NULL,   -- 받은 메시지 표시
     visible_send                      CHAR(1)           DEFAULT 'Y' NOT NULL,   -- 보낸 메시지 표시
   FOREIGN KEY (receiveid) REFERENCES member (userid),
-  FOREIGN KEY (sendid)    REFERENCES member (userid)
+  FOREIGN KEY (sendid)    REFERENCES member (userid) 
 );
+
  * 
 */
 
@@ -64,6 +65,7 @@ public class MessageVO {
   public void setMsg_date(String msg_date) {
     this.msg_date = msg_date;
   }
+
   public String getRead_ck() {
     return read_ck;
   }

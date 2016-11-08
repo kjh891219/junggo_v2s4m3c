@@ -19,21 +19,32 @@ $(function(){
 });
 </script>
 <style>
+/* 전체 스타일 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  *{ 
+    font-family: 'Nanum Gothic', serif;
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;  
+  }
 
 body {
-width:100%;
+    width:100%;
     margin: 0px auto;
 }
+table{
+  width:100%; 
+ }
 </style>
 </head> 
 <!-- ----------------------------------------- -->
 
 <!-- ----------------------------------------- -->
 <body>
-<table width="600" height="50">
+<table style="height:50px">
 <tr>
     <td align="center" valign="middle" bgcolor="#EBEBEB">
-        <table width="590" height="40" border="0" cellspacing="0" cellpadding="0">
+        <table style="width: 95%; height:40px">
         <tr> 
             <td width="25" align="center" bgcolor="#FFFFFF" ><img src="../skin/member/junggo/img/icon_01.gif" width="5" height="5"></td>
             <td width="165" align="left" bgcolor="#FFFFFF" ><font color="#666666"><b>내 쪽지함</b></font></td>
@@ -44,23 +55,31 @@ width:100%;
 </table>
 
 
-<table width="600" border="0" cellspacing="0" cellpadding="0">
+<table>
 <tr> 
     <td width="600" height="20" colspan="4"></td>
 </tr>
 <tr> 
     <td width="30" height="24"></td>
     <td width="530" align="right" bgcolor="#EFEFEF">
-        <b>${messageVO.sendid }</b> 님께서 보내온 쪽지의 내용입니다.    </td>
+     <c:choose>
+       <c:when test="${flag == 'recv'}">
+        <b>${messageVO.sendid }</b> 님께서 보내온 쪽지의 내용입니다.    
+       </c:when>
+       <c:when test="${flag == 'send'}">
+        <b>${messageVO.receiveid }</b> 님께 보낸 쪽지의 내용입니다. 
+       </c:when>
+      </c:choose>  
+    </td> 
     <td width="10" align="center" valign="middle" bgcolor="#EFEFEF">&nbsp;</td>
     <td width="30" height="24"></td>
 </tr>
 </table>
 
-<table width="600" border="0" cellspacing="0" cellpadding="0">
+<table>
 <tr> 
     <td height="200" align="center" valign="top">
-        <table width="540" border="0" cellspacing="0" cellpadding="0">
+        <table style="width: 90%;">
         <tr> 
             <td height="2" bgcolor="#808080"> </td>
         </tr>

@@ -23,7 +23,7 @@ public interface MessageDAOInter {
   public int create(MessageVO messageVO);
   
   /**
-   * 받은 메시지 삭제
+   * 받은 메시지 삭제 (안 보이기)
    * @param memberVO
    * @return
    */
@@ -44,5 +44,20 @@ public interface MessageDAOInter {
    * @return
    */
   public List<MessageVO> list(HashMap hashmap);
+  
+  /**
+   * 메시지 읽음 표시 
+   * <update id="read_ck" parameterType="Map">
+   * @param memberVO
+   * @return
+   */
+  public int read_ck(HashMap map);
+  
+  /**
+   * 관리자용 - 메시지 삭제
+   * @param date 범위 날짜
+   * @return
+   */
+  public int delete(HashMap map);
   
 }

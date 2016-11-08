@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <title></title>
  
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -113,7 +121,6 @@
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
  
 <DIV class='title'>회원가입</DIV>
@@ -132,7 +139,7 @@
       <li>
         <label class='label' for='pwd'>비밀번호</label>
         <input type='password' name='pwd' id='pwd' value='1234' required="required">
-      </li>
+      </li> 
       <li>
         <label class='label' for='pwd2'>비밀번호 확인</label>
         <input type='password' name='pwd2' id='pwd2' value='1234' required="required">
