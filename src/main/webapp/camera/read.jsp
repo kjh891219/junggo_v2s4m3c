@@ -25,7 +25,7 @@
 
   $(document).ready(function() {
 
-    $(".photo_img img").attr("src", $("#file1").parent("a").attr("href"));
+    $(".photo_img img").attr("src", $("#file2").parent("a").attr("href"));
 
     //Slide Gallery 이미지 샐랙터
     $(".photo_line ul li").click(function() {
@@ -103,29 +103,6 @@ window.openModal = function() {
             <div class='photo_line' style="width: 400px;">
               <ul>
                  <li style="float: left; margin: 0; padding: 0;">
-                          <c:set var='file1' value="${fn:toLowerCase(cameraVO.file1)}" />
-                          <c:choose>
-                            <c:when test="${fn:endsWith(file1, '.jpg')}">
-                              <a href="./storage/${cameraVO.file1}">
-                                 <IMG id='file1' class="gallery" src='./storage/${cameraVO.file1}' width="80" height="80" >
-                              </a>
-                            </c:when>
-                            <c:when test="${fn:endsWith(file1, '.gif')}">
-                              <a href="./storage/${cameraVO.file1}">
-                                 <IMG id='file1' class="gallery" src='./storage/${cameraVO.file1}' width="80" height="80" >
-                              </a>
-                            </c:when>
-                            <c:when test="${fn:endsWith(file1, '.png')}">
-                              <a href="./storage/${cameraVO.file1}">
-                                 <IMG id='file1' class="gallery" src='./storage/${cameraVO.file1}' width="80" height="80" >
-                              </a>
-                            </c:when>
-                            <c:otherwise>
-                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                           
-                            </c:otherwise>
-                          </c:choose>
-                        </li>
-                        <li style="float: left; margin: 0; padding: 0;">
                           <c:set var='file2' value="${fn:toLowerCase(cameraVO.file2)}" />
                           <c:choose>
                             <c:when test="${fn:endsWith(file2, '.jpg')}">
@@ -148,30 +125,7 @@ window.openModal = function() {
                             </c:otherwise>
                           </c:choose>
                         </li>
-                        <li>
-                          <c:set var='file3' value="${fn:toLowerCase(cameraVO.file3)}" />
-                          <c:choose>
-                            <c:when test="${fn:endsWith(file3, '.jpg')}">
-                              <a href="./storage/${cameraVO.file3}">
-                                 <IMG id='file3' class="gallery" src='./storage/${cameraVO.file3}' width="80" height="80" >
-                              </a>
-                            </c:when>
-                            <c:when test="${fn:endsWith(file3, '.gif')}">
-                              <a href="./storage/${cameraVO.file3}">
-                                 <IMG id='file3' class="gallery" src='./storage/${cameraVO.file3}' width="80" height="80" >
-                              </a>
-                            </c:when>
-                            <c:when test="${fn:endsWith(file3, '.png')}">
-                              <a href="./storage/${cameraVO.file3}">
-                                 <IMG id='file3' class="gallery" src='./storage/${cameraVO.file3}' width="80" height="80" >
-                              </a>
-                            </c:when>
-                            <c:otherwise>
-                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                           
-                            </c:otherwise>
-                          </c:choose>
-                        </li>
-                        <li>
+                        <li style="float: left; margin: 0; padding: 0;">
                           <c:set var='file4' value="${fn:toLowerCase(cameraVO.file4)}" />
                           <c:choose>
                             <c:when test="${fn:endsWith(file4, '.jpg')}">
@@ -195,21 +149,67 @@ window.openModal = function() {
                           </c:choose>
                         </li>
                         <li>
-                          <c:set var='file5' value="${fn:toLowerCase(cameraVO.file5)}" />
+                          <c:set var='file6' value="${fn:toLowerCase(cameraVO.file6)}" />
                           <c:choose>
-                            <c:when test="${fn:endsWith(file5, '.jpg')}">
-                              <a href="./storage/${cameraVO.file5}">
-                                 <IMG id='file5' class="gallery" src='./storage/${cameraVO.file5}' width="80" height="80" >
+                            <c:when test="${fn:endsWith(file6, '.jpg')}">
+                              <a href="./storage/${cameraVO.file6}">
+                                 <IMG id='file6' class="gallery" src='./storage/${cameraVO.file6}' width="80" height="80" >
                               </a>
                             </c:when>
-                            <c:when test="${fn:endsWith(file5, '.gif')}">
-                              <a href="./storage/${cameraVO.file5}">
-                                 <IMG id='file5' class="gallery" src='./storage/${cameraVO.file5}' width="80" height="80" >
+                            <c:when test="${fn:endsWith(file6, '.gif')}">
+                              <a href="./storage/${cameraVO.file6}">
+                                 <IMG id='file6' class="gallery" src='./storage/${cameraVO.file6}' width="80" height="80" >
                               </a>
                             </c:when>
-                            <c:when test="${fn:endsWith(file5, '.png')}">
-                              <a href="./storage/${cameraVO.file5}">
-                                 <IMG id='file5' class="gallery" src='./storage/${cameraVO.file5}' width="80" height="80" >
+                            <c:when test="${fn:endsWith(file6, '.png')}">
+                              <a href="./storage/${cameraVO.file6}">
+                                 <IMG id='file6' class="gallery" src='./storage/${cameraVO.file6}' width="80" height="80" >
+                              </a>
+                            </c:when>
+                            <c:otherwise>
+                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                           
+                            </c:otherwise>
+                          </c:choose>
+                        </li>
+                        <li>
+                          <c:set var='file8' value="${fn:toLowerCase(cameraVO.file8)}" />
+                          <c:choose>
+                            <c:when test="${fn:endsWith(file8, '.jpg')}">
+                              <a href="./storage/${cameraVO.file8}">
+                                 <IMG id='file8' class="gallery" src='./storage/${cameraVO.file8}' width="80" height="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file8, '.gif')}">
+                              <a href="./storage/${cameraVO.file8}">
+                                 <IMG id='file8' class="gallery" src='./storage/${cameraVO.file8}' width="80" height="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file8, '.png')}">
+                              <a href="./storage/${cameraVO.file8}">
+                                 <IMG id='file8' class="gallery" src='./storage/${cameraVO.file8}' width="80" height="80" >
+                              </a>
+                            </c:when>
+                            <c:otherwise>
+                              <div style="width:80px; height:80px; text-align: center; background:lightgray;"><p style="font-size:9px; line-height: 80px;">이미지 없음</p></div>                           
+                            </c:otherwise>
+                          </c:choose>
+                        </li>
+                        <li>
+                          <c:set var='file10' value="${fn:toLowerCase(cameraVO.file10)}" />
+                          <c:choose>
+                            <c:when test="${fn:endsWith(file10, '.jpg')}">
+                              <a href="./storage/${cameraVO.file10}">
+                                 <IMG id='file10' class="gallery" src='./storage/${cameraVO.file10}' width="80" height="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file10, '.gif')}">
+                              <a href="./storage/${cameraVO.file10}">
+                                 <IMG id='file10' class="gallery" src='./storage/${cameraVO.file10}' width="80" height="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file10, '.png')}">
+                              <a href="./storage/${cameraVO.file10}">
+                                 <IMG id='file10' class="gallery" src='./storage/${cameraVO.file10}' width="80" height="80" >
                               </a>
                             </c:when>
                             <c:otherwise>
@@ -337,7 +337,7 @@ window.openModal = function() {
   <button type='button' onclick="location.href='./update.do?ctno=${cameraVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
   <button type='button' onclick="location.href='./delete.do?ctno=${cameraVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'">삭제</button>
   </c:if>
-  <button type='button' onclick="location.href='./list.do'">목록</button>
+  <button type='button' onclick="location.href='./list.do?ctno=${cameraVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'">목록</button>
 </div>
 
 <!-- -------------------------------------------- -->

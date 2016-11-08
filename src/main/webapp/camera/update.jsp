@@ -16,6 +16,15 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+ 
+<script type="text/JavaScript">
+  window.onload=function(){
+   CKEDITOR.replace('content');
+  };
+</script>
+
+
 
 
 </head> 
@@ -106,9 +115,13 @@
         <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${cameraVO.content}</textarea>
       </div>
       <hr/>
-        <div class="row need">   
-        <label for='file2MF' class='col-xs-2 col-lg-2'>업로드 파일</label>
-         <c:set var='file2' value="${fn:toLowerCase(cameraVO.file2)}" />
+      
+      
+      <!-- 첫번째 파일 수정 -->
+      
+      <div id='file2Panel' class="row">
+        <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일1</label>
+          <c:set var='file2' value="${fn:toLowerCase(cameraVO.file2)}" />
           <c:choose>
             <c:when test="${fn:endsWith(file2, '.jpg')}">
               <IMG src='./storage/${cameraVO.file1}'>
@@ -123,12 +136,132 @@
               ${cameraVO.file2 } 
             </c:when>
           </c:choose>
+        </div>
+   
+      
+      <div class="row">   
+        <label for="file2MF" class='col-xs-2 col-lg-2 need'>수정 파일1</label>
+          <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
       </div>
       
-      <div class="row need">   
-        <label for='file2MF' class='col-xs-2 col-lg-2'>수정 파일</label>
-        <input type="file" name='file2MF' id='file2MF' size='40'>
+      
+      <!-- 두번째 파일 수정 -->
+      
+      <div id='file4Panel' class="row">
+        <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일2</label>
+          <c:set var='file4' value="${fn:toLowerCase(cameraVO.file4)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file4, '.jpg')}">
+              <IMG src='./storage/${cameraVO.file4}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file4, '.gif')}">
+              <IMG id='file4'  src='./storage/${cameraVO.file4}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file4, '.png')}">
+              <IMG id='file4'  src='./storage/${cameraVO.file4}'>
+            </c:when>
+            <c:when test="${cameraVO.file4.length() > 0}">
+              ${cameraVO.file4 } 
+            </c:when>
+          </c:choose>
+        </div>
+   
+      
+      <div class="row">   
+        <label for="file4MF" class='col-xs-2 col-lg-2 need'>수정 파일2</label>
+          <input type="file" class="form-control" name='file4MF' id='file4MF' size='40' >
       </div>
+      
+      
+      <!-- 세번째 파일 수정 -->
+      
+      <div id='file6Panel' class="row">
+        <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일3</label>
+          <c:set var='file6' value="${fn:toLowerCase(cameraVO.file6)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file6, '.jpg')}">
+              <IMG src='./storage/${cameraVO.file6}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file6, '.gif')}">
+              <IMG id='file6'  src='./storage/${cameraVO.file6}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file6, '.png')}">
+              <IMG id='file6'  src='./storage/${cameraVO.file6}'>
+            </c:when>
+            <c:when test="${cameraVO.file6.length() > 0}">
+              ${cameraVO.file6 } 
+            </c:when>
+          </c:choose>
+        </div>
+   
+      
+      <div class="row">   
+        <label for="file6MF" class='col-xs-2 col-lg-2 need'>수정 파일3</label>
+          <input type="file" class="form-control" name='file6MF' id='file6MF' size='40' >
+      </div>
+      
+      
+        <!-- 네번째 파일 수정 -->
+      
+      <div id='file8Panel' class="row">
+        <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일4</label>
+          <c:set var='file8' value="${fn:toLowerCase(cameraVO.file8)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file8, '.jpg')}">
+              <IMG src='./storage/${cameraVO.file8}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file8, '.gif')}">
+              <IMG id='file8'  src='./storage/${cameraVO.file8}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file8, '.png')}">
+              <IMG id='file8'  src='./storage/${cameraVO.file8}'>
+            </c:when>
+            <c:when test="${cameraVO.file8.length() > 0}">
+              ${cameraVO.file8 } 
+            </c:when>
+          </c:choose>
+        </div>
+   
+      
+      <div class="row">   
+        <label for="file8MF" class='col-xs-2 col-lg-2 need'>수정 파일4</label>
+          <input type="file" class="form-control" name='file8MF' id='file8MF' size='40' >
+      </div>
+      
+        <!-- 다섯번째 파일 수정 -->
+      
+      <div id='file10Panel' class="row">
+        <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일5</label>
+          <c:set var='file10' value="${fn:toLowerCase(cameraVO.file10)}" />
+          <c:choose>
+            <c:when test="${fn:endsWith(file10, '.jpg')}">
+              <IMG src='./storage/${cameraVO.file10}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file10, '.gif')}">
+              <IMG id='file10'  src='./storage/${cameraVO.file10}'>
+            </c:when>
+            <c:when test="${fn:endsWith(file10, '.png')}">
+              <IMG id='file10'  src='./storage/${cameraVO.file10}'>
+            </c:when>
+            <c:when test="${cameraVO.file10.length() > 0}">
+              ${cameraVO.file10 } 
+            </c:when>
+          </c:choose>
+        </div>
+   
+      
+      <div class="row">   
+        <label for="file10MF" class='col-xs-2 col-lg-2 need'>수정 파일5</label>
+          <input type="file" class="form-control" name='file10MF' id='file10MF' size='40' >
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
       
       <hr>
       
@@ -173,7 +306,7 @@
       
       <div class='text_r' >
         <button type="submit" class="btn btn-success btn-lg">등록</button>
-        <button type="button" onclick="location.href='./list.jsp'" class="btn btn-danger btn-lg">취소</button>
+        <button type="button" onclick="location.href='./list.do?ctno=${cameraVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'" class="btn btn-danger btn-lg">취소</button>
       </div>
       </div>
 </FORM>
