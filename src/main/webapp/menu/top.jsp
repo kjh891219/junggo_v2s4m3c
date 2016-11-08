@@ -66,7 +66,7 @@ for (int i=0; i < cookies.length; i++){
                      <a href="<%=root %>/member/mylist.do" class='menu_style'><span></span>마이 페이지</a>
                </li>
                <li class="message">
-                     <A href='javascript: message();'><img src="<%=root %>/images/message.png"/></a>
+                     <A href='javascript: message();'><img src="${pageContext.request.contextPath}/images/message.png" width="20" style="position:relative; top:-1px; left:-10px;"/></a>
                </li>
                <% } %>   
                <li class="orderDelivery" style="background: url(${pageContext.request.contextPath}/images/truck.png) no-repeat left center; background-size:20px;">
