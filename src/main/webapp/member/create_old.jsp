@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" %>
  
 <!DOCTYPE html>
 <html lang="ko">
@@ -6,17 +6,12 @@
 <meta charset="UTF-8">
 <title></title>
  
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<%-- <link href="${pageContext.request.contextPath}/css/style.css?ver=2" rel="Stylesheet" type="text/css"> --%>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/event.js?ver=2"></script>
- 
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<script type="text/JavaScript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/tool.js"></script>
+
 <script type="text/javascript">
   
   $(function(){
@@ -109,150 +104,74 @@
       $.cookie('checkEmail', 'NO');
     }
   }
+  
+  
+
+  
 </script>
-
-<style>
-ol, ul {
-        list-style: none;
-    }
-.form-control{
-float: left;
-  width:30%;
-}
-
-#btn{
-float: left;
-  width:10%;
-   margin-left:10px;
-}
-
-.panel-footer{
-   float:center;
-   margin-top:10px;
-   background-color: #FFFFFF;
-   width:200px;
-   border:none;
-   width:20%; 
-  margin:0 auto;
-  }
-
-</style> 
+ 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
+<jsp:include page="/menu/top.jsp" flush='false' />
 <!-- ----------------------------------------- -->
  
-
- <div id="logo" style="border-bottom: 4px solid #c4c5c7; padding:30px">
-      <img class="logo" alt="" src="${pageContext.request.contextPath}/images/logo.png" > 
-      <span style="font-size: 24px; font-weight:bold; padding: 17px 0 0 0;">회원가입</span>
-   </DIV>
-<br />
-<div class="head_area" style="border-bottom: 1px solid #c4c5c7;">
-        <h1>개인 구매회원 가입</h1>
-</div>
-<div class="msgbox">
-        <span class="txt_join">회원정보를 입력해 주세요. 모두 입력하셔야 가입이 가능합니다.</span>
-</div>
-
-
-
-
+<DIV class='title'>회원가입</DIV>
  
 <DIV class='content'>
 <FORM name='frm' method='POST' action='./create.do'
-           onsubmit = 'return send()' class="form-horizontal" role="form">
+           onsubmit = 'return send()'>
   <fieldset>
     <ul>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='id'>아이디</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='text' name='userid' id='userid' value='user1' required="required">
-             <button id="btn" class="btn btn-primary btn-sm btn-block" type='button' onclick='checkId()' >중복확인</button>
+        <label class='label' for='id'>아이디</label>
+        <input type='text' name='userid' id='userid' value='user1' required="required">
+        <button type='button' onclick='checkId()'>중복확인</button>
         <SPAN id='panel_id'></SPAN> <!-- ID 중복 관련 메시지 -->
-        </div>
-      </div>
       </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='pwd'>비밀번호</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='password' name='pwd' id='pwd' value='1234' required="required">
-        </div>
-      </div>
-      </li> 
+        <label class='label' for='pwd'>비밀번호</label>
+        <input type='password' name='pwd' id='pwd' value='1234' required="required">
+      </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='pwd2'>비밀번호 확인</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='password' name='pwd2' id='pwd2' value='1234' required="required">
+        <label class='label' for='pwd2'>비밀번호 확인</label>
+        <input type='password' name='pwd2' id='pwd2' value='1234' required="required">
         <!-- <button type='button' onclick='checkPwd()'>비밀번호 확인</button> -->
         <SPAN id='panel_pwd'></SPAN> <!-- ID 중복 관련 메시지 -->
-        </div>
-      </div>
       </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='name'>성명</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='text' name='name' id='name' value='성명' required="required">
-        </div>
-      </div>
+        <label class='label' for='name'>성명</label>
+        <input type='text' name='name' id='name' value='성명' required="required">
       </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='nickname'>닉네임</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='text' name='nickname' id='nickname' value='닉네임' required="required">
+        <label class='label' for='nickname'>닉네임</label>
+        <input type='text' name='nickname' id='nickname' value='닉네임' required="required">
         <SPAN id='panel_nickname'></SPAN>
-        </div>
-      </div>
       </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='tel'>전화번호</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type="tel" name='tel' id='tel' value='010-1111-1111'> 예) 010-0000-0000
-        </div>
-      </div>
+        <label class='label' for='tel'>전화번호</label>
+        <input type="tel" name='tel' id='tel' value='010-1111-1111'> 예) 010-0000-0000
       </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='email'>이메일</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='email' name='email' id='email' value='test@mail.com' required="required">
+        <label class='label' for='email'>이메일</label>
+        <input type='email' name='email' id='email' value='test@mail.com' required="required">
         <SPAN id='panel_email'></SPAN>
-        </div>
-      </div>
       </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='zipcode'>우편번호</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='text' name='zipcode' id='zipcode' value='' placeholder="우편번호">
+        <label class='label' for='zipcode'>우편번호</label>
+        <input type='text' name='zipcode' id='zipcode' value='' placeholder="우편번호">
         <input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>        
-        </div>
-      </div>
       </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label"  for='address1'>주소</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='text' name='address1' id='address1' value='' size='60' placeholder="주소">  
-        </div>
-      </div>
+        <label class='label' for='address1'>주소</label>
+        <input type='text' name='address1' id='address1' value='' size='60' placeholder="주소">  
       </li>
       <li>
-      <div class="form-group">
-        <label class="col-xs-2 col-lg-2 control-label" for='address2'>상세 주소</label>
-        <div class="col-xs-10 col-lg-10">
-        <input class="form-control" type='text' name='address2' id='address2' value='' size='40' placeholder="상세 주소">      
-        </div>
-      </div>
+        <label class='label' for='address2'>상세 주소</label>
+        <input type='text' name='address2' id='address2' value='' size='40' placeholder="상세 주소">      
       </li>
       <li>
-        <label></label>  
+        <label class='label'></label>  
 <!-- ----- DAUM 우편번호 API 시작 ----- -->
  
 <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
@@ -324,13 +243,8 @@ float: left;
         
       </li>
       <li class='right'>
-      <div class="panel-footer">
-        <div class="row">
-          <div class="col-md-6">
-           <button  class="btn btn-danger btn-sm btn-block" type="submit">저장</button>
-          </div>
-        </div>
-      </div>
+        <button type="submit">저장</button>
+        <button type="button" onclick="location.href='./list.do'">목록</button>
       </li>         
     </ul>
   </fieldset>

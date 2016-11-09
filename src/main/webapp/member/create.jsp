@@ -15,96 +15,132 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/event.js?ver=2"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/tool.js"></script>
  
 <script type="text/javascript">
   
-  $(function(){
-    $.removeCookie('checkId'); // 기존의 쿠기 값을 삭제  
-    $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제  
-    $.removeCookie('checkNickname'); // 기존의 쿠기 값을 삭제  
-    $.removeCookie('checkEmail'); // 기존의 쿠기 값을 삭제  
+$(function(){
+  $.removeCookie('checkId'); // 기존의 쿠기 값을 삭제  
+  $.removeCookie('checkPwd'); // 기존의 쿠기 값을 삭제  
+  $.removeCookie('checkNickname'); // 기존의 쿠기 값을 삭제  
+  $.removeCookie('checkEmail'); // 기존의 쿠기 값을 삭제  
     
-    $('#pwd2').focusout(function(){
-        if ( $('#pwd').val() == $('#pwd2').val() ) {
-          $('#panel_pwd').css('color', '#737373');
-          $('#panel_pwd').html('일치합니다.');
-          $.cookie('checkPwd', 'PASS'); // 쿠키 생성
-        } else {
-          $('#panel_pwd').css('color','#FF0000')
-          $('#panel_pwd').html('일치하지 않습니다');
-          $.cookie('checkPwd', 'NO');
-        }
-      });
-    
-    $('#nickname').focusout(function(){
+ 
+  $('#pwd2').focusout(function() {
+      if ($('#pwd').val() == $('#pwd2').val()) {
+        $('#panel_pwd').css('color', '#008392');
+        $('#panel_pwd').css('padding-left', '4px');
+        $('#panel_pwd').css('display', 'block');
+        $('#panel_pwd').css('margin', '10px 0 0');
+        $('#panel_pwd').css('line-height', '14px');
+        $('#panel_pwd').html('일치합니다.');
+        $.cookie('checkPwd', 'PASS'); // 쿠키 생성
+      } else {
+        $('#panel_pwd').css('color', '#dc143c');
+        $('#panel_pwd').css('padding-left', '4px');
+        $('#panel_pwd').css('display', 'block');
+        $('#panel_pwd').css('margin', '10px 0 0');
+        $('#panel_pwd').css('line-height', '14px');
+        $('#panel_pwd').html('일치하지 않습니다');
+        $.cookie('checkPwd', 'NO');
+      }
+    });
+
+    $('#nickname').focusout(function() {
       var params = 'nickname=' + $('#nickname').val();
       $.post('./checkNickname.do', params, checkNickname_res, 'json');
-      });
-    
-    $('#email').focusout(function(){
+    });
+
+    $('#email').focusout(function() {
       var params = 'email=' + $('#email').val();
       $.post('./checkEmail.do', params, checkEmail_res, 'json');
-      });
-    
+    });
+
   });
-  
-  function checkId(){
+
+  function checkId() {
     var params = 'id=' + $('#userid').val();
     // 요청 주소, 전달 값, 응답 처리 함수, 전송 받는 형식
     $.post('./checkId.do', params, checkId_res, 'json');
   }
-  
-  function checkId_res(data){
-    if(data.cnt == 0){
-      $('#panel_id').css('color', '#737373');
+
+  function checkId_res(data) {
+    if (data.cnt == 0) {
+      $('#panel_id').css('color', '#008392');
+      $('#panel_id').css('padding-left', '4px');
+      $('#panel_id').css('display', 'block');
+      $('#panel_id').css('margin', '10px 0 0');
+      $('#panel_id').css('line-height', '14px');
       $('#panel_id').html('아이디가 사용 가능합니다.');
       $.cookie('checkId', 'PASS'); // 쿠키 생성
-    }else if(data.cnt == 1){
-      $('#panel_id').css('color', '#FF0000');
+    } else if (data.cnt == 1) {
+      $('#panel_id').css('color', '#dc143c');
+      $('#panel_id').css('padding-left', '4px');
+      $('#panel_id').css('display', 'block');
+      $('#panel_id').css('margin', '10px 0 0');
+      $('#panel_id').css('line-height', '14px');
       $('#panel_id').html('아이디가 중복됩니다.');
       $('#userid').focus();
     }
   }
-  function send(){
-     var check1 = $.cookie('checkId');
-     var check2 = $.cookie('checkPwd');
-     var check3 = $.cookie('checkNickname');
-     var check4 = $.cookie('checkEmail');
-     if(check1 != 'PASS'){
-        $('#panel_id').css('color','#FF0000')
-        $('#panel_id').html('중복 ID 검사를 해주세요');
-        $('#id').focus();
+  function send() {
+    var check1 = $.cookie('checkId');
+    var check2 = $.cookie('checkPwd');
+    var check3 = $.cookie('checkNickname');
+    var check4 = $.cookie('checkEmail');
+    if (check1 != 'PASS') {
+      $('#panel_id').css('color', '#FF0000')
+      $('#panel_id').html('중복 ID 검사를 해주세요');
+      $('#id').focus();
+      return false;
+    } else {
+      if (check1 != 'PASS' || check2 != 'PASS' || check3 != 'PASS'
+          || check4 != 'PASS') {
         return false;
-     } else {
-       if(check1 != 'PASS' || check2 != 'PASS' || check3 != 'PASS' || check4 != 'PASS'){
-        return false;
-        }
-     }
-     if(check1 == 'PASS'&& check2 == 'PASS' && check3 == 'PASS' && check4 == 'PASS'){
-        return true;
-     }
+      }
+    }
+    if (check1 == 'PASS' && check2 == 'PASS' && check3 == 'PASS'
+        && check4 == 'PASS') {
+      return true;
+    }
   }
-  
-  function checkNickname_res(data){
-    if(data.cnt == 0){
-      $('#panel_nickname').css('color', '#737373');
+
+  function checkNickname_res(data) {
+    if (data.cnt == 0) {
+      $('#panel_nickname').css('color', '#008392');
+      $('#panel_nickname').css('padding-left', '4px');
+      $('#panel_nickname').css('display', 'block');
+      $('#panel_nickname').css('margin', '10px 0 0');
+      $('#panel_nickname').css('line-height', '14px');
       $('#panel_nickname').html('사용 가능합니다.');
       $.cookie('checkNickname', 'PASS'); // 쿠키 생성
-    }else if(data.cnt == 1){
-      $('#panel_nickname').css('color', '#FF0000');
+    } else if (data.cnt == 1) {
+      $('#panel_nickname').css('color', '#dc143c');
+      $('#panel_nickname').css('padding-left', '4px');
+      $('#panel_nickname').css('display', 'block');
+      $('#panel_nickname').css('margin', '10px 0 0');
+      $('#panel_nickname').css('line-height', '14px');
       $('#panel_nickname').html('닉네임이 중복됩니다.');
       $.cookie('checkNickname', 'NO');
     }
   }
 
-  function checkEmail_res(data){
-    if(data.cnt == 0){
-      $('#panel_email').css('color', '#737373');
+  function checkEmail_res(data) {
+    if (data.cnt == 0) {
+      $('#panel_email').css('color', '#008392');
+      $('#panel_email').css('padding-left', '4px');
+      $('#panel_email').css('display', 'block');
+      $('#panel_email').css('margin', '10px 0 0');
+      $('#panel_email').css('line-height', '14px');
       $('#panel_email').html('사용 가능합니다.');
       $.cookie('checkEmail', 'PASS'); // 쿠키 생성
-    }else if(data.cnt == 1){
-      $('#panel_email').css('color', '#FF0000');
+    } else if (data.cnt == 1) {
+      $('#panel_email').css('color', '#dc143c');
+      $('#panel_email').css('padding-left', '4px');
+      $('#panel_email').css('display', 'block');
+      $('#panel_email').css('margin', '10px 0 0');
+      $('#panel_email').css('line-height', '14px');
       $('#panel_email').html('이미 사용 중인 이메일입니다.');
       $.cookie('checkEmail', 'NO');
     }
@@ -142,13 +178,15 @@ float: left;
 <body leftmargin="0" topmargin="0" style="color: #4d4d4d;">
 <!-- ----------------------------------------- -->
  
- <div id="logo" style="border-bottom: 4px solid #c4c5c7; padding:30px">
+ <div id="logo" style="border-bottom: 4px solid #c4c5c7; padding:10px">
       <img class="logo" alt="" src="${pageContext.request.contextPath}/images/logo.png" > 
       <span style="font-size: 24px; font-weight:bold; padding: 17px 0 0 0;">회원가입</span>
  </div>
  
  
- <div style="width: 780px; margin: 54px auto 0; display: block;">
+ <div style="width: 780px; margin: 32px auto 0; display: block;">
+   <FORM name='frm' method='POST' action='./create.do'
+           onsubmit = 'return send()'>
  <div style="overflow: hidden; clear: both; width: 100%; padding: 0 0 19px; border-bottom: 1px solid #c4c5c7; display: block;">
         <h2 style="float: left; width: 270px; height: 27px; padding: 0; margin: 0; font-weight: bold;">개인 구매회원 가입</h2>
 </div>
@@ -160,93 +198,162 @@ float: left;
   <div style="padding: 20px 0 30px 65px; border-bottom: 1px solid #dcdcdc;">
     
     <table style="border-collapse: collapse; width: 100%; border-spacing: 0; border-color: gray;">
-      <caption style="font-size: 0; text-indent: -9999px; overflow: hidden; line-height: 0;">개인정보입력</caption>
+      <caption style="font-size: 0;  overflow: hidden; line-height: 0;">개인정보입력</caption>
       <colgroup style="display: table-column-group;">
         <col width="145px">
         <col width="*">
       </colgroup>
       <tbody style="display: table-row-group; vertical-align: middle; border-color: inherit; border-collapse: collapse;">
         <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
-          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle;">
-            <label style="display: inline-block; line-height: 20px; vertical-align: middle;">
-              <strong style="display: inline-block; width: 6px; height: 14px; margin: 0 5px 0 0; font-weight: normal;">
-                ID
-              </strong>
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle; cursor: default;">
+              ID
             </label>
           </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='text' name='userid' id='userid' placeholder="ID를 입력해 주세요" maxlength="50" autocomplete="off" required="required" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+            <button type='button' onclick='checkId()' style="height: 35px; border-color: #676767; background: #7f7f7f; color: #fff; line-height: 37px; font-size: 12px; font-weight: bold; letter-spacing: 0; display: inline-block; border: 1px solid #c4c4c4; border-radius: 2px; font: 11px/18px dotum, '돋움';">
+            <span style="padding: 0 11px; display: inline-block; color: #FFF; font-weight: bold;">
+            중복확인
+            </span>
+            </button>
+            <span id='panel_id' style="padding-left: 4px; color: #008392; display: block; margin: 10px 0 0; line-height: 14px; ">   
+            </span>
+          </td>
         </tr>
-      </tbody>
-    </table>
-    
+        
+        <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle; ">
+              비밀번호
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='password' name='pwd' id='pwd' value='1234' required="required" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+          </td>      
+        </tr>
+        
+         <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle;">
+              비밀번호 확인
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='password' name='pwd2' id='pwd2' value='1234' required="required" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+            <SPAN id='panel_pwd'></SPAN>
+          </td>      
+        </tr>
+        
+        
+        <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle; cursor: default;">
+              성명
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='text' name='name' id='name' required="required" placeholder="이름을 입력하세요" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+          </td>      
+        </tr>
+        
+        
+        <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label for="nickname" style="display: inline-block; line-height: 20px; vertical-align: middle; cursor: default;">
+              닉네임
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='text' name='nickname' id='nickname' placeholder="" required="required" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+            <SPAN id='panel_nickname'></SPAN>
+          </td>      
+        </tr>
+        
+        <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle; cursor: default;">
+              전화번호
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='tel' name='tel' id='tel' placeholder="예)010-0000-0000" required="required" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+          </td>      
+        </tr>
+        
+        
+        <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle; cursor: default;">
+              이메일
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='email' name='email' id='email' placeholder="이메일을 입력하세요" required="required" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+            <SPAN id='panel_email'></SPAN>
+          </td>      
+        </tr>
+        
+        
+        <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle; cursor: default;">
+              우편번호
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+             <input type='text' name='zipcode' id='zipcode' value='' placeholder="우편번호"  required="required" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+            <button type='button' onclick="DaumPostcode()" style="height: 35px; border-color: #676767; background: #7f7f7f; color: #fff; line-height: 37px; font-size: 12px; font-weight: bold; letter-spacing: 0; display: inline-block; border: 1px solid #c4c4c4; border-radius: 2px; font: 11px/18px dotum, '돋움';">
+            <span style="padding: 0 11px; display: inline-block; color: #FFF; font-weight: bold;">
+            우편번호 찾기
+            </span>
+            </button>
+            <span id='panel_id' style="padding-left: 4px; color: #008392; display: block; margin: 10px 0 0; line-height: 14px; ">   
+            </span>
+          </td>
+        </tr>
+        
+        
+        <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle; cursor: default;">
+              주소
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='text' name='address1' id='address1' value='' maxlength='60' placeholder="주소" style="width: 500px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+          </td>      
+        </tr>
+        
+        
+        <tr style="display: table-row; vertical-align: inherit; border-color: inherit;">
+          <th scope="row" style="position: relative; min-height: 28px; text-align: left; font-size: 15px; font-weight: normal; vertical-align: middle; display: table-cell; border-collapse: collapse;">
+            <label style="display: inline-block; line-height: 20px; vertical-align: middle; cursor: default;">
+              상세주소
+            </label>
+          </th>
+          <td style="padding: 10px 0; vertical-align: middle; word-break:break-all; display: table-cell;">
+            <input type='text' name='address2' id='address2' value='' maxlength='40' placeholder="상세 주소" style="width: 256px; color: #666; line-height: 26px; height: 28px; padding: 6px 10px 0 15px; margin: 0 5px 0 0; border: 1px solid #b1b1b1; font-family: '맑은고딕'; vertical-align: middle; font-size: 15px; background-color: #fff; font-weight: normal;">
+            </td>      
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
   </div>
+   <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
+     <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+   </div>
+   <div style="margin: 10px 0 0 0; text-align: center; padding-top: 20px; display: block;">
+  <button type="submit" style="height: 43px; background: #ed2f2f; color:#FFF; line-height: 43px; font-size: 14px; font-weight: bold; border-radius: 2px;">회원가입</button>
+</div>
+</FORM>
 </div>
 
-</div>
- 
 
  
- 
- 
- 
-<DIV class='content'>
-<FORM name='frm' method='POST' action='./create.do'
-           onsubmit = 'return send()'>
-  <fieldset>
-    <ul>
-      <li>
-        <label class='label' for='id'>아이디</label>
-        <input type='text' name='userid' id='userid' value='user1' required="required">
-        <button type='button' onclick='checkId()'>중복확인</button>
-        <SPAN id='panel_id'></SPAN> <!-- ID 중복 관련 메시지 -->
-      </li>
-      <li>
-        <label class='label' for='pwd'>비밀번호</label>
-        <input type='password' name='pwd' id='pwd' value='1234' required="required">
-      </li>
-      <li>
-        <label class='label' for='pwd2'>비밀번호 확인</label>
-        <input type='password' name='pwd2' id='pwd2' value='1234' required="required">
-        <!-- <button type='button' onclick='checkPwd()'>비밀번호 확인</button> -->
-        <SPAN id='panel_pwd'></SPAN> <!-- ID 중복 관련 메시지 -->
-      </li>
-      <li>
-        <label class='label' for='name'>성명</label>
-        <input type='text' name='name' id='name' value='성명' required="required">
-      </li>
-      <li>
-        <label class='label' for='nickname'>닉네임</label>
-        <input type='text' name='nickname' id='nickname' value='닉네임' required="required">
-        <SPAN id='panel_nickname'></SPAN>
-      </li>
-      <li>
-        <label class='label' for='tel'>전화번호</label>
-        <input type="tel" name='tel' id='tel' value='010-1111-1111'> 예) 010-0000-0000
-      </li>
-      <li>
-        <label class='label' for='email'>이메일</label>
-        <input type='email' name='email' id='email' value='test@mail.com' required="required">
-        <SPAN id='panel_email'></SPAN>
-      </li>
-      <li>
-        <label class='label' for='zipcode'>우편번호</label>
-        <input type='text' name='zipcode' id='zipcode' value='' placeholder="우편번호">
-        <input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>        
-      </li>
-      <li>
-        <label class='label' for='address1'>주소</label>
-        <input type='text' name='address1' id='address1' value='' size='60' placeholder="주소">  
-      </li>
-      <li>
-        <label class='label' for='address2'>상세 주소</label>
-        <input type='text' name='address2' id='address2' value='' size='40' placeholder="상세 주소">      
-      </li>
-      <li>
-        <label class='label'></label>  
 <!-- ----- DAUM 우편번호 API 시작 ----- -->
- 
-<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
-  <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-</div>
+
  
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
@@ -310,17 +417,6 @@ float: left;
     }
 </script>
 <!-- ----- DAUM 우편번호 API 종료----- -->
-        
-      </li>
-      <li class='right'>
-        <button type="submit">저장</button>
-        <button type="button" onclick="location.href='./list.do'">목록</button>
-      </li>         
-    </ul>
-  </fieldset>
-</FORM>
-</DIV>
- 
 <!-- -------------------------------------------- -->
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
