@@ -126,7 +126,7 @@
    </nav>
    <!-- <div style="float:left;width:20%; height:460px; background-color:#3b78ce; "></div> -->
    <div class='homeiFrame'  style="float:right;width:65%; height:409px; background-color:white; border:1px solid #3b78ce; position:absolute; left:26%; border-left:none; display:none;">
-      <iframe src="" width="100%" height="100%" style="border-style: none;"></iframe>
+      <!-- <iframe src="" width="100%" height="100%" style="border-style: none;"></iframe> -->
       <dl>
          <dt>공지사항</dt>
          <dd>팀프로젝트 마감일 D - 8</dd>
