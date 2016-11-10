@@ -26,6 +26,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM book
         WHERE bno = #{bno}
    </select>
+      
+   <!-- 최신글리스트 -->
+   <select id="newlist" resultType="BookVO">
+      SELECT bno, title, deal_code, product_code, region, deal_way, deal_state, purc_date,
+                 hprice, userid, nickname, thumb, file1, wdate
+      FROM book
+      WHERE bno >= (SELECT (MAX(bno)-7) FROM book)
+   </select>
    
    <!-- 게시물 수정 -->
    <update id="update" parameterType="BookVO" >
