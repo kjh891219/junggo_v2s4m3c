@@ -18,12 +18,12 @@ $(document).ready(function(){
       if($("#down_b").css("display") == "none"){
          $('#down_b').slideDown('slow', function() {
            $(this).show();
-           $("#down_img").attr("src","${pageContext.request.contextPath}/images/drop_up.png");
+           $("#down_img").attr("src","../images/drop_up.png");
          });
       }else{
          $('#down_b').slideUp('slow', function() {
            $(this).hide();
-         $("#down_img").attr("src","${pageContext.request.contextPath}/images/drop_down.png");
+         $("#down_img").attr("src","../images/drop_down.png");
          });
       }
     });

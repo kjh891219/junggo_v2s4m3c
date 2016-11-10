@@ -204,7 +204,7 @@
     position:absolute;
     top:170px;
     left:26%;
-    width:16%; 
+    width:13%; 
     height:409px; 
     background-color:#3b78ce;
   }
@@ -216,6 +216,17 @@
     padding:10px 20px;
     border-bottom:1px solid white;
   
+  }
+  
+  .left_detail iframe {
+   position:absolute;
+   top:0;
+   left:98%;
+   width:402%;
+   height:409px;
+   border-style: none;
+   border:1px solid #3b78ce; 
+   border-left:none;
   }
   #left_list_8{
    border-bottom:1px solid #3b78ce;
