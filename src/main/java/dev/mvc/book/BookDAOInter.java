@@ -20,6 +20,13 @@ public interface BookDAOInter {
    public List<BookVO> list(HashMap hashmap);
    
    /**
+    * 도서 최신글 목록
+    * @param hashmap
+    * @return
+    */
+   public List<BookVO> newlist();
+   
+   /**
     * 검색된 레코드 수
     * @param hashmap
     * @return

@@ -30,30 +30,34 @@ public class BookDAO implements BookDAOInter{
       return null;
    }
 
-@Override
-public int update(BookVO bookVO){
-	return mybatis.update("book.update", bookVO);
-}
-
-@Override
-public int delete(int bno) {
-	return mybatis.delete("book.delete", bno);
-}
-
-@Override
-public BookVO read(int bno) {
-	return mybatis.selectOne("book.read", bno);
-}
-
-@Override
-public int count(HashMap hashmap) {
-	return mybatis.selectOne("book.count", hashmap);
-}
-
-@Override
-public int increaseCnt(int bno) {
-	return mybatis.update("book.increaseCnt", bno);
-}
+   @Override
+   public int update(BookVO bookVO){
+   	return mybatis.update("book.update", bookVO);
+   }
+   
+   @Override
+   public int delete(int bno) {
+   	return mybatis.delete("book.delete", bno);
+   }
+   
+   @Override
+   public BookVO read(int bno) {
+   	return mybatis.selectOne("book.read", bno);
+   }
+   
+   @Override
+   public int count(HashMap hashmap) {
+   	return mybatis.selectOne("book.count", hashmap);
+   }
+   
+   @Override
+   public int increaseCnt(int bno) {
+   	return mybatis.update("book.increaseCnt", bno);
+   }
+   @Override
+   public List<BookVO> newlist() {
+      return mybatis.selectList("book.newlist");
+   }
 
 }
 
