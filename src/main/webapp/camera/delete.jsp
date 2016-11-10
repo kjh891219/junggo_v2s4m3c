@@ -32,8 +32,7 @@
     
   
     <DIV class = 'content'>
-      <FORM name='frm' method='POST' action='./delete.do'
-                 onsubmit = 'return send();'>
+      <FORM name='frm' method='POST' action='./delete.do'>
         <input type='hidden' name='ctno' value='${ctno}'>
        
     

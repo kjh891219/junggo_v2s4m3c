@@ -40,7 +40,6 @@
            <option value="노트북/넷북">노트북/넷북</option>
            <option value="모니터" >모니터</option>
            <option value="데스크탑/본체">데스크탑/본체</option>
-           <option value="CPU/메인보드/HDD/메모리">CPU/메인보드/HDD/메모리</option>
            <option value="주변기기">주변기기</option>
         </select>
       </div>

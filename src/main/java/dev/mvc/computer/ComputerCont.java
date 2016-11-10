@@ -136,7 +136,7 @@ public class ComputerCont {
         // Thumb 파일 생성
         // -------------------------------------------------------------------
         if (Tool.isImage(file1)) {
-          thumb = Tool.preview(upDir, file1, 120, 80);
+          thumb = Tool.preview(upDir, file1, 250, 250);
         } else {
           thumb = "";
         }
@@ -362,7 +362,7 @@ public class ComputerCont {
       // -------------------------------------------------------------------
       if (Tool.isImage(file1)) { // 이미지인지 검사
         Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-        thumb = Tool.preview(upDir, file1, 120, 80); // thumb 이미지 생성
+        thumb = Tool.preview(upDir, file1, 250, 250); // thumb 이미지 생성
       } else {
         thumb = "";
       }

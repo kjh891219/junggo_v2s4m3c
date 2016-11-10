@@ -120,7 +120,7 @@ public class CameraCont {
     
     
     
-    response.setCharacterEncoding("UTF-8");
+   /* response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html; charset=UTF-8");
     if (session.getAttribute("userid") == null ){
       PrintWriter writer = response.getWriter();
@@ -139,7 +139,7 @@ public class CameraCont {
           + "location.href = './create.jsp';"
           + "</script>");
       
-    }
+    }*/
     
     
     

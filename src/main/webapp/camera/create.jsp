@@ -16,7 +16,11 @@
 <script type="text/javascript" src="../js/tool.js"></script>
 <link href="/junggo/css/style.css" rel="Stylesheet" type="text/css">
 <script src="/junggo/js/event.js"></script>
-
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
 
 
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>

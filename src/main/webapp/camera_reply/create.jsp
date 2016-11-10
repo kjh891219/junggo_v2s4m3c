@@ -44,14 +44,14 @@
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="ctno" id="ctno" value='<%=request.getParameter("ctno")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>
-  <div style="margin-top: 15px; margin-bottom: 15px; padding: 12px 16px 20px; background: #fcfcfc; border: 1px solid #ddd; border-bottom-color: #ccc; border-radius:8px;">    
+  <div style="margin-top: 15px; margin-bottom: 15px; padding: 12px 16px 20px; background: #fcfcfc; border: 1px solid #ddd; border-bottom-color: #ccc; border-radius:8px; display: block;">    
      <label style="cursor: pointer; position: relative; margin-bottom: 10px; float: left;">
         <strong style="padding-left: 5px; font-weight: bold;">댓글 쓰기</strong>
      </label>   
      <div style="display: block; position: relative; clear: both;">
         <div style="margin-left: 0; position: relative; margin: 0 60px; display: block;">
           <div style="display: block;">
-            <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" style="display: block; height: 46px; padding: 4px 8px; border: 1px solid #ddd; border-radius:2px; background: #fff;"><%=request.getParameter("ctno")%></textarea>
+            <textarea rows="4" cols="70"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" style="display: block; height: 46px; padding: 4px 8px; border: 1px solid #ddd; border-radius:2px; background: #fff; width: 100%"><%=request.getParameter("ctno")%></textarea>
           </div>
           <button type="submit" style="position: absolute; top: 0; right: -60px; width:56px; height: 56px; line-height: 56px; margin: 0; padding: 0; font-size: 12px; display: inline-block; white-space: no">등록</button>
         </div>      

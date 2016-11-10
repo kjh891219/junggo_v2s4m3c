@@ -72,7 +72,7 @@ function delete_form(rno){
 
 </head> 
 <!-- ----------------------------------------- -->
-<body style="width:100%;">
+<body>
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 <!-- <DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>

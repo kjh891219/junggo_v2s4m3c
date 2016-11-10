@@ -102,7 +102,7 @@ WHERE ctno = 10 and passwd = '4546'
 
 /** 삭제 */
 DELETE computer WHERE ctno = 9 and passwd = '4546'
- 
+delete computer where ctno=2; 
  /**********************************/
 /* Table Name: 컴퓨터 게시글 댓글 */
 /**********************************/
