@@ -42,47 +42,72 @@ public class URILogFilter implements Filter{
     
     boolean login = true;
     if (session != null) {
-      if (session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/camera/create.do")) {
+      /*camera*/
+      if (session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/camera/create.do")|| request.getRequestURI().equals("/junggo/camera/update.do")|| request.getRequestURI().equals("/junggo/camera/delete.do"))) {
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/usedcar/create.do")){
+      }
+      /*usedcar*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/usedcar/create.do")|| request.getRequestURI().equals("/junggo/usedcar/update.do")|| request.getRequestURI().equals("/junggo/usedcar/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/carproduct/create.do")){
+      } /*carproduct*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/carproduct/create.do")|| request.getRequestURI().equals("/junggo/carproduct/update.do")|| request.getRequestURI().equals("/junggo/carproduct/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/cloth/create.do")){
+      }/*cloth*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/cloth/create.do")|| request.getRequestURI().equals("/junggo/cloth/update.do")|| request.getRequestURI().equals("/junggo/cloth/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/cosmetic/create.do")){
+      }/*cosmetic*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/cosmetic/create.do")|| request.getRequestURI().equals("/junggo/cosmetic/update.do")|| request.getRequestURI().equals("/junggo/cosmetic/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/product/create.do")){
+      }/*product*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/product/create.do")|| request.getRequestURI().equals("/junggo/product/update.do")|| request.getRequestURI().equals("/junggo/product/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/mobile/create.do")){
+      }/*mobile*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/mobile/create.do")|| request.getRequestURI().equals("/junggo/mobile/update.do")|| request.getRequestURI().equals("/junggo/mobile/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/game/create.do")){
+      }/*game*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/game/create.do")|| request.getRequestURI().equals("/junggo/game/update.do")|| request.getRequestURI().equals("/junggo/game/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/gamedevice/create.do")){
+      }/*gamedevice*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/gamedevice/create.do")|| request.getRequestURI().equals("/junggo/gamedevice/update.do")|| request.getRequestURI().equals("/junggo/gamedevice/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/computer/create.do")){
+      }/*computer*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/computer/create.do")|| request.getRequestURI().equals("/junggo/computer/update.do")|| request.getRequestURI().equals("/junggo/computer/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/music/create.do")){
+      }/*music*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/music/create.do")|| request.getRequestURI().equals("/junggo/music/update.do")|| request.getRequestURI().equals("/junggo/music/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/art/create.do")){
+      }/*art*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/art/create.do")|| request.getRequestURI().equals("/junggo/art/update.do")|| request.getRequestURI().equals("/junggo/art/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/book/create.do")){
+      }/*book*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/book/create.do")|| request.getRequestURI().equals("/junggo/book/update.do")|| request.getRequestURI().equals("/junggo/book/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/living/create.do")){
+      }/*living*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/living/create.do")|| request.getRequestURI().equals("/junggo/living/update.do")|| request.getRequestURI().equals("/junggo/living/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/sports/create.do")){
+      }/*sports*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/sports/create.do")|| request.getRequestURI().equals("/junggo/sports/update.do")|| request.getRequestURI().equals("/junggo/sports/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/notice/create.do")){
+      }/*notice*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/notice/create.do")|| request.getRequestURI().equals("/junggo/notice/update.do")|| request.getRequestURI().equals("/junggo/notice/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/reviews/create.do")){
+      }/*reviews*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/reviews/create.do")|| request.getRequestURI().equals("/junggo/reviews/update.do")|| request.getRequestURI().equals("/junggo/reviews/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/cheat/create.do")){
+      }/*cheat*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/cheat/create.do")|| request.getRequestURI().equals("/junggo/cheat/update.do")|| request.getRequestURI().equals("/junggo/cheat/delete.do"))){
         login = false;
-      }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/member/list.do")){
+      }/*member*/
+      else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/member/list.do")){
         login = false;
       }else if(session.getAttribute("userid") != null && !session.getAttribute("userid").toString().equals("master") && request.getRequestURI().equals("/junggo/member/list.do")){
         login = false;
+      }/*message*/
+      else if(session.getAttribute("userid") == null && (request.getRequestURI().equals("/junggo/message/create.do")|| request.getRequestURI().equals("/junggo/message/list_msg.do")|| request.getRequestURI().equals("/junggo/message/delete.do"))){
+        login = false;
       }else if(session.getAttribute("userid") == null && request.getRequestURI().equals("/junggo/message/list.do")){
+        login = false;
+      }else if(session.getAttribute("userid") != null && !session.getAttribute("userid").toString().equals("master") && request.getRequestURI().equals("/junggo/message/list.do")){
         login = false;
       }
       

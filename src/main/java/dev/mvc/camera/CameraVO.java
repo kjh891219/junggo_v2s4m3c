@@ -149,6 +149,29 @@ public class CameraVO {
 
   /** size10의 컴마 저장 출력용 변수, 실제 컬럼은 존재하지 않음. */
   private String size10Label;
+  
+  /** 마이페이지 글번호*/
+  
+  private int my_no;
+  
+  public int getMy_no() {
+    return my_no;
+  }
+
+  public void setMy_no(int my_no) {
+    this.my_no = my_no;
+  }
+
+  public int getMy_cnt() {
+    return my_cnt;
+  }
+
+  public void setMy_cnt(int my_cnt) {
+    this.my_cnt = my_cnt;
+  }
+
+  /** 마이페이지 글 수*/
+  private int my_cnt;
 
   public int getCtno() {
     return ctno;

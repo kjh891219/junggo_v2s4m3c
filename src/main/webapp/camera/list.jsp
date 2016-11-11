@@ -88,9 +88,9 @@ window.openModal = function() {
 <!-- 본문 -->
 
  <div style="overflow: hidden; position: relative; padding-top: 20px; margin: 0 auto; width: 80%;">
-    <ul style="overflow: hidden; clear: both; width: 990px; border-top: 1px solid #c2c2c2; position: relative; list-style: none; margin: 0; padding: 0; display: block;">
+    <ul style="overflow: hidden; clear: both; width: 1000px; border-top: 1px solid #c2c2c2; position: relative; list-style: none; margin: 0; padding: 0; display: block;">
      <c:forEach var="vo" items="${list }">
-      <li style="position: relative; width: 330px; height: 270px; border-bottom: 1px solid #e2e6ea; float: left; list-style: none; display: list-item;">
+      <li style="position: relative; width: 250px; height: 270px; border-bottom: 1px solid #e2e6ea; float: left; list-style: none; display: list-item;">
         <a href="./read.do?ctno=${vo.ctno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"style="color: #555; text-decoration: none; display: block; margin: 0; padding: 0;">
           <c:choose>
               <c:when test="${vo.file1 == null}"></c:when>
@@ -98,13 +98,13 @@ window.openModal = function() {
                 <c:set var='file1' value="${fn:toLowerCase(vo.file1)}" />
                 <c:choose>
                   <c:when test="${fn:endsWith(file1, '.jpg')}">
-                    <IMG id='file1' src='./storage/${vo.file1}' style="display: inline; width: 320px; height: 166px; vertical-align: bottom; border: 0;">
+                    <IMG id='file1' src='./storage/${vo.file1}' style="display: inline; width: 220px; height: 166px; vertical-align: bottom; border: 0;">
                   </c:when>
                   <c:when test="${fn:endsWith(file1, '.gif')}">
-                    <IMG id='file1'  src='./storage/${vo.file1}' style="display: inline; width: 320px; height: 166px; vertical-align: bottom; border: 0;">
+                    <IMG id='file1'  src='./storage/${vo.file1}' style="display: inline; width: 220px; height: 166px; vertical-align: bottom; border: 0;">
                   </c:when>
                   <c:when test="${fn:endsWith(file1, '.png')}">
-                    <IMG id='file1'  src='./storage/${vo.file1}' style="display: inline; width: 320px; height: 166px; vertical-align: bottom; border: 0;">
+                    <IMG id='file1'  src='./storage/${vo.file1}' style="display: inline; width: 220px; height: 166px; vertical-align: bottom; border: 0;">
                   </c:when>
                   <c:otherwise>
                     ${vo.file1}
@@ -112,7 +112,7 @@ window.openModal = function() {
                 </c:choose>
                 </c:when>
             </c:choose>
-          <span style="padding: 15px 0 0 15px; width: 290px; height: 16px; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-family: 'Malgun Gothic'; line-height: .9em;">
+          <span style="padding: 15px 0 0 15px; width: 180px; height: 16px; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-family: 'Malgun Gothic'; line-height: .9em;">
             ${vo.title}
           </span>
         </a>
@@ -129,7 +129,7 @@ window.openModal = function() {
             <span style="height: 18px; line-height: 18px; border-top: 2px solid #fff; vertical-align: top; white-space: nowrap; color: #999; font-family: '돋움'; font-size: 11px; letter-spacing: -1px;">${vo.deal_way}</span>
           </span>
         </span>
-        <span style="display: block; position: absolute; left: 254px; bottom: 10px; text-align: center; width: 50px; height: 50px; color: #999; font-size: 11px;">
+        <span style="display: block; position: absolute; left: 120px; bottom: 10px; text-align: center; width: 50px; height: 50px; color: #999; font-size: 11px;">
           <em style="padding: 8px 0 3px; color: #519bde; display: block; font-family: '돋움'; text-align: center; font-size: 14px;">
              ${vo.cnt}
           </em>

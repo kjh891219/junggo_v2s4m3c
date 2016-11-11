@@ -93,4 +93,13 @@ public interface CameraDAOInter {
    */
   public List<CameraVO> list3(HashMap hashmap);
   
+  
+  /**
+   * 도서 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<CameraVO> newlist();
+
+  
 }

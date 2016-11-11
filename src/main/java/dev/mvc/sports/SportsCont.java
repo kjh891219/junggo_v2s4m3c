@@ -118,7 +118,7 @@ public class SportsCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file2)) {
-        file1 = Tool.preview(upDir, file2, 120, 80);
+        file1 = Tool.preview(upDir, file2, 250, 250);
       } else {
         file1 = "";
       }
@@ -138,7 +138,7 @@ public class SportsCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file4)) {
-        file3 = Tool.preview(upDir, file4, 120, 80);
+        file3 = Tool.preview(upDir, file4, 250, 250);
       } else {
         file3 = "";
       }
@@ -158,7 +158,7 @@ public class SportsCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file6)) {
-        file5 = Tool.preview(upDir, file6, 120, 80);
+        file5 = Tool.preview(upDir, file6, 250, 250);
       } else {
         file5 = "";
       }
@@ -177,7 +177,7 @@ public class SportsCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file8)) {
-        file7 = Tool.preview(upDir, file8, 120, 80);
+        file7 = Tool.preview(upDir, file8, 250, 250);
       } else {
         file7 = "";
       }
@@ -196,7 +196,7 @@ public class SportsCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file10)) {
-        file9 = Tool.preview(upDir, file10, 120, 80);
+        file9 = Tool.preview(upDir, file10, 250, 250);
       } else {
         file9 = "";
       }
@@ -407,7 +407,7 @@ public class SportsCont {
       // -------------------------------------------------------------------
       if (Tool.isImage(file2)) { // 이미지인지 검사
         Tool.deleteFile(upDir, oldVO.getFile1()); // 파일 삭제
-        file1 = Tool.preview(upDir, file2, 120, 80); //thumb 이미지 생성
+        file1 = Tool.preview(upDir, file2, 250, 250); //thumb 이미지 생성
       } else {
         file1 = "";
       }
@@ -442,7 +442,7 @@ public class SportsCont {
       // -------------------------------------------------------------------
       if (Tool.isImage(file4)) { // 이미지인지 검사
         Tool.deleteFile(upDir2, oldVO2.getFile3()); // 파일 삭제
-        file3 = Tool.preview(upDir2, file4, 120, 80); //thumb 이미지 생성
+        file3 = Tool.preview(upDir2, file4, 250, 250); //thumb 이미지 생성
       } else {
         file3 = "";
       }
@@ -478,7 +478,7 @@ public class SportsCont {
       // -------------------------------------------------------------------
       if (Tool.isImage(file6)) { // 이미지인지 검사
         Tool.deleteFile(upDir3, oldVO3.getFile5()); // 파일 삭제
-        file5 = Tool.preview(upDir3, file6, 120, 80); //thumb 이미지 생성
+        file5 = Tool.preview(upDir3, file6, 250, 250); //thumb 이미지 생성
       } else {
         file5 = "";
       }
@@ -513,7 +513,7 @@ public class SportsCont {
       // -------------------------------------------------------------------
       if (Tool.isImage(file8)) { // 이미지인지 검사
         Tool.deleteFile(upDir4, oldVO4.getFile7()); // 파일 삭제
-        file7 = Tool.preview(upDir4, file8, 120, 80); //thumb 이미지 생성
+        file7 = Tool.preview(upDir4, file8, 250, 250); //thumb 이미지 생성
       } else {
         file7 = "";
       }
@@ -548,7 +548,7 @@ public class SportsCont {
       // -------------------------------------------------------------------
       if (Tool.isImage(file10)) { // 이미지인지 검사
         Tool.deleteFile(upDir5, oldVO5.getFile9()); // 파일 삭제
-        file9 = Tool.preview(upDir5, file10, 120, 80); //thumb 이미지 생성
+        file9 = Tool.preview(upDir5, file10, 250, 250); //thumb 이미지 생성
       } else {
         file9 = "";
       }

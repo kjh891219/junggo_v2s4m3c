@@ -48,7 +48,7 @@ for (int i=0; i < cookies.length; i++){
             <ul>
               <li class='center'><label class='' for='userid'>아이디</label>
                 <input type='text' name='userid' id='userid'
-                value='<%=ck_userid%>' style='width: 50%;'
+                value='master' style='width: 50%;'
                 autocomplete="off"> <label> <input
                   type='checkbox' name='userid_save' value='Y'
                   <%=(ck_userid_save.equals("Y")) ? "checked='checked'" : ""%>>
@@ -56,7 +56,7 @@ for (int i=0; i < cookies.length; i++){
               </label></li>
               <li class='center'><label class='' for='pwd'>패스워드</label>
                 <input type='password' name='pwd' id='pwd'
-                value='<%=ck_pwd%>' style='width: 50%;'
+                value='1234' style='width: 50%;'
                 autocomplete="off"> <label> <input
                   type='checkbox' name='pwd_save' value='Y'
                   <%=(ck_pwd_save.equals("Y")) ? "checked='checked'" : ""%>>

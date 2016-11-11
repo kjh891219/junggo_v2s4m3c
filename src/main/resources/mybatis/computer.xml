@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  UPDATE computer set title = #{title}, deal_code = #{deal_code}, product_code =#{product_code}
         , category = #{category}, region =#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, quantity=#{quantity}
         , hprice=#{hprice}, content=#{content}, nickname=#{nickname} 
-        , tel=#{tel}, email=#{email}, deal_status=#{deal_status}
+        , tel=#{tel}, email=#{email}
         , thumb = #{thumb}, file1=#{file1}, size1=#{size1}, file2 =#{file2}, size2 = #{size2}, file3 =#{file3}, size3 = #{size3}
         , file4 =#{file4}, size4 = #{size4}, file5 =#{file5}, size5 = #{size5}
         WHERE ctno = #{ctno} 

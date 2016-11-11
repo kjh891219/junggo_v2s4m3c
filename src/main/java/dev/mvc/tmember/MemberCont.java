@@ -39,10 +39,10 @@ public class MemberCont {
   }
   
   @RequestMapping(value = "/home.do", method = RequestMethod.GET)
-  public ModelAndView home() {
+  public ModelAndView home(HttpSession session) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/index"); // member에 create.do가 들어올 경우 이동 -> /webapp/member/create.jsp
- 
+    session.setAttribute("url", "index.jsp");
     return mav;
   }
   

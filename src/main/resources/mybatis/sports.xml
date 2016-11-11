@@ -93,11 +93,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
  <!-- ********** 페이징에 따른 변경 시작 ********** -->
     <select id="list3" resultType="SportsVO" parameterType="HashMap" >
-    SELECT sno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, r
+    SELECT sno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, deal_code, cnt, r
         FROM(
-           SELECT sno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, rownum as r
+           SELECT sno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, deal_code, cnt, rownum as r
               FROM (
-                    SELECT sno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
+                    SELECT sno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, deal_code, cnt
                     FROM sports
                     <choose>
                         <when test="col == 'title'">
@@ -124,5 +124,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     from member
     where userid=#{userid}   
     </select>
+    
+    
+    <!-- 최신글리스트 -->
+   <select id="newlist" resultType="SportsVO">
+      SELECT sno, title, deal_code, product_code, region, deal_way, purc_date,
+                 hprice, userid, nickname, file1, file2, wdate
+      FROM sports
+      WHERE sno >= (SELECT (MAX(sno)-7) FROM sports)
+   </select>
+    
+    
     
  </mapper>

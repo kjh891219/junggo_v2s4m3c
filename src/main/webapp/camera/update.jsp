@@ -7,14 +7,16 @@
 <meta charset="UTF-8"> 
 <title></title> 
 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
-<script type="text/JavaScript"
-          src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-<script type="text/javascript" src="../js/tool.js"></script>
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
  
@@ -36,7 +38,8 @@
 
 
 <DIV class=container>
-
+  <jsp:include page="/menu/top.jsp" flush='false' />
+  <jsp:include page="/menu/left.jsp" flush="false"/> 
 <DIV class='title'><span>글수정</span></DIV>
    <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./update.do' class='form-inline' enctype="multipart/form-data">

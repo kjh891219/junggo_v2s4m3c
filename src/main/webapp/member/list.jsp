@@ -7,7 +7,6 @@
 <head> 
 <meta charset="UTF-8"> 
 <title></title> 
- 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -16,11 +15,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
-<script type="text/JavaScript"
-          src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-<script type="text/javascript" src="../js/tool.js"></script>
+<link href="${pageContext.request.contextPath}/css/style.css?ver=2" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=2"></script>
 <script type="text/javascript">
 
 function delete_form(mno){
@@ -42,51 +38,11 @@ function act_form(mno){
   win.moveTo(x, y); // 화면 이동 
 }
 </script>
-<style type="text/css">
-
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
-  
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
-
-</style>
 </head> 
 <!-- ----------------------------------------- -->
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+<jsp:include page="/menu/left.jsp" flush='false' />
 <jsp:include page="/member/menu/admin_left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
 <div class="container">
@@ -94,7 +50,6 @@ function act_form(mno){
     <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>목록</A>>
     <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>회원 목록</A>｜
     <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}&dropout=Y' class='top_select'>탈퇴 신청</A>｜
-    <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}&dropout=Y' class='top_select'>URI Log</A>｜
 </div>
 
 <div style="font-size: 30px; text-align: center;">

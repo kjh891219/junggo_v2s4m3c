@@ -659,4 +659,28 @@ public class CameraCont {
     
     return mav;
   }
+  
+  
+  @RequestMapping(value = "/camera/list2.do", method = RequestMethod.GET)
+  public ModelAndView newlist() {
+     ModelAndView mav = new ModelAndView();
+     mav.setViewName("/camera/list2"); // /webapp/member/list.jsp
+     
+     
+     List<CameraVO> list = cameraDAO.newlist();
+     Iterator<CameraVO> iter = list.iterator(); // 객체를 순차적으로 접근하는 기능
+     while(iter.hasNext() == true){  // 다음 요소 검사
+       CameraVO vo = iter.next();  // 요소 추출
+       vo.setTitle(Tool.textLength(vo.getTitle(),10));   // 문자열 10자 
+       //vo.setWdate(vo.getWdate().substring(0, 10));      // 년 월 일
+       // vo.setFile1(Tool.textLength(vo.getFile1(),10));  
+       //vo.setThumb(Tool.textLength(vo.getThumb(),10)); 
+       
+     }
+     mav.addObject("list2", list);
+     
+     
+     return mav;
+  }
+
 }
