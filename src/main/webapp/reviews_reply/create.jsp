@@ -16,38 +16,37 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 
-<script>
-     function create_login() {
-       <% if( session.getAttribute("userid") == null) { %>
-       alert('로그인 한 사용자만 사용이 가능합니다.');
-       window.parent.openModal();
-       <%String r_no = request.getParameter("r_no");%>
-       <%session.setAttribute("url", "reviews/read.do?r_no="+r_no);%>
-       return false;
-       <% } else { %>
-       return true;
-       <% } %>
-       
-     }
-      </script>
+<style>
+   .panel-footer{
+   float:center;
+   margin-top:5%;
+   background-color: #FFFFFF;
+   width:15%;
+   border:none;
+  margin:0 auto;
+  }</style>
+
 
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
+<body style="width:100%;">
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 
 
     
-<DIV class='center-block'>
-<DIV class='title'>댓글 쓰기</DIV>
-<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/reviews_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>
+<DIV class='center-block' style='width: 80%; margin:0 auto;'>
+<DIV class='' style="margin-left:6%;">댓글 쓰기</DIV>
+<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/reviews_reply/create.do' class='form-inline'>
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="r_no" id="r_no" value='<%=request.getParameter("r_no")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>
-  <div class="col-xs-5">    
-        <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" class="form-group"><%=request.getParameter("r_no")%></textarea>
-      <button type="submit" class="btn btn-success btn-lg">등록</button>
+<div class="col-xs-15" style="border-style : solid #d6d6c2; margin-left : 6%"">
+        <textarea rows="5" cols="60"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" class="form-group"><%=request.getParameter("r_no")%></textarea>
+     <div class="panel-footer" style="margin-left:85%">
+     <button onclick="create_login();" type='button' onclick="location.href='./create.do'" 
+                 type="button" class="btn btn-success btn-sm btn-block">
+      <span class="fa fa-send" ></span>등록</button></div>
   </div>
  
 </FORM>

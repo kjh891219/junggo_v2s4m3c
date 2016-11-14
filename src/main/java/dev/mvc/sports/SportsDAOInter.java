@@ -88,6 +88,16 @@ public interface SportsDAOInter {
    * @return
    */
   public MemberVO test(String userid);
+  
+  
+  /**
+   * 스포츠 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<SportsVO> newlist();
+
+  
 }
 
   

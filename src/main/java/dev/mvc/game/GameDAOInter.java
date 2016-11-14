@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import dev.mvc.game.GameVO;
+import dev.mvc.tmember.MemberVO;
 
 public interface GameDAOInter {
  
@@ -66,5 +67,15 @@ public interface GameDAOInter {
    * 
    */
   public int count(HashMap hashMap);  
+  
+  /**
+   * 회원정보(닉네임, 이메일) 가져오기
+   * @param userid
+   * @return
+   */
+  public MemberVO test(String userid);
+  
+  
+  public List<GameVO> newlist();
   
 }

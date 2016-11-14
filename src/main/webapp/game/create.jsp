@@ -15,9 +15,15 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
-<script src="../js/event.js"></script>
-
+<link href="/game/css/style.css" rel="Stylesheet" type="text/css">
+<script src="/game/js/event.js"></script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+<script type="text/JavaScript">
+  window.onload=function(){
+    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+  };
+</script>
+ 
 
 </head> 
 <!-- ----------------------------------------- -->
@@ -33,7 +39,6 @@
  <input type='hidden' name='userid' id='userid' value= '${userid }'/>
  <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
 <DIV class='content_form'>
-
      <DIV class="">
      <div class="float_l _left">
       <div class="">
@@ -96,11 +101,11 @@
       <hr/>
       <div class="row">
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
-        <input type='text' name='title' id='title' required="required" value='디카팔아요' class="col-xs-9 col-lg-9">
+        <input type='text' name='title' id='title' required="required" value='GTA' class="col-xs-9 col-lg-9">
       </div>
       <div class="row">
         <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">sqld책 싸게 팔아요</textarea>
+        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">GTA5</textarea>
       </div>
       <hr/>
         <div class="row need">   
@@ -133,7 +138,6 @@
          <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label>
          <input type="radio" name='product_code' value="중고품" checked="checked"><span class='radio_text'>중고품</span>
          <input type="radio" name='product_code' value="신상품" ><span class='radio_text'>신상품</span>
-
       </div>
         <div class="row"> 
         <label for='hprice' class='col-xs-2 col-lg-2 need'>희망가격</label>
@@ -147,26 +151,7 @@
         <label for='quantity' class='col-xs-2 col-lg-2 choice'>수량</label>
         <input type='text' name='quantity' id='quantity' value='1' class="col-xs-3 col-lg-3">
       </div>
-
-      <hr/>
-      <div class='inpo'>판매자 정보</div>
-        <div class='line_box' id='ul_box_2'></div>
-          <div class="row">
-            <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
-            <input type='text' name='tel' id='tel'  required="required" value='${tel}' class="col-xs-3 col-lg-3"> 
-          </div>
-          <div class="row">
-            <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
-            <input type='text' name='nickname' id='nickname' value= '${nickname}' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
-            </div>
-          <div class="row">  
-            <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
-            <input type='text' name='email' id='email'  required="required" value='${email}' readonly="readonly" class="col-xs-3 col-lg-3">
-          </div>
-  
-      <hr/>
-        
-         <div class=""> 
+      <div class=""> 
          <label for='lev' class='need_e'>평점</label>
          <div>
          <select name='lev' id='lev' class="form-control-lg-10-lg-10-lg-10 full">
@@ -188,11 +173,31 @@
          <option value = "svg">전략</option>
         </select>
         </div>
+     </div> 
+      <hr/>
+      <div class='inpo'>판매자 정보</div>
+        <div class='line_box' id='ul_box_2'></div>
+           <div class="row">
+              <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
+              <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              </div>
+            <div class="row">
+               <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
+              <input type='text' name='tel' id='tel'  required="required" value='${tel}' class="col-xs-3 col-lg-3"> 
+            </div>
+            <div class="row">  
+              <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
+              <input type='text' name='email' id='email'  required="required" value='${memberVO.email }'  class="col-xs-3 col-lg-3">
+            </div>
+  
+        <hr/>
+        
+
       <div class='text_r' >
         <button type="submit" class="btn btn-success btn-lg">등록</button>
         <button type="button" onclick="location.href='./list.jsp'" class="btn btn-danger btn-lg">취소</button>
       </div>
-      </div>
+   
       </DIV>
                
 </FORM>

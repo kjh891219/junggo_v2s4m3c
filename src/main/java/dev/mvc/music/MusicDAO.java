@@ -69,5 +69,10 @@ public class MusicDAO implements MusicDAOInter{
   public MemberVO test(String userid) { 
     return mybatis.selectOne("music.test", userid);
   }
+
+  @Override
+  public List<MusicVO> newlist() {
+    return mybatis.selectList("music.newlist");
+  }
   
 }

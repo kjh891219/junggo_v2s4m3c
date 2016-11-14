@@ -83,12 +83,28 @@ public class CarproductCont {
 }
  
  
+
+/* @RequestMapping(value = "/carproduct/favorite_create.do", 
+     method = RequestMethod.GET)
+ public void favorite_create(CarproductVO carproductVO, 
+     HttpServletRequest request, 
+     HttpSession session, HttpServletResponse response) throws IOException {
+     response.setCharacterEncoding("UTF-8");
+     PrintWriter writer = response.getWriter();
+     writer.println
+       ("<script>alert('이야야야야야야');" 
+         + "location.href = './read.do';"
+         + "</script>"
+       );
+ }*/
+ 
  /**
   * 등록 처리
   * @param carproductVO
   * @param request
   * @param session
   * @return
+ * @throws IOException 
   */
  @RequestMapping(value = "/carproduct/create.do", 
                             method = RequestMethod.POST)
@@ -120,7 +136,7 @@ public class CarproductCont {
      // Thumb 파일 생성
      // -------------------------------------------------------------------
      if (Tool.isImage(file1)) {
-       thumb = Tool.preview(upDir, file1, 120, 80);
+       thumb = Tool.preview(upDir, file1, 140, 180);
      } else {
        thumb = "";
      }
@@ -479,9 +495,9 @@ public ModelAndView list(
   hashMap.put("col", searchDTO.getCol());
   hashMap.put("word", searchDTO.getWord());
   
-  int recordPerPage = 10; // 페이지당 출력할 레코드 갯수
+  int recordPerPage = 9; // 페이지당 출력할 레코드 갯수
   // 페이지에서 출력할 시작 레코드 번호 계산, nowPage는 1부터 시작
-  int beginOfPage = (searchDTO.getNowPage() - 1) * 10; 
+  int beginOfPage = (searchDTO.getNowPage() - 1) * 9; 
   // 1 page: 0
   // 2 page: 10
   // 3 page: 20
@@ -514,6 +530,34 @@ public ModelAndView list(
   mav.addObject("paging", paging);
   return mav;
 }
+
+/**
+ * 최근 목록을 출력합니다.
+ * 
+ * @return
+ */
+@RequestMapping(value = "/carproduct/list2.do", method = RequestMethod.GET)
+public ModelAndView newlist() {
+   ModelAndView mav = new ModelAndView();
+   mav.setViewName("/carproduct/list2"); // /webapp/member/list.jsp
+   
+   
+   List<CarproductVO> list = carproductDAO.newlist();
+   Iterator<CarproductVO> iter = list.iterator(); // 객체를 순차적으로 접근하는 기능
+   while(iter.hasNext() == true){  // 다음 요소 검사
+     CarproductVO vo = iter.next();  // 요소 추출
+     vo.setTitle(Tool.textLength(vo.getTitle(),10));   // 문자열 10자 
+     //vo.setWdate(vo.getWdate().substring(0, 10));      // 년 월 일
+     // vo.setFile1(Tool.textLength(vo.getFile1(),10));  
+     //vo.setThumb(Tool.textLength(vo.getThumb(),10)); 
+     
+   }
+   mav.addObject("list2", list);
+   
+   
+   return mav;
+}
+
 
 
   

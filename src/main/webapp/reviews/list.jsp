@@ -17,12 +17,31 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
+
 
 <script type="text/javascript">
+
+
 $(function(){
   $('#panel_frm').hide();
 });
+
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+  
+function create_login() {
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 이용이 가능합니다');
+  window.openModal();
+  return false;
+  <% } else { %>
+  location.href='./create.do';
+  return true;
+  <% } %> 
+}
 
 function profile(nickname, userid){
   var url = '../member/profile.do?nickname='+nickname;
@@ -61,169 +80,53 @@ function update(codeno, sort, seqno){
   $('#sort').focus();
 }
 
-</script>
 
-
-<script type="text/javascript">
-window.openModal = function() {
-  $( '#myModal' ).modal( 'show' );
-  }
-</script>
-<script>
-     function create_login() {
-       <% if( session.getAttribute("userid") == null) { %>
-       alert('로그인 한 사용자만 이용이 가능합니다');
-       window.openModal();
-       <%session.setAttribute("url", "reviews/list.do");%>
-       return false;
-       <% } else { %>
-       location.href='./create.do';
-       return true;
-       <% } %> 
-     }
 </script>
 <style type="text/css">
 
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
+ .items{
+   margin-top:0px;
   }
   
-  a{
-   color:white;
+  .panel-footer{
+   float:center;
+   margin-top:10px;
+   background-color: #FFFFFF;
+   width:200px;
+   border:none;
+   width:20%; 
+  margin:0 auto;
   }
   
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
- .top_select{
-     color: black; 
- }
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
+  .style_featured > div > div{
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: 0.5s;
+}
+.style_featured > div:hover > div{
+    margin-top: +15px;
+    border: 1px solid  rgb(245, 245, 240);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 9px 9px 9px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: 0.99s;
+}
 
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
- .list_tag{
-   color : black;
- }
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
  
  
 </style>
 
-<script type="text/javascript">
-window.openModal = function() {
-  $( '#myModal' ).modal( 'show' );
-  }
-</script>
-<script>
-     function create_login() {
-       <% if( session.getAttribute("userid") == null) { %>
-       alert('로그인 한 사용자만 이용이 가능합니다');
-       window.openModal();
-       <%session.setAttribute("url", "reviews/list.do");%>
-       return false;
-       <% } else { %>
-       location.href='./create.do';
-       return true;
-       <% } %> 
-     }
-</script>
-
-
 </head> 
 <!-- ----------------------------------------- -->
 <body>
-<div class="container">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
+<div class="container">
+
  <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
- <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}'  class='top_select'>후기 목록</A>>
- <A href='./create.do?' class='top_select'>등록</A>｜
- <A href="javascript:location.reload();"  class='top_select'>새로고침</A>
+ <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}'  class='top_select'>후기 목록 ></A>
       <select name="col"> 
         <option value="">선택</option> 
         <option value="title" ${searchDTO.col == "title" ? "selected=selected" : "" }>제목</option> 
@@ -266,7 +169,6 @@ window.openModal = function() {
     <col style='width: 20%;'/>
     <col style='width: 10%;'/>
     <col style='width: 10%;'/>
-    <col style='width: 20%;'/>
     <col style='width: 10%;'/>
     <col style='width: 10%;'/>
     <col style='width: 10%;'/>
@@ -277,7 +179,6 @@ window.openModal = function() {
     <TH class='th'>제목</TH>
     <TH class='th'>카테고리</TH>
     <TH class='th'>이미지</TH>
-    <TH class='th'>판매자</TH>
     <TH class='th'>닉네임</TH>
     <TH class='th'>조회수</TH>
     <TH class='th'>글 등록일</TH>
@@ -296,9 +197,8 @@ window.openModal = function() {
       <IMG src='./storage/${vo.thumb}' >
    </c:if>
     </TD>
-    <TD class='td'>${vo.seller_nick}</TD>
     <TD><A href="javascript: profile(' ${vo.nickname}' ,' ${vo.nickname}') ;" class='list_tag' >${vo.nickname}</A></TD> 
-    <TD class='td'>${vo.r_cnt}</TD>
+    <TD class='td'>${vo.cnt}</TD>
     <TD class='td'>${vo.wdate}</TD>
 
     
@@ -308,14 +208,23 @@ window.openModal = function() {
 
 
 </TABLE>
- 
-<DIV class='bottom'>
-  <button type='button' onclick="create_login();">등록</button>
-  <button type='button' onclick="location.reload();">새로 고침</button>
-</DIV>
 
 
   <DIV class='bottom'>${paging}</DIV>
+  
+  <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button onclick="create_login();" type='button' onclick="location.href='./create.do'" 
+                                         type="button" class="btn btn-success btn-sm btn-block">
+                            <span class="fa fa-send"></span>등록</button>
+                    </div>
+                    <div class="col-md-6">
+                       <button type="button" onclick="location.reload();" class="btn btn-primary btn-sm btn-block">
+                           새로 고침</button>
+                    </div>
+                </div>
+            </div>
 <!-- -------------------------------------------- -->
 </div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />

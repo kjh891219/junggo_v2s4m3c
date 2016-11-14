@@ -3,6 +3,7 @@
 /**********************************/
 DROP TABLE carproduct
 DROP TABLE p_comments
+DELETE * FROM carproduct
 select nickname from member
 1. member table 생성
 CREATE TABLE member(
@@ -82,7 +83,11 @@ CREATE TABLE carproduct(
   FOREIGN KEY (userid) REFERENCES member (userid)
 );
 
+alter table carproduct rename column h_price to hprice;
+alter table carproduct rename column p_cnt to cnt;
+
 SELECT * FROM carproduct;
+DELETE * FROM carproduct;
 
 COMMENT ON TABLE carproduct is '자동차 용품 게시판';
 COMMENT ON COLUMN carproduct.p_no is '용품번호';
@@ -105,7 +110,6 @@ COMMENT ON COLUMN carproduct.p_cnt is '조회수';
 /**********************************/
 /* Table Name: 댓글 */
 /**********************************/
-drop table p_comment
 CREATE TABLE p_comment(
 		c_no                          		  NUMBER(6)		         NOT NULL,
 		nickname                       VARCHAR2(20)		     NOT NULL,

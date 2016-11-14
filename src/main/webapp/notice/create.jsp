@@ -15,15 +15,21 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
-<script type="text/javascript">
- 
+<link href="/game/css/style.css" rel="Stylesheet" type="text/css">
+<script src="/game/js/event.js"></script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+<script type="text/JavaScript">
+  window.onload=function(){
+    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+  };
 </script>
+ 
 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
    <jsp:include page="/menu/top.jsp" flush='false' />
+   <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
 <DIV class=container>
 <DIV class='title'>상품등록</DIV>
@@ -39,7 +45,7 @@
       </div>
       <div class="row">
         <label for='content' class='col-xs-2 col-lg-2 choice'>내용</label>
-        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9"></textarea>
+        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">sqld책 싸게 팔아요</textarea>
       </div>
       <hr/>
         <div class="row need">   

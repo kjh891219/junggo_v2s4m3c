@@ -50,7 +50,7 @@ public class ReviewsVO {
   /** 글등록일 */
   private String wdate;
   /** 조회수 */
-  private int     r_cnt;
+  private int     cnt;
   
   /** Framework에서 자동 주입되는 업로드 파일 객체 */  
   private MultipartFile file1MF;
@@ -197,11 +197,11 @@ public class ReviewsVO {
   public void setWdate(String wdate) {
     this.wdate = wdate;
   }
-  public int getR_cnt() {
-    return r_cnt;
+  public int getcnt() {
+    return cnt;
   }
-  public void setR_cnt(int r_cnt) {
-    this.r_cnt = r_cnt;
+  public void setcnt(int cnt) {
+    this.cnt = cnt;
   }
   public MultipartFile getFile1MF() {
     return file1MF;

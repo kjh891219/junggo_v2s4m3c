@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Oracle 기반 -->
+ <mapper namespace = "favorite">
+ 
+  
+ <!-- 입력 -->
+  <insert id="create" parameterType="FavoriteVO">
+    INSERT INTO favorite(f_no, nickname, url, userid, title, hprice, thumb)
+     VALUES ((SELECT NVL(MAX(f_no), 0)+1 as f_no FROM favorite),#{nickname},#{url},#{userid},#{title},#{hprice}, #{thumb})
+  </insert>
+ 
+    <!-- 삭제 -->
+   <delete id="delete" parameterType="int">
+    DELETE FROM favorite
+    WHERE f_no=#{f_no}
+  </delete>
+ 
+ <select id="count" resultType="int" parameterType="HashMap" >
+    SELECT COUNT(*) as cnt
+    FROM favorite
+  </select>
+ 
+  <select id="list_userid" resultType="FavoriteVO" parameterType="String" >
+  SELECT  f_no, nickname, url, userid, title, hprice, thumb
+  FROM favorite
+  WHERE userid=#{userid}
+ </select> 
+ 
+ <!-- ********** 페이징에 따른 변경 시작 ********** -->
+  <select id="list" resultType="FavoriteVO" parameterType="HashMap" >
+    SELECT  f_no, nickname, url, userid, title, hprice, thumb, r
+       FROM(
+            SELECT  f_no, nickname, url, userid, title, hprice, thumb, rownum as r
+               FROM(
+                     SELECT f_no, nickname, url, userid, title, hprice, thumb
+                     FROM favorite
+                     WHERE userid=#{userid}
+     ORDER BY f_no DESC
+                )
+          )
+           
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select> 
+
+  <!-- ********** 페이징에 따른 변경 종료 ********** -->
+  
+    <!-- 위시리스트 삭제 -->
+  <delete id="visible" parameterType="Map">
+    DELETE FROM favorite
+    WHERE f_no IN
+      <foreach collection="f_no_arr" item="f_no" index="index" separator="," open="(" close=")">
+           #{f_no}
+         </foreach>
+  </delete>
+  
+
+  
+</mapper>

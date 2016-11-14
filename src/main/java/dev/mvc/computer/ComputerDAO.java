@@ -56,4 +56,9 @@ public class ComputerDAO implements ComputerDAOInter {
     return mybatis.update("computer.setCnt", ctno);
   }
 
+  @Override
+  public List<ComputerVO> newlist() {
+    return mybatis.selectList("computer.newlist");
+  }
+
 }

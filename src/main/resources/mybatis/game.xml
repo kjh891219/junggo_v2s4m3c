@@ -18,7 +18,7 @@ VALUES((SELECT NVL(MAX(gno), 0) + 1 as gno FROM game), #{category}, #{nickname},
    product_code, hprice, region, tel, email, quantity, title, content,
    purc_date, wdate, file1, file2, size2, cnt, lev, genre, userid
    FROM game 
-   ORDER BY gno ASC
+   ORDER BY gno DESC
   </select>
 <update id="update" parameterType="GameVO">
  UPDATE game 
@@ -42,6 +42,13 @@ FROM game
     DELETE FROM game
     WHERE gno = #{gno}
   </delete> 
+ 
+   <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member 
+    where userid=#{userid}
+  </select> 
+ 
  
  <!-- 조회수 증가 -->
    <update id ="increaseCnt" parameterType ="int">
@@ -99,6 +106,14 @@ FROM game
     )
     WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->
   </select>  
+
+   <select id="newlist" resultType="GameVO">
+      SELECT gno, title, deal_code, product_code, region, deal_way, purc_date,
+                 hprice, userid, nickname, file1, file2, wdate
+      FROM game
+      WHERE gno >= (SELECT (MAX(gno)-7) FROM game)
+   </select>
+
       
       
       

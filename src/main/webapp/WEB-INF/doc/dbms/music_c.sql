@@ -1,7 +1,6 @@
 /**********************************/
 /* Table Name: 음향/기기/악기 */
 /**********************************/
-
 drop table music
 delete from music
 select * from music
@@ -38,6 +37,9 @@ CREATE TABLE music(
     PRIMARY KEY(ctno),
   FOREIGN KEY (userid) REFERENCES member (userid)
 );
+
+alter table music rename column h_price to hprice;
+alter table music rename column ct_cnt to cnt;
 
 
 COMMENT ON TABLE music is '음향/기기';

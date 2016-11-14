@@ -17,14 +17,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
+
 
 <script type="text/javascript">
 $(function(){
   $('#panel_frm').hide();
 });
 
-  function profile(nickname, userid){
+  function profile(userid, nickname){
     var url = '../member/profile.do?nickname='+nickname;
     var encodedInputString=escape(url);
     var win = window.open(url, '프로필', 'width=617.5px, height=600px');
@@ -34,6 +36,23 @@ $(function(){
     
     win.moveTo(x, y); // 화면 가운데로 이동
   }
+  
+  function create_login() {
+    <% if( session.getAttribute("userid") == null) { %>
+    alert('로그인 한 사용자만 이용이 가능합니다');
+    window.openModal();
+    return false;
+    <% } else { %>
+    location.href='./create.do';
+    return true;
+    <% } %> 
+  }
+  
+  window.openModal = function() {
+    $( '#myModal' ).modal( 'show' );
+    }
+
+
  
 function create(){
   $('#panel_frm').show();
@@ -60,147 +79,56 @@ function update(codeno, sort, seqno){
   $('#sort').focus();
 }
 
-</script>
 
-<script>
-window.openModal = function() {
-  $( '#myModal' ).modal( 'show' );
-  }
 </script>
-<script>
-     function create_login() {
-       <% if( session.getAttribute("userid") == null) { %>
-       alert('로그인 한 사용자만 이용이 가능합니다');
-       window.openModal();
-       <%session.setAttribute("url", "carproduct/list.do");%>
-       return false;
-       <% } else { %>
-       location.href='./create.do';
-       return true;
-       <% } %> 
-     }
-</script>
-
 <style type="text/css">
 
 /* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
   
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
- .top_select{
-     color: black; 
- }
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
-
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
- .list_tag{
-   color : black;
- }
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
    footer{
       text-align: center;
    }
- 
- 
+  .items{
+   margin-top:0px;
+  }
+  
+  .panel-footer{
+   float:center;
+   margin-top:10px;
+   background-color: #FFFFFF;
+   width:200px;
+   border:none;
+   width:20%; 
+  margin:0 auto;
+  }
+  
+  .style_featured > div > div{
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: 0.5s;
+}
+.style_featured > div:hover > div{
+    margin-top: +15px;
+    border: 1px solid  rgb(245, 245, 240);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 9px 9px 9px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: 0.99s;
+}
 </style>
 
 </head> 
 <!-- ----------------------------------------- -->
 <body>
-<div class="container">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
+<div class="container">
 <!-- ----------------------------------------- -->
  <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
     <input type='hidden' name='userid' id='userid' value='${carproductVO.userid}'>
+ <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>자동차 용품 목록</A>>
+ 
       <select name="col">  
         <option value="">선택</option> 
         <option value="title" ${searchDTO.col == "title" ? "selected=selected" : "" }>제목</option> 
@@ -238,79 +166,102 @@ window.openModal = function() {
   <button type="button" onclick="create_cancel()">취소</button>
 </FORM>
 </DIV>
- 
-<TABLE class='table' style='width: 100%;'>
-  <colgroup>
-    <col style='width: 5%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 10%;'/>
-  </colgroup>
-  <TR>
-    <TH class='th'>번호</TH>
-    <TH class='th'>제목</TH>
-    <TH class='th'>카테고리</TH>
-    <TH class='th'>이미지</TH>
-    <TH class='th'>거래구분</TH>
-    <TH class='th'>거래지역</TH>
-    <TH class='th'>거래방식</TH>
-    <TH class='th'>희망가격</TH>
-    <TH class='th'>닉네임</TH>
-    <TH class='th'>상품코드</TH>
-    <TH class='th'>조회수</TH>
-    <TH class='th'>글 등록일</TH>
-
-  </TR>
+        
   
-  <c:forEach var="vo" items="${list}">
-  <TR>
-    <TD class='td'>${vo.p_no}</TD>
-    <TD class='td'>
-    <a href="./read.do?p_no=${vo.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"  class='list_tag' >${vo.title}</a>
-    </TD>
-    <TD class='td'>${vo.category}</TD>
-    <TD class='td'> 
-       <c:if test="${vo.thumb.length() > 0}">
-         <IMG src='./storage/${vo.thumb}' >
-       </c:if>
-   </TD>
-    <TD class='td'>${vo.deal_code}</TD>
-    <TD class='td'>${vo.region}</TD>
-    <TD class='td'>${vo.deal_way}</TD>
-    <TD class='td'>${vo.h_price}</TD>
-    <TD class='td'>
-    <A href="javascript: profile(' ${vo.nickname}' ,' ${vo.nickname}') ;" class='list_tag' >${vo.nickname}</A> 
-    </TD>
-    <TD class='td'>${vo.product_code}</TD>
-    <TD class='td'>${vo.p_cnt}</TD>
-    <TD class='td'>${vo.wdate}</TD>
+  <c:forEach var="vo" items="${list }" varStatus="status"> 
+  <c:if test="${status.index != 0 and status.index % 3 == 0}">
+    </c:if>
+  <ul class = "prdList">
+    <li class = "items">
+      <div style='background-color: #FFFFFF; float: left; position: relative; left: 0%; margin: 1%; width: 30%; text-align: center;
+        padding: 1%;'>
+        
+          <c:choose>
+          <c:when test="${vo.thumb.length() > 0}">
+            <div class="container" style='height:150px; width:200px'>
+            <div class="row style_featured"><div class="col-md-4"><div style='display:inline-block; width:180px; width:220px;'>
+             <A href="./read.do?p_no=${vo.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"  class='list_tag' >
+               <IMG src='./storage/${vo.thumb}'  style='height:150px; width:200px;'></A></DIV>
+             </DIV></div></div>
+          </c:when>
+          
+          <c:otherwise>
+          <div class="container" style='height:150px; width:200px'>
+           <div class="row style_featured"><div class="col-md-4"><div style='display:inline-block; width:180px; width:220px;'>
+          <A href="./read.do?p_no=${vo.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"  class='list_tag' >
+            <IMG src='../images/noimage.JPG' style='height:150px; width:200px'></A>
+            </DIV></div></div>
+            </DIV>
+          </c:otherwise>
+          </c:choose>
 
+<BR><BR>
+      <div class="product_contents_info" style="margin-left:15%;">
+        <strong class="">
+          <a href="./read.do?p_no=${vo.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"  class='list_tag' >${vo.title}</a>
+        </strong>
+        <BR><BR>
+    <ul class="product_list_item" >
+             
+            <li>
+            <strong class="category">카테고리 :</strong> 
+            <span class="category"> ${vo.category}</span>
+            </li>
+           
     
-  </TR>
+            <li>
+            <strong class="hprice">판매가 :</strong> 
+            <span class="hprice"> ${vo.hprice}원</span>
+            </li>
+   
+           <li class="color_type">
+            <strong class="deal_way">방식 :</strong> 
+            <span class= "deal_way">${vo.deal_way}</span>
+           </li>
+           
+            <li class="color_type">
+            <strong class="wdate">등록일 :</strong> 
+            <span class= "wdate">${vo.wdate}</span>
+           </li>
+           
+           
+            <li class="color_type">
+            <strong class="nickname">닉네임 :</strong> 
+            <span class= "nickname"> 
+            <A href="javascript: profile(' ${vo.userid}' ,' ${vo.nickname}') ;" class='list_tag' title='프로필보기'>${vo.nickname}</A>
+            </span>
+           </li>
+           
+             <li class="color_type">
+            <strong class="cnt">조회수 :</strong> 
+            <span class= "cnt">${vo.cnt}</span>
+           </li>
+    </ul>
+        </div>
+      </div>
+      </li>
+   </ul>
   </c:forEach>
-  
 
-
-</TABLE>
- 
-<DIV class='bottom'>
-  <button type='button' onclick="create_login()">등록</button>
-  <button type='button' onclick="location.reload();">새로 고침</button>
-</DIV>
+</div>
 
   <DIV class='bottom'>${paging}</DIV>
-<!-- -------------------------------------------- -->
-</div>
+  
+  
+        <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button onclick="create_login();" type='button' onclick="location.href='./create.do'" 
+                                         type="button" class="btn btn-success btn-sm btn-block">
+                            <span class="fa fa-send"></span>등록</button>
+                    </div>
+                    <div class="col-md-6">
+                       <button type="button" onclick="location.reload();" class="btn btn-primary btn-sm btn-block">
+                           새로 고침</button>
+                    </div>
+                </div>
+            </div>
+
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
-<!-- -------------------------------------------- -->
 </html> 

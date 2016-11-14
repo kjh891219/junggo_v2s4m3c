@@ -19,16 +19,23 @@ $(function(){
   $('#panel_frm').hide();
 });
 
-function create(rno){
-  
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+
+function create_login () {
   <% if( session.getAttribute("userid") == null) { %>
   alert('로그인 한 사용자만 사용이 가능합니다.');
   window.parent.openModal();
-  <%String r_no = request.getParameter("r_no");%>
-  <%session.setAttribute("url", "reviews/read.do?r_no="+r_no);%>
   return false;
   <% } else { %>
+  return true;
+  <% } %>
   
+}
+
+
+function create(rno){
   var e = window.event, btn = e.target || e.srcElement; 
 
   alert("댓글을 달 글 번호: "+rno);
@@ -46,9 +53,7 @@ function create(rno){
    "</div>"+
    "</FORM>"+
    "</DIV>"; 
-  $('#comment'+rno).html(tag); 
-  return true;
-  <% } %>
+  $('#comment'+rno).html(tag);  
  }  
  
 
@@ -74,7 +79,7 @@ function delete_form(rno){
 
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
+<body leftmargin="100%" topmargin="0">
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 <!-- <DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>

@@ -81,5 +81,13 @@ public interface UsedcarDAOInter {
    * @return
    */
   public MemberVO test(String userid);
+  
+  /**
+   * 중고차 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<UsedcarVO> newlist();
+
 
 }

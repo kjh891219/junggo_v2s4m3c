@@ -69,5 +69,10 @@ public class CarproductDAO implements CarproductDAOInter{
   public MemberVO test(String userid) { 
     return mybatis.selectOne("carproduct.test", userid);
   }
+
+  @Override
+  public List<CarproductVO> newlist() {
+    return mybatis.selectList("carproduct.newlist");
+  }
   
 }

@@ -23,12 +23,12 @@ function create(rno){
   <% if( session.getAttribute("userid") == null) { %>
   alert('로그인 한 사용자만 사용이 가능합니다.');
   window.parent.openModal();
-  <%String ctno = request.getParameter("ctno");%>
-  <%session.setAttribute("url", "music/read.do?ctno="+ctno);%>
+  <%String noticeno = request.getParameter("noticeno");%>
+  <%session.setAttribute("url", "notice/read.do?noticeno="+ noticeno);%>
   return false;
   <% } else { %>
-  
-  
+
+function create(rno){
   var e = window.event, btn = e.target || e.srcElement; 
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
@@ -49,7 +49,6 @@ function create(rno){
   return true;
   <% } %>
  }  
- 
 function create_cancel(frm){
   frm.style.display='none';
 }

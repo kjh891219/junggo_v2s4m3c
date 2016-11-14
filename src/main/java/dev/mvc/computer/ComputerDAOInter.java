@@ -55,4 +55,12 @@ public interface ComputerDAOInter {
    * @return
    */
   public int setCnt(int ctno);
+  
+  /**
+   * 컴퓨터 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<ComputerVO> newlist();
+
 }

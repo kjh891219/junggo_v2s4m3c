@@ -84,4 +84,12 @@ public interface CarproductDAOInter {
    */
   public MemberVO test(String userid);
   
+  /**
+   * 자동차용품 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<CarproductVO> newlist();
+
+  
 }

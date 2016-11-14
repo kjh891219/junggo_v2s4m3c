@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.carproduct.CarproductVO;
 import dev.mvc.tmember.MemberVO;
 import web.tool.Paging;
 import web.tool.SearchDTO;
@@ -513,6 +514,33 @@ public ModelAndView list(
                                          searchDTO.getWord());
   mav.addObject("paging", paging);
   return mav;
+}
+
+/**
+ * 최근 목록을 출력합니다.
+ * 
+ * @return
+ */
+@RequestMapping(value = "/music/list2.do", method = RequestMethod.GET)
+public ModelAndView newlist() {
+   ModelAndView mav = new ModelAndView();
+   mav.setViewName("/music/list2"); // /webapp/member/list.jsp
+   
+   
+   List<MusicVO> list = musicDAO.newlist();
+   Iterator<MusicVO> iter = list.iterator(); // 객체를 순차적으로 접근하는 기능
+   while(iter.hasNext() == true){  // 다음 요소 검사
+     MusicVO vo = iter.next();  // 요소 추출
+     vo.setTitle(Tool.textLength(vo.getTitle(),10));   // 문자열 10자 
+     //vo.setWdate(vo.getWdate().substring(0, 10));      // 년 월 일
+     // vo.setFile1(Tool.textLength(vo.getFile1(),10));  
+     //vo.setThumb(Tool.textLength(vo.getThumb(),10)); 
+     
+   }
+   mav.addObject("list2", list);
+   
+   
+   return mav;
 }
 
 

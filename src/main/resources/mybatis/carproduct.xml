@@ -9,10 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <!-- 입력 -->
   <insert id="create" parameterType="CarproductVO">
     INSERT INTO carproduct(p_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, thumb, file1, size1, 
+                                     hprice, purc_date, region, title, content, thumb, file1, size1, 
                                      file2, size2, file3, size3, file4, size4, file5, size5, email, tel, wdate)
    VALUES ((SELECT NVL(MAX(p_no), 0)+1 as p_no FROM carproduct), #{nickname}, #{userid}, #{passwd}, #{category},
-                                   #{deal_way},#{deal_code}, #{product_code}, #{h_price} , #{purc_date},#{region},
+                                   #{deal_way},#{deal_code}, #{product_code}, #{hprice} , #{purc_date},#{region},
                                    #{title},#{content},#{thumb},#{file1},#{size1}, #{file2},#{size2},
                                    #{file3}, #{size3}, #{file4}, #{size4}, #{file5}, #{size5}, #{email},#{tel}, sysdate)
   </insert>
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!--조회  --> 
    <select id="read" resultType="CarproductVO" parameterType="int">
     SELECT p_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     hprice, purc_date, region, title, content, thumb, file1, size1, file2, size2,
                                      file3, size3, file4, size4, file5, size5, email, tel, wdate
     FROM carproduct
     WHERE p_no=#{p_no}
@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 조회수 증가 -->
      <update id="increaseCnt" parameterType="int">
     UPDATE carproduct
-    SET p_cnt = p_cnt + 1
+    SET cnt = cnt + 1
     WHERE p_no=#{p_no}
   </update> 
   
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <update id="update" parameterType="CarproductVO">
     UPDATE carproduct 
     SET passwd=#{passwd}, nickname=#{nickname}, title=#{title}, category=#{category}, deal_code=#{deal_code},
-         region=#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, content=#{content}, h_price=#{h_price}, 
+         region=#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, content=#{content}, hprice=#{hprice}, 
          product_code=#{product_code}, thumb=#{thumb}, file1=#{file1}, size1=#{size1}, file2=#{file2},
          size2=#{size2}, file3=#{file3}, size3=#{size3}, file4=#{file4}, size4=#{size4},
          file5=#{file5}, size5=#{size5}, email=#{email}
@@ -65,8 +65,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <!-- ********** 검색에 따른 변경 시작 ********** -->
   <select id="list2" resultType="CarproductVO" parameterType="HashMap" >
     SELECT p_no, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, thumb, file1, size1, file2, size2,
-                                     file3, size3, file4, size4, file5, size5, email, tel, wdate, thumb, p_cnt   
+                                     hprice, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     file3, size3, file4, size4, file5, size5, email, tel, wdate, thumb, cnt   
     FROM carproduct
     <choose>
       <when test="col == 'title'">
@@ -110,11 +110,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- ********** 페이징에 따른 변경 시작 ********** -->
 <select id="list" resultType="CarproductVO" parameterType="HashMap" >
- SELECT  p_no, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, p_cnt, wdate, thumb, r
+ SELECT  p_no, userid, title, category, deal_code, region ,deal_way, hprice, nickname, product_code, cnt, wdate, thumb, r
   FROM(
-           SELECT  p_no, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, p_cnt, wdate, thumb, rownum as r
+           SELECT  p_no, userid, title, category, deal_code, region ,deal_way, hprice, nickname, product_code, cnt, wdate, thumb, rownum as r
            FROM(
-                    SELECT p_no, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, p_cnt, wdate, thumb
+                    SELECT p_no, userid, title, category, deal_code, region ,deal_way, hprice, nickname, product_code, cnt, wdate, thumb
                     FROM carproduct
                 <choose>
                     <when test="col == 'title'">
@@ -138,6 +138,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select> 
 
   <!-- ********** 페이징에 따른 변경 종료 ********** -->
+  
+  <!--********** 최신글 리스트 **********   -->
+  <select id="newlist" resultType="CarproductVO">
+      SELECT p_no, title, deal_code, product_code, region, deal_way, purc_date,
+                 hprice, userid, nickname, thumb, file1, wdate
+      FROM carproduct
+      WHERE p_no >= (SELECT (MAX(p_no)-7) FROM carproduct)
+   </select>
   
   
   </mapper>

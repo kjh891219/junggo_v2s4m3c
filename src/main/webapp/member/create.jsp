@@ -48,23 +48,67 @@ $(function(){
 
     $('#nickname').focusout(function() {
       var params = 'nickname=' + $('#nickname').val();
-      $.post('./checkNickname.do', params, checkNickname_res, 'json');
+      var nickname = $('#nickname').val().replace(/(^\s*)|(\s*$)/gi, "");
+      
+      
+      if((nickname==null) || (nickname=="") ){
+        $('#panel_nickname').css('color', '#dc143c');
+        $('#panel_nickname').css('padding-left', '4px');
+        $('#panel_nickname').css('display', 'block');
+        $('#panel_nickname').css('margin', '10px 0 0');
+        $('#panel_nickname').css('line-height', '14px');
+        $('#panel_nickname').html('닉네임이 없습니다.');
+      }else{
+        $.post('./checkNickname.do', params, checkNickname_res, 'json');  
+      }  
     });
 
     $('#email').focusout(function() {
       var params = 'email=' + $('#email').val();
-      $.post('./checkEmail.do', params, checkEmail_res, 'json');
+      var email = $('#email').val();
+      
+      
+      if((email==null) || (email=="") ){
+        $('#panel_email').css('color', '#dc143c');
+        $('#panel_email').css('padding-left', '4px');
+        $('#panel_email').css('display', 'block');
+        $('#panel_email').css('margin', '10px 0 0');
+        $('#panel_email').css('line-height', '14px');
+        $('#panel_email').html('이메일이 없습니다.');
+      }else{
+        $.post('./checkEmail.do', params, checkEmail_res, 'json');  
+      }
     });
 
   });
 
   function checkId() {
     var params = 'id=' + $('#userid').val();
-    // 요청 주소, 전달 값, 응답 처리 함수, 전송 받는 형식
-    $.post('./checkId.do', params, checkId_res, 'json');
+    var id = $('#userid').val().replace(/(^\s*)|(\s*$)/gi, "");
+    
+   
+    
+    
+    if((id==null) || (id=="") ){
+      $('#panel_id').css('color', '#dc143c');
+      $('#panel_id').css('padding-left', '4px');
+      $('#panel_id').css('display', 'block');
+      $('#panel_id').css('margin', '10px 0 0');
+      $('#panel_id').css('line-height', '14px');
+      $('#panel_id').html('아이디가 없습니다.');
+      $('#userid').focus();
+    }else{
+      // 요청 주소, 전달 값, 응답 처리 함수, 전송 받는 형식
+      $.post('./checkId.do', params, checkId_res, 'json');
+    }
+    
+   
+    
   }
 
   function checkId_res(data) {
+    
+    
     if (data.cnt == 0) {
       $('#panel_id').css('color', '#008392');
       $('#panel_id').css('padding-left', '4px');

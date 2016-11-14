@@ -17,12 +17,12 @@ CREATE TABLE MUSIC_REPLY(
 alter table MUSIC_REPLY add(userid varchar2(20));
 alter table MUSIC_REPLY
 add constraint FK_MUSIC_REPLY_USERID FOREIGN KEY(userid)
-REFERENCES member(userid) on delete cascade;
+REFERENCES member(userid);
 
 alter table MUSIC_REPLY add(ctno number(6));
 alter table MUSIC_REPLY
 add constraint FK_MUSIC_REPLY FOREIGN KEY(ctno)
-REFERENCES music(ctno) on delete cascade;
+REFERENCES music(ctno);
 
 insert into MUSIC_REPLY(rno, nickname, passwd, rcomment, grpno, indent, ansnum, ctno, userid)
 values ((select NVL(MAX(rno),0)+1 as rno from music_reply),

@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="dev.mvc.gamedevice.GameDeviceVO" %>
- 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -18,19 +16,17 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
-<script>
-$(document).ready(function(){
-   $('.left_list').mouseenter(function(){
-     $("#main_left_detail").show();
-     /* Toggle('on'); */
-   })
-   $('#main_left_detail').mouseleave(function(){
-     $("#main_left_detail").hide();
-   });
-   
-});
-</script>
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
+<style type = "text/css">
+ .name{
+ margin-top: 15px;
+ margin-right: 0px;
+ margin-bottom: 6px;
+ margin-left: 0px; width: 200px; height: 16px; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-family: 'Malgun Gothic'; line-height: .9em;"
+ }
+</style>
+
 
 <script>
 window.openModal = function() {
@@ -51,115 +47,14 @@ window.openModal = function() {
      }
 </script>
 
-<style type="text/css">
 
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
-  
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
 
-/* left */  
 
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
-
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
-   
-</style>
 
 </head> 
- <div class="container">
+<div style="margin: 0px; border: 0px solid rgb(255, 255, 255); border-image-source: none; width: 100%; float: left; background-image: none; background-color: transparent; background-position: 0px 0px; background-repeat: repeat;">
      <jsp:include page="/menu/top.jsp" flush='false' />
-     <jsp:include page="/menu/left.jsp" flush='false' />
+     <jsp:include page="/menu/left.jsp" flush="false"/> 
 
 
   <form name="frmSearch" method="get" action="./list.do"> 
@@ -182,80 +77,89 @@ window.openModal = function() {
       </c:choose>
      
       <input type="submit" value="검색">
-    </div>
+      </div>
   </form> 
 
-   
-
-<div class="container" style="margin: auto;">
- <table class="table table-hover" style='width: 100%;'>
-    <thead>
-  <TR>
-    <TH >번호</TH>
-    <TH >파일</TH>
-    <TH>업로드 파일</TH>
-    <TH>분류</TH>
-    <TH>글쓴이</TH>
-    <TH>제목</TH>
-    <TH>희망가격</TH>
-    <TH>거래방식</TH>
-    <TH>지역</TH>
-    <TH>등록일</TH>
-    <TH>기타</TH>
-  </TR>
- 
-  </thead>
-     
-
-
- 
-<c:forEach var="gamedeviceVO" items="${list}">
-
-  <TR>
-    <TD>${gamedeviceVO.gdno}</TD>
-       <td>
-              <c:set var='file2' value="${fn:toLowerCase(gamedeviceVO.file2)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file2, '.jpg')}">
-                  <IMG id='file2' src='./storage/${gamedeviceVO.file1}'>
-                </c:when>
-                <c:when test="${fn:endsWith(file2, '.gif')}">
-                  <IMG id='file2'  src='./storage/${gamedeviceVO.file1}'>
-                </c:when>
-                <c:when test="${fn:endsWith(file2, '.png')}">
-                  <IMG id='file2'  src='./storage/${gamedeviceVO.file1}'>
-                </c:when>
-                <c:otherwise>
-                  <A href='${root}/download?dir=/gamedevice/storage&filename=${gamedeviceVO.file2}'>${vo.file2}</A> (${vo.size2Label})
-                </c:otherwise>
-              </c:choose>
-            </td>
-            <td class="td">${gamedeviceVO.file2}</td>
-    <TD>${gamedeviceVO.category}</TD>
-    <TD>${gamedeviceVO.nickname}</TD>
-    <TD><A href="./read.do?gdno=${gamedeviceVO.gdno}" style="color: black;">${gamedeviceVO.title}</A></TD>
-    <TD>${gamedeviceVO.hprice}</TD>
-    <TD>${gamedeviceVO.deal_way}</TD>
-    <TD>${gamedeviceVO.region}</TD>
-    <TD>${gamedeviceVO.wdate.substring(0,10) }</TD>
-    <TD>
-      <A href="./passwd.do?gdno=${gamedeviceVO.gdno}"><IMG src='./images/passwd.png' title='패스워드 변경'></A>
-      <A href="./update.do?gdno=${gamedeviceVO.gdno}"><IMG src='./images/update.png' title='수정'></A>
-      <A href="./delete.do?gdno=${gamedeviceVO.gdno}"><IMG src='./images/delete.png' title='삭제'></A>
-    </TD>
-  </TR>
-</c:forEach>
- </tbody>
-</TABLE>
+<div style="margin: 0px; border: 0px solid rgb(255, 255, 255); border-image-source: none; width: 100%; float: left; background-image: none; background-color: transparent; background-position: 0px 0px; background-repeat: repeat;">
+  <h2 style=" color:#696969; height: 29px; border: 1px solid #3289C7; margin: 0; padding: 0 0 0 15px; font: bold 14px Arial; display: block; -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;">
+   <span style="padding: 7px 0; display: block;">
+     <a style="display: block; text-decoration: none; cursor: auto; color: #444;">게임기기 게시판</a>
+   </span>
+  </h2>
  </div>
-<DIV class='bottom'>
-  <button type='button' onclick="create_login();">등록</button>
-  <button type='button' onclick="location.reload();">새로 고침</button>
-</DIV>
+ 
+ 
+ 
+ <div style="overflow: hidden; position: relative; padding-top: 0px; padding-right: 15px; padding-bottom: 0px; padding-left: 15px; margin-top: 20px; width: 100%;">
+    <ul style="overflow-x: hidden; overflow-y: hidden; margin-left : 15px; text-align: center;">
+     <c:forEach var="gamedeviceVO" items="${list }">
+      <li style="float : left; position: relative; width: 240px; height: 280px; margin-left: 30px; margin-bottom:26px; text-align: center;">
+        <a href="./read.do?gdno=${gamedeviceVO.gdno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"style="color: #555; text-decoration: none; display: block; margin: 0; padding: 0;">
+          <c:choose>
+              <c:when test="${gamedeviceVO.file1 == null}"></c:when>
+              <c:when test="${gamedeviceVO.file1 != null}">
+                <c:set var='file1' value="${fn:toLowerCase(gamedeviceVO.file1)}" />
+                <c:choose>
+                  <c:when test="${fn:endsWith(file1, '.jpg')}">
+                    <IMG id='file1' src='./storage/${gamedeviceVO.file1}' style="display: inline; width: 240px; height: 160px; vertical-align: bottom; border: 0;">
+                  </c:when>
+                  <c:when test="${fn:endsWith(file1, '.gif')}">
+                    <IMG id='file1'  src='./storage/${gamedeviceVO.file1}' style="display: inline; width: 240px; height: 160px; vertical-align: bottom; border: 0;">
+                  </c:when>
+                  <c:when test="${fn:endsWith(file1, '.png')}">
+                    <IMG id='file1'  src='./storage/${gamedeviceVO.file1}' style="display: inline; width: 240px; height: 160px; vertical-align: bottom; border: 0;">
+                  </c:when>
+                  <c:otherwise>
+                    ${gamedeviceVO.file1}
+                  </c:otherwise>
+                </c:choose>
+                </c:when>
+            </c:choose>
+            </a>
+        <p class = "name">
+          <a href="./read.do?gdno=${gamedeviceVO.gdno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"style="color: #555; text-decoration: none; display: block; margin-top: 3px; padding: 0;"> ${gamedeviceVO.title} </a> 
+        </p>
+      <span style="display: block; padding-left: 15px; margin: 0; padding: 0; color: #676767; font-family: '돋움';">
+         <em style="display: inline-block; margin-top: 3px; color: #0082f0; font-family: 'tahoma';">
+            <strong style="font-size: 18px; color: #4e88cf;">${gamedeviceVO.region}</strong>
+         </em>
+        <span style="display: inline-block; margin-top: 3px; vertical-align: top; font-family: 'tahoma';">
+          <strong style="font-size: 18px; color: #000;"><fmt:formatNumber value="${gamedeviceVO.hprice }" pattern="#,###원"/></strong>
+        </span>
+        <span style="position: absolute; left: 15px; bottom: 10px; height: 22px; margin-bottom: 5px; padding: 0;">
+          <span style="display: inline-block; border: 1px solid #eee; vertical-align: top; height: 20px; overflow: hidden; border-radius:2px; padding: 0 6px; line-height: 1;">
+            <span style="height: 18px; line-height: 18px; border-top: 2px solid #fff; vertical-align: top; white-space: nowrap; color: #999; font-family: '돋움'; font-size: 11px; letter-spacing: -1px;">${gamedeviceVO.deal_way}</span>
+          </span>
+        </span>
+        <span style="display: block; position: absolute; left: 160px; bottom: 10px; text-align: center; width: 50px; height: 50px; color: #999; font-size: 11px;">
+          <em style="padding: 8px 0 3px; color: #519bde; display: block; font-family: '돋움'; text-align: center; font-size: 14px;">
+             ${gamedeviceVO.cnt}
+          </em>
+          <span style="margin: 0; padding: 0; text-align: center; color: #999; font-size: 11px;">조회수</span>
+        </span>
+        </span>
+      </li>
+      </c:forEach>
+    </ul> 
+ </div>
+ 
+ 
+ 
+ 
+ 
+<div style="text-align: center; margin-top: 50px;">
+<button type='button' onclick="create_login();" class="btn btn-success btn-lg">등록</button>
+<button type='button' onclick="location.reload();" class="btn btn-danger btn-lg">새로 고침</button>
+</div>
 </div>
 <DIV class='bottom'>${paging}</DIV>
-<!-- -------------------------------------------- -->
-<jsp:include page="/menu/bottom.jsp" flush='false' />
+
+  </div>
+<jsp:include page="/menu/bottom.jsp" flush='false' />     
+
 </body>
 <!-- -------------------------------------------- -->
 </html> 

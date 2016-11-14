@@ -5,7 +5,6 @@ DROP TABLE reviews
 
 CREATE TABLE reviews(
     r_no                              NUMBER(10)                                     NOT NULL   PRIMARY KEY,
-    seller_nick                       VARCHAR2(20)                                   NOT NULL,
     nickname                        VARCHAR2(20)                                   NOT NULL,
     passwd                            VARCHAR2(20)                                   NOT NULL,
     t_category                          CHAR(20)                                         NOT NULL,
@@ -27,6 +26,11 @@ CREATE TABLE reviews(
     r_cnt                               NUMBER(6)        DEFAULT 0                 NOT NULL,
     FOREIGN KEY (userid)        REFERENCES member(userid)
 );
+
+alter table reviews rename column r_cnt to cnt;
+ alter table reviews drop(seller_nick);
+
+
 
 2)Á¶È¸
 SELECT * FROM reviews

@@ -72,5 +72,10 @@ public class UsedcarDAO implements UsedcarDAOInter{
     return mybatis.selectOne("usedcar.test", userid);
   }
 
+  @Override
+  public List<UsedcarVO> newlist() {
+    return mybatis.selectList("usedcar.newlist");
+  }
+
 
 }

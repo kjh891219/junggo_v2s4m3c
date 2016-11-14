@@ -19,21 +19,29 @@ $(function(){
   $('#panel_frm').hide();
 });
 
-function create(rno){
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+
+function create_login () {
   <% if( session.getAttribute("userid") == null) { %>
-  alert('로그인 한 사용자만 사용이 가능합니다.');
+  alert('로그인 한 사용자만 사용이 가능합니다.22222');
   window.parent.openModal();
-  <%String ctno = request.getParameter("ctno");%>
-  <%session.setAttribute("url", "music/read.do?ctno="+ctno);%>
   return false;
   <% } else { %>
+  return true;
+  <% } %>
   
+}
+
+
+function create(rno){
   var e = window.event, btn = e.target || e.srcElement; 
 
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
    "<DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>"+
-   "<FORM name='frm' id='frm' method='POST' action='./reply.do'>" +
+   "<FORM name='frm' id='frm' method='POST' action='${pageContext.request.contextPath}/art_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>" +
    "<input type='hidden' name='nickname' id='nickname' value='<c:out value="${nickname}"/>'>" +
    "<input type='hidden' name='ctno' id='ctno' value='<c:out value="${ctno}"/>'>" +
    "<input type='hidden' name='userid' id='userid' value='<c:out value="${userid}"/>'>" +
@@ -45,9 +53,7 @@ function create(rno){
    "</div>"+
    "</FORM>"+
    "</DIV>"; 
-  $('#comment'+rno).html(tag);
-  return true;
-  <% } %>
+  $('#comment'+rno).html(tag);  
  }  
  
 
@@ -73,7 +79,7 @@ function delete_form(rno){
 
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
+<body style="width:100%; margin:0;">
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 <!-- <DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>
@@ -92,7 +98,7 @@ function delete_form(rno){
               </DIV> -->
 <jsp:include page="/music_reply/create.jsp?ctno=${ctno}" flush='false'/>
 
-<div class="content" style='width: 90%;'>
+<div class="content" style='width: 80%; margin:0 auto;'>
     <table class="table" style='width: 100%; border: none;'>
       <tbody>
         <c:forEach var="vo" items="${list }">

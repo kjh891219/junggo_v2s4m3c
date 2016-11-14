@@ -17,12 +17,12 @@ CREATE TABLE USEDCAR_REPLY(
 alter table USEDCAR_REPLY add(userid varchar2(20));
 alter table USEDCAR_REPLY
 add constraint FK_USEDCAR_REPLY_USERID FOREIGN KEY(userid)
-REFERENCES member(userid) on delete cascade;
+REFERENCES member(userid);
 
 alter table USEDCAR_REPLY add(u_no number(6));
 alter table USEDCAR_REPLY
 add constraint FK_USEDCAR_REPLY FOREIGN KEY(u_no)
-REFERENCES usedcar(u_no) on delete cascade;
+REFERENCES usedcar(u_no);
 
 insert into USEDCAR_REPLY(rno, nickname, passwd, rcomment, grpno, indent, ansnum, u_no, userid)
 values ((select NVL(MAX(rno),0)+1 as rno from usedcar_reply),

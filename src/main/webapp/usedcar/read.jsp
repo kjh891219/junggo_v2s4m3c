@@ -16,138 +16,64 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 
 <script type="text/javascript">
 
   $(function(){
-    $('#file2').load(function(){ // 태그 메모리 상주후 작동
+    $('#file1').load(function(){ // 태그 메모리 상주후 작동
       // var width = $('#file2').width();
       //alert('file2: ' + width); 
-      if ($('#file2').width() > screen.width * 0.7){
-        $('#file2').width('70%');      
+      if ($('#file1').width() > screen.width * 0.7){
+        $('#file1').width('70%');      
       }
     });
   });
   
-</script>
-<script>
-window.openModal = function() {
-  $( '#myModal' ).modal( 'show' );
+
+  function send_wish(hprice, nickname, title, thumb){
+    var url = document.location.href;
+     location.href = '../favorite/create.do?nickname='+nickname+'&title='+title+'&hprice='+hprice+'&url='+url+'&thumb='+thumb; 
+ 
   }
+  function profile(userid, nickname){
+    var url = '../member/profile.do?nickname='+nickname;
+    var encodedInputString=escape(url);
+    var win = window.open(url, '프로필', 'width=617.5px, height=600px');
+    
+    var x = (screen.width - 500) / 2;
+    var y = (screen.height - 440) / 2;
+    
+    win.moveTo(x, y); // 화면 가운데로 이동
+  }
+  
+  function msg_list(userid){
+    $("#detail").css("display","block");
+    var url = '../message/create.do?userid='+userid;
+    var encodedInputString=escape(url);
+    var win = window.open(url, '프로필', 'width=750px, height=800px');
+    
+    var x = (screen.width - 500) / 2;
+    var y = (screen.height - 440) / 2;
+    
+    win.moveTo(x, y); // 화면 가운데로 이동
+   };
+ 
 </script>
-
-
 
 <style type="text/css">
 
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
+
+ .Line{
+   border-style : solid;
+   color : #d6d6c2;
    width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
- .top_select{
-     color: black; 
+   margin : auto;
  }
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
-
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
- .list_tag{
-   color : black;
- }
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
- 
  
 </style>
+
 
 </head>
 
@@ -158,203 +84,146 @@ window.openModal = function() {
      <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
      
-     
+   <input type="hidden" name="userid" value="${carproductVO.userid}">   
   <div class='content_menu' style='width: 100%;'>
    <A href='../usedcar/list.do?&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>중고차 목록</A>>
     <A href="javascript:location.reload();" class='top_select'>새로고침</A>｜
-    <A href='./create.do?' class='top_select'>등록</A>｜
-    <A href='./update.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}' class='top_select'>수정</A>｜
+    <A href='./create.do?' class='top_select'>등록</A>
+    <c:if test="${(usedcarVO.userid eq userid)}">
+    <A href='./update.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}' class='top_select'>｜ 수정</A>｜
     <A href='./delete.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}' class='top_select'>삭제</A>
+    </c:if>
   </div>
-  
-  <DIV class='content'>
-    <FORM name='frm' method="get" action='./update.do'>
-      <input type="hidden" name="u_no" value="${usedcarVO.u_no}">
-      <fieldset class="fieldset">
-        <ul>
-              
-          <li>
-            <label for='title' style="width:150px;">제목 : </label>
-            <span>${usedcarVO.title}</span><br>
-          </li>
-          
-        <li>
-        <label for="nickname" style="width:150px;">닉네임 : </label>
-         <span>${usedcarVO.nickname}</span>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label for="wdate" style="width:150px;">등록일 : </label>
-         <span>${usedcarVO.wdate.substring(0, 16)}</span>
-        </li>
-        
-        <li>
-        <label class='label' for='category'>카테고리 코드 : </label>
-        <span>${usedcarVO.category}</span>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label class='label' for='deal_code'>거래구분 코드 : </label>
-       <span>${usedcarVO.deal_code}</span><br>
-      </li>
-      
-      <li>
-      <label class='label' for='region'>거래 지역 : </label>
-      <span>${usedcarVO.region}</span> 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <label class='label' for='deal_way'>거래방식 : </label>
-      <span>${usedcarVO.deal_way}</span><br>
-      </li>
-      
-        <li>
-        <label class='label' for='h_price'>희망가격 : </label>
-         <span>${usedcarVO.h_price}</span><br>
-      </li>
-      
-      <li>
-        <label class='label' for='purc_date'>구입시기 : </label>
-      <span>${usedcarVO.purc_date}</span> 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <label class='label' for='product_code'>상품구분 : </label>
-        <span>${usedcarVO.product_code}</span><br>
-      </li>
+  <BR><BR><BR>
+  <div class="page-body" style="width:80%; margin:0 auto;" >
+      <div class="thumb-info" style="float:left; width:50%; min-width: 200px; margin-top:3%;">
+           <div class="thumb-wrap">
+           <div class="thumb">
+           <c:choose>
+          <c:when test="${usedcarVO.file1.length() > 0}">
+             <IMG src='./storage/${usedcarVO.file1}'  style='width:100%;  min-width:200px; '>
+          </c:when>       
+          <c:otherwise>
+            <IMG src='../images/noimage.JPG' style='width:100%;  min-width:200px; '>
+          </c:otherwise>
+          </c:choose>
+           </div>
+        </div>
+     </div>
+     
+     <FORM style="float:right; width:40%; " name='frm' method="get" action='./update.do'>
+     <input type="hidden" name="u_no" value="${usedcarVO.u_no}">
+      <div class="info "  style= "min-width:200px;">
+         <h3 class="tit-prd" style="text-align: center">${usedcarVO.title}</h3>
+         <div class="table-opt">
+            <table class="table" style="width:100%; margin:0 auto;">
+             <caption>&nbsp;상품 옵션</caption>
+               <colgroup>
+                   <col width="50%" />
+                   <col width="50%" />
+               </colgroup>
+               <tbody>
+           <tr>
+            <th scope="row"><div class="tb-left">category</div></th>
+             <td><div class="category">${usedcarVO.category}</div></td>
+           </tr>
+           <tr>
+            <th scope="row"><div class="tb-left">hope price</div></th>
+              <td><div class="hprice">${usedcarVO.hprice}원</div></td>
+           </tr>
+           <tr>
+            <th scope="row"><div class="tb-left">deal_code</div></th>
+             <td><div class="deal_code">${usedcarVO.deal_code}</div></td>
+           </tr>
+           <tr>
+            <th scope="row"><div class="tb-left">nickname</div></th>
+             <td><div class="nickname">
+             <A href="javascript: profile(' ${usedcarVO.userid}' ,' ${usedcarVO.nickname}') ;" class='list_tag'  title='프로필'>${usedcarVO.nickname}</A>
+             </div></td>
+           </tr>
+           <tr>
+            <th scope="row"><div class="tb-left">deal_way</div></th>
+             <td><div class="deal_way">${usedcarVO.deal_way}</div></td>
+           </tr>
+      </tbody>
+      </table>
+    <BR><BR>
+    <c:if test="${(usedcarVO.userid eq userid)}">
+     <div class="icon" style="text-align: center;border-top:1px solid #d6d6c2; border-bottom:1px solid #d6d6c2;">
+    <A href="javascript: send_wish( ' ${usedcarVO.hprice}' ,' ${usedcarVO.nickname}' , ' ${usedcarVO.title}' ,' ${usedcarVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
+          <IMG src='../images/favorite_love.png' alt="WishList"></A>
+      <A href="javascript: msg_list(' ${usedcarVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
+      </div>
+      </c:if>
+     </div>
+   </div>
+   </FORM></div>
+   
+   <br><br><br><br>
+   <div style="clear:both;"></div>
+  <div id="detail_detail" style=" text-align: center; margin-top:8%">
+  <div class="Line"></div>
+  <br>
+    <h3 class="tit-detail">DETAIL</h3>
+    <BR>
+    <div class="Line" ></div>
+    <div>
+    <FONT color=#000000 face=바탕><SPAN style="FONT-SIZE: 9pt">
+      <BR><BR>region : ${usedcarVO.region}
+      <BR><BR>purchase date :  ${usedcarVO.purc_date}
+      <BR><BR>product_code : ${usedcarVO.product_code}
+      <BR><BR>E-mail : ${usedcarVO.email}
+      <BR><BR>tel : ${usedcarVO.tel}
+      </SPAN></FONT>
+      <BR><BR>
+      <c:choose>
+          <c:when test="${usedcarVO.file1.length() > 0}">
+             <IMG src='./storage/${usedcarVO.file1}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+     <BR><BR><BR><BR>
+         <c:choose>
+           <c:when test="${usedcarVO.file2.length() > 0}">
+           <IMG src='./storage/${usedcarVO.file2}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+     <BR><BR><BR><BR>
+         <c:choose>
+           <c:when test="${usedcarVO.file3.length() > 0}">
+           <IMG src='./storage/${usedcarVO.file3}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+          <BR><BR><BR><BR>
+           <c:choose>
+           <c:when test="${usedcarVO.file4.length() > 0}">
+           <IMG src='./storage/${usedcarVO.file4}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+           <c:choose>
+           <c:when test="${usedcarVO.file5.length() > 0}">
+           <IMG src='./storage/${usedcarVO.file5}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+          <BR><BR><BR>
+     ${usedcarVO.content}
+    </div>
 
-          <li>
-            <label for='content' style="width:150px;">내용 : </label>
-            <div>${usedcarVO.content}</div>
-          </li>
-    
-          <li>
-            <label for="file1" style="width:150px;">업로드 파일: </label>
-            <span>
-              <c:if test="${usedcarVO.size1 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${usedcarVO.file1}'>${usedcarVO.file1}</A> (${usedcarVO.size1Label})
-              </c:if>
-            </span>    
-            <div id='file1Panel'>
-              <c:set var='file1' value="${fn:toLowerCase(usedcarVO.file1)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file1, '.jpg')}">
-                  <IMG id='file1' src='./storage/${usedcarVO.file1}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file1, '.gif')}">
-                  <IMG id='file1'  src='./storage/${usedcarVO.file1}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file1, '.png')}">
-                  <IMG id='file1'  src='./storage/${usedcarVO.file1}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-              <li>
-            <label for="file2" style="width:150px;">업로드 파일2: </label>
-            <span>
-              <c:if test="${usedcarVO.size2 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${usedcarVO.file2}'>${usedcarVO.file2}</A> (${usedcarVO.size2Label})
-              </c:if>
-            </span>    
-            <div id='file2Panel'>
-              <c:set var='file2' value="${fn:toLowerCase(usedcarVO.file2)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file2, '.jpg')}">
-                  <IMG id='file2' src='./storage/${usedcarVO.file2}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file2, '.gif')}">
-                  <IMG id='file2'  src='./storage/${usedcarVO.file2}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file2, '.png')}">
-                  <IMG id='file2'  src='./storage/${usedcarVO.file2}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-              <li>
-            <label for="file3" style="width:150px;">업로드 파일3: </label>
-            <span>
-              <c:if test="${usedcarVO.size3 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${usedcarVO.file3}'>${usedcarVO.file3}</A> (${usedcarVO.size3Label})
-              </c:if>
-            </span>    
-            <div id='file3Panel'>
-              <c:set var='file3' value="${fn:toLowerCase(usedcarVO.file3)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file3, '.jpg')}">
-                  <IMG id='file3' src='./storage/${usedcarVO.file3}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file3, '.gif')}">
-                  <IMG id='file3'  src='./storage/${usedcarVO.file3}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file3, '.png')}">
-                  <IMG id='file3'  src='./storage/${usedcarVO.file3}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-              <li>
-            <label for="file4" style="width:150px;">업로드 파일4: </label>
-            <span>
-              <c:if test="${usedcarVO.size4 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${usedcarVO.file4}'>${usedcarVO.file4}</A> (${usedcarVO.size4Label})
-              </c:if>
-            </span>    
-            <div id='file4Panel'>
-              <c:set var='file4' value="${fn:toLowerCase(usedcarVO.file4)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file4, '.jpg')}">
-                  <IMG id='file4' src='./storage/${usedcarVO.file4}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file4, '.gif')}">
-                  <IMG id='file4'  src='./storage/${usedcarVO.file4}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file4, '.png')}">
-                  <IMG id='file4'  src='./storage/${usedcarVO.file4}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-              <li>
-            <label for="file5" style="width:150px;">업로드 파일5: </label>
-            <span>
-              <c:if test="${usedcarVO.size5 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${usedcarVO.file5}'>${usedcarVO.file5}</A> (${usedcarVO.size5Label})
-              </c:if>
-            </span>    
-            <div id='file5Panel'>
-              <c:set var='file5' value="${fn:toLowerCase(usedcarVO.file5)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file5, '.jpg')}">
-                  <IMG id='file5' src='./storage/${usedcarVO.file5}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file5, '.gif')}">
-                  <IMG id='file5'  src='./storage/${usedcarVO.file5}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file5, '.png')}">
-                  <IMG id='file5'  src='./storage/${usedcarVO.file5}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-          <li>
-         <label for='email'>E-mail</label><br>
-            <span>${usedcarVO.email}</span><br>
-          </li>
-          
-          <li>
-        <label for='tel'>Tel</label><br>
-         <span>${usedcarVO.tel}</span><br>
-      </li>
-
-        </ul>
-      </fieldset>
-    </FORM>
-  </DIV>
- 
- <iframe src="${pageContext.request.contextPath}/usedcar_reply/list.do?u_no=${usedcarVO.u_no}" 
+ <BR><BR><BR>
+ <iframe style="clear:both; text-align: center;" src="${pageContext.request.contextPath}/usedcar_reply/list.do?u_no=${usedcarVO.u_no}" 
      scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;">
 </iframe>
 
-
+</div>
 <!-- -------------------------------------------- -->
 </div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />

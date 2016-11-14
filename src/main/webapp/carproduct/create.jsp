@@ -19,7 +19,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 
@@ -46,142 +47,175 @@
 
 <style type="text/css">
 
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  .label_1{
-   color : black;
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
- .top_select{
-     color: black; 
- }
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
-
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
- .list_tag{
-   color : black;
- }
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
- 
  
 </style>
 </head> 
 
 <!-- ----------------------------------------- -->
 <body>
- <div class="container">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
      
+ <div class="container">
 
   <div class='content_menu' style='width: 90%;'>
     <A href='../carproduct/list.do'  class='top_select'>게시판 목록</A> >
-    <A href="javascript:location.reload();"  class='top_select'>새로고침</A>
   </div>
   
-  <DIV class='content' style='width: 90%;'>
+ <DIV class='title'><span>글등록</span></DIV>
+   <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
     <FORM name='frm' method='POST' action='./create.do'
               enctype="multipart/form-data">
   <input type='hidden' name='userid' id='userid' value= '${userid }'/>
+ 
+ <DIV class='content_form'>
+ <DIV class="">
+  <div class="float_l _left">
+   <div class="">
+    <label class="select need_e" for='category'>분류</label>
+   <div>
+     <select name='category' id='category'>
+          <option value="국산 2000cc미만" selected="selected">국산 2000cc미만</option>
+          <option value="국 2000cc 이상" >국산 2000cc 이상</option>
+          <option value="국 LPG/화물차/버스" >국산LPG/화물차/버스</option>
+          <option value="수입차" >수입차</option>
+          <option value="카오디오/카DVD" >카오디오/카DVD</option>
+          <option value="차량용 TV" >차량용 TV</option>
+          <option value="휠/타이어/캐리어" >휠/타이어/캐리어</option>
+          <option value="기타 차량용품" >기타 차량용품</option>
+        </select>
+    </div>
+  </div>
+ <div class=""> 
+  <label for='deal_code ' class="control-label need_e">거래구분</label> 
+   <div>
+     <select name='deal_code' id='deal_code'>
+       <option value="팝니다" selected="selected">팝니다</option>
+       <option value="삽니다">삽니다</option>
+     </select>
+    </div>
+  </div>
+  </div>
+ <div class='float_l _right' >
+  <div class="">  
+   <label for='region' class='need_e'>지역</label>
+     <div>
+      <select name='region' id='region' >
+           <option value="서울" selected="selected">서울</option>
+           <option value="인천">인천</option>
+           <option value="대구">대구</option>
+           <option value="대전">대전</option>
+           <option value="광주">광주</option>
+           <option value="울산">울산</option>
+           <option value="부산">부산</option>
+           <option value="경기">경기</option>
+           <option value="강원">강원</option>
+           <option value="경북">경북</option>
+           <option value="경남">경남</option>
+           <option value="전북">전북</option>
+           <option value="전남">전남</option>
+           <option value="충남">충남</option>
+           <option value="충북">충북</option>
+           <option value="제주">제주</option>
+        </select>
+      </div>
+   </div>
+   
+<div class=""> 
+  <label for='deal_way' class='need_e'>거래방식</label>
+ <div>
+   <select name='deal_way' id='deal_way'>
+      <option value="현장거래" selected="selected">현장거래</option>
+      <option value="택배">택배</option>
+    </select>
+  </div>
+ </div>
+ </div>
+ 
+ <div class='both'></div>
+ </DIV><hr/>
+ 
+<div class="row">
+   <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
+   <input type='text' name='title' id='title' required="required" value='' class="col-xs-9 col-lg-9">
+</div>     
+ 
+<div class="row">
+ <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+ <textarea class="form-control" name='content' id='content'  rows='10' cols='70'>내용을 입력해주세요</textarea>
+</div><hr/>
 
-   <div class="form-group">   
-      <ul>
+<div class="row need">
+ <label for="file1MF" class="col-xs-2 col-lg-2 control-label">업로드 파일1</label>
+ <input type="file" class="form-control" name='file1MF' id='file1MF' size='40' >
+</div>  
+<div class="row choice" > 
+  <label for="file2MF" class="col-xs-2 col-lg-2 control-label">업로드 파일2</label>  
+  <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
+</div>
+<div class="row choice">  
+   <label for="file3MF" class="col-xs-2 col-lg-2 control-label">업로드 파일3</label>
+   <input type="file" class="form-control" name='file3MF' id='file3MF' size='40' >
+</div> 
+<div class="row choice"> 
+   <label for="file4MF" class="col-xs-2 col-lg-2 control-label">업로드 파일4</label>
+   <input type="file" class="form-control" name='file4MF' id='file4MF' size='40' >
+</div>
+<div class="row choice">   
+ <label for="file5MF" class="col-xs-2 col-lg-2 control-label">업로드 파일5</label>
+  <input type="file" class="form-control" name='file5MF' id='file5MF' size='40' >
+</div>
+<hr>
+
+ <h3>추가항목</h3>
+  <div class='inpo'>상품 정보</div>
+  <div class='line_box' id='ul_box_1'></div>
+        <div class="row">
+       <label for='product_code' class='col-xs-2 col-lg-2 need'>글 비밀번호</label>
+       <input type='text' name='passwd' id='passwd' value= '1234'/>
+     </div>
+     <div class="row">
+        <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label>
+          <input type="radio" name='product_code' value="중고품"  checked="checked"><span class='radio_text'>중고품</span>
+         <input type="radio" name='product_code' value="신상품" ><span class='radio_text'>신상품</span>
+     </div>
+     <div class="row"> 
+        <label for='hprice' class='col-xs-2 col-lg-2 need'>희망가격</label>
+        <input type='text' name='hprice' id='hprice'  required="required" value='' class="col-xs-3 col-lg-3">원
+     </div>
+     <div class="row">       
+        <label for='purc_date'  class='col-xs-2 col-lg-2 choice'>구입시기</label>
+        <input type='text' name='purc_date' id='purc_date' value='' class="col-xs-3 col-lg-3"> 
+     </div>
+      <div class="row"> 
+        <label for='quantity' class='col-xs-2 col-lg-2 choice'>수량</label>
+        <input type='text' name='quantity' id='quantity' value='1' class="col-xs-3 col-lg-3">
+      </div>
+      
+      <hr/>
+      <div class='inpo'>판매자 정보</div>
+      <div class='line_box' id='ul_box_2'></div>
+      <div class="row">
+         <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
+         <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+      </div>
+       <div class="row">
+         <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
+          <input type='text' name='tel' id='tel'  required="required" value='${memberVO.tel}' class="col-xs-3 col-lg-3"> 
+       </div>
+       <div class="row">  
+          <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
+          <input type='text' name='email' id='email'  required="required" value='${memberVO.email }'  class="col-xs-3 col-lg-3">
+       </div>
+  
+      <hr/>
+     
+ <%--  <div class="form-group">   
+     <ul>
        <li>
-         <label class='label_1'  for='nickname' >닉네임</label>
-        <input type='text' name='nickname' id='nickname'  value='${memberVO.nickname}'  readonly><br><br>
+         <label class='label_1' for='nickname'>닉네임</label>
+        <input type='text' name='nickname' id='nickname' value=' ${memberVO.nickname}'  readonly><br><br>
          <label class='label_1'   for='passwd'>글 비밀번호</label>
         <input type='password' name='passwd' id='passwd' value='1234' required="required"><br><br>
        </li>
@@ -232,8 +266,8 @@
         </select>
       </li>
       <li>
-        <label class='label_1'  for='h_price'>희망가격</label>
-        <input type='text' name='h_price' id='h_price' value='0' >
+        <label class='label_1'  for='hprice'>희망가격</label>
+        <input type='text' name='hprice' id='hprice' value='0' >
       </li>
       
       <li>
@@ -312,21 +346,19 @@
     <li>
         <label for='tel'>Tel</label><br>
         <input type='text' name='tel' id='tel' size='15' value='' required="required">
-      </li>
+      </li> --%>
       
-      <li class='right'>
+      <div class='text_r' >
         <button type="submit">등록</button>
         <button type="button" onclick="location.href='./list.do'">목록</button>
-      </li>     
-      
-      </ul>
+      </div>
+
        
       </div>   
 
     </FORM>
   </DIV>
 
-</div>
      <jsp:include page="/menu/bottom.jsp" flush='false' />     
 
 </body>

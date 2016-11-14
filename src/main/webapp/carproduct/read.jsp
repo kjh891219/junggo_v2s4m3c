@@ -16,7 +16,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 
 <script type="text/javascript">
   $(function(){
@@ -29,121 +30,47 @@
     });
   });
   
-</script>
-
-<script>
-window.openModal = function() {
-  $( '#myModal' ).modal( 'show' );
+  function send_wish(hprice, nickname, title, thumb){
+    var url = document.location.href;
+     location.href = '../favorite/create.do?nickname='+nickname+'&title='+title+'&hprice='+hprice+'&url='+url+'&thumb='+thumb; 
+ 
   }
+  
+  function profile(userid, nickname){
+    var url = '../member/profile.do?nickname='+nickname;
+    var encodedInputString=escape(url);
+    var win = window.open(url, '프로필', 'width=617.5px, height=600px');
+    
+    var x = (screen.width - 500) / 2;
+    var y = (screen.height - 440) / 2;
+    
+    win.moveTo(x, y); // 화면 가운데로 이동
+  }
+  
+  function msg_list(userid){
+    $("#detail").css("display","block");
+    var url = '../message/create.do?userid='+userid;
+    var encodedInputString=escape(url);
+    var win = window.open(url, '프로필', 'width=750px, height=800px');
+    
+    var x = (screen.width - 500) / 2;
+    var y = (screen.height - 440) / 2;
+    
+    win.moveTo(x, y); // 화면 가운데로 이동
+   };
+ 
+  
 </script>
-
 <style type="text/css">
 
 /* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
+
+ .Line{
+   border-style : solid;
+   color : #d6d6c2;
    width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
- .top_select{
-     color: black; 
+   margin : auto;
  }
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
-
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
- .list_tag{
-   color : black;
- }
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
- 
  
 </style>
 
@@ -151,73 +78,161 @@ window.openModal = function() {
 
 <!-- ----------------------------------------- -->
 <body>
-<div class="container">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
+<div class="container">
      
      
+    <input type="hidden" name="userid" value="${carproductVO.userid}">
   <div class='content_menu' style='width: 100%;'>
+   <c:choose>
+   <c:when test="${(usedcarVO.userid == userid)}">
    <A href='../carproduct/list.do?&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>자동차용품 목록</A>>
-    <A href="javascript:location.reload();" class='top_select'>새로고침</A>｜
-    <A href='./create.do?' class='top_select'>등록</A>｜
-    <A href='./update.do?p_no=${carproductVO.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>수정</A>｜
+    <A href='./create.do?' class='top_select'>등록</A>
+    <A href='./update.do?p_no=${carproductVO.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>｜ 수정</A>｜
     <A href='./delete.do?p_no=${carproductVO.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>삭제</A>
+    </c:when>
+    <c:when test="${usedcarVO.userid != userid}">
+    <A href='../carproduct/list.do?&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>자동차용품 목록</A>>
+    <A href='./create.do?' class='top_select'>등록</A>
+    </c:when>
+    </c:choose>
+  </div>
+  <BR><BR><BR>
+   <div class="page-body" style="width:80%; margin:0 auto; margin-top:50px;" >
+      <div class="thumb-info" style="float:left; width:50%; min-width: 200px; margin-top:3%;">
+           <div class="thumb-wrap">
+           <div class="thumb">
+           <c:choose>
+          <c:when test="${carproductVO.file1.length() > 0}">
+             <IMG src='./storage/${carproductVO.file1}'  style=' width:100%;  min-width:200px;'>
+          </c:when>       
+          <c:otherwise>
+            <IMG src='../images/noimage.JPG' style=' width:100%;  min-width:200px;'>
+          </c:otherwise>
+          </c:choose>
+           </div>
+    </div>
+   </div>
+   <FORM style="float:right; width:40%; " name='frm' method="get" action='./update.do'>
+     <input type="hidden" name="p_no" value="${carproductVO.p_no}">
+      <div class="info "  style= "min-width:200px; margin-top:9%;">
+         <h3 class="tit-prd" style="text-align: center">${carproductVO.title}</h3>
+         <br>
+         <div class="table-opt">
+             <table class="table" style="width:100%; margin:0 auto;">
+              <caption>&nbsp;상품 옵션</caption>
+                <colgroup>
+                    <col width="50%" />
+                    <col width="50%" />
+                </colgroup>
+          <tbody>
+           <tr>
+            <th scope="row"><div class="tb-left">category</div></th>
+             <td><div class="category">${carproductVO.category}</div></td>
+           </tr>
+           <tr>
+            <th scope="row"><div class="tb-left">hope price</div></th>
+              <td><div class="hprice">${carproductVO.hprice}원</div></td>
+           </tr>
+           <tr>
+            <th scope="row"><div class="tb-left">deal_code</div></th>
+             <td><div class="deal_code">${carproductVO.deal_code}</div></td>
+           </tr>
+           <tr>
+            <th scope="row"><div class="tb-left">nickname</div></th>
+             <td><div class="nickname">
+             <A href="javascript: profile(' ${carproductVO.userid}' ,' ${carproductVO.nickname}') ;" class='list_tag'  title='프로필'>${carproductVO.nickname}</A>
+             </div></td>
+           </tr>
+           <tr>
+            <th scope="row"><div class="tb-left">deal_way</div></th>
+             <td><div class="deal_way">${carproductVO.deal_way}</div></td>
+           </tr>
+      </tbody>
+      </table>
+      <BR><BR>
+
+      <div class="icon" style="text-align: center;border-top:1px solid #d6d6c2; border-bottom:1px solid #d6d6c2;">
+      <A href="javascript: send_wish( ' ${carproductVO.hprice}' ,' ${carproductVO.nickname}' , ' ${carproductVO.title}' ,' ${carproductVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
+          <IMG src='../images/favorite_love.png' alt="WishList"></A>
+      <A href="javascript: msg_list(' ${carproductVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
+      </div>
+   
+     </div>
+   </div>
+   </FORM></div>
+   
+   <br><br><br><br>
+<div style="clear:both;"></div>
+  <div id="detail_detail" style=" text-align: center; margin-top:8%;">
+  <div class="Line"></div><BR>
+    <h3 class="tit-detail">DETAIL</h3>
+    <BR>
+    <div class="Line" ></div>
+    <div>
+    <FONT color=#000000 face=바탕><SPAN style="FONT-SIZE: 9pt">
+      <BR><BR>region : ${carproductVO.region}
+      <BR><BR>purchase date :  ${carproductVO.purc_date}
+      <BR><BR>product_code : ${carproductVO.product_code}
+      <BR><BR>E-mail : ${carproductVO.email}
+      <BR><BR>tel : ${carproductVO.tel}
+      </SPAN></FONT>
+      <BR><BR>
+      <c:choose>
+          <c:when test="${carproductVO.file1.length() > 0}">
+             <IMG src='./storage/${carproductVO.file1}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+     <BR><BR><BR><BR>
+         <c:choose>
+           <c:when test="${carproductVO.file2.length() > 0}">
+           <IMG src='./storage/${carproductVO.file2}'  style='width:50%;'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+     <BR><BR><BR><BR>
+         <c:choose>
+           <c:when test="${carproductVO.file3.length() > 0}">
+           <IMG src='./storage/${carproductVO.file3}'  style='width:50%;'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+        <BR><BR><BR><BR>
+           <c:choose>
+           <c:when test="${usedcarVO.file4.length() > 0}">
+           <IMG src='./storage/${usedcarVO.file4}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+           <c:choose>
+           <c:when test="${usedcarVO.file5.length() > 0}">
+           <IMG src='./storage/${usedcarVO.file5}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose> 
+          <BR><BR><BR>
+     ${carproductVO.content}
+    </div>
+    
+    <BR><BR><BR>
+    
+     <iframe style="clear:both; text-align: center;" src="${pageContext.request.contextPath}/carproduct_reply/list.do?p_no=${carproductVO.p_no}" 
+     scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;">
+</iframe>
+ 
   </div>
   
-  <DIV class='content'>
-    <FORM name='frm' method="get" action='./update.do'>
-      <input type="hidden" name="p_no" value="${carproductVO.p_no}">
-      <fieldset class="fieldset">
-        <ul>
-              
-          <li>
-            <label for='title' style="width:150px;">제목 : </label>
-            <span>${carproductVO.title}</span><br>
-          </li>
-          
-        <li>
-        <label for="nickname" style="width:150px;">닉네임 : </label>
-         <span>${carproductVO.nickname}</span>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label for="wdate" style="width:150px;">등록일 : </label>
-         <span>${carproductVO.wdate.substring(0, 16)}</span>
-        </li>
-        
-        <li>
-        <label class='label_1' for='category'>카테고리 코드 : </label>
-        <span>${carproductVO.category}</span>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label class='label_1'  for='deal_code'>거래구분 코드 : </label>
-       <span>${carproductVO.deal_code}</span><br>
-      </li>
-      
-      <li>
-      <label class='label_1'  for='region'>거래 지역 : </label>
-      <span>${carproductVO.region}</span> 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <label class='label_1'  for='deal_way'>거래방식 : </label>
-      <span>${carproductVO.deal_way}</span><br>
-      </li>
-      
-        <li>
-        <label class='label_1'  for='h_price'>희망가격 : </label>
-         <span>${carproductVO.h_price}</span><br>
-      </li>
-      
-      <li>
-        <label class='label_1'  for='purc_date'>구입시기 : </label>
-      <span>${carproductVO.purc_date}</span> 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <label class='label_1'   for='product_code'>상품구분 : </label>
-        <span>${carproductVO.product_code}</span><br>
-      </li>
 
-          <li>
-            <label for='content' style="width:150px;">내용 : </label>
-            <div>${carproductVO.content}</div>
-          </li>
-    
+<%--    
+
           <li>
             <label for="file1" style="width:150px;">업로드 파일: </label>
             <span>
@@ -305,7 +320,7 @@ window.openModal = function() {
                 </c:when>
                 <c:when test="${fn:endsWith(file4, '.png')}">
                   <IMG id='file4'  src='./storage/${carproductVO.file4}' >
-                </c:when>
+                </c:when>  
               </c:choose>
             </div>
           </li>
@@ -346,11 +361,9 @@ window.openModal = function() {
         </ul>
       </fieldset>
     </FORM>
-  </DIV>
+  </DIV> --%>
  
-<iframe src="${pageContext.request.contextPath}/carproduct_reply/list.do?p_no=${carproductVO.p_no}" 
-     scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;">
-</iframe>
+
 
 <!-- -------------------------------------------- -->
 </div>

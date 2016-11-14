@@ -6,6 +6,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import dev.mvc.tmember.MemberVO;
      
 @Repository("dev.mvc.game.GameDAO")
 public class GameDAO implements GameDAOInter {
@@ -48,6 +50,14 @@ public class GameDAO implements GameDAOInter {
   @Override
   public int count(HashMap hashMap) {
     return mybatis.selectOne("game.count", hashMap);
+  }
+  @Override
+  public MemberVO test(String userid) {
+    return mybatis.selectOne("game.test", userid);
+  }
+  @Override
+  public List<GameVO> newlist() {
+    return mybatis.selectList("game.newlist");
   }
 
 }

@@ -17,7 +17,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 
 <script type="text/javascript">
 $(function(){
@@ -34,150 +35,81 @@ $(function(){
     
     win.moveTo(x, y); // 화면 가운데로 이동
   }
+  
+  window.openModal = function() {
+    $( '#myModal' ).modal( 'show' );
+    }
+  
+  function create_login() {
+    <% if( session.getAttribute("userid") == null) { %>
+    alert('로그인 한 사용자만 이용이 가능합니다');
+    window.openModal();
+    return false;
+    <% } else { %>
+    location.href='./create.do';
+    return true;
+    <% } %> 
+  }  
+
+
+  
+function create(){
+  $('#panel_frm').show();
+  $('#frm').attr('action', './create.do');
+  $('#sort').val('');
+  $('#submit').html('등록');
+  $('#sort').focus();
+}
  
-</script>
-<script type="text/javascript">
-window.openModal = function() {
-  $( '#myModal' ).modal( 'show' );
-  }
-</script>
-<script>
-     function create_login() {
-       <% if( session.getAttribute("userid") == null) { %>
-       alert('로그인 한 사용자만 이용이 가능합니다');
-       window.openModal();
-       <%session.setAttribute("url", "music/list.do");%>
-       return false;
-       <% } else { %>
-       location.href='./create.do';
-       return true;
-       <% } %> 
-     }
-</script>
+function create_cancel(){
+  $('#panel_frm').hide();
+}
+
+function update(codeno, sort, seqno){
+  $('#panel_frm').show();
+  $('#frm').attr('action', './update.do');
+  // $('#codeno').val(codeno); // Chrome Elements에 변경이 안됨
+  $('#codeno').attr('value', codeno);
+  // $('#sort').val(sort);          // Chrome Elements에 변경이 안됨
+  $('#sort').attr('value', sort);
+  // $('#seqno').val(seqno); // Chrome Elements에 변경이 안됨
+  $('#seqno').attr('value', seqno);
+  $('#submit').html('저장');
+  $('#sort').focus();
+}
 
 
-
+</script>
 <style type="text/css">
 
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
- .top_select{
-     color: black; 
- }
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
 
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
- .list_tag{
-   color : black;
- }
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
  
+  .panel-footer{
+   float:center;
+   margin-top:10px;
+   background-color: #FFFFFF;
+   width:200px;
+   border:none;
+   width:20%; 
+  margin:0 auto;
+  }
  
 </style>
 
 </head> 
 <!-- ----------------------------------------- -->
 <body>
-<div class="container">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
+<div class="container">
+
  <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
     <input type='hidden' name='userid' id='userid' value='${musicVO.userid}'>
  <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>음향기기 목록</A>>
+
+ 
       <select name="col">  
         <option value="">선택</option> 
         <option value="title" ${searchDTO.col == "title" ? "selected=selected" : "" }>제목</option> 
@@ -263,12 +195,12 @@ window.openModal = function() {
     <TD class='td'>${vo.deal_code}</TD>
     <TD class='td'>${vo.region}</TD>
     <TD class='td'>${vo.deal_way}</TD>
-    <TD class='td'>${vo.h_price}</TD>
+    <TD class='td'>${vo.hprice}</TD>
     <TD class='td'>
-    <A href="javascript: profile(' ${vo.nickname}' ,' ${vo.nickname}') ;" class='list_tag' >${vo.nickname}</A> 
+    <A href="javascript: profile(' ${vo.userid}' ,' ${vo.nickname}') ;" class='list_tag' >${vo.nickname}</A> 
     </TD>
     <TD class='td'>${vo.product_code}</TD>
-    <TD class='td'>${vo.ct_cnt}</TD>
+    <TD class='td'>${vo.cnt}</TD>
     <TD class='td'>${vo.wdate}</TD>
 
     
@@ -279,12 +211,21 @@ window.openModal = function() {
 
 </TABLE>
  
-<DIV class='bottom'>
-  <button type='button' onclick="create_login();">등록</button>
-  <button type='button' onclick="location.reload();">새로 고침</button>
-</DIV>
-
   <DIV class='bottom'>${paging}</DIV>
+  
+     <div class="panel-footer">
+      <div class="row">
+       <div class="col-md-6">
+           <button onclick="create_login();" type='button' onclick="location.href='./create.do'" 
+                        type="button" class="btn btn-success btn-sm btn-block">
+        <span class="fa fa-send"></span>등록</button>
+      </div>
+         <div class="col-md-6">
+           <button type="button" onclick="location.reload();" class="btn btn-primary btn-sm btn-block">
+             새로 고침</button>
+         </div>
+     </div>
+   </div>
 <!-- -------------------------------------------- -->
 </div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />

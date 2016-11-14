@@ -16,7 +16,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 
 <script type="text/javascript">
   $(function(){
@@ -29,178 +30,114 @@
     });
   });
   
-</script>
-
-<script>
-window.openModal = function() {
-  $( '#myModal' ).modal( 'show' );
+  function profile(userid, nickname){
+    var url = '../member/profile.do?nickname='+nickname;
+    var encodedInputString=escape(url);
+    var win = window.open(url, '프로필', 'width=617.5px, height=600px');
+    
+    var x = (screen.width - 500) / 2;
+    var y = (screen.height - 440) / 2;
+    
+    win.moveTo(x, y); // 화면 가운데로 이동
   }
+  
+  function msg_list(userid){
+    $("#detail").css("display","block");
+    var url = '../message/create.do?userid='+userid;
+    var encodedInputString=escape(url);
+    var win = window.open(url, '프로필', 'width=750px, height=800px');
+    
+    var x = (screen.width - 500) / 2;
+    var y = (screen.height - 440) / 2;
+    
+    win.moveTo(x, y); // 화면 가운데로 이동
+   };
 </script>
-
-
 <style type="text/css">
-
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
+ .Line{
+   border-style : solid;
+   color : #d6d6c2;
    width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
- .top_select{
-     color: black; 
+   margin : auto;
  }
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
 
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
- .list_tag{
-   color : black;
- }
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
- 
- 
 </style>
 
 </head>
 
 <!-- ----------------------------------------- -->
 <body>
-<div class="container">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
-     
-     
-  <div class='content_menu' style='width: 100%;'>
-   <A href='../reviews/list.do?&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>중고차 목록</A>>
-    <A href="javascript:location.reload();" class='top_select'>새로고침</A>｜
-    <A href='./create.do?' class='top_select'>등록</A>｜
-    <A href='./update.do?r_no=${reviewsVO.r_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage} '  class='top_select'>수정</A>｜
-    <A href='./delete.do?r_no=${reviewsVO.r_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage} '  class='top_select'>삭제</A>
-  </div>
+  
+<div class="container">
   
   <DIV class='content'>
     <FORM name='frm' method="get" action='./update.do'>
       <input type="hidden" name="r_no" value="${reviewsVO.r_no}">
-      <fieldset class="fieldset">
-        <ul>
-              
-          <li>
-            <label for='title' style="width:150px;">제목 : </label>
-            <span>${reviewsVO.title}</span><br>
-          </li>
-          
-        <li>
-        <label for="nickname" style="width:150px;">닉네임 : </label>
-         <span>${reviewsVO.nickname}</span>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label for="wdate" style="width:150px;">등록일 : </label>
-         <span>${reviewsVO.wdate.substring(0, 16)}</span>
-        </li>
-        
-        <li>
-        <label class='label_1' for='t_category'>카테고리 코드 : </label>
-        <span>${reviewsVO.t_category}</span>
-      </li>
+       <div class='content_menu' style='width: 100%;'>
+        <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}'  class='top_select'>후기 목록</A>>
+        <c:if test="${(reviewsVO.userid eq userid)}">
+        <A href='./update.do?r_no=${reviewsVO.r_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>수정</A>｜
+        <A href='./delete.do?r_no=${reviewsVO.r_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>삭제</A>
+        </c:if>
+    </div>
+       
+       <br><br>
+       <div class="Line"  >
+       <br>
+            <h1 class="tit-prd" style="text-align: center; font-weight: bold ; color:#666633;">
+             ${reviewsVO.title}</h1>
+            <br>
+       </div>
+       
+       <br><br><br>
+      <div style="text-align: center; width:100%;" >
+        <div>
+          닉네임 : ${reviewsVO.nickname}
+         </div>
+         <div>
+         카테고리 코드 : ${reviewsVO.t_category}
+        </div>
 
-      <li>
-          <label for="seller_nick" style="width:150px;">판매자 : </label>
-         <span>${reviewsVO.seller_nick}</span>
-      </li>
+        <div>
+        등록일 : ${reviewsVO.wdate.substring(0, 16)}
+      </div>
+    </div>
 
-          <li>
-            <label for='content' style="width:150px;">내용 : </label>
-            <div>${reviewsVO.content}</div>
-          </li>
+      <div style="clear:both;"></div>
+      <div id="detail_detail" style=" text-align: center; margin-top:70px;">
+  
+         <div>   
+          ${reviewsVO.content}  <br>
+         <c:choose>
+          <c:when test="${reviewsVO.file1.length() > 0}">
+             <IMG src='./storage/${reviewsVO.file1}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+     <BR><BR><BR><BR>
+         <c:choose>
+           <c:when test="${reviewsVO.file2.length() > 0}">
+           <IMG src='./storage/${reviewsVO.file2}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+     <BR><BR><BR><BR>
+         <c:choose>
+           <c:when test="${reviewsVO.file3.length() > 0}">
+           <IMG src='./storage/${reviewsVO.file3}'  style='height:300px; width:430px'>
+          </c:when>       
+          <c:otherwise>
+          </c:otherwise>
+          </c:choose>
+    </div>
+    </div>
     
-           <li>
+     <%--       <li>
             <label for="file1" style="width:150px;">업로드 파일: </label>
             <span>
               <c:if test="${reviewsVO.size1 > 0}">
@@ -314,16 +251,16 @@ window.openModal = function() {
               </c:choose>
             </div>
           </li>
-
-        </ul>
-      </fieldset>
+  --%>
+ <div style="width:100%; text-align: center;">
+  <iframe style="width:70%; clear:both; text-align: center;" src="${pageContext.request.contextPath}/reviews_reply/list.do?r_no=${reviewsVO.r_no}" 
+     scrolling=no name=ce height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;">
+  </iframe>
+</div>
+ 
     </FORM>
-  </DIV>
- 
- <iframe src="${pageContext.request.contextPath}/reviews_reply/list.do?r_no=${reviewsVO.r_no}" 
-     scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;">
-</iframe>
- 
+  </DIV> 
+
 
 
 <!-- -------------------------------------------- -->

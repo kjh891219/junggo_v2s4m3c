@@ -3,6 +3,7 @@ package dev.mvc.music;
 import java.util.HashMap;
 import java.util.List;
 
+import dev.mvc.carproduct.CarproductVO;
 import dev.mvc.tmember.MemberVO;
 
 
@@ -83,5 +84,12 @@ public interface MusicDAOInter {
    * @return
    */
   public MemberVO test(String userid);
+  
+  /**
+   * 음향기기 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<MusicVO> newlist();
   
 }

@@ -68,7 +68,6 @@ DELETE FROM MEMBER WHERE mno='2'
 /**********************************/
 /* Table Name: 중고차 거래 게시판 */
 /**********************************/
-DROP TABLE usedcar;
 CREATE TABLE usedcar(
 		u_no                          		NUMBER(10)		                                 NOT NULL   PRIMARY KEY,
 		nickname                      	VARCHAR2(20)		                               NOT NULL,
@@ -101,6 +100,9 @@ CREATE TABLE usedcar(
 		u_cnt                         		  NUMBER(6)		     DEFAULT 0		             NOT NULL,
     FOREIGN KEY (userid)        REFERENCES member(userid)
 );
+
+alter table usedcar rename column h_price to hprice;
+alter table usedcar rename column u_cnt to cnt;
 
 SELECT * FROM member
 COMMIT

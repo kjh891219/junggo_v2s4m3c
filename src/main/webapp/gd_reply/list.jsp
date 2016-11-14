@@ -27,7 +27,7 @@ function create(rno){
   <%session.setAttribute("url", "gamedevice/read.do?gdno="+gdno);%>
   return false;
   <% } else { %>
-  
+     
   var e = window.event, btn = e.target || e.srcElement; 
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
@@ -44,7 +44,7 @@ function create(rno){
    "</div>"+
    "</FORM>"+
    "</DIV>"; 
-  $('#comment'+rno).html(tag); 
+  $('#comment'+rno).html(tag);
   return true;
   <% } %>
  }  

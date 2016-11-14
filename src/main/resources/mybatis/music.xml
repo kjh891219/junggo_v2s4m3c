@@ -9,12 +9,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <!-- 입력 -->
   <insert id="create" parameterType="MusicVO">
     INSERT INTO music(ctno, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, thumb, file1, size1, 
-                                     file2, size2, file3, size3, file4, size4, file5, size5, email, tel, wdate)
+                                     hprice, purc_date, region, title, content, thumb, file1, size1, 
+                                     file2, size2, file3, size3, file4, size4, file5, size5, email, tel, wdate, quantity)
    VALUES ((SELECT NVL(MAX(ctno), 0)+1 as ctno FROM music), #{nickname}, #{userid}, #{passwd}, #{category},
-                                   #{deal_way},#{deal_code}, #{product_code}, #{h_price} , #{purc_date},#{region},
+                                   #{deal_way},#{deal_code}, #{product_code}, #{hprice} , #{purc_date},#{region},
                                    #{title},#{content},#{thumb},#{file1},#{size1}, #{file2},#{size2},
-                                   #{file3}, #{size3}, #{file4}, #{size4}, #{file5}, #{size5}, #{email},#{tel}, sysdate)
+                                   #{file3}, #{size3}, #{file4}, #{size4}, #{file5}, #{size5}, #{email},#{tel}, sysdate, #{quantity})
   </insert>
   
   
@@ -22,8 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!--조회  --> 
    <select id="read" resultType="MusicVO" parameterType="int">
     SELECT ctno, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, thumb, file1, size1, file2, size2,
-                                     file3, size3, file4, size4, file5, size5, email, tel, wdate
+                                     hprice, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     file3, size3, file4, size4, file5, size5, email, tel, wdate, quantity
     FROM music
     WHERE ctno=#{ctno}
   </select>  
@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 조회수 증가 -->
      <update id="increaseCnt" parameterType="int">
     UPDATE music
-    SET ct_cnt = ct_cnt + 1
+    SET cnt = cnt + 1
     WHERE ctno=#{ctno}
   </update> 
   
@@ -47,10 +47,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <update id="update" parameterType="MusicVO">
     UPDATE music 
     SET passwd=#{passwd}, nickname=#{nickname}, title=#{title}, category=#{category}, deal_code=#{deal_code},
-         region=#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, content=#{content}, h_price=#{h_price}, 
+         region=#{region}, deal_way=#{deal_way}, purc_date=#{purc_date}, content=#{content}, hprice=#{hprice}, 
          product_code=#{product_code}, thumb=#{thumb}, file1=#{file1}, size1=#{size1}, file2=#{file2},
          size2=#{size2}, file3=#{file3}, size3=#{size3}, file4=#{file4}, size4=#{size4},
-         file5=#{file5}, size5=#{size5}, email=#{email}
+         file5=#{file5}, size5=#{size5}, email=#{email}, quantity=#{quantity}
     WHERE ctno=#{ctno}
   </update> 
   
@@ -65,8 +65,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <!-- ********** 검색에 따른 변경 시작 ********** -->
   <select id="list2" resultType="MusicVO" parameterType="HashMap" >
     SELECT ctno, nickname, userid, passwd, category, deal_way, deal_code, product_code,
-                                     h_price, purc_date, region, title, content, thumb, file1, size1, file2, size2,
-                                     file3, size3, file4, size4, file5, size5, email, tel, wdate, thumb, ct_cnt   
+                                     hprice, purc_date, region, title, content, thumb, file1, size1, file2, size2,
+                                     file3, size3, file4, size4, file5, size5, email, tel, wdate, thumb, cnt, quantity   
     FROM music
     <choose>
       <when test="col == 'title'">
@@ -110,11 +110,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- ********** 페이징에 따른 변경 시작 ********** -->
 <select id="list" resultType="MusicVO" parameterType="HashMap" >
- SELECT  ctno, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, ct_cnt, wdate, thumb, r
+ SELECT  ctno, userid, title, category, deal_code, region ,deal_way, hprice, nickname, product_code, cnt, wdate, thumb, r
   FROM(
-           SELECT  ctno, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, ct_cnt, wdate, thumb, rownum as r
+           SELECT  ctno, userid, title, category, deal_code, region ,deal_way, hprice, nickname, product_code, cnt, wdate, thumb, rownum as r
            FROM(
-                    SELECT ctno, userid, title, category, deal_code, region ,deal_way, h_price, nickname, product_code, ct_cnt, wdate, thumb
+                    SELECT ctno, userid, title, category, deal_code, region ,deal_way, hprice, nickname, product_code, cnt, wdate, thumb
                     FROM music
                 <choose>
                     <when test="col == 'title'">
@@ -139,5 +139,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- ********** 페이징에 따른 변경 종료 ********** -->
   
+    <!--********** 최신글 리스트 **********   -->
+  <select id="newlist" resultType="MusicVO">
+      SELECT ctno, title, deal_code, product_code, region, deal_way, purc_date,
+                 hprice, userid, nickname, thumb, file1, wdate
+      FROM music
+      WHERE ctno >= (SELECT (MAX(ctno)-7) FROM music)
+   </select>
   
   </mapper>

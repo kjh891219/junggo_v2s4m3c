@@ -110,5 +110,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       WHERE ctno = #{ctno}
    </update>
    
+   
+    <!-- 최신글리스트 -->
+   <select id="newlist" resultType="ComputerVO">
+      SELECT ctno, title, deal_code, product_code, region, deal_way, purc_date,
+                 hprice, userid, nickname, file1, file2, wdate
+      FROM computer
+      WHERE ctno >= (SELECT (MAX(ctno)-7) FROM computer)
+   </select>
+   
  
 </mapper>

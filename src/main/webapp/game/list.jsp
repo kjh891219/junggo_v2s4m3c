@@ -6,8 +6,8 @@
 <html lang="ko"> 
 <head> 
 <meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title> 
+          
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -16,20 +16,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
-<script>
-$(document).ready(function(){
-   $('.left_list').mouseenter(function(){
-     $("#main_left_detail").show();
-     /* Toggle('on'); */
-   })
-   $('#main_left_detail').mouseleave(function(){
-     $("#main_left_detail").hide();
-   });
-   
-});
-</script>
-
+<link href="/game/css/style.css" rel="Stylesheet" type="text/css">
+<script src="/game/js/event.js?ver=1"></script>
 <script>
 window.openModal = function() {
   $( '#myModal' ).modal( 'show' );
@@ -48,99 +36,48 @@ window.openModal = function() {
        <% } %> 
      }
 </script>
-
 <style type="text/css">
 
 /* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/malgungothic.css);
   *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
+    font-family: 'Malgun Gothic', sans-serif;
+    font-size: 12px;
     margin: 0px;
     padding: 0px;  
+    line-height: 1.5;
   }
   
-  a{
-   color:white;
-  }
-  
+ 
+
 /* left를 제외한 스타일 */
   body{
    width:80%;
    margin-left:130px;
   }
-  
-/* top 스타일 */
-  
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
+ 
 
-/* left */  
 
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
+   .thum_img{
+      width:80%;
    }
    
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
-
-   .container{
-      width:100%;
+   .thum_img li{
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: black;
+      padding-top: 30px;    
+      padding-right: 0px;    
+      padding-bottom: 28px;    
+      padding-left: 0px;    
+      position: relative;
    }
    
+   .container li:after{
+    clear: both;
+    display: block;
+    content: "";
+   }   
    nav ul li {
       list-style:none;
       margin-left: 20px;
@@ -151,13 +88,109 @@ window.openModal = function() {
    footer{
       text-align: center;
    }
-   
+ .thum_area{
+   width: 25%;
+   float: left;
+   position : relative;
+ 
+ }
+ 
+.thum_area img{ 
+  width: 148px;
+  height: 148px;
+  border: 1px; 
+  solid : #e2e2e2;
+  
+}
+ 
+ div{
+  display: block;
+ }
+
+.info_area {
+  width: 60%;
+}
+ 
+.info_area .tagarea { 
+ padding-bottom : 5px; 
+ word-break: break-all;
+ text-align: center;
+} 
+.info_area .strong{
+ 
+}
+
+.info_area a{
+  text-align: center;
+  color:black;
+  display: block; 
+  font-size: 18px; 
+  color: #181818;
+  margin-top: -3px;
+  margin-right: 0px;
+  margin-bottom: 14px;
+  margin-left: 0px;
+  width: 560px;
+  }
+  
+.info_area a:hover{
+  color: #0064FF;
+  }
+
+.bottom_area { 
+ padding-bottom : -5px; 
+ width : 560px; 
+ word-break: break-all;
+     text-align: center;
+} 
+
+.etc_txt{
+ line-height : 17px; 
+ vertical-align : top;
+ display : block; 
+ color : #181818;
+ padding-top : 7px;
+}
+
+.price_area { 
+ position : absolute; 
+ padding-right:10px; 
+ min-width: 150px;
+ width: 25%;
+ right : 0;
+ top : 18px;
+ color : #0073be;
+ min-width: 150px;
+ text-align: right;
+ margin-top: 30px;
+ margin-right: 10px;
+ margin-bottom: 0px;
+ margin-left: 0px;
+}
+
+.price_area .priea strong{
+ pattern : "#,###원";
+ text-align: center;
+  display: block; 
+  font-size: 30px; 
+  color: #0064FF;
+
+} 
+
+.price_area .priea .lev{
+text-align: center;
+  display: block; 
+  font-size: 25px; 
+  color: #0064FF;
+
+} 
+
+
 </style>
 </head> 
- <div class="container">
+<div class = "container" style="margin: 0px; border: 0px solid rgb(255, 255, 255); border-image-source: none; width: 100%; float: left; background-image: none; background-color: transparent; background-position: 0px 0px; background-repeat: repeat;">
      <jsp:include page="/menu/top.jsp" flush='false' />
-     <jsp:include page="/menu/left.jsp" flush='false' />
-
+     <jsp:include page="/menu/left.jsp" flush="false"/> 
 
   <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
@@ -183,32 +216,14 @@ window.openModal = function() {
   </form> 
 
 
-<div class="container" style="margin: auto;">
- <table class="table table-hover" style='width: 100%;'>
-    <thead>
-  <TR>
-    <TH>번호</TH>
-    <TH>파일</TH>
-    <TH>업로드 파일</TH>
-    <TH>분류</TH>
-    <TH>글쓴이</TH>
-    <TH>제목</TH>
-    <TH>희망가격</TH>
-    <TH>거래방식</TH>
-    <TH>지역</TH>
-    <TH>조회수</TH>
-    <TH>평점</TH>
-    <TH>등록일</TH>
-  </TR>
-  </thead>
+<ul id= "listBodyDiv" class="thum_img" style="margin: auto; display: block;">
 
-<tbody>
  <c:forEach var="vo" items="${list}">
   
-  <TR>
-    <TD>${vo.gno}</TD>
-     <td>
-              <c:set var='file2' value="${fn:toLowerCase(vo.file2)}" />
+   <li class = "product" id = modelno_1230"> 
+             <div class ="thum_area">
+             <A href="./read.do?gno=${vo.gno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}">
+                  <c:set var='file2' value="${fn:toLowerCase(vo.file2)}" />
               <c:choose>
                 <c:when test="${fn:endsWith(file2, '.jpg')}">
                   <IMG id='file2' src='./storage/${vo.file1}'>
@@ -219,35 +234,45 @@ window.openModal = function() {
                 <c:when test="${fn:endsWith(file2, '.png')}">
                   <IMG id='file2'  src='./storage/${vo.file1}'>
                 </c:when>
-                <c:otherwise>
-                  <A href='${root}/download?dir=/game/storage&filename=${vo.file2}'>${vo.file2}</A> (${vo.size2Label})
+                 <c:otherwise>
+                  <A href='${root}/download?dir=/game/storage&filename=${vo.file2}'>${vo.file2}</A>
                 </c:otherwise>
               </c:choose>
-            </td>
-            <td class="td">${vo.file2}</td>
-    <TD>${vo.category}</TD>
-    <TD>${vo.nickname}</A></TD>
-    <TD><A href="./read.do?gno=${vo.gno}" style="color: black;">${vo.title}</A></TD>
-    <TD>${vo.hprice}</TD>
-    <TD>${vo.deal_way}</TD>
-    <TD>${vo.region}</TD>
-    <TD>${vo.cnt}</TD>
-    <TD>${vo.lev}</TD>
-    <TD>${vo.wdate.substring(0,10) }</TD>
- </TR>
+                 </A>
+           </div>
+    <div class= "info_area">
+   <strong><A href="./read.do?gno=${vo.gno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}">${vo.title}</A></strong>
+    <div class ="tagarea">
+      <span class = "tx">분류 : ${vo.category} | </span>
+      <span class = "tx">거래방법 : ${vo.deal_way} | </span>
+      <span class = "tx">거래구분 : ${vo.deal_code} | </span>
+      <span class = "tx">상품구분 : ${vo.product_code} | </span>
+      <span class = "tx">지역 : ${vo.region}</span>
+    </div>
+    <div class = "bottom_area">
+    <span class = "etc_txt"></span>
+    조회수:${vo.cnt} | 등록일:${vo.wdate.substring(0,10) }
+    </div>
+    </div>
+    <div class="price_area" >
+    <div class = "priea">
+     <span class= "hprice"><strong >${vo.hprice}</strong></span>
+     <span class= "lev" style="font-family: dotum,'돋움'; font-size: 25px;">${vo.lev}</span>
+    </div>
+   </div>
+ 
+</li>
+
 </c:forEach>
-</tbody> 
-</TABLE>
+</ul>
+
+<div style="text-align: center; margin-top: 50px;">
+<button type='button' onclick="create_login();" class="btn btn-success btn-lg">등록</button>
+<button type='button' onclick="location.reload();" class="btn btn-danger btn-lg">새로 고침</button>
 </div>
-<DIV style="text-align: center;">
-  <button type='button' onclick="create_login();">등록</button>
-  <button type='button' onclick="location.reload();">새로 고침</button>
-</DIV>
-</div>
+
 <DIV class='bottom'>${paging}</DIV>
-
-
-
+</div>
 <!-- -------------------------------------------- -->
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

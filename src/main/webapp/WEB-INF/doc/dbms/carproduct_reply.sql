@@ -17,12 +17,12 @@ CREATE TABLE CARPRODUCT_REPLY(
 alter table CARPRODUCT_REPLY add(userid varchar2(20));
 alter table CARPRODUCT_REPLY
 add constraint FK_CARPRODUCT_REPLY_USERID FOREIGN KEY(userid)
-REFERENCES member(userid) on delete cascade;
+REFERENCES member(userid);
 
 alter table CARPRODUCT_REPLY add(p_no number(6));
 alter table CARPRODUCT_REPLY
 add constraint FK_CARPRODUCT_REPLY FOREIGN KEY(p_no)
-REFERENCES carproduct(p_no) on delete cascade;
+REFERENCES carproduct(p_no);
 
 insert into CARPRODUCT_REPLY(rno, nickname, passwd, rcomment, grpno, indent, ansnum, p_no, userid)
 values ((select NVL(MAX(rno),0)+1 as rno from carproduct_reply),

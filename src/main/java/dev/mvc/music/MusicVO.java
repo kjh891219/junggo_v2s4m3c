@@ -21,7 +21,7 @@ public class MusicVO {
   /** 상품구분 */
   private String product_code;
   /** 희망가격 */
-  private int     h_price;
+  private int     hprice;
   /** 거래지역 */
   private String region;
   /** 전화번호 */
@@ -67,7 +67,7 @@ public class MusicVO {
   /** 글등록일 */
   private String wdate;
   /** 조회수 */
-  private int     ct_cnt;
+  private int     cnt;
   
   /** Framework에서 자동 주입되는 업로드 파일 객체 */  
   private MultipartFile file1MF;
@@ -142,11 +142,11 @@ public class MusicVO {
   public void setProduct_code(String product_code) {
     this.product_code = product_code;
   }
-  public int getH_price() {
-    return h_price;
+  public int getHprice() {
+    return hprice;
   }
-  public void setH_price(int h_price) {
-    this.h_price = h_price;
+  public void setHprice(int hprice) {
+    this.hprice = hprice;
   }
   public String getRegion() {
     return region;
@@ -262,11 +262,11 @@ public class MusicVO {
   public void setWdate(String wdate) {
     this.wdate = wdate;
   }
-  public int getCt_cnt() {
-    return ct_cnt;
+  public int getcnt() {
+    return cnt;
   }
-  public void setCt_cnt(int ct_cnt) {
-    this.ct_cnt = ct_cnt;
+  public void setcnt(int cnt) {
+    this.cnt = cnt;
   }
   public MultipartFile getFile2MF() {
     return file2MF;

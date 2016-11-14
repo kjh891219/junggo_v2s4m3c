@@ -30,7 +30,6 @@
      }
       </script>
 
-
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
@@ -39,19 +38,28 @@
 
 
     
-<DIV class='center-block'>
-<DIV class='title'>댓글 쓰기</DIV>
+
 <FORM name='frm' method='POST' action='${pageContext.request.contextPath}/game_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="gno" id="gno" value='<%=request.getParameter("gno")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>
-  <div class="col-xs-5">    
-        <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" class="form-group"><%=request.getParameter("gno")%></textarea>
-         <button type="submit" class="btn btn-success btn-lg">등록</button>
+  <div style="margin-top: 15px; margin-bottom: 15px; padding: 12px 16px 20px; background: #fcfcfc; border: 1px solid #ddd; border-bottom-color: #ccc; border-radius:8px;">    
+     <label style="cursor: pointer; position: relative; margin-bottom: 10px; float: left;">
+        <strong style="padding-left: 5px; font-weight: bold;">댓글 쓰기</strong>
+     </label>   
+     <div style="display: block; position: relative; clear: both; width: 100%;'">
+        <div style="margin-left: 0; position: relative; margin: 0 60px; display: block;">
+          <div style="display: block;">
+            <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" style="display: block; height: 46px; padding: 4px 8px; border: 1px solid #ddd; border-radius:2px; background: #fff; width: 750px;"><%=request.getParameter("gno")%></textarea>
+          </div>
+          <button type="submit" style="position: absolute; top: 0; right: -60px; width:40px; height: 40px; margin: 0; padding: 0; font-size: 12px; display: inline-block; white-space: no">등록</button>
+        </div>      
+     </div>
+     
   </div>
  
 </FORM>
-</DIV>
+
 
 
 
@@ -60,4 +68,5 @@
 </body>
 <!-- -------------------------------------------- -->
 </html> 
-
+     
+     

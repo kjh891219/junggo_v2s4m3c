@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import dev.mvc.tmember.MemberDAOInter;
 import web.tool.Paging;
 import dev.mvc.game.GameDAOInter;
 import dev.mvc.game.GameVO;
+import dev.mvc.tmember.MemberVO;
 import web.tool.SearchDTO;
 import web.tool.Tool;
 import web.tool.Upload;
@@ -41,6 +44,7 @@ public class GameCont {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/game/create"); // /webapp/member/create.jsp
     
+    
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html; charset=UTF-8");
     if (session.getAttribute("userid") == null ){
@@ -50,37 +54,44 @@ public class GameCont {
        + "location.href = '../member/login.do';"
        + "</script>"); 
       session.setAttribute("url", "game/list.do");//
-     
-      
-      
-    } else {
-      PrintWriter writer = response.getWriter();
-      writer.println
-      ("<script>" 
-          + "location.href = './create.jsp';"
-          + "</script>");
-      
-    }
     
-    String userid = session.getAttribute("userid").toString();
-    String pwd = session.getAttribute("pwd").toString();
-    String nickname = session.getAttribute("nickname").toString();
-    String email = session.getAttribute("email").toString();
-    String tel = session.getAttribute("tel").toString();
-    mav.addObject("userid", userid);
-    mav.addObject("pwd", pwd);
-    mav.addObject("nickname", nickname);
-    mav.addObject("email", email);
-    mav.addObject("tel", tel);
+         
+      } else {
+        PrintWriter writer = response.getWriter();
+        writer.println
+        ("<script>" 
+            + "location.href = './create.jsp';"
+            + "</script>");
+        
+      }
+      
+      
+      
+      String userid = session.getAttribute("userid").toString();
+      String pwd = session.getAttribute("pwd").toString();
+      String tel = session.getAttribute("tel").toString();
+      MemberVO memberVO = gameDAO.test(userid);
+         
+      mav.addObject("memberVO", memberVO);
+      mav.addObject("userid", userid);
+      mav.addObject("pwd", pwd);
+      mav.addObject("tel", tel);
+      System.out.println(memberVO);
+      
+      
+      
+      
+      
     return mav;
   }
-
+   
   @RequestMapping(value = "/game/create.do", method = RequestMethod.POST)
-  public ModelAndView create(GameVO gameVO, HttpServletRequest request, HttpSession session) {
+  public ModelAndView create(GameVO gameVO, HttpServletRequest request, HttpSession session) throws Exception {
     System.out.println("--> create() POST called.");
+    //int lev = Integer.parseInt(request.getParameter("lev"));
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/game/message"); // webapp/member/message.jsp
-
+    //gameVO.setLev(lev);
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
 
@@ -284,6 +295,7 @@ public class GameCont {
       //vo.setFile1(Tool.textLength(vo.getFile1(), 10));
       //vo.setFile2(Tool.textLength(vo.getFile2(), 10));
       vo.setSize2Label(Tool.unit(vo.getSize2()));
+      vo.setSize2Label(Tool.unit(vo.getSize4()));
     }
     mav.addObject("list", list);
     mav.addObject("root", request.getContextPath());
@@ -306,7 +318,7 @@ public class GameCont {
 
 
   @RequestMapping(value = "/game/read.do", method = RequestMethod.GET)
-  public ModelAndView read(int gno, SearchDTO searchDTO, HttpServletRequest request) {
+  public ModelAndView read(int gno, SearchDTO searchDTO, HttpServletRequest request, HttpSession session) {
     ModelAndView mav = new ModelAndView();
     gameDAO.increaseCnt(gno);// 조회수 증가
     mav.setViewName("/game/read");
@@ -319,7 +331,7 @@ public class GameCont {
     
     mav.addObject("gameVO", gameVO);
     mav.addObject("searchDTO", searchDTO);
-    mav.addObject("gameVO", gameDAO.read(gno));
+    mav.addObject("root", request.getContextPath());
     
     return mav;
   }
@@ -333,9 +345,7 @@ public class GameCont {
   public ModelAndView update(int gno) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/game/update"); // /webapp/blogcategory/update.jsp
-
-    GameVO vo = gameDAO.read(gno);
-    mav.addObject("vo", vo);
+    mav.addObject("gameVO", gameDAO.read(gno));
 
     return mav;
   }
@@ -594,4 +604,28 @@ public class GameCont {
     return mav;
   }
 
+  @RequestMapping(value = "/game/list2.do", method = RequestMethod.GET)
+  public ModelAndView newlist() {
+     ModelAndView mav = new ModelAndView();
+     mav.setViewName("/game/list2"); // /webapp/member/list.jsp
+     
+     
+     List<GameVO> list = gameDAO.newlist();
+     Iterator<GameVO> iter = list.iterator(); // 객체를 순차적으로 접근하는 기능
+     while(iter.hasNext() == true){  // 다음 요소 검사
+       GameVO vo = iter.next();  // 요소 추출
+       vo.setTitle(Tool.textLength(vo.getTitle(),10));   // 문자열 10자 
+       //vo.setWdate(vo.getWdate().substring(0, 10));      // 년 월 일
+       // vo.setFile1(Tool.textLength(vo.getFile1(),10));  
+       //vo.setThumb(Tool.textLength(vo.getThumb(),10)); 
+       
+     }
+     mav.addObject("list2", list);
+     
+     
+     return mav;
+  }
+
+
+  
 }
