@@ -112,6 +112,7 @@ FROM game
                  hprice, userid, nickname, file1, file2, wdate
       FROM game
       WHERE gno >= (SELECT (MAX(gno)-7) FROM game)
+      ORDER BY gno DESC
    </select>
 
       

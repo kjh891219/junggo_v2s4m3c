@@ -133,6 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  hprice, userid, nickname, file2, file1, wdate
       FROM cloth
       WHERE clothno >= (SELECT (MAX(clothno)-7) FROM cloth)
+      ORDER BY clothno DESC
    </select>
     
  </mapper>

@@ -153,6 +153,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  hprice, userid, nickname, thumb, file1, wdate
       FROM usedcar
       WHERE u_no >= (SELECT (MAX(u_no)-7) FROM usedcar)
+      ORDER BY u_no DESC
    </select>
 
   

@@ -90,13 +90,16 @@ window.openModal = function() {
 
 </head>
 <body> 
-<div >
 <jsp:include page="/menu/top.jsp" flush='false' />
 <jsp:include page="/menu/left.jsp" flush='false' />
-</div>
+    <jsp:include page="/menu/community_left.jsp" flush='false' />
+
+<!-- ----------------------------------------- -->
+<div class="float_l right " style="width:80%; margin-top:80px;">
+ <div style="width:100%; min-height:380px;"> 
 
 
- <div style="overflow: hidden; position: relative; padding-top: 20px; margin: 0 auto; width: 80%;">
+ <div style="overflow: hidden; position: relative; padding-top: 20px; margin: 0 auto; width: 100%;">
  <h1 style="padding-left: 0px; margin: 0; padding: 10px; float: left; display: block; font-size: 20px; line-height: 22px; font-weight: bold; color: #444;">
   <a href="${pageContext.request.contextPath}/cheat/list.do">허위/사기신고 게시판</a>
  </h1>
@@ -380,8 +383,11 @@ window.openModal = function() {
 <!-- -------------------------------------------- -->
 <iframe src="${pageContext.request.contextPath}/cheat_reply/list.do?ctno=${cheatVO.ctno}" class='myFrame' width="100%" style="border-style: none;"></iframe>
 <a href="#" class="top">Top</a>
- <jsp:include page="/menu/bottom.jsp" flush='false' /> 
 </div>
+</div>
+</div>
+<div class="both"></div>
+ <jsp:include page="/menu/bottom.jsp" flush='false' /> 
 
 </body>
 

@@ -21,6 +21,15 @@
 $(function(){ 
   
 });
+
+$(document).ready(function() {
+  
+  if($(".left").height() < $(".right").height()){
+     $(".left").height($(".right").height());
+  }
+  
+});
+ 
 </script>
 <style>
   button{
@@ -34,9 +43,11 @@ $(function(){
 <body leftmargin="0" topmargin="0">
     <jsp:include page="/menu/top.jsp" flush='false' />
     <jsp:include page="/menu/left.jsp" flush='false' /> 
+    <jsp:include page="/menu/community_left.jsp" flush='false' />
 
 <!-- ----------------------------------------- -->
- <div class='container'>
+<div class="float_l right " style="width:80%; margin-top:80px;">
+ <div class="container" style="min-height:380px;"> 
 
 <DIV class='message'  style="width:50%;margin:0 auto; border:1px solid lightgray; position: relative;">
 <img alt="" src="../images/notice.png" style="position: absolute; top: -18px; left: -23px;">
@@ -56,8 +67,9 @@ $(function(){
   </fieldset>
   </div>
 </div>
-  <jsp:include page="/menu/bottom.jsp" flush='false' />
 </div>
+</div>
+  <jsp:include page="/menu/bottom.jsp" flush='false' />
 <!-- -------------------------------------------- -->
 </body>
 <!-- -------------------------------------------- -->

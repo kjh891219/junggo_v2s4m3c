@@ -107,6 +107,7 @@ VALUES((SELECT NVL(MAX(gdno), 0) + 1 as gdno FROM gamedevice), #{category}, #{ni
                  hprice, userid, nickname, file1, file2, wdate
       FROM gamedevice
       WHERE gdno >= (SELECT (MAX(gdno)-7) FROM gamedevice)
+      ORDER BY gdno DESC
    </select>
 
    

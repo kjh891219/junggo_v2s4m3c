@@ -28,6 +28,14 @@
    CKEDITOR.replace('content');
 
   };
+  $(document).ready(function() {
+    
+    if($(".left").height() < $(".right").height()){
+       $(".left").height($(".right").height());
+    }
+    
+  });
+   
 
 
   
@@ -46,8 +54,11 @@
 <body>
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
+    <jsp:include page="/menu/community_left.jsp" flush='false' />
+
 <!-- ----------------------------------------- -->
- <div class="container">
+<div class="float_l right " style="width:80%; margin-top:80px;">
+ <div class="container" style="min-height:380px;"> 
      
   <div class='content_menu' style='width: 90%;'>
     <A href='../reviews/list.do' class='top_select'>게시판 목록</A> > 
@@ -430,6 +441,7 @@
     </FORM>
   </DIV>
 
+</div>
 </div>
      <jsp:include page="/menu/bottom.jsp" flush='false' />     
 

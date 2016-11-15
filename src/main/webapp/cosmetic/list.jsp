@@ -136,7 +136,7 @@ window.openModal = function() {
               </div>
               
               
-            <div style="text-align: left; margin-top: 20px; margin-left: 10px;"><A href="./read.do?cno=${vo.cno}" style="color: black; font-size: 25px; font-weight: bold;">${vo.title}</A></div>     
+            <div style="text-align: left; margin-top: 20px; margin-left: 10px;"><A href="./read.do?cno=${vo.cno}" style="color: black; font-size: 17px; font-weight: bold;">${vo.title}</A></div>     
             <div  style="font-weight: bold; color: #ff0000; text-align: left; margin-left: 10px;">희망가격 > ${vo.hprice}</div>
             <div style="text-align: left; margin-left: 10px;">수량 > ${vo.quantity }, 판매지역 > ${vo.region }</div>
             <div style="text-align: left; margin-left: 10px;">등록날짜 > ${vo.wdate}</div>

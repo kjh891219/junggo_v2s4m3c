@@ -52,6 +52,15 @@
     
     win.moveTo(x, y); // 화면 가운데로 이동
    };
+   $(document).ready(function() {
+     
+     if($(".left").height() < $(".right").height()){
+        $(".left").height($(".right").height());
+     }
+     
+   });
+    
+   
 </script>
 <style type="text/css">
  .Line{
@@ -69,11 +78,13 @@
 <body>
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
+    <jsp:include page="/menu/community_left.jsp" flush='false' />
+
 <!-- ----------------------------------------- -->
+<div class="float_l right " style="width:80%; margin-top:80px;">
+ <div class="container" style="min-height:380px;"> 
   
-<div class="container">
-  
-  <DIV class='content'>
+  <DIV class='content_form'>
     <FORM name='frm' method="get" action='./update.do'>
       <input type="hidden" name="r_no" value="${reviewsVO.r_no}">
        <div class='content_menu' style='width: 100%;'>
@@ -264,6 +275,7 @@
 
 
 <!-- -------------------------------------------- -->
+</div>
 </div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

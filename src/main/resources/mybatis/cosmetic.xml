@@ -132,6 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  hprice, userid, nickname, file1, file2, wdate
       FROM cosmetic
       WHERE cno >= (SELECT (MAX(cno)-7) FROM cosmetic)
+      ORDER BY cno DESC
    </select>
     
  </mapper>

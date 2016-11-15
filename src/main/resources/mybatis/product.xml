@@ -132,6 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  hprice, userid, nickname, file2, file1, wdate
       FROM product
       WHERE pno >= (SELECT (MAX(pno)-7) FROM product)
+      ORDER BY pno DESC
    </select>
    
 </mapper>

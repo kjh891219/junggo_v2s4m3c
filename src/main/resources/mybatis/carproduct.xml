@@ -157,6 +157,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  hprice, userid, nickname, thumb, file1, wdate
       FROM carproduct
       WHERE p_no >= (SELECT (MAX(p_no)-7) FROM carproduct)
+      ORDER BY p_no DESC
    </select>
   
   

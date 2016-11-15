@@ -134,6 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  hprice, userid, nickname, file1, file2, wdate
       FROM camera
       WHERE ctno >= (SELECT (MAX(ctno)-7) FROM camera)
+      ORDER BY ctno DESC
    </select>
   
   

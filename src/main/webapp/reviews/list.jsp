@@ -79,6 +79,13 @@ function update(codeno, sort, seqno){
   $('#submit').html('저장');
   $('#sort').focus();
 }
+$(document).ready(function() {
+  
+  if($(".left").height() < $(".right").height()){
+     $(".left").height($(".right").height());
+  }
+  
+});
 
 
 </script>
@@ -121,9 +128,10 @@ function update(codeno, sort, seqno){
 <body>
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
-<!-- ----------------------------------------- -->
-<div class="container">
+     <jsp:include page="/menu/community_left.jsp" flush='false' />
 
+<div class="float_l right " style="width:80%; ">
+  <DIV class='container' style="width:90%; min-height:380px;"> 
  <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
  <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}'  class='top_select'>후기 목록 ></A>
@@ -226,6 +234,7 @@ function update(codeno, sort, seqno){
                 </div>
             </div>
 <!-- -------------------------------------------- -->
+</div>
 </div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

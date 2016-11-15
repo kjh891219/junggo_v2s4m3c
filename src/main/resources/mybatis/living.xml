@@ -108,6 +108,7 @@ VALUES((SELECT NVL(MAX(lno), 0) + 1 as lno FROM living), #{category}, #{nickname
                  hprice, userid, nickname, file1, file2, wdate
       FROM living
       WHERE lno >= (SELECT (MAX(lno)-7) FROM living)
+      ORDER BY lno DESC
    </select>
       
       

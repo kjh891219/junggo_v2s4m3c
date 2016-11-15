@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  hprice, userid, nickname, thumb, file1, wdate
       FROM book
       WHERE bno >= (SELECT (MAX(bno)-7) FROM book)
+      ORDER BY bno DESC
    </select>
    
    <!-- 게시물 수정 -->

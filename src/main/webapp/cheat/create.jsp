@@ -23,6 +23,13 @@
   window.onload=function(){
     CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
   };
+  $(document).ready(function() {
+    
+    if($(".left").height() < $(".right").height()){
+       $(".left").height($(".right").height());
+    }
+    
+  });
 </script>
 
 </head> 
@@ -31,9 +38,11 @@
 <body leftmargin="0" topmargin="0">
    <jsp:include page="/menu/top.jsp" flush='false' />
    <jsp:include page="/menu/left.jsp" flush='false' />
-<!-- ----------------------------------------- -->
+    <jsp:include page="/menu/community_left.jsp" flush='false' />
 
-<DIV class=container>
+<!-- ----------------------------------------- -->
+<div class="float_l right " style="width:80%; margin-top:80px;">
+ <div class="container" style="min-height:380px;"> 
 
 <DIV class='title'><span>글등록</span></DIV>
    <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
@@ -163,6 +172,8 @@
       </div>
 </FORM>
 </DIV>
+</DIV>
+<div class="both"></div>
 <!-- -------------------------------------------- -->
  <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

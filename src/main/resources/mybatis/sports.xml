@@ -132,6 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                  hprice, userid, nickname, file1, file2, wdate
       FROM sports
       WHERE sno >= (SELECT (MAX(sno)-7) FROM sports)
+      ORDER BY sno DESC
    </select>
     
     

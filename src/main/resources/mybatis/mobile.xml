@@ -112,6 +112,7 @@ VALUES((SELECT NVL(MAX(mno), 0) + 1 as mno FROM mobile), #{category}, #{nickname
                  hprice, userid, nickname, file1, file2, wdate
       FROM mobile
       WHERE mno >= (SELECT (MAX(mno)-7) FROM mobile)
+      ORDER BY mno DESC
    </select>
                 
      
