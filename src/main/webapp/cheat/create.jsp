@@ -41,7 +41,7 @@
     <jsp:include page="/menu/community_left.jsp" flush='false' />
 
 <!-- ----------------------------------------- -->
-<div class="float_l right " style="width:80%; margin-top:80px;">
+<div class="float_l right " style="width:80%;">
  <div class="container" style="min-height:380px;"> 
 
 <DIV class='title'><span>글등록</span></DIV>
@@ -50,7 +50,7 @@
  <input type='hidden' name='userid' id='userid' value= '${userid }'/>
  <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
 
-<DIV class='content_form'>
+<DIV class='content_form' style="margin-top:30px;">
      <DIV class="">
      <div class="float_l _left">
       <div class="">
@@ -97,9 +97,9 @@
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
         <input type='text' name='title' id='title' required="required" value='' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9"></textarea>
+      <div>
+        <label for='content' class='choice_e'>상세설명</label>
+        <textarea rows="29" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9"></textarea>
       </div>
       <hr/>
         <div class="row need">   
@@ -123,47 +123,46 @@
         <input type="file" name='file10MF' id='file10MF' size='40'>
       </div>
       <hr>
+      <h3>추가항목</h3>
             <div class='inpo'>사기 정보</div>
          <div class='line_box' id='ul_box_2'></div>
             <div class="row">
-              <label for='cheatid' class='col-xs-2 col-lg-2 need'>'허위상품등록자 ID</label>
-              <input type='text' name='cheatid' id='cheatid' value= '흰둥이'' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              <label for='cheatid' class='col-xs-3 col-lg-3 need'>'허위상품등록자 ID</label>
+              <input type='text' name='cheatid' id='cheatid' value= '흰둥이' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
               </div>
             <div class="row">
-               <label for='cheattel'  class='col-xs-2 col-lg-2 need'>허위상품등록자연락처</label>
+               <label for='cheattel'  class='col-xs-3 col-lg-3 need'>허위상품등록자연락처</label>
               <input type='text' name='cheattel' id='cheattel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
             </div>
             <div class="row">  
-              <label for='cheatemail' class='col-xs-2 col-lg-2 need'>허위상품등록자이메일</label>
+              <label for='cheatemail' class='col-xs-3 col-lg-3 need'>허위상품등록자이메일</label>
               <input type='text' name='cheatemail' id='cheatemail'  required="required" value='qwkjd@nqwk.com'  class="col-xs-3 col-lg-3">
             </div>
+      <hr/>
   
-      <h3>추가항목</h3>
       <div class='inpo'>신고자 정보</div>
       <div class='line_box' id='ul_box_1'></div>
         <div class="row"> 
-        <label for='buyprice' class='col-xs-2 col-lg-2 need'>사기금액</label>
+        <label for='buyprice' class='col-xs-3 col-lg-3 need'>사기금액</label>
         <input type='text' name='buyprice' id='buyprice'  required="required" value='100000' class="col-xs-3 col-lg-3">원
         </div>
         <div class="row">       
-        <label for='occurday'  class='col-xs-2 col-lg-2 choice'>발생시기</label>
+        <label for='occurday'  class='col-xs-3 col-lg-3 choice'>발생시기</label>
         <input type='text' name='occurday' id='occurday' value='2016년10월' class="col-xs-3 col-lg-3"> 
         </div>
-        
             <div class="row">
-              <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
+              <label for='nickname' class='col-xs-3 col-lg-3 need'>별명</label>
               <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
               </div>
             <div class="row">
-               <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
+               <label for='tel'  class='col-xs-3 col-lg-3 need'>전화번호</label>
               <input type='text' name='tel' id='tel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
             </div>
             <div class="row">  
-              <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
+              <label for='email' class='col-xs-3 col-lg-3 need'>이메일</label>
               <input type='text' name='email' id='email'  required="required" value='${memberVO.email }'  class="col-xs-3 col-lg-3">
             </div>
   
-      <hr/>
       
       <div class='text_r' >
         <button type="submit" class="btn btn-success btn-lg">등록</button>

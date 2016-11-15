@@ -79,6 +79,14 @@ $( document ).ready( function() {
       $(this).width(doc.body.scrollWidth); */
     });
   });
+  
+  $(document).ready(function() {
+     
+     if($(".left").height() < $(".right").height()){
+        $(".left").height($(".right").height());
+     }
+     
+   });
 </script>
 
 <script>
@@ -95,8 +103,8 @@ window.openModal = function() {
     <jsp:include page="/menu/community_left.jsp" flush='false' />
 
 <!-- ----------------------------------------- -->
-<div class="float_l right " style="width:80%; margin-top:80px;">
- <div style="width:100%; min-height:380px;"> 
+<div class="float_l right " style="width:80%;">
+ <div class="container" style="width:90%; min-height:380px;"> 
 
 
  <div style="overflow: hidden; position: relative; padding-top: 20px; margin: 0 auto; width: 100%;">
@@ -116,7 +124,7 @@ window.openModal = function() {
 </div>
 
 <div style="clear: both;"></div>
-<div style="width: 1040px; margin-top: 40px; ">
+<div style=" margin-top: 40px; ">
   <div style="float: left; width: 400px; position: relative; z-index: 0; display: block; ">
     <div style="position: relative; text-align: center; border-left: 1px solid #dadada; border-right: 1px solid #dadada; border-top: 1px solid #dadada; border-bottom: 1px solid #dadada; display: block; ">
       <div  style="display: table; width: 400px; height: 400px; text-align: center; vertical-align: top;">
@@ -254,7 +262,7 @@ window.openModal = function() {
     
     </div>
   </div>
-  <div style="position: relative; float: right; width: 580px; padding-right: 30px;">
+  <div style="position: relative; float: right; width: 50%; min-width:290px; padding-right: 30px;">
    <strong style="font-size: 20px; font-weight: bold; color: #111; margin-top: 21px; text-align:center;">
            신고자 정보
    </strong>
@@ -290,7 +298,7 @@ window.openModal = function() {
   </div>
   
   
-  <div style="position: relative; float: right; width: 580px; padding-right: 30px; margin-top: 50px;">
+  <div style="position: relative; float: right; width: 50%; min-width:290px; padding-right: 30px; margin-top: 50px;">
    <strong style="font-size: 20px; font-weight: bold; color: #111; margin-top: 21px; text-align:center;">
            상품정보
    </strong>
@@ -382,7 +390,6 @@ window.openModal = function() {
 
 <!-- -------------------------------------------- -->
 <iframe src="${pageContext.request.contextPath}/cheat_reply/list.do?ctno=${cheatVO.ctno}" class='myFrame' width="100%" style="border-style: none;"></iframe>
-<a href="#" class="top">Top</a>
 </div>
 </div>
 </div>

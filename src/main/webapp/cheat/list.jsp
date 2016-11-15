@@ -85,7 +85,7 @@ window.openModal = function() {
   <jsp:include page="/menu/top.jsp" flush='false' /> 
   <jsp:include page="/menu/left.jsp" flush='false' />
     <jsp:include page="/menu/community_left.jsp" flush='false' />
-<div class="float_l right " style="width:80%; margin-top:80px;">
+<div class="float_l right " style="width:80%;">
  <div class="container" style="min-height:380px;"> 
   
      
@@ -117,10 +117,10 @@ window.openModal = function() {
         <col style="width: 5%;"></col>
         <col style="width: 10%;"></col>
         <col style="width: 10%;"></col>
-        <col style="width: 30%;"></col>
+        <col style="width: 28%;"></col>
+        <col style="width: 7%;"></col>
         <col style="width: 10%;"></col>
-        <col style="width: 10%;"></col>
-        <col style="width: 10%;"></col>       
+        <col style="width: 15%;"></col>       
         
       </colgroup>
           

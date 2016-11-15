@@ -16,27 +16,34 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/javascript" src="../js/event.js"></script>
-
+<script type="text/javascript">
+$(document).ready(function() {
+   
+   if($(".left").height() < $(".right").height()){
+      $(".left").height($(".right").height());
+   }
+   
+ });
+</script>
 
 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
+<jsp:include page="/menu/top.jsp" flush='false' />
+<jsp:include page="/menu/left.jsp" flush='false' />
+<jsp:include page="/menu/community_left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
-
-
-
+<div class="float_l right " style="width:80%;">
+ <div class="container" style="width:90%; min-height:380px;"> 
 <DIV class='center-block'>
 <DIV class='title'>글수정</DIV>
 <FORM name='frm' method='POST' action='./update.do' class='form-inline' enctype="multipart/form-data">
   <input type='hidden' name='ctno' id='ctno' value='${cheatVO.ctno}'>
-  <fieldset>
-    <ul>
+    <div class="float_l _left" style="margin-left:20px;">
     <div class="row">
-      <div class="col-xs-5">
         <label class='select' for='gubun'>*신고구분</label>
-        <select name='gubun' id="gubun" class="form-control-lg-10-lg-10-lg-10-lg-10">
+        <select name='gubun' id="gubun" class="form-control-lg-10-lg-10-lg-10-lg-10 full">
            <option value="${cheatVO.gubun }" selected="selected">${cheatVO.gubun }</option>
            <option value="물품미발송" >물품미발송</option>
            <option value="상태불량">상태불량</option>
@@ -44,28 +51,11 @@
            <option value="택배착불">택배착불</option>
         </select>
       </div>
-      <div class="col-xs-5">
-      <label for='tel' >*전화번호</label>
-        <input type='text' name='tel' id='tel'  required="required" value='${cheatVO.tel }' class="form-control-lg-10-lg-10-lg-10"> 
       </div>
-      </div>
-      <hr/>
-      <div class="row">
-      <div class="col-xs-5"> 
-        <label for='nickname'>*별명</label>
-        <input type='text' name='nickname' id='nickname' value= '${cheatVO.nickname }' required="required" readonly="readonly" class='form-control-lg-10-lg-10-lg-10-lg-10'/>
-      </div>
-     <div class="col-xs-5">    
-        <label for='passwd'>*패스워드</label>
-        <input type='password' name='passwd' id='passwd' value='${cheatVO.passwd }' required="required" class='form-control-lg-10-lg-10-lg-10'/>
-      </div>
-      </div>
-      <hr/>
-            
-      <div class="row">
-             <div class="col-xs-5">  
+      <div class='float_l _right' >
+      <div class="row ">
         <label for='region'>*지역</label>
-         <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10">
+         <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10 full">
            <option value="${cheatVO.region }" selected="selected">${cheatVO.region }</option>
            <option value="서울">서울</option>
            <option value="인천">인천</option>
@@ -86,9 +76,16 @@
         </select>  
       </div>
       </div>
+      <div class="both"></div>
+            
       
       <hr/>
-        <div class="form-group">
+      
+      <div class="row">
+        <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
+        <input type='text' name='title' id='title' required="required" value='${cheatVO.title}' class="col-xs-9 col-lg-9">
+      </div>
+        <div >
         <label for='content'>상세설명</label>
         <textarea rows="10" cols="100"  name="content" id="content" placeholder="내용을 입력하세요" class="form-group">${cheatVO.content}</textarea>
       </div>
@@ -97,15 +94,15 @@
       <div class='inpo'>사기 정보</div>
          <div class='line_box' id='ul_box_2'></div>
             <div class="row">
-              <label for='cheatid' class='col-xs-2 col-lg-2 need'>'허위상품등록자 ID</label>
+              <label for='cheatid' class='col-xs-3 col-lg-3 need'>'허위상품등록자 ID</label>
               <input type='text' name='cheatid' id='cheatid' value= '${cheatVO.cheatid}' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
               </div>
             <div class="row">
-               <label for='cheattel'  class='col-xs-2 col-lg-2 need'>허위상품등록자연락처</label>
+               <label for='cheattel'  class='col-xs-3 col-lg-3 need'>허위상품등록자연락처</label>
               <input type='text' name='cheattel' id='cheattel'  required="required" value='${cheatVO.cheattel }' class="col-xs-3 col-lg-3"> 
             </div>
             <div class="row">  
-              <label for='cheatemail' class='col-xs-2 col-lg-2 need'>허위상품등록자이메일</label>
+              <label for='cheatemail' class='col-xs-3 col-lg-3 need'>허위상품등록자이메일</label>
               <input type='text' name='cheatemail' id='cheatemail'  required="required" value='${cheatVO.cheatemail }'  class="col-xs-3 col-lg-3">
             </div>
             
@@ -114,29 +111,32 @@
       <div class='inpo'>신고자 정보</div>
       <div class='line_box' id='ul_box_1'></div>
         <div class="row"> 
-        <label for='buyprice class='col-xs-2 col-lg-2 need'>사기금액</label>
+        <label for='buyprice' class='col-xs-3 col-lg-3 need'>사기금액</label>
         <input type='text' name='buyprice' id='buyprice'  required="required" value='${cheatVO.buyprice }' class="col-xs-3 col-lg-3">원
         </div>
         <div class="row">       
-        <label for='occurday'  class='col-xs-2 col-lg-2 choice'>발생시기</label>
+        <label for='occurday'  class='col-xs-3 col-lg-3 choice'>발생시기</label>
         <input type='text' name='occurday' id='occurday' value='${cheatVO.occurday }' class="col-xs-3 col-lg-3"> 
         </div>
-        <div class='line_box' id='ul_box_2'></div>
             <div class="row">
-              <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
+              <label for='nickname' class='col-xs-3 col-lg-3 need'>별명</label>
               <input type='text' name='nickname' id='nickname' value= '${cheatVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
               </div>
           
             <div class="row">  
-              <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
+              <label for='email' class='col-xs-3 col-lg-3 need'>이메일</label>
               <input type='text' name='email' id='email'  required="required" value='${cheatVO.email }'  class="col-xs-3 col-lg-3">
+            </div>
+            <div class="row">  
+              <label for='tel' class='col-xs-3 col-lg-3 need'>전화번호</label>
+              <input type='text' name='tel' id='tel'  required="required" value='${cheatVO.tel }'   class="col-xs-3 col-lg-3">
             </div>
   
       <hr/>  
                 
-      <div id='file2Panel' class="form-group">
+      <div id='file2Panel' class="row">
         <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일</label>
-        <div class="col-xs-10 col-lg-10">
+        <div class="col-xs-9 col-lg-9">
           <c:set var='file2' value="${fn:toLowerCase(cheatVO.file2)}" />
           <c:choose>
             <c:when test="${fn:endsWith(file2, '.jpg')}">
@@ -155,16 +155,16 @@
         </div>
       </div>
       <hr/>
-      <div class="form-group">   
+      <div class="row">   
         <label for="file2MF" class="col-xs-2 col-lg-2 control-label">업로드 파일</label>
         <div class="col-xs-10 col-lg-10">
-          <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
+          <input type="file" class="form-control" name='file2MF' id='file2MF' style="width:100%;" >
           <br>
           Preview(미리보기) 이미지 자동 생성됩니다.
         </div>
       </div>      
       <hr/>
-      <div id='file4Panel' class="form-group">
+      <div id='file4Panel' class="row">
         <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일2</label>
         <div class="col-xs-10 col-lg-10">
           <c:set var='file4' value="${fn:toLowerCase(cheatVO.file4)}" />
@@ -185,17 +185,17 @@
         </div>
       </div>
       <hr/>
-      <div class="form-group">   
+      <div class="row">   
         <label for="file4MF" class="col-xs-2 col-lg-2 control-label">업로드 파일2</label>
         <div class="col-xs-10 col-lg-10">
-          <input type="file" class="form-control" name='file4MF' id='file4MF' size='40' >
+          <input type="file" class="form-control" name='file4MF' id='file4MF' style="width:100%;" >
           <br>
           Preview(미리보기) 이미지 자동 생성됩니다.
         </div>
       </div>
       
        <hr/>
-        <div id='file6Panel' class="form-group">
+        <div id='file6Panel' class="row">
         <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일3</label>
         <div class="col-xs-10 col-lg-10">
           <c:set var='file6' value="${fn:toLowerCase(cheatVO.file6)}" />
@@ -216,16 +216,16 @@
         </div>
       </div>
       <hr/>
-      <div class="form-group">   
+      <div class="row">   
         <label for="file6MF" class="col-xs-2 col-lg-2 control-label">업로드 파일3</label>
         <div class="col-xs-10 col-lg-10">
-          <input type="file" class="form-control" name='file6MF' id='file6MF' size='40' >
+          <input type="file" class="form-control" name='file6MF' id='file6MF' style="width:100%;" >
           <br>
           Preview(미리보기) 이미지 자동 생성됩니다.
         </div>
       </div>
        <hr/>
-       <div id='file8Panel' class="form-group">
+       <div id='file8Panel' class="row">
         <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일4</label>
         <div class="col-xs-10 col-lg-10">
           <c:set var='file8' value="${fn:toLowerCase(cheatVO.file8)}" />
@@ -246,17 +246,17 @@
         </div>
       </div>
       <hr/>
-      <div class="form-group">   
+      <div class="row">   
         <label for="file8MF" class="col-xs-2 col-lg-2 control-label">업로드 파일4</label>
         <div class="col-xs-10 col-lg-10">
-          <input type="file" class="form-control" name='file8MF' id='file8MF' size='40' >
+          <input type="file" class="form-control" name='file8MF' id='file8MF' style="width:100%;" >
           <br>
           Preview(미리보기) 이미지 자동 생성됩니다.
         </div>
       </div>
               
        <hr/>
-        <div id='file10Panel' class="form-group">
+        <div id='file10Panel' class="row">
         <label for="content" class="col-xs-2 col-lg-2 control-label">등록된 파일5</label>
         <div class="col-xs-10 col-lg-10">
           <c:set var='file10' value="${fn:toLowerCase(cheatVO.file10)}" />
@@ -277,28 +277,26 @@
         </div>
       </div>
       <hr/>
-      <div class="form-group">   
+      <div class="row">   
         <label for="file10MF" class="col-xs-2 col-lg-2 control-label">업로드 파일5</label>
         <div class="col-xs-10 col-lg-10">
-          <input type="file" class="form-control" name='file10MF' id='file10MF' size='40' >
+          <input type="file" class="form-control" name='file10MF' id='file10MF' style="width:100%;" >
           <br>
           Preview(미리보기) 이미지 자동 생성됩니다.
         </div>
       </div>
-       <hr/>
       <hr/>
-      <div>
-      <li class='right'>
+      <div class='text_r'>
         <button type="submit" class="btn btn-success btn-lg">수정</button>
         <button type="button" onclick="location.href='./list.jsp'" class="btn btn-danger btn-lg">취소</button>
-      </li>         
-    </ul>
-  </fieldset>
+      </div>         
 </FORM>
 </DIV>
-
+</DIV>
+</DIV>
+<div class="both"></div>
 <!-- -------------------------------------------- -->
-<%-- <jsp:include page="/menu/bottom.jsp" flush='false' /> --%>
+<jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 <!-- -------------------------------------------- -->
 </html> 
