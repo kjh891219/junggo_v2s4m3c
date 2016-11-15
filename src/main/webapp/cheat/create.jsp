@@ -142,14 +142,14 @@
       <div class='inpo'>신고자 정보</div>
       <div class='line_box' id='ul_box_1'></div>
         <div class="row"> 
-        <label for='buyprice class='col-xs-2 col-lg-2 need'>사기금액</label>
+        <label for='buyprice' class='col-xs-2 col-lg-2 need'>사기금액</label>
         <input type='text' name='buyprice' id='buyprice'  required="required" value='100000' class="col-xs-3 col-lg-3">원
         </div>
         <div class="row">       
         <label for='occurday'  class='col-xs-2 col-lg-2 choice'>발생시기</label>
         <input type='text' name='occurday' id='occurday' value='2016년10월' class="col-xs-3 col-lg-3"> 
         </div>
-        <div class='line_box' id='ul_box_2'></div>
+        
             <div class="row">
               <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
               <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>

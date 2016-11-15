@@ -1,78 +1,84 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   $(document).ready(function(){
+         $("#menu_top").click(function(){
+            if($("#category_list").css("display") == "none"){
+               $('#category_list').toggle('fast', "swing", function() {
+                 $(this).show();
+               });
+            }else{
+               $('#category_list').toggle('fast', "linear",  function() {
+                 $(this).hide();
+               });
+            }
+          });
+   });
+   
+   $(window).scroll(function () {
+      if ($(this).scrollTop() > 100) {
+         $('.scrollup').fadeIn();
+      } else {
+         $('.scrollup').fadeOut();
+      }
+   });
+   
+   function upscroll() {
+      $("html, body").animate({
+         scrollTop: 0
+      }, 600);
+      return false;
+   };
+   
 
-<!DOCTYPE html> 
-<html lang="ko"> 
-<head> 
-<meta charset="UTF-8"> 
-<title>알림</title> 
+   $(document).ready(function(){
+      $("#downs").click(function(){
+         if($("#down_b").css("display") == "none"){
+            $('#down_b').slideDown('slow', function() {
+              $(this).show();
+              $("#down_img").attr("src","../images/drop_up.png");
+            });
+         }else{
+            $('#down_b').slideUp('slow', function() {
+              $(this).hide();
+            $("#down_img").attr("src","../images/drop_down.png");
+            });
+         }
+       });
+   });
 
-<script type="text/javascript" src="../js/tool.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/JavaScript"
-          src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="../js/tool.js"></script>
-<script type="text/javascript" src="../js/event.js"></script>
-<link href="${pageContext.request.contextPath}/css/style.css" rel="Stylesheet" type="text/css">
-<script type="text/javascript">
-$(function(){ 
-  
-});
 
-$(document).ready(function() {
-  
-  if($(".left").height() < $(".right").height()){
-     $(".left").height($(".right").height());
+//현재 스크롤바의 위치를 저장하는 변수 (px)
+var currentScrollTop = 0;
+   
+//비동기식 jQuery이므로 window load 후 jQuery를 실행해야 함
+window.onload = function() {
+  // 새로고침 했을 경우를 대비한 메소드 실행
+  scrollController();
+   
+  // 스크롤을 하는 경우에만 실행됨
+  $(window).on('scroll', function() {
+      scrollController();
+  });
+}
+   
+//메인 메뉴의 위치를 제어하는 함수
+function scrollController() {
+  currentScrollTop = $(window).scrollTop();
+  if (currentScrollTop < 80) {
+      $('#logo').css('display', 'block');
+      $('#category_list').css('top',170-(currentScrollTop));
+      
+  } else {
+      $('#logo').css('display', 'none');
+      $('#category_list').css('top', 80);
+      
   }
-  
-});
- 
-</script>
-<style>
-  button{
-    background-color: transparent;
-    border:1px solid lightgray;
-    
-  }
-</style>
-</head> 
-<!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
-    <jsp:include page="/menu/top.jsp" flush='false' />
-    <jsp:include page="/menu/left.jsp" flush='false' /> 
-    <jsp:include page="/menu/community_left.jsp" flush='false' />
+}
 
-<!-- ----------------------------------------- -->
-<div class="float_l right " style="width:80%; margin-top:80px;">
- <div class="container" style="min-height:380px;"> 
-
-<DIV class='message'  style="width:50%;margin:0 auto; border:1px solid lightgray; position: relative;">
-<img alt="" src="../images/notice.png" style="position: absolute; top: -18px; left: -23px;">
-<div style="width:50%; height:200px; margin:0 auto; padding-top:70px;">    
-  <fieldset>
-    <ul class="text_c">
-      <c:forEach var="msg" items="${msgs}">
-        <li>${msg}</li>
-      </c:forEach>  
-      <li></li>
-      <li style="display:block; margin-top:20px;">
-      <c:forEach var="link" items="${links}">
-        ${link}
-      </c:forEach>
-      </li>
-    </ul>
-  </fieldset>
-  </div>
-</div>
-</div>
-</div>
-  <jsp:include page="/menu/bottom.jsp" flush='false' />
-<!-- -------------------------------------------- -->
-</body>
-<!-- -------------------------------------------- -->
-</html> 
-
-
+function message(){
+   var url = '${pageContext.request.contextPath}/message/list.do?flag=recv';
+   var win = window.open(url, '쪽지함', 'width=600px, height=700px');
+   
+   var x = (screen.width - 500) / 2;
+   var y = (screen.height - 440) / 2;
+   
+   win.moveTo(x, y); // 화면 가운데로 이동
+ }

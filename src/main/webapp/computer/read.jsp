@@ -21,7 +21,10 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+  
+  
+  
+  
   $(".photo_img img").attr("src", $("#file1").parent("a").attr("href"));
 
   //Slide Gallery 이미지 샐랙터

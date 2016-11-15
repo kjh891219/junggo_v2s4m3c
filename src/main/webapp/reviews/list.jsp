@@ -222,12 +222,12 @@ $(document).ready(function() {
   
   <div class="panel-footer">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <button onclick="create_login();" type='button' onclick="location.href='./create.do'" 
                                          type="button" class="btn btn-success btn-sm btn-block">
                             <span class="fa fa-send"></span>등록</button>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                        <button type="button" onclick="location.reload();" class="btn btn-primary btn-sm btn-block">
                            새로 고침</button>
                     </div>
