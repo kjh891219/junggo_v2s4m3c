@@ -70,5 +70,10 @@ public class CosmeticDAO implements CosmeticDAOInter {
     return mybatis.selectOne("cosmetic.test", userid);
   }
 
+  @Override
+  public List<CosmeticVO> newlist() {
+    return mybatis.selectList("cosmetic.newlist");
+  }
+
  
 }

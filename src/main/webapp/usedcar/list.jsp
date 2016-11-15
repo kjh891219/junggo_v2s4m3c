@@ -89,9 +89,8 @@ function update(codeno, sort, seqno){
    float:center;
    margin-top:10px;
    background-color: #FFFFFF;
-   width:200px;
+   width:20%;
    border:none;
-   width:20%; 
   margin:0 auto;
   }
   
@@ -248,8 +247,9 @@ function update(codeno, sort, seqno){
                             <span class="fa fa-send"></span>등록</button>
                     </div>
                     <div class="col-md-6">
+                    
                        <button type="button" onclick="location.reload();" class="btn btn-primary btn-sm btn-block">
-                           새로 고침</button>
+                            <span class="fa fa-send"></span> 새로 고침</button>
                     </div>
                 </div>
             </div>

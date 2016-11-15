@@ -47,7 +47,8 @@ table{
 button {
 background-color:transparent; 
 }
-.read_Y {
+
+.read_Y td, .read_Y span {
 color: #BDBDBD;
 }
 </style>
@@ -161,12 +162,12 @@ color: #BDBDBD;
                <c:choose>
                  <c:when test="${flag == 'recv'}">
                    <c:choose>
-                     <c:when test="${vo.read_ck == 'Y' }">
+                      <c:when test="${vo.read_ck == 'Y' }"> 
                        <tr class="read_Y">
-                     </c:when>
+                      </c:when>
                      <c:when test="${vo.read_ck == 'N' }">
                        <tr>
-                     </c:when>
+                     </c:when> 
                    </c:choose>
                  </c:when>
                  <c:when test="${flag == 'send'}">

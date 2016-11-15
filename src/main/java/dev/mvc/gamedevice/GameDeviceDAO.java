@@ -49,5 +49,9 @@ public int count(HashMap hashMap) {
 public List<GameDeviceVO> list2(HashMap<String, Object> hashMap) {
   return mybatis.selectList("gamedevice.list2", hashMap);
 }
+@Override
+public List<GameDeviceVO> newlist() {
+  return mybatis.selectList("gamedevice.newlist");
+}
 
 }

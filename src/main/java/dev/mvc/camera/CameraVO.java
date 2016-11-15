@@ -26,6 +26,10 @@ public class CameraVO {
   );
   */
   
+  
+  
+  
+  
   /**글번호*/
   private int ctno;
   /**카테고리*/

@@ -3,7 +3,28 @@ package dev.mvc.living;
 import org.springframework.web.multipart.MultipartFile;
 
 public class LivingVO {
+  
+//---------------------------------------
+  /** 마이페이지 글 번호 **/
+  private int my_no;
+  /** 마이페이지 글 수 **/
+  private int my_cnt;
+  public int getMy_no() {
+    return my_no;
+  }
+  public void setMy_no(int my_no) {
+    this.my_no = my_no;
+  }
+  public int getMy_cnt() {
+    return my_cnt;
+  }
 
+  public void setMy_cnt(int my_cnt) {
+    this.my_cnt = my_cnt;
+  }
+//---------------------------------------
+  
+  
   private int lno; 
   private String category;
   private String nickname;

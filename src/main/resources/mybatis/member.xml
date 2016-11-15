@@ -208,13 +208,176 @@ MEMBER TABLE
   WHERE userid=#{userid}
   order by ano desc
   </select>  
+  
+  
   <select id="camera_list" resultType="CameraVO" parameterType="String" >
   select ctno as my_no, deal_code, title, hprice, deal_way, region, wdate, cnt,
   (select count(ctno) from camera where userid=#{userid}) as my_cnt
   from camera
   WHERE userid=#{userid}
   order by ctno desc
+  </select> 
+  <select id="computer_list" resultType="ComputerVO" parameterType="String">
+    SELECT ctno as my_no, deal_code, title, hprice, deal_way, region, wdate, cnt,
+    (select count(ctno) from computer where userid=#{userid}) as my_cnt    
+    FROM computer
+    WHERE userid=#{userid}
+    order by ctno desc
+  </select> 
+  
+  
+  <select id="book_list" resultType="BookVO" parameterType="String">
+    SELECT bno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(bno) from book where userid=#{userid}) as my_cnt    
+    FROM book
+    WHERE userid=#{userid}
+    order by bno desc
   </select>  
+  
+  
+  <select id="cloth_list" resultType="ClothVO" parameterType="String">
+    SELECT clothno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(clothno) from CLOTH where userid=#{userid}) as my_cnt
+    FROM CLOTH
+    WHERE userid=#{userid}
+    order by clothno desc
+  </select> 
+  <select id="cosmetic_list" resultType="CosmeticVO" parameterType="String">
+    SELECT cno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(cno) from COSMETIC where userid=#{userid}) as my_cnt
+    FROM COSMETIC
+    WHERE userid=#{userid}
+    order by cno desc
+  </select> 
+  <select id="product_list" resultType="ProductVO" parameterType="String">
+    SELECT pno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(pno) from product where userid=#{userid}) as my_cnt
+    FROM product
+    WHERE userid=#{userid}
+    order by pno desc
+  </select> 
+  
+  <select id="game_list" resultType="GameVO" parameterType="String">
+    SELECT gno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(gno) from game where userid=#{userid}) as my_cnt
+    FROM game
+    WHERE userid=#{userid}
+    order by gno desc
+  </select> 
+  <select id="gamedevice_list" resultType="GameDeviceVO" parameterType="String">
+    SELECT gdno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(gdno) from gamedevice where userid=#{userid}) as my_cnt
+    FROM gamedevice
+    WHERE userid=#{userid}
+    order by gdno desc
+  </select>
+   <select id="mobile_list" resultType="MobileVO" parameterType="String">
+    SELECT mno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(mno) from mobile where userid=#{userid}) as my_cnt
+    FROM mobile
+    WHERE userid=#{userid}
+    order by mno desc
+  </select> 
+  
+  <select id="living_list" resultType="LivingVO" parameterType="String">
+    SELECT lno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(lno) from living where userid=#{userid}) as my_cnt
+    FROM living
+    WHERE userid=#{userid}
+    order by lno desc
+  </select> 
+  <select id="sports_list" resultType="SportsVO" parameterType="String">
+    SELECT sno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(sno) from sports where userid=#{userid}) as my_cnt
+    FROM sports
+    WHERE userid=#{userid}
+    order by sno desc
+  </select> 
+
+  
+  <select id="usedcar_list" resultType="UsedcarVO" parameterType="String">
+    SELECT u_no as my_no, deal_code, title, hprice, deal_way, region, wdate, cnt,
+    (select count(u_no) from usedcar where userid=#{userid}) as my_cnt    
+    FROM usedcar
+    WHERE userid=#{userid}
+    order by u_no desc
+  </select> 
+  <select id="carproduct_list" resultType="CarproductVO" parameterType="String">
+    SELECT p_no as my_no, deal_code, title, hprice, deal_way, region, wdate, cnt,
+    (select count(p_no) from carproduct where userid=#{userid}) as my_cnt    
+    FROM carproduct
+    WHERE userid=#{userid}
+    order by p_no desc
+  </select> 
+  <select id="music_list" resultType="MusicVO" parameterType="String">
+    SELECT ctno as my_no, deal_code, title, hprice, deal_way, region, wdate , cnt,
+    (select count(ctno) from music where userid=#{userid}) as my_cnt    
+    FROM music
+    WHERE userid=#{userid}
+    order by ctno desc
+  </select>
+   
+  <!-- 구조가 다른 게시판 -->  
+   <select id="reviews_list" resultType="ReviewsVO" parameterType="String">
+    SELECT r_no, seller_nick, t_category, title, wdate, cnt,
+    (select count(r_no) from reviews where userid=#{userid}) as my_cnt    
+    FROM reviews
+    WHERE userid=#{userid}
+    order by r_no desc
+  </select>
+   <select id="cheat_list" resultType="CheatVO" parameterType="String">
+    SELECT ctno, GUBUN, TITLE, CHEATID, wdate, cnt,
+    (select count(ctno) from cheat where userid=#{userid}) as my_cnt    
+    FROM cheat
+    WHERE userid=#{userid}
+    order by ctno desc
+  </select>
+ 
+  <!-- 문의 내역  -->
+ <!--  <select id="qna_count" resultType="int" parameterType="HashMap">
+      SELECT COUNT(qnano) as cnt
+      FROM qna
+      <choose>
+      <when test="col == 'title'">
+        WHERE title LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'content'">
+        WHERE content LIKE '%' || #{word} || '%' 
+      </when>
+      <when test="col == 'title_content'">
+        WHERE title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+      </when>      
+    </choose>
+  </select>
+  <select id="qna_list" resultType="QnAVO" parameterType="HashMap" >
+    SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum, r
+    FROM(
+             SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum, rownum as r
+             FROM(
+                      SELECT qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
+               tel, email, passwd, cnt, replycnt, grpno, indent, ansnum
+                      FROM qna
+                      WHERE userid=#{userid} 
+                      <choose>
+                        <when test="col == 'title'">
+                           AND title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           AND content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           AND title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                      ORDER BY grpno DESC, ansnum ASC
+             )
+    )
+    WHERE <![CDATA[r >=#{startNum} AND r <= #{endNum}]]>
+  </select>  -->
+  
+  
   <!-- ********************************************** 마이 페이지 끝   ********************************************************  -->
 </mapper>
 

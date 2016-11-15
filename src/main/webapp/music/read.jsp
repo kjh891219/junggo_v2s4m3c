@@ -30,10 +30,20 @@
     });
   });
   
+  window.openModal = function() {
+    $( '#myModal' ).modal( 'show' );
+    }
+  
   function send_wish(hprice, nickname, title, thumb){
-    var url = document.location.href;
+    <% if( session.getAttribute("userid") == null) { %>
+    alert('로그인 한 사용자만 이용이 가능합니다');
+    window.openModal();
+    return false;
+    <% } else { %>
+     var url = document.location.href;
      location.href = '../favorite/create.do?nickname='+nickname+'&title='+title+'&hprice='+hprice+'&url='+url+'&thumb='+thumb; 
- 
+    return true;
+    <% } %> 
   }
   
   function profile(userid, nickname){
@@ -48,6 +58,12 @@
   }
   
   function msg_list(userid){
+    <% if( session.getAttribute("userid") == null) { %>
+    alert('로그인 한 사용자만 이용이 가능합니다');
+    window.openModal();
+    return false;
+    <% } else { %>
+    
     $("#detail").css("display","block");
     var url = '../message/create.do?userid='+userid;
     var encodedInputString=escape(url);
@@ -57,6 +73,8 @@
     var y = (screen.height - 440) / 2;
     
     win.moveTo(x, y); // 화면 가운데로 이동
+    return true;
+    <% } %> 
    };
   
 </script>
@@ -84,13 +102,24 @@
      
      <input type="hidden" name="userid" value="${musicVO.userid}">
   <div class='content_menu' style='width: 100%;'>
-   <A href='../music/list.do?&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>음향기기 목록</A>>
-    <A href="javascript:location.reload();" class='top_select'>새로고침</A>｜
+   <A href='../music/list.do?&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>음향기기 목록</A>
+    <%-- <A href="javascript:location.reload();" class='top_select'>새로고침</A>｜
     <A href='./create.do?' class='top_select'>등록</A>｜
     <A href='./update.do?ctno=${musicVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>수정</A>｜
-    <A href='./delete.do?ctno=${musicVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>삭제</A>
+    <A href='./delete.do?ctno=${musicVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>삭제</A> --%>
   </div>
   <BR><BR><BR>
+  
+    <div style="float:left; margin-top:15%">
+   <A href="./read.do?ctno=${musicVO.ctno + 1}"   class='page_move'  title='이전페이지'>
+
+  <IMG src='../images/Left.png' style='min-width:50%;'></A></div>
+  
+    <div style="float:right; margin-top:15%">
+   <A href="./read.do?ctno=${musicVO.ctno - 1}"   class='page_move'  title='다음페이지'>
+
+  <IMG src='../images/Right.png' style='min-width:50%;'></A></div>
+  
   <div class="page-body" style="width:80%; margin:0 auto;" >
       <div class="thumb-info" style="float:left; width:50%; min-width:200px; margin-top:3%; margin-right:60px;">
            <div class="thumb-wrap">
@@ -119,34 +148,41 @@
                 </colgroup>
           <tbody>
            <tr>
-            <th scope="row"><div class="tb-left">category</div></th>
+            <th scope="row"><div class="tb-left">카테고리</div></th>
              <td><div class="category">${musicVO.category}</div></td>
            </tr>
            <tr>
-            <th scope="row"><div class="tb-left">hope price</div></th>
+            <th scope="row"><div class="tb-left">희망가격 price</div></th>
               <td><div class="hprice">${musicVO.hprice}원</div></td>
            </tr>
            <tr>
-            <th scope="row"><div class="tb-left">deal_code</div></th>
+            <th scope="row"><div class="tb-left">거래구분</div></th>
              <td><div class="deal_code">${musicVO.deal_code}</div></td>
            </tr>
            <tr>
-            <th scope="row"><div class="tb-left">nickname</div></th>
+            <th scope="row"><div class="tb-left">닉네임</div></th>
              <td><div class="nickname">
              <A href="javascript: profile(' ${musicVO.userid}' ,' ${musicVO.nickname}') ;" class='list_tag'  title='프로필'>${musicVO.nickname}</A>
              </div></td>
            </tr>
            <tr>
-            <th scope="row"><div class="tb-left">deal_way</div></th>
+            <th scope="row"><div class="tb-left">거래방법</div></th>
              <td><div class="deal_way">${musicVO.deal_way}</div></td>
            </tr>
       </tbody>
       </table>
       <BR><BR>
       <div class="icon" style="text-align: center;border-top:1px solid #d6d6c2; border-bottom:1px solid #d6d6c2;">
-      <A href="javascript: send_wish( ' ${musicVO.hprice}' ,' ${musicVO.nickname}' , ' ${musicVO.title}' ,' ${musicVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
+       <c:if test="${(musicVO.userid eq userid)}">
+        <IMG src="../images/modify.png" onclick="location.href='./update.do?ctno=${musicVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'" title='수정'>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <IMG src="../images/delete.png"  onclick="location.href='./delete.do?ctno=${musicVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'" title='삭제'>
+       </c:if>
+       <c:if test ="${(musicVO.userid ne userid)}">
+         <A href="javascript: send_wish( ' ${musicVO.hprice}' ,' ${musicVO.nickname}' , ' ${musicVO.title}' ,' ${musicVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
           <IMG src='../images/favorite_love.png' alt="WishList"></A>
-      <A href="javascript: msg_list(' ${musicVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
+         <A href="javascript: msg_list(' ${musicVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
+       </c:if>
       </div>
      </div>
    </div>
@@ -156,16 +192,17 @@
 <div style="clear:both;"></div>
   <div id="detail_detail" style=" text-align: center; margin-top:8%;">
   <div class="Line"></div>
+  <br>
     <h3 class="tit-detail">DETAIL</h3>
     <BR>
     <div class="Line" ></div>
     <div>
     <FONT color=#000000 face=바탕><SPAN style="FONT-SIZE: 9pt">
-      <BR><BR>region : ${musicVO.region}
-      <BR><BR>purchase date :  ${musicVO.purc_date}
-      <BR><BR>product_code : ${musicVO.product_code}
-      <BR><BR>quantity : ${musicVO.quantity}
-      <BR><BR>E-mail : ${musicVO.email}
+      <BR><BR>지역 : ${musicVO.region}
+      <BR><BR>구매날짜 :  ${musicVO.purc_date}
+      <BR><BR>상품구분 : ${musicVO.product_code}
+      <BR><BR>수량 : ${musicVO.quantity}
+      <BR><BR>이메일 : ${musicVO.email}
       <BR><BR>tel : ${musicVO.tel}
       </SPAN></FONT>
       <BR><BR>
@@ -215,7 +252,7 @@
     
 
      <iframe style="clear:both; text-align: center;" src="${pageContext.request.contextPath}/music_reply/list.do?ctno=${musicVO.ctno}" 
-     scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;">
+     scrolling=no name=ce width=100% height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;">
     </iframe>
 
     

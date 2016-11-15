@@ -25,7 +25,20 @@ $(function(){
   $.removeCookie('checkNickname'); // 기존의 쿠기 값을 삭제  
   $.removeCookie('checkEmail'); // 기존의 쿠기 값을 삭제  
     
- 
+  $('#pwd').focusout(function() {
+    var pwd = $('#pwd').val();
+      
+    if((pwd==null) || (pwd=="") ){
+      $('#panel_pwd').css('color', '#dc143c');
+      $('#panel_pwd').css('padding-left', '4px');
+      $('#panel_pwd').css('display', 'block');
+      $('#panel_pwd').css('margin', '10px 0 0');
+      $('#panel_pwd').css('line-height', '14px');
+      $('#panel_pwd').html('비밀번호를 입력해 주세요.');
+    }else{
+    }
+  });
+  
   $('#pwd2').focusout(function() {
       if ($('#pwd').val() == $('#pwd2').val()) {
         $('#panel_pwd').css('color', '#008392');
@@ -50,15 +63,14 @@ $(function(){
       var params = 'nickname=' + $('#nickname').val();
       var nickname = $('#nickname').val().replace(/(^\s*)|(\s*$)/gi, "");
       
-      
       if((nickname==null) || (nickname=="") ){
         $('#panel_nickname').css('color', '#dc143c');
         $('#panel_nickname').css('padding-left', '4px');
         $('#panel_nickname').css('display', 'block');
         $('#panel_nickname').css('margin', '10px 0 0');
         $('#panel_nickname').css('line-height', '14px');
-        $('#panel_nickname').html('닉네임이 없습니다.');
-      }else{
+        $('#panel_nickname').html('닉네임을 입력해 주세요.');
+      } else{
         $.post('./checkNickname.do', params, checkNickname_res, 'json');  
       }  
     });
@@ -67,14 +79,13 @@ $(function(){
       var params = 'email=' + $('#email').val();
       var email = $('#email').val();
       
-      
       if((email==null) || (email=="") ){
         $('#panel_email').css('color', '#dc143c');
         $('#panel_email').css('padding-left', '4px');
         $('#panel_email').css('display', 'block');
         $('#panel_email').css('margin', '10px 0 0');
         $('#panel_email').css('line-height', '14px');
-        $('#panel_email').html('이메일이 없습니다.');
+        $('#panel_email').html('이메일을 입력해 주세요.');
       }else{
         $.post('./checkEmail.do', params, checkEmail_res, 'json');  
       }
@@ -86,29 +97,21 @@ $(function(){
     var params = 'id=' + $('#userid').val();
     var id = $('#userid').val().replace(/(^\s*)|(\s*$)/gi, "");
     
-   
-    
-    
     if((id==null) || (id=="") ){
       $('#panel_id').css('color', '#dc143c');
       $('#panel_id').css('padding-left', '4px');
       $('#panel_id').css('display', 'block');
       $('#panel_id').css('margin', '10px 0 0');
       $('#panel_id').css('line-height', '14px');
-      $('#panel_id').html('아이디가 없습니다.');
+      $('#panel_id').html('아이디를 입력해 주세요.');
       $('#userid').focus();
     }else{
       // 요청 주소, 전달 값, 응답 처리 함수, 전송 받는 형식
       $.post('./checkId.do', params, checkId_res, 'json');
     }
-    
-   
-    
   }
 
   function checkId_res(data) {
-    
-    
     if (data.cnt == 0) {
       $('#panel_id').css('color', '#008392');
       $('#panel_id').css('padding-left', '4px');
@@ -222,7 +225,8 @@ float: left;
 <!-- ----------------------------------------- -->
  
  <div id="logo" style="border-bottom: 4px solid #c4c5c7; padding:10px">
-      <img class="logo" alt="" src="${pageContext.request.contextPath}/images/logo.png" > 
+ <a href ="../index.jsp">
+      <img class="logo" alt="" src="${pageContext.request.contextPath}/images/logo.png" ></a> 
       <span style="font-size: 24px; font-weight:bold; padding: 17px 0 0 0;">회원가입</span>
  </div>
  

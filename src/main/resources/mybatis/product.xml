@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  <!-- 검색을 하지 않는 전체 목록 --> 
   <select id="list" resultType="ProductVO">
-  SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt
+  SELECT pno, category, title, hprice, wdate, region, deal_way, nickname, file1, file2, size2, cnt, product_code, deal_code
   FROM product
   </select>
   
@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <update id ="update" parameterType="ProductVO">
      UPDATE product
-     SET  category= #{category}, nickname = #{nickname}, passwd = #{passwd}, deal_way = #{deal_way}, 
+     SET  category= #{category}, nickname = #{nickname}, deal_way = #{deal_way}, 
                        deal_code = #{deal_code}, product_code = #{product_code}, hprice = #{hprice}, region = #{region}, tel = #{tel}, 
                       email = #{email}, quantity = #{quantity}, title = #{title}, content = #{content}, 
                       purc_date = #{purc_date} , file1 = #{file1}, file2 = #{file2}, size2 = #{size2}, file3 = #{file3}, file4 = #{file4},
@@ -93,11 +93,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
  <!-- ********** 페이징에 따른 변경 시작 ********** -->
     <select id="list3" resultType="ProductVO" parameterType="HashMap" >
-    SELECT pno, category, title, hprice, wdate, region,deal_code, deal_way, nickname, file1, file2, size2, cnt, r
+    SELECT pno, category, title, hprice, wdate, region, deal_way, deal_code, nickname, file1, file2, size2, cnt, product_code,  r
         FROM(
-           SELECT pno, category, title, hprice, wdate, region, deal_code, deal_way, nickname, file1, file2, size2, cnt, rownum as r
+           SELECT pno, category, title, hprice, wdate, region, deal_way, deal_code, nickname, file1, file2, size2, cnt, product_code,  rownum as r
               FROM (
-                    SELECT pno, category, title, hprice, wdate, region, deal_code, deal_way, nickname, file1, file2, size2, cnt
+                    SELECT pno, category, title, hprice, wdate, region, deal_way, deal_code, nickname, file1, file2, size2, cnt, product_code
                     FROM product
                     <choose>
                         <when test="col == 'title'">
@@ -120,9 +120,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- ********** 페이징에 따른 변경 종료 ********** -->
     <!-- 테스트  -->
   <select id="test" resultType="MemberVO" parameterType="String">
-    select nickname, email
+    select nickname, email, tel
     from member
     where userid=#{userid}   
     </select>
-
+    
+    
+    <!-- 최신글리스트 -->
+   <select id="newlist" resultType="ProductVO">
+      SELECT pno, title, deal_code, product_code, region, deal_way,  purc_date,
+                 hprice, userid, nickname, file2, file1, wdate
+      FROM product
+      WHERE pno >= (SELECT (MAX(pno)-7) FROM product)
+   </select>
+   
 </mapper>

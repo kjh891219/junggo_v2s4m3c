@@ -91,5 +91,14 @@ public interface CarproductDAOInter {
    */
   public List<CarproductVO> newlist();
 
+  /**
+   * 이전글 이동
+   */
+  public int maxp_no();
+  
+  /**
+   * 다음글 이동
+   */
+ public int minp_no();
   
 }

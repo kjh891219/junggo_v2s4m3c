@@ -9,7 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dev.mvc.art.ArtVO;
+import dev.mvc.book.BookVO;
 import dev.mvc.camera.CameraVO;
+import dev.mvc.carproduct.CarproductVO;
+import dev.mvc.cheat.CheatVO;
+import dev.mvc.cloth.ClothVO;
+import dev.mvc.computer.ComputerVO;
+import dev.mvc.cosmetic.CosmeticVO;
+import dev.mvc.game.GameVO;
+import dev.mvc.gamedevice.GameDeviceVO;
+import dev.mvc.living.LivingVO;
+import dev.mvc.mobile.MobileVO;
+import dev.mvc.music.MusicVO;
+import dev.mvc.product.ProductVO;
+import dev.mvc.reviews.ReviewsVO;
+import dev.mvc.sports.SportsVO;
+import dev.mvc.usedcar.UsedcarVO;
 
  
 @Repository("dev.mvc.tmember.MemberDAO")
@@ -150,6 +165,74 @@ public  class MemberDAO implements MemberDAOInter{
   public List<CameraVO> camera_list(String userid) {
     return mybatis.selectList("member.camera_list", userid);
   }
+  
+  @Override
+  public List<BookVO> book_list(String userid) {
+    return mybatis.selectList("member.book_list", userid);
+  }
+  
+  @Override
+  public List<ComputerVO> computer_list(String userid) {
+    return mybatis.selectList("member.computer_list", userid);
+  }
+
+   
+  @Override
+  public List<UsedcarVO> usedcar_list(String userid) {
+    return mybatis.selectList("member.usedcar_list", userid);
+  }
+  @Override
+  public List<CarproductVO> carproduct_list(String userid) {
+    return mybatis.selectList("member.carproduct_list", userid);
+  }
+  @Override
+  public List<MusicVO> music_list(String userid) {
+    return mybatis.selectList("member.music_list", userid);
+  }
+  @Override
+  public List<ReviewsVO> reviews_list(String userid) {
+    return mybatis.selectList("member.reviews_list", userid);
+  }
+  
+  @Override
+  public List<ClothVO> cloth_list(String userid) {
+    return mybatis.selectList("member.cloth_list", userid);
+  }
+  @Override
+  public List<CosmeticVO> cosmetic_list(String userid) {
+    return mybatis.selectList("member.cosmetic_list", userid);
+  }
+  @Override
+  public List<ProductVO> product_list(String userid) {
+    return mybatis.selectList("member.product_list", userid);
+  }
+  @Override
+  public List<GameVO> game_list(String userid) {
+    return mybatis.selectList("member.game_list", userid);
+  }
+  @Override
+  public List<GameDeviceVO> gamedevice_list(String userid) {
+    return mybatis.selectList("member.gamedevice_list", userid);
+  }
+  @Override
+  public List<MobileVO> mobile_list(String userid) {
+    return mybatis.selectList("member.mobile_list", userid);
+  }
+  @Override
+  public List<LivingVO> living_list(String userid) {
+    return mybatis.selectList("member.living_list", userid);
+  }
+  @Override
+  public List<SportsVO> sports_list(String userid) {
+    return mybatis.selectList("member.sports_list", userid);
+  }
+  @Override
+  public List<CheatVO> cheat_list(String userid) {
+    return mybatis.selectList("member.cheat_list", userid);
+  }
+   
+   
+   
    
   
 }

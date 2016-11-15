@@ -99,6 +99,13 @@ VALUES((SELECT NVL(MAX(mno), 0) + 1 as mno FROM mobile), #{category}, #{nickname
                       
  </select>                 
                 
+    <!-- 최신글리스트 -->
+   <select id="newlist" resultType="MobileVO">
+      SELECT mno, title, deal_code, product_code, region, deal_way, purc_date,
+                 hprice, userid, nickname, file1, file2, wdate
+      FROM mobile
+      WHERE mno >= (SELECT (MAX(mno)-7) FROM mobile)
+   </select>
      
       
       

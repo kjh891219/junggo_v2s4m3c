@@ -16,128 +16,41 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=2" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=3"></script>
 <script>
-$(document).ready(function(){
-   $('.left_list').mouseenter(function(){
-     $("#main_left_detail").show();
-     /* Toggle('on'); */
-   })
-   $('#main_left_detail').mouseleave(function(){
-     $("#main_left_detail").hide();
-   });
-   
-});
+     function create_login() {
+       <% if( session.getAttribute("userid") == null) { %>
+       alert('로그인 한 사용자만 이용이 가능합니다');
+       window.openModal();
+       <%session.setAttribute("url", "qna/list.do");%>
+       return false;
+       <% } else { %>
+       location.href='./create.do';
+       return true;
+       <% } %> 
+     }
+     $(document).ready(function() {
+       
+       if($(".left").height() < $(".right").height()){
+          $(".left").height($(".right").height());
+       }
+       
+     });
+     
+     
 </script>
-<style type="text/css">
-
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
-  
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
-
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
-
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
- 
- 
+<style>
+    
 </style>
+
 </head> 
- <div class="container">
+<body>
      <jsp:include page="/menu/top.jsp" flush='false' />
+     <jsp:include page="/menu/left.jsp" flush='false' />
+
      <jsp:include page="/member/menu/left.jsp" flush='false' />
+<div class="float_l right " style="width:80%;">
 
 
 <%--   <form name="frmSearch" method="get" action="./list.do"> 
@@ -163,19 +76,144 @@ $(document).ready(function(){
     </div>
   </form>  --%>
 
-
-
-
-<div class="container" style="margin: auto;">
-<c:forEach var="list" items="${hashMap}">
-<c:if test="${list.key eq 'art_list'}">  
-  <div><b>예술/문화 게시판(${list.value.get(my_cnt).getMy_cnt()})</b></div>
+<div class="container" style="margin: 30px auto; width:90%;">
+<c:if test="${!empty reviews_list}"> 
+        <div><b>후기 게시판 (${reviews_list.get(my_cnt).getMy_cnt()})</b></div>
+<table class="table table-hover" style='width: 100%;'>
+  <colgroup>
+    <col style='width: 8%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 49%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 15%;'/>
+    <col style='width: 8%;'/>
+  </colgroup>
+    <thead>
+    <TR>
+    <TH>글번호</TH>
+    <TH>카테고리</TH>
+    <TH>제목</TH>
+    <TH>판매자</TH>
+    <TH>등록일</TH>
+    <TH>조회수</TH>  
+  </TR>
+  </thead>
+<tbody>
+<c:forEach var="vo" items="${reviews_list}">
+  <TR>
+    <TD>${vo.r_no}</TD>
+    <TD>${vo.t_category }</TD>
+    <TD style="color: black;">${vo.title}</TD>
+    <TD>${vo.seller_nick}</TD>
+    <TD>${fn:substring(vo.wdate, 0, 10) }</TD>
+    <TD>${vo.cnt}</TD>
+  </TR>
+</c:forEach> 
+</tbody>  
+</TABLE>
 </c:if>
-<c:if test="${list.key eq 'camera_list'}">  
-  <div><b>카메라 게시판(${list.value.get(my_cnt).getMy_cnt()})</b></div>
+ 
+<c:if test="${!empty cheat_list}"> 
+        <div><b>신고 게시판 (${cheat_list.get(my_cnt).getMy_cnt()})</b></div>
+<table class="table table-hover" style='width: 100%;'>
+  <colgroup>
+    <col style='width: 8%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 49%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 15%;'/>
+    <col style='width: 8%;'/>
+  </colgroup>
+    <thead>
+    <TR>
+    <TH>글번호</TH>
+    <TH>신고구분</TH>
+    <TH>제목</TH>
+    <TH>신고대상</TH>
+    <TH>등록일</TH>
+    <TH>조회수</TH>  
+  </TR>
+  </thead>
+<tbody>
+<c:forEach var="vo" items="${cheat_list}">
+  <TR>
+    <TD>${vo.ctno}</TD>
+    <TD>${vo.gubun }</TD>
+    <TD style="color: black;">${vo.title}</TD>
+    <TD>${vo.cheatid}</TD>
+    <TD>${fn:substring(vo.wdate, 0, 10) }</TD>
+    <TD>${vo.cnt}</TD>
+  </TR>
+</c:forEach> 
+</tbody>  
+</TABLE> 
 </c:if>
 
- <table class="table table-hover" style='width: 100%;'>
+
+<DIV style='width: 100%; clear: both; height: 1px; border-top: dotted 1px #AAAAAA; margin: 10px auto;'></DIV>
+<br>
+
+ <c:forEach var="list" items="${hashMap}"> 
+<c:if test="${!empty list.value}"> 
+   <c:choose>
+      <c:when test="${list.key eq 'art_list'}">
+        <div><b>예술/문화 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>
+      <c:when test="${list.key eq 'camera_list'}">
+        <div><b>카메라 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>
+      <c:when test="${list.key eq 'book_list'}">  
+        <div><b>도서 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'computer_list'}">  
+        <div><b>컴퓨터 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'cloth_list'}">  
+        <div><b>의류 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'cosmetic_list'}">  
+        <div><b>화장품 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'product_list'}">  
+        <div><b>잡화 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'game_list'}">  
+        <div><b>게임 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'gamedevice_list'}">  
+        <div><b>게임기기 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'mobile_list'}">  
+        <div><b>핸드폰 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'living_list'}">  
+        <div><b>생활 용품 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'sports_list'}">  
+        <div><b>스포츠 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'usedcar_list'}">  
+        <div><b>중고차 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'carproduct_list'}">  
+        <div><b>자동차 용품 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+      <c:when test="${list.key eq 'music_list'}">  
+        <div><b>음향기기 게시판 (${list.value.get(my_cnt).getMy_cnt()})</b></div>
+      </c:when>  
+   </c:choose>  
+
+<table class="table table-hover" style='width: 100%;'>
+  <colgroup>
+    <col style='width: 8%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 32%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 10%;'/>
+    <col style='width: 7%;'/>
+    <col style='width: 15%;'/>
+    <col style='width: 8%;'/>
+  </colgroup>
     <thead>
     <TR>
     <TH>글번호</TH>
@@ -184,13 +222,13 @@ $(document).ready(function(){
     <TH>희망가격</TH>
     <TH>거래방식</TH>
     <TH>지역</TH>
-    <TH>날짜</TH>
+    <TH>등록일</TH>
     <TH>조회수</TH>  
   </TR>
   </thead>
 <tbody>
-<%-- <c:forEach var="list" items="${hashMap}"> --%>
-<c:forEach var="vo" items="${list.value}"> 
+
+<c:forEach var="vo" items="${list.value}">
   <TR>
     <TD>${vo.my_no}</TD>
     <TD>${vo.deal_code }</TD>
@@ -200,22 +238,20 @@ $(document).ready(function(){
     <TD>${vo.region}</TD>
     <TD>${fn:substring(vo.wdate, 0, 10) }</TD>
     <TD>${vo.cnt}</TD>
-    
-    
   </TR>
-  
 </c:forEach>
 </tbody>  
-</TABLE>
+</TABLE> 
+</c:if> 
 </c:forEach> 
 </div>
 
 
 
 
-
 </div>
 
+<div class="both"></div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />     
 
 </body>

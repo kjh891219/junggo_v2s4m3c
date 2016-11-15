@@ -94,16 +94,16 @@ $(function(){
               <c:set var='file1' value="${fn:toLowerCase(vo.file1)}" />
               <c:choose>
                 <c:when test="${fn:endsWith(file1, '.jpg')}">
-                  <a href="./read.do?bno=${vo.bno}"><IMG id='file1' style="padding:5px; width:190px; height:190px; " src='./storage/${vo.file1}' ></a>
+                  <a href="./read.do?gdno=${vo.gdno}"><IMG id='file1' style="padding:5px; width:190px; height:190px; " src='./storage/${vo.file1}' ></a>
                 </c:when>
                 <c:when test="${fn:endsWith(file1, '.gif')}" >
-                  <a href="./read.do?bno=${vo.bno}"><IMG id='file1'  style="padding:5px;width:190px; height:190px; "  src='./storage/${vo.file1}'></a>
+                  <a href="./read.do?gdno=${vo.gdno}"><IMG id='file1'  style="padding:5px;width:190px; height:190px; "  src='./storage/${vo.file1}'></a>
                 </c:when>
                 <c:when test="${fn:endsWith(file1, '.png')}">
-                  <a href="./read.do?bno=${vo.bno}"><IMG id='file1' style="padding:5px;width:190px; height:190px; "  src='./storage/${vo.file1}'></a>
+                  <a href="./read.do?gdno=${vo.gdno}"><IMG id='file1' style="padding:5px;width:190px; height:190px; "  src='./storage/${vo.file1}'></a>
                 </c:when>
                 <c:otherwise>
-                  <a href="./read.do?bno=${vo.bno}"><img id='file1' src="http://i1.daumcdn.net/cfs.tistory/static/images/xBoxReplace_250.png" style="padding:5px; width:100%; height:cover" ></a>
+                  <a href="./read.do?gdno=${vo.gdno}"><img id='file1' src="http://i1.daumcdn.net/cfs.tistory/static/images/xBoxReplace_250.png" style="padding:5px; width:100%; height:cover" ></a>
                 </c:otherwise>
               </c:choose>
             <div class='both'></div>
@@ -111,8 +111,7 @@ $(function(){
             <div class="home_detail" style="width:100%; height:100%; position: absolute; top:0; left:0; padding-top:10%; padding-left:10%; display:none;">
                <span>[${vo.deal_code }]</span>
                <span>[${vo.product_code }]</span><br>
-               <strong><a href="./read.do?bno=${vo.bno}">${vo.title }</a></strong>
-               <span> ${vo.deal_state =='거래중'?"<img src='../images/deal00.png' style='width:50px'>":"<img src='../images/deal01.png' style='width:50px'>" }</span>
+               <strong><a href="./read.do?gdno=${vo.gdno}">${vo.title }</a></strong>
                <br><span>${vo.userid }</span>
                <span>등록일 : ${vo.wdate.substring(0,10) }</span>
                <br><strong style="font-family: dotum,'돋움'; font-size: 25px;"><fmt:formatNumber value="${vo.hprice }" pattern="#,###원"/></strong>

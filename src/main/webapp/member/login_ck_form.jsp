@@ -9,9 +9,9 @@ System.out.println("--> 3) login_ck_form.jsp: url_address: " + url_address);
 Cookie[] cookies = request.getCookies();
 Cookie cookie = null;
  
-String ck_userid = ""; // userid 저장 변수
+String ck_userid = "chan"; // userid 저장 변수
 String ck_userid_save = ""; // userid 저장 여부를 체크하는 변수
-String ck_pwd = ""; // pwd 저장 변수
+String ck_pwd = "1234"; // pwd 저장 변수
 String ck_pwd_save = ""; // pwd 저장 여부를 체크하는 변수
  
 for (int i=0; i < cookies.length; i++){
@@ -56,7 +56,7 @@ for (int i=0; i < cookies.length; i++){
 <DIV class='title' style='width: 20%;'>로그인</DIV>
  
 <DIV class='content_form' style='width: 50%;'>
-<FORM name='frm' method='POST' action='./login.do'>
+<FORM name='frm' method='POST' action='../login.do'>
 <input type='hidden' name='url_address' value='<%=url_address %>'> 
   <fieldset>
     <ul>

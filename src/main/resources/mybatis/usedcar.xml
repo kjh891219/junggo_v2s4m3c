@@ -36,6 +36,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE u_no=#{u_no}
   </select>  
   
+  <!-- 이전글 조회 -->
+  <select id="maxu_no" resultType="int">
+     SELECT MAX(u_no)
+     FROM usedcar
+  </select>  
+  
+  <!-- 다음글 조회 -->
+  <select id="minu_no" resultType="int">
+    SELECT MIN(u_no)
+    FROM usedcar
+  </select>
+  
       <!-- 테스트  -->
   <select id="test" resultType="MemberVO" parameterType="String">
     select nickname, email

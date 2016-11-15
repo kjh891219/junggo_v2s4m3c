@@ -140,13 +140,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <delete id="delete" parameterType="Map">
   DELETE FROM message 
      <choose>
-      <when test="date == '-999'">
-      </when>
-      <otherwise> 
-        WHERE <![CDATA[ msg_date >= ADD_MONTHS(sysdate, #{date}) AND msg_date <= sysdate]]> 
-      </otherwise>
+        <when test="date == '-999'">
+        </when>
+        <otherwise> 
+          WHERE <![CDATA[ msg_date >= ADD_MONTHS(sysdate, #{date}) AND msg_date <= sysdate]]> 
+        </otherwise>
     </choose>   
     </delete>
+    
   
   
 </mapper>

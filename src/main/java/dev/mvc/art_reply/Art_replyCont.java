@@ -80,7 +80,7 @@ public class Art_replyCont {
     else {    
     }*/
     art_replyDAO.create(art_replyVO);
-    mav.setViewName("redirect:/art/read.do?ano="+art_replyVO.getAno());
+    mav.setViewName("redirect:/art_reply/list.do?ano="+art_replyVO.getAno());
     return mav;
   }
     

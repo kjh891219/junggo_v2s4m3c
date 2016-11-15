@@ -181,7 +181,7 @@ function update(codeno, sort, seqno){
             <div class="container" style='height:150px; width:200px'>
             <div class="row style_featured"><div class="col-md-4"><div style='display:inline-block; width:180px; width:220px;'>
              <A href="./read.do?p_no=${vo.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"  class='list_tag' >
-               <IMG src='./storage/${vo.thumb}'  style='height:150px; width:200px;'></A></DIV>
+               <IMG src='./storage/${vo.thumb}'  style='height:150px; width:100%;'></A></DIV>
              </DIV></div></div>
           </c:when>
           
@@ -189,14 +189,14 @@ function update(codeno, sort, seqno){
           <div class="container" style='height:150px; width:200px'>
            <div class="row style_featured"><div class="col-md-4"><div style='display:inline-block; width:180px; width:220px;'>
           <A href="./read.do?p_no=${vo.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"  class='list_tag' >
-            <IMG src='../images/noimage.JPG' style='height:150px; width:200px'></A>
+            <IMG src='../images/noimage.JPG' style='height:150px; width:100%;'></A>
             </DIV></div></div>
             </DIV>
           </c:otherwise>
           </c:choose>
 
 <BR><BR>
-      <div class="product_contents_info" style="margin-left:15%;">
+      <div class="product_contents_info" style="margin-left:10%; width:100%">
         <strong class="">
           <a href="./read.do?p_no=${vo.p_no}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}"  class='list_tag' >${vo.title}</a>
         </strong>

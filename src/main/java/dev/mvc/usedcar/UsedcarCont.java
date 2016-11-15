@@ -94,6 +94,16 @@ return mav;
   public ModelAndView read(int u_no, SearchDTO searchDTO) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/usedcar/read");
+    
+    if(u_no>usedcarDAO.maxu_no()){
+      u_no = usedcarDAO.maxu_no();
+    }
+    
+    if(u_no<usedcarDAO.minu_no()){
+      u_no = usedcarDAO.minu_no();
+    }
+    
+
     usedcarDAO.increaseCnt(u_no);
     mav.addObject("usedcarVO", usedcarDAO.read(u_no));
     mav.addObject("searchDTO", searchDTO);
@@ -138,7 +148,7 @@ return mav;
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file1)) {
-        thumb = Tool.preview(upDir, file1, 120, 80);
+        thumb = Tool.preview(upDir, file1, 140, 180);
       } else {
         thumb = "";
       }

@@ -55,6 +55,6 @@ public class MessageDAO implements MessageDAOInter{
   public int delete(HashMap map) {
     return mybatis.delete("message.delete", map);
   }
-  
+
   
 }

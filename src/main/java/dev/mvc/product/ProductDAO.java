@@ -59,6 +59,10 @@ public ProductDAO(){
   public MemberVO test(String userid) {
     return mybatis.selectOne("product.test", userid);
   }
+  @Override
+  public List<ProductVO> newlist() {
+    return mybatis.selectList("product.newlist");
+  }
 
   
   

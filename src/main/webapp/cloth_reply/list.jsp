@@ -19,15 +19,16 @@ $(function(){
   $('#panel_frm').hide();
 });
 function create(rno){
-  <% if( session.getAttribute("userid") == null) { %>
-  alert('로그인 한 사용자만 사용이 가능합니다.');
-  window.parent.openModal();
-  <%String clothno = request.getParameter("clothno");%>
-  <%session.setAttribute("url", "cloth/read.do?clothno="+clothno);%>
-  return false;
-  <% } else { %>
-  
+	 <% if( session.getAttribute("userid") == null) { %>
+	  alert('로그인 한 사용자만 사용이 가능합니다.');
+	  window.parent.openModal();
+	  <%String clothno = request.getParameter("clothno");%>
+	  <%session.setAttribute("url", "cloth/read.do?clothno="+clothno);%>
+	  return false;
+	  <% } else { %>
+	
   var e = window.event, btn = e.target || e.srcElement; 
+  
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
    "<DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>"+
@@ -43,7 +44,7 @@ function create(rno){
    "</div>"+
    "</FORM>"+
    "</DIV>"; 
-  $('#comment'+rno).html(tag);
+   $('#comment'+rno).html(tag);  
   return true;
   <% } %>
  }  
@@ -65,6 +66,7 @@ function delete_form(rno){
     "</div>"+
     "</FORM>";
     $('#comment'+rno).html(tag);  
+    
 }
 </script>
 
@@ -90,11 +92,11 @@ function delete_form(rno){
 <jsp:include page="/cloth_reply/create.jsp?clothno=${clothno}" flush='false'/>
 
 <div class="content" style='width: 90%;'>
-    <table class="table" style='width: 100%; border: none;'>
+    <table class="table" style='width: 100%; border: none; '>
       <tbody>
         <c:forEach var="vo" items="${list }">
           <tr>
-            <td class="td_l" style='border: none;'>
+            <td class="td_l" style='border: none; border-bottom:1px solid lightgray;'>
               <c:choose>
                 <c:when test="${vo.ansnum == 0 }">
                   <img src='./images/url4.png' style='width: 14px;'>
@@ -118,7 +120,6 @@ function delete_form(rno){
                
                
                
-              <hr>
               <DIV id="comment${vo.rno }">
               <!-- 여기에 Tag를 넣어줍니다 -->
               </DIV> 

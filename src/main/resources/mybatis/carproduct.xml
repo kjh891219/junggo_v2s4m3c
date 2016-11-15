@@ -26,7 +26,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                      file3, size3, file4, size4, file5, size5, email, tel, wdate
     FROM carproduct
     WHERE p_no=#{p_no}
+  </select> 
+
+<!-- 이전글 조회 -->
+  <select id="maxp_no" resultType="int">
+     SELECT MAX(p_no)
+     FROM carproduct
   </select>  
+  
+  <!-- 다음글 조회 -->
+  <select id="minp_no" resultType="int">
+    SELECT MIN(p_no)
+    FROM carproduct
+  </select>
   
     <!-- 테스트  -->
   <select id="test" resultType="MemberVO" parameterType="String">

@@ -47,4 +47,12 @@ public interface GameDeviceDAOInter {
   public int count(HashMap hashMap);  
 
   public List<GameDeviceVO> list2(HashMap<String, Object> hashMap);
+  
+  /**
+   * 게임용품 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<GameDeviceVO> newlist();
+
 }

@@ -19,14 +19,6 @@ $(function(){
   $('#panel_frm').hide();
 });
 function create(rno){
-  <% if( session.getAttribute("userid") == null) { %>
-  alert('로그인 한 사용자만 사용이 가능합니다.');
-  window.parent.openModal();
-  <%String ctno = request.getParameter("ctno");%>
-  <%session.setAttribute("url", "cheat/read.do?ctno="+ctno);%>
-  return false;
-  <% } else { %>
-  
   var e = window.event, btn = e.target || e.srcElement; 
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
@@ -44,8 +36,6 @@ function create(rno){
    "</FORM>"+
    "</DIV>"; 
   $('#comment'+rno).html(tag);  
-  return true;
-  <% } %>
  }  
  
 function create_cancel(frm){

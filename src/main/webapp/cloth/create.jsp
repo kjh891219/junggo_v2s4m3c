@@ -14,8 +14,20 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
-<link href="/junggo/css/style.css" rel="Stylesheet" type="text/css">
-<script src="/junggo/js/event.js"></script>
+<link href="/cosmetic/css/style.css" rel="Stylesheet" type="text/css">
+<script src="/cosmetic/js/event.js"></script>
+
+
+
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+ 
+<script type="text/JavaScript">
+  window.onload=function(){
+    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+  };
+</script>
+
+
 
 
 </head> 
@@ -46,9 +58,9 @@
            <option value="남성상의">남성상의</option>
            <option value="남성하의">남성하의</option>
            <option value="여성상의">여성상의</option>
-           <option value="여성하의">여성하의</option>
+           <option value="여상하의">여상하의</option>
            <option value="기타제품">기타제품</option>
-          </select>
+        </select>
         </div>
       </div>
         <div class="">  
@@ -91,7 +103,7 @@
          <div>
             <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10 full">
               <option value="직거래" selected="selected">직거래</option>
-              <option value="택배">택배</option>
+              <option value="</">택배</option>
            </select >
         </div>
       </div>
@@ -160,7 +172,7 @@
               </div>
             <div class="row">
                <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
-              <input type='text' name='tel' id='tel'  required="required" value='010-1111-2222' class="col-xs-3 col-lg-3"> 
+              <input type='text' name='tel' id='tel'  required="required" value='${tel}' class="col-xs-3 col-lg-3"> 
             </div>
             <div class="row">  
               <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>

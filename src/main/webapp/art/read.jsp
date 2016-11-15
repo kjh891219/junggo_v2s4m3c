@@ -16,9 +16,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="./css/style.css" rel="Stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 
-<script type="text/javascript">
+<script>
 
   $(function(){
     $('#file2').load(function(){ // 태그 메모리 상주후 작동
@@ -30,136 +31,47 @@
     });
   });
   
-</script>
-<script>
 window.openModal = function() {
   $( '#myModal' ).modal( 'show' );
   }
+  
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+  
+  $(".photo_img img").attr("src",$("#file1").parent("a").attr("href"));
+  
+  
+  //Slide Gallery 이미지 샐랙터
+  $(".list_wrap ul li").click(function() {
+  $(this).addClass("active").siblings();
+  $(".photo_img img").attr("src",$(this).children("a").attr("href"));
+  return false;
+});
 
+});
 
-
-
-<style type="text/css">
-
-/* 전체 스타일 */
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-  *{ 
-    font-family: 'Nanum Gothic', serif;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;  
-  }
-  
-  a{
-   color:white;
-  }
-  
-/* left를 제외한 스타일 */
-  body{
-   width:80%;
-   margin-left:130px;
-  }
-  
-/* top 스타일 */
- .top_select{
-     color: black; 
- }
-  header{ 
-    height: 35px; 
-    background-color: #e6e6e6; 
-    font-family: 맑은 고딕;  
-    text-align: center;
-  }
-  .member-list {
-    margin:5px 8px 0 0;
-  
-  }
-  
- .member-list li {
-    float:left;
-    list-style: none;
-    padding-left:8px;
-  }
- .member-list li a {
-    font-size:12px;
-  }
-
-/* left */  
-
-   /* 로고 */
-   #logo {
-      width:70px;
-      margin:20px auto;
-   }
-   #logo img {
-      width:70px;
-   }
-   
-  #main_left {
-    position:fixed; 
-    top:0;
-    left:0;
-  }
-  
-  #main_left_left{
-    width:130px; 
-    height:100%;
-    float:left;
-    color:white;
-    background-color: #737373;
-  }
-  
-   #main_left_detail{
-      display:none;
-      position:absolute;
-      left:130px;
-      width:130px;
-      height:100%;
-      
-      background-color:#575757;
-   }
-  
-  .left_list_form {
-    padding:10px;
-  }
-  
-  .left_list{
-    padding-bottom:8px;
-  }
-
-/* index 안에 있는 태그 스타일 */
- .list_tag{
-   color : black;
- }
-   .container{
-      width:100%;
-   }
-   
-   nav ul li {
-      list-style:none;
-      margin-left: 20px;
-   }
-   nav {
-      margin-top:30px;
-   }
-   footer{
-      text-align: center;
-   }
- 
- 
-</style>
+$(function(){
+  $("iframe.myFrame").load(function(){ //iframe 컨텐츠가 로드 된 후에 호출됩니다.
+    $(this).height($(this).contents().find('body')[0].scrollHeight + 120);
+    /*       var frame = $(this).get(0);
+    var doc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+    $(this).height(doc.body.scrollHeight);
+    $(this).width(doc.body.scrollWidth); */
+  });
+});
+</script>
 
 </head>
 
 <!-- ----------------------------------------- -->
-<body>
-<div class="container">
+<body leftmargin="0" topmargin="0">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
+<DIV class="container">
      
-     
+<DIV class='content'>
   <div class='content_menu' style='width: 100%;'>
     <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>목록</A>>
     <A href="javascript:location.reload();" class='top_select'>새로고침</A>｜
@@ -167,195 +79,251 @@ window.openModal = function() {
     <A href='./update.do?ano=${artVO.ano}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>수정</A>｜
     <A href='./delete.do?ano=${artVO.ano}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>삭제</A>
   </div>
+
   
-  <DIV class='content'>
     <FORM name='frm' method="get" action='./update.do'>
       <input type="hidden" name="ano" value="${artVO.ano}">
-      <fieldset class="fieldset">
-        <ul>
-              
-          <li>
-            <label for='title' style="width:150px;">제목 : </label>
-            <span>${artVO.title}</span><br>
-          </li>
+      <fieldset>
+        <ul style="margin:50px 0;">
+          <li class="float_l" style="width:100%;">
           
-        <li>
-        <label for="nickname" style="width:150px;">닉네임 : </label>
-         <span>${artVO.nickname}</span>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label for="wdate" style="width:150px;">등록일 : </label>
-         <span>${artVO.wdate.substring(0, 16)}</span>
+          <h1 style="padding-left: 0px; margin: 0; padding: 10px; float: left; display: block; font-size: 20px; line-height: 22px; font-weight: bold; color: #444;">
+          <a href="/junggo/camera/list.do">예술/문화 게시판</a>
+          </h1>
+
+          <div style="clear: both;"></div>
+
+          <div style="padding: 11px; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FCFCFC; line-height: 1.5em; display: block; width:100%;">
+          <span style="float: right; display: inline; font-weight: 400; letter-spacing: 0; color: #444; font-size: 12px;">${artVO.wdate.substring(0, 16)}</span>
+          <h1 style="font-size: 20px; font-weight: bold; color: #444; overflow: hidden; margin: 0; padding: 0 8px; line-height: 18px;">${artVO.title}</h1>
+          </div>
+
+          <div style="clear: both;"></div>
+          
+          </li>
+          <li class="both"><hr> </li>
+          
+          <li class="float_l" style=" margin:40px 0;">
+            <div class="photo_gallery">
+            <p class="photo_img" style="width:400px; height:400px;">
+                <img src="http://i1.daumcdn.net/cfs.tistory/static/images/xBoxReplace_250.png" width="100%" height="100%" >
+            </p>
+            <div class="photo_list">
+                <div class="list_wrap" style="width: 520px;"><ul>
+                        <li class="float_l">
+                          <c:set var='file1' value="${fn:toLowerCase(artVO.file1)}" />
+                          <c:choose>
+                            <c:when test="${fn:endsWith(file1, '.jpg')}">
+                              <a href="./storage/${artVO.file1}">
+                                 <IMG id='file1' class="gallery" src='./storage/${artVO.file1}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file1, '.gif')}">
+                              <a href="./storage/${artVO.file1}">
+                                 <IMG id='file1' class="gallery" src='./storage/${artVO.file1}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file1, '.png')}">
+                              <a href="./storage/${artVO.file1}">
+                                 <IMG id='file1' class="gallery" src='./storage/${artVO.file1}' width="80" >
+                              </a>
+                            </c:when>
+                          </c:choose>
+                        </li>
+                        <li class="float_l">
+                          <c:set var='file2' value="${fn:toLowerCase(artVO.file2)}" />
+                          <c:choose>
+                            <c:when test="${fn:endsWith(file2, '.jpg')}">
+                              <a href="./storage/${artVO.file2}">
+                                 <IMG id='file2' class="gallery" src='./storage/${artVO.file2}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file2, '.gif')}">
+                              <a href="./storage/${artVO.file2}">
+                                 <IMG id='file2' class="gallery" src='./storage/${artVO.file2}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file2, '.png')}">
+                              <a href="./storage/${artVO.file2}">
+                                 <IMG id='file2' class="gallery" src='./storage/${artVO.file2}' width="80" >
+                              </a>
+                            </c:when>
+                          </c:choose>
+                        </li>
+                        <li class="float_l">
+                          <c:set var='file3' value="${fn:toLowerCase(artVO.file3)}" />
+                          <c:choose>
+                            <c:when test="${fn:endsWith(file3, '.jpg')}">
+                              <a href="./storage/${artVO.file3}">
+                                 <IMG id='file3' class="gallery" src='./storage/${artVO.file3}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file3, '.gif')}">
+                              <a href="./storage/${artVO.file3}">
+                                 <IMG id='file3' class="gallery" src='./storage/${artVO.file3}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file3, '.png')}">
+                              <a href="./storage/${artVO.file3}">
+                                 <IMG id='file3' class="gallery" src='./storage/${artVO.file3}' width="80" >
+                              </a>
+                            </c:when>
+                          </c:choose>
+                        </li>
+                        <li class="float_l">
+                          <c:set var='file4' value="${fn:toLowerCase(artVO.file4)}" />
+                          <c:choose>
+                            <c:when test="${fn:endsWith(file4, '.jpg')}">
+                              <a href="./storage/${artVO.file4}">
+                                 <IMG id='file4' class="gallery" src='./storage/${artVO.file4}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file4, '.gif')}">
+                              <a href="./storage/${artVO.file4}">
+                                 <IMG id='file4' class="gallery" src='./storage/${artVO.file4}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file4, '.png')}">
+                              <a href="./storage/${artVO.file4}">
+                                 <IMG id='file4' class="gallery" src='./storage/${artVO.file4}' width="80" >
+                              </a>
+                            </c:when>
+                          </c:choose>
+                        </li>
+                        <li class="float_l">
+                          <c:set var='file5' value="${fn:toLowerCase(artVO.file5)}" />
+                          <c:choose>
+                            <c:when test="${fn:endsWith(file5, '.jpg')}">
+                              <a href="./storage/${artVO.file5}">
+                                 <IMG id='file5' class="gallery" src='./storage/${artVO.file5}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file5, '.gif')}">
+                              <a href="./storage/${artVO.file5}">
+                                 <IMG id='file5' class="gallery" src='./storage/${artVO.file5}' width="80" >
+                              </a>
+                            </c:when>
+                            <c:when test="${fn:endsWith(file5, '.png')}">
+                              <a href="./storage/${artVO.file5}">
+                                 <IMG id='file5' class="gallery" src='./storage/${artVO.file5}' width="80" >
+                              </a>
+                            </c:when>
+                          </c:choose>
+                        </li>
+                    </ul>
+                     
+                </div>
+            </div>
+        </div>
+          
+        <div class="both"></div>
         </li>
-        
-        <li>
-        <label class='label' for='category'>카테고리 코드 : </label>
-        <span>${artVO.category}</span>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label class='label' for='deal_code'>거래구분 코드 : </label>
-       <span>${artVO.deal_code}</span><br>
+         <li class="float_r" style="width:43%; margin:40px 0;">
+         <div style="width:100%;" class="float_r">
+         <!-- <strong>상품정보</strong> -->
+         <span style="font-size: 16px; font-weight:bold;">PRODUCT INFO</span>&nbsp;<span style="color: #8C8C8C">제품정보</span>
+         <div style="padding: 11px; border: 1px solid #c6cae2; background: #FCFCFC; line-height: 1.5em; display: block; width:100%;">
+          <span style="float: right; display: inline; font-weight: 400; letter-spacing: 0; color: #444; font-size: 12px;">${artVO.hprice}</span>
+          <h1 style="font-size: 16px; font-weight: bold; color: #444; overflow: hidden; margin: 0; padding: 0 8px; line-height: 18px;">판매가</h1>
+          </div>
+         
+         <div style="border-left:4px solid #B0E0E6;  padding-left:20px;">
+            <table style='width: 100%;'> 
+            <colgroup>
+             <col style='width: 30%;'/>
+             <col style='width: 70%;'/>
+            </colgroup>
+              <tr>
+               <td>카테고리</td>
+               <td>${artVO.category}</td>
+              </tr>
+              <tr>
+               <td>거래구분</td>
+               <td>${artVO.deal_code}</td>
+              </tr>
+              <tr>
+               <td>상품구분</td>
+               <td>${artVO.product_code}</td>
+              </tr>
+              <tr>
+               <td>거래지역</td>
+               <td>${artVO.region}</td>
+              </tr>
+              <tr>
+               <td>거래방식</td>
+               <td>${artVO.deal_way }</td>
+              </tr>
+              <tr>
+               <td>구입시기</td>
+               <td>${artVO.purc_date}</td>
+              </tr>
+              <tr>
+               <td>희망가격</td>
+               <td>${artVO.hprice}</td>
+              </tr>
+              <tr>
+               <td>수량</td>
+               <td>${artVO.quantity}</td>
+              </tr>
+              </table>
+         </div>
+       
+         <strong style="display:block; margin-top:20px;">판매자정보</strong>
+         <div style="border-left:4px solid #D87093; padding-left:20px;">
+         <table style='width: 100%;'> 
+            <colgroup>
+             <col style='width: 30%;'/>
+             <col style='width: 70%;'/>
+            <tr>
+               <td>판매자</td>
+               <td>${artVO.nickname}</td>
+            </tr>
+            <tr>
+               <td>이메일</td>
+               <td>${artVO.email}</td>
+            </tr>
+            <tr>
+               <td>연락처</td>
+               <td>${artVO.tel}</td>
+            </tr>
+            <tr>
+               <td>등록일</td>
+               <td>${artVO.wdate.substring(0, 16)}</td>
+            </tr>
+         </table>
+         </div>
+         </div>
+         <div class="both"></div>
       </li>
-      
+      <li class="both">
+      <div style="width:100%; height:30px; line-height:30px; border-bottom:2px solid #8C8C8C">
+      <span style="font-size: 16px; font-weight:bold;">MORE INFO</span>&nbsp;<span style="color: #8C8C8C">추가정보</span></div>
+      </li>
       <li>
-      <label class='label' for='region'>거래 지역 : </label>
-      <span>${artVO.region}</span> 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <label class='label' for='deal_way'>거래방식 : </label>
-      <span>${artVO.deal_way}</span><br>
       </li>
-      
-        <li>
-        <label class='label' for='hprice'>희망가격 : </label>
-         <span>${artVO.hprice}</span><br>
-      </li>
-      
-      <li>
-        <label class='label' for='purc_date'>구입시기 : </label>
-      <span>${artVO.purc_date}</span> 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <label class='label' for='product_code'>상품구분 : </label>
-        <span>${artVO.product_code}</span><br>
-      </li>
-
-          <li>
-            <label for='content' style="width:150px;">내용 : </label>
-            <div>${artVO.content}</div>
-          </li>
-    
-          <li>
-            <label for="file1" style="width:150px;">업로드 파일: </label>
-            <span>
-              <c:if test="${artVO.size1 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${artVO.file1}'>${artVO.file1}</A> (${artVO.size1Label})
-              </c:if>
-            </span>    
-            <div id='file1Panel'>
-              <c:set var='file1' value="${fn:toLowerCase(artVO.file1)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file1, '.jpg')}">
-                  <IMG id='file1' src='./storage/${artVO.file1}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file1, '.gif')}">
-                  <IMG id='file1'  src='./storage/${artVO.file1}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file1, '.png')}">
-                  <IMG id='file1'  src='./storage/${artVO.file1}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-              <li>
-            <label for="file2" style="width:150px;">업로드 파일2: </label>
-            <span>
-              <c:if test="${artVO.size2 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${artVO.file2}'>${artVO.file2}</A> (${artVO.size2Label})
-              </c:if>
-            </span>    
-            <div id='file2Panel'>
-              <c:set var='file2' value="${fn:toLowerCase(artVO.file2)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file2, '.jpg')}">
-                  <IMG id='file2' src='./storage/${artVO.file2}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file2, '.gif')}">
-                  <IMG id='file2'  src='./storage/${artVO.file2}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file2, '.png')}">
-                  <IMG id='file2'  src='./storage/${artVO.file2}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-              <li>
-            <label for="file3" style="width:150px;">업로드 파일3: </label>
-            <span>
-              <c:if test="${artVO.size3 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${artVO.file3}'>${artVO.file3}</A> (${artVO.size3Label})
-              </c:if>
-            </span>    
-            <div id='file3Panel'>
-              <c:set var='file3' value="${fn:toLowerCase(artVO.file3)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file3, '.jpg')}">
-                  <IMG id='file3' src='./storage/${artVO.file3}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file3, '.gif')}">
-                  <IMG id='file3'  src='./storage/${artVO.file3}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file3, '.png')}">
-                  <IMG id='file3'  src='./storage/${artVO.file3}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-              <li>
-            <label for="file4" style="width:150px;">업로드 파일4: </label>
-            <span>
-              <c:if test="${artVO.size4 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${artVO.file4}'>${artVO.file4}</A> (${artVO.size4Label})
-              </c:if>
-            </span>    
-            <div id='file4Panel'>
-              <c:set var='file4' value="${fn:toLowerCase(artVO.file4)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file4, '.jpg')}">
-                  <IMG id='file4' src='./storage/${artVO.file4}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file4, '.gif')}">
-                  <IMG id='file4'  src='./storage/${artVO.file4}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file4, '.png')}">
-                  <IMG id='file4'  src='./storage/${artVO.file4}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-              <li>
-            <label for="file5" style="width:150px;">업로드 파일5: </label>
-            <span>
-              <c:if test="${artVO.size5 > 0}">
-                <A href='${pageContext.request.contextPath}/download?dir=/usedcar/storage&filename=${artVO.file5}'>${artVO.file5}</A> (${artVO.size5Label})
-              </c:if>
-            </span>    
-            <div id='file5Panel'>
-              <c:set var='file5' value="${fn:toLowerCase(artVO.file5)}" />
-              <c:choose>
-                <c:when test="${fn:endsWith(file5, '.jpg')}">
-                  <IMG id='file5' src='./storage/${artVO.file5}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file5, '.gif')}">
-                  <IMG id='file5'  src='./storage/${artVO.file5}' >
-                </c:when>
-                <c:when test="${fn:endsWith(file5, '.png')}">
-                  <IMG id='file5'  src='./storage/${artVO.file5}' >
-                </c:when>
-              </c:choose>
-            </div>
-          </li>
-          
-          <li>
-         <label for='email'>E-mail</label><br>
-            <span>${artVO.email}</span><br>
-          </li>
-          
-          <li>
-        <label for='tel'>Tel</label><br>
-         <span>${artVO.tel}</span><br>
-      </li>
-
-        </ul>
-      </fieldset>
-    </FORM>
-  </DIV>
+     <li style="display:block; width:80%; margin:0 auto;  min-height:300px;">
+      <label for='content'></label>
+      <br>
+      <span>${artVO.content}</span>
+    </li>
+    <li>
+     <hr>
+    </li>
+     <li class='text_r'>
+      <button type="button" onclick="location.href='./list.do?ano=${artVO.ano}&col=${searchDTO.col}&word=${searchDTO.word}'">목록보기</button>
+      <button type="button" onclick="location.href='./update.do?ano=${artVO.ano}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
+      <button type="button" onclick="location.href='./delete.do?ano=${artVO.ano}'">삭제</button>
+     </li>
+    </ul>
+  </fieldset>
+</FORM>  
+</DIV>
  
 <iframe src="${pageContext.request.contextPath}/art_reply/list.do?ano=${artVO.ano}" scrolling=no name=ce width=900 height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;"></iframe>  
 
 <!-- -------------------------------------------- -->
-</div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
+</DIV>
 </body>
 <!-- -------------------------------------------- -->
 </html> 

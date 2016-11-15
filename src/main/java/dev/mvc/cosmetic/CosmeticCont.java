@@ -118,7 +118,7 @@ public class CosmeticCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file2)) {
-        file1 = Tool.preview(upDir, file2, 120, 80);
+        file1 = Tool.preview(upDir, file2, 150, 150);
       } else {
         file1 = "";
       }
@@ -138,7 +138,7 @@ public class CosmeticCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file4)) {
-        file3 = Tool.preview(upDir, file4, 120, 80);
+        file3 = Tool.preview(upDir, file4, 400, 400);
       } else {
         file3 = "";
       }
@@ -158,7 +158,7 @@ public class CosmeticCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file6)) {
-        file5 = Tool.preview(upDir, file6, 120, 80);
+        file5 = Tool.preview(upDir, file6, 400, 400);
       } else {
         file5 = "";
       }
@@ -177,7 +177,7 @@ public class CosmeticCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file8)) {
-        file7 = Tool.preview(upDir, file8, 120, 80);
+        file7 = Tool.preview(upDir, file8, 400, 400);
       } else {
         file7 = "";
       }
@@ -196,7 +196,7 @@ public class CosmeticCont {
       // Thumb 파일 생성
       // -------------------------------------------------------------------
       if (Tool.isImage(file10)) {
-        file9 = Tool.preview(upDir, file10, 120, 80);
+        file9 = Tool.preview(upDir, file10, 400, 400);
       } else {
         file9 = "";
       }
@@ -244,7 +244,7 @@ public class CosmeticCont {
   hashMap.put("col", searchDTO.getCol());
   hashMap.put("word", searchDTO.getWord());
   
-  int recordPerPage = 5; // 페이지당 출력할 레코드 갯수
+  int recordPerPage = 8; // 페이지당 출력할 레코드 갯수
   // 페이지에서 출력할 시작 레코드 번호 계산, nowPage는 1부터 시작
   int beginOfPage = (searchDTO.getNowPage() - 1) * 5; 
   // 1 page: 0
@@ -622,5 +622,31 @@ public class CosmeticCont {
     return mav;
   }
   
-  
+  /**
+   * 최근 목록을 출력합니다.
+   * 
+   * @return
+   */
+  @RequestMapping(value = "/cosmetic/list2.do", method = RequestMethod.GET)
+  public ModelAndView newlist() {
+     ModelAndView mav = new ModelAndView();
+     mav.setViewName("/cosmetic/list2"); // /webapp/member/list.jsp
+     
+     
+     List<CosmeticVO> list = cosmeticDAO.newlist();
+     Iterator<CosmeticVO> iter = list.iterator(); // 객체를 순차적으로 접근하는 기능
+     while(iter.hasNext() == true){  // 다음 요소 검사
+       CosmeticVO vo = iter.next();  // 요소 추출
+       vo.setTitle(Tool.textLength(vo.getTitle(),10));   // 문자열 10자 
+       //vo.setWdate(vo.getWdate().substring(0, 10));      // 년 월 일
+       // vo.setFile1(Tool.textLength(vo.getFile1(),10));  
+       //vo.setThumb(Tool.textLength(vo.getThumb(),10)); 
+       
+     }
+     mav.addObject("list2", list);
+     
+     
+     return mav;
+  }
+
 }

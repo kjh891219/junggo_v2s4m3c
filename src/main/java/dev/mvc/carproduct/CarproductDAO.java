@@ -74,5 +74,15 @@ public class CarproductDAO implements CarproductDAOInter{
   public List<CarproductVO> newlist() {
     return mybatis.selectList("carproduct.newlist");
   }
+
+  @Override
+  public int maxp_no() {
+    return mybatis.selectOne("carproduct.maxp_no");
+  }
+
+  @Override
+  public int minp_no() {
+    return mybatis.selectOne("carproduct.minp_no");
+  }
   
 }

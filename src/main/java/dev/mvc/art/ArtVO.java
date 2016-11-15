@@ -37,6 +37,7 @@ size5             NUMBER(9)         DEFAULT 0        NULL,
 );
  */
 public class ArtVO {
+//---------------------------------------
   /** 마이페이지 글 번호 **/
   private int my_no;
   /** 마이페이지 글 수 **/
@@ -54,7 +55,7 @@ public class ArtVO {
   public void setMy_cnt(int my_cnt) {
     this.my_cnt = my_cnt;
   }
-
+//---------------------------------------
   /**글번호*/
   private int ano;
   /**카테고리*/

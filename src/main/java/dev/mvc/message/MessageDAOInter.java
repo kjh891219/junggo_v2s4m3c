@@ -60,4 +60,5 @@ public interface MessageDAOInter {
    */
   public int delete(HashMap map);
   
+
 }

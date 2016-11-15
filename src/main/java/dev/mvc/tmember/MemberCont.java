@@ -2,28 +2,60 @@ package dev.mvc.tmember;
  
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
-import javax.mail.*;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.art.ArtVO;
+import dev.mvc.book.BookVO;
 import dev.mvc.camera.CameraVO;
+import dev.mvc.carproduct.CarproductVO;
+import dev.mvc.cheat.CheatVO;
+import dev.mvc.cloth.ClothVO;
+import dev.mvc.computer.ComputerVO;
+import dev.mvc.cosmetic.CosmeticVO;
+import dev.mvc.game.GameVO;
+import dev.mvc.gamedevice.GameDeviceVO;
+import dev.mvc.living.LivingVO;
+import dev.mvc.mobile.MobileVO;
+import dev.mvc.music.MusicVO;
+import dev.mvc.product.ProductVO;
+import dev.mvc.reviews.ReviewsVO;
+import dev.mvc.sports.SportsVO;
+import dev.mvc.usedcar.UsedcarVO;
+import web.tool.AES256Util;
 import web.tool.Paging;
 import web.tool.SearchDTO;
 import web.tool.Tool;
@@ -38,13 +70,12 @@ public class MemberCont {
     System.out.println("--> MemberCont created.");
   }
   
-  @RequestMapping(value = "/home.do", method = RequestMethod.GET)
-  public ModelAndView home(HttpSession session) {
+/*  @RequestMapping(value = "/home.do", method = RequestMethod.GET)
+  public ModelAndView home() {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/index"); // member에 create.do가 들어올 경우 이동 -> /webapp/member/create.jsp
-    session.setAttribute("url", "index.jsp");
     return mav;
-  }
+  }*/
   
   @RequestMapping(value = "/member/create.do", method = RequestMethod.GET)
   public ModelAndView create() {
@@ -56,7 +87,7 @@ public class MemberCont {
   }
  
   @RequestMapping(value = "/member/create.do", method = RequestMethod.POST)
-  public ModelAndView create(MemberVO memberVO ) {
+  public ModelAndView create(MemberVO memberVO ) throws Exception {
     System.out.println("--> create() POST called.");
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/member/message"); // /webapp/member/message.jsp
@@ -126,18 +157,26 @@ public class MemberCont {
       // out.println(to + "님에게 메일 발송을 실패 했습니다.");
     }
 // ---------------------------------------------------------     
+// 비밀번호 암호화
+// ---------------------------------------------------------     
+    System.out.println("비밀번호 암호화 전: "+memberVO.getPwd());
     
+    AES256Util aes256 = new AES256Util();
+    String encrypt_pwd = aes256.aesEncode(memberVO.getPwd());
+    memberVO.setPwd(new String(encrypt_pwd));
+    System.out.println("비밀번호 암호화 후"+memberVO.getPwd());
+// ---------------------------------------------------------     
     if (memberDAO.create(memberVO) == 1) {
       msgs.add("회원가입이 처리 되었습니다.");
       msgs.add("가입해주셔서 감사합니다.");
       msgs.add("이메일 인증 시 로그인이 가능합니다.");
-      links.add("<button type='button' onclick=\"location.href='./login.do'\">로그인</button>");
-      links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../login.do'\">로그인</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     } else {
       msgs.add("회원 가입에 실패했습니다.");
       msgs.add("죄송하지만 다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     }
  
     mav.addObject("msgs", msgs);
@@ -236,19 +275,10 @@ public class MemberCont {
   }
 
   /**
-   * 전체 목록을 출력합니다.
-   * 
+   * 회원 정보 읽기
+   * @param mno
    * @return
    */
-/*  @RequestMapping(value = "/member/list.do", method = RequestMethod.GET)
-  public ModelAndView list() {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("/member/list"); //  /webapp/member/list.jsp
-    mav.addObject("list", memberDAO.list());
- 
-    return mav;
-  }*/
-  
   @RequestMapping(value = "/member/read.do", method = RequestMethod.GET)
   public ModelAndView read(int mno) {
     ModelAndView mav = new ModelAndView();
@@ -289,12 +319,8 @@ public class MemberCont {
     hashMap.put("startNum", startNum);
     hashMap.put("endNum", endNum);
     
-    
-    
-    
     System.out.println(searchDTO.getCol());
     System.out.println(searchDTO.getWord());
-    
     
     int totalRecord = 0;
     List<MemberVO> list = memberDAO.list2(hashMap);
@@ -332,8 +358,9 @@ public class MemberCont {
         searchDTO.getCol(), 
         searchDTO.getWord());
     mav.addObject("paging", paging);
+    mav.addObject("dropout", dropout);
     
-    System.out.println(paging);
+   // System.out.println(paging);
     
     
     return mav;
@@ -356,13 +383,13 @@ public class MemberCont {
  
     if (memberDAO.confirm(memberVO) == 1) {
       msgs.add("이메일 인증이 완료되었습니다.");
-      links.add("<button type='button' onclick=\"location.href='./login.do'\">로그인</button>");
-      links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../login.do'\">로그인</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     } else {
       msgs.add("이메일 인증이 실패했습니다.");
       msgs.add("죄송하지만 다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     }
  
     mav.addObject("msgs", msgs);
@@ -386,14 +413,43 @@ public class MemberCont {
   public ModelAndView login(MemberVO memberVO, 
                                          HttpSession session, 
                                          HttpServletRequest request,
-                                         HttpServletResponse response) {
+                                         HttpServletResponse response) throws UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
     // System.out.println("--> login() POST called.");
   
     ModelAndView mav = new ModelAndView();
     
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
-  
+ // ---------------------------------------------------------     
+ // 비밀번호 암호화
+ // ---------------------------------------------------------     
+/*    System.out.println("비밀번호 암호화 전: "+memberVO.getPwd());
+    
+    AES256Util aes256 = new AES256Util();
+    String encrypt_pwd = aes256.aesEncode(memberVO.getPwd());
+    memberVO.setPwd(new String(encrypt_pwd));
+    System.out.println("비밀번호 암호화 후"+memberVO.getPwd());*/
+ // --------------------------------------------------------- 
+    
+ // ---------------------------------------------------------     
+ // 비밀번호 복호화
+      
+ //  decrypt: byte[] array 받아서 String으로 반환
+ // ---------------------------------------------------------   
+    //String pwd = memberDAO.read_userid(memberVO.getUserid()).getPwd(); // DB 비밀번호
+     String pwd = memberVO.getPwd();
+     System.out.println("비밀번호 암호화 전: "+ pwd); // String 상태
+
+     AES256Util aes256 = new AES256Util();
+     String endcode_pwd = aes256.aesEncode(pwd);
+     
+     System.out.println("암호화 테스트 : " + endcode_pwd);
+     
+     memberVO.setPwd(endcode_pwd);
+     
+     System.out.println("비밀번호 암호화 후: "+memberVO.getPwd());
+ // ---------------------------------------------------------    
+     
     if (memberDAO.login(memberVO) == 1) {
       String act = memberDAO.read_userid(memberVO.getUserid()).getAct();
       int mno = memberDAO.read_userid(memberVO.getUserid()).getMno();
@@ -459,7 +515,7 @@ public class MemberCont {
           msgs.add("현재 계정이 사용 불가합니다.");
           msgs.add("관리자에게 문의해주세요.");
           links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-          links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
+          links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
         }
       
       } else {
@@ -467,7 +523,7 @@ public class MemberCont {
         msgs.add("로그인에 실패했습니다.");
         msgs.add("죄송하지만 다시한번 시도해주세요.");
         links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-        links.add("<button type='button' onclick=\"location.href='../home.do'\">홈페이지</button>");
+        links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       }
       
       mav.addObject("msgs", msgs);
@@ -489,7 +545,7 @@ public class MemberCont {
     writer.println
     ("<script>"
         + "alert('" + userid2 + "님 이용해 주셔서 감사합니다');"
-        + "location.href='../home.do';"
+        + "location.href='../index.jsp';"
         + "</script>"
         );
   } 
@@ -512,12 +568,12 @@ public class MemberCont {
       session.invalidate();
       msgs.add("탈퇴가 정상적으로 처리되었습니다.");
       msgs.add("이용해 주셔서 감사합니다.");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./create.do'\">회원가입</button>");
     } else {
       msgs.add("죄송하지만 다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     }
  
     mav.addObject("msgs", msgs);
@@ -527,6 +583,7 @@ public class MemberCont {
   }
   
   /**
+   * 본인 인증
    * 패스워드 확인 폼 출력
    * @param mno 회원 번호
    * @return
@@ -542,11 +599,21 @@ public class MemberCont {
   }
   
   @RequestMapping(value = "/member/checkPwd.do", method = RequestMethod.POST)
-  public ModelAndView checkPwd(MemberVO memberVO, String flag) {
+  public ModelAndView checkPwd(MemberVO memberVO, String flag, HttpSession session) throws Exception {
     ModelAndView mav = new ModelAndView();
  
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
+
+    String pwd = memberVO.getPwd();
+
+    AES256Util aes256 = new AES256Util();
+    String endcode_pwd = aes256.aesEncode(pwd);
+    
+    memberVO.setPwd(endcode_pwd);
+    
+    mav.addObject("flag", flag);
+    
     // 현재 패스워드 일치 여부 검사
     if (memberDAO.checkPwd(memberVO.getUserid(), memberVO.getPwd()) == 1){
       mav.addObject("memberVO", memberDAO.read(memberVO.getMno()));
@@ -556,7 +623,6 @@ public class MemberCont {
           mav.setViewName("/member/dropout");
         }
       } else { }
- 
     return mav;
   }
   
@@ -582,7 +648,7 @@ public class MemberCont {
   * @return
   */
   @RequestMapping(value = "/member/update.do", method = RequestMethod.POST)
-  public ModelAndView update(MemberVO memberVO, String updateFlag, HttpSession session) {
+  public ModelAndView update(MemberVO memberVO, String updateFlag, HttpSession session) throws Exception {
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
     
@@ -645,22 +711,35 @@ public class MemberCont {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/member/message");
  
+ // ---------------------------------------------------------     
+ // 비밀번호 암호화
+ // ---------------------------------------------------------     
+     System.out.println("비밀번호 암호화 전: "+memberVO.getPwd());
+     
+     AES256Util aes256 = new AES256Util();
+     String encrypt_pwd = aes256.aesEncode(memberVO.getPwd());
+     memberVO.setPwd(new String(encrypt_pwd));
+     System.out.println("비밀번호 암호화 후"+memberVO.getPwd());
+ // ---------------------------------------------------------     
+    
     if (memberDAO.update(memberVO) == 1) {
       msgs.add("회원정보가 수정되었습니다.");
-      msgs.add("다시 로그인 해주세요.");
-      links.add("<button type='button' onclick=\"location.href='./login.do'\">로그인</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../login.do'\">로그인</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     } else {
       msgs.add("회원 정보 변경에 실패했습니다.");
       msgs.add("죄송하지만 다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     }
  
     mav.addObject("msgs", msgs);
     mav.addObject("links", links);
     
-    session.invalidate();
+    if(session.getAttribute("act").toString().equals("M")) {
+    } else {
+      session.invalidate();
+    }
     
     return mav;
     
@@ -714,6 +793,163 @@ public class MemberCont {
 
 }
   
+/******************************** 마이페이지 시작 ***********************************/
+
+  @RequestMapping(value = "/member/mylist2.do", method = RequestMethod.GET)
+  public ModelAndView mylist2(HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/member/mylist2");
+    String userid = session.getAttribute("userid").toString();
+    
+    List<ArtVO> art_list = memberDAO.art_list(userid);
+    Iterator<ArtVO> art_iter = art_list.iterator();
+    while (art_iter.hasNext() == true) { // 다음 요소 검사
+      ArtVO vo = art_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<CameraVO> camera_list = memberDAO.camera_list(userid);
+    Iterator<CameraVO> camera_iter = camera_list.iterator();
+    while (camera_iter.hasNext() == true) { // 다음 요소 검사
+      CameraVO vo = camera_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<BookVO> book_list = memberDAO.book_list(userid);
+    Iterator<BookVO> book_iter = book_list.iterator();
+    while (book_iter.hasNext() == true) { // 다음 요소 검사
+      BookVO vo = book_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<ComputerVO> computer_list = memberDAO.computer_list(userid);
+    Iterator<ComputerVO> computer_iter = computer_list.iterator();
+    while (computer_iter.hasNext() == true) { // 다음 요소 검사
+      ComputerVO vo = computer_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<ClothVO> cloth_list = memberDAO.cloth_list(userid);
+    Iterator<ClothVO> cloth_iter = cloth_list.iterator();
+    while (cloth_iter.hasNext() == true) { // 다음 요소 검사
+      ClothVO vo = cloth_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<CosmeticVO> cosmetic_list = memberDAO.cosmetic_list(userid);
+    Iterator<CosmeticVO> cosmetic_iter = cosmetic_list.iterator();
+    while (cosmetic_iter.hasNext() == true) { // 다음 요소 검사
+      CosmeticVO vo = cosmetic_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<ProductVO> product_list = memberDAO.product_list(userid);
+    Iterator<ProductVO> product_iter = product_list.iterator();
+    while (product_iter.hasNext() == true) { // 다음 요소 검사
+      ProductVO vo = product_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<GameVO> game_list = memberDAO.game_list(userid);
+    Iterator<GameVO> game_iter = game_list.iterator();
+    while (game_iter.hasNext() == true) { // 다음 요소 검사
+      GameVO vo = game_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<GameDeviceVO> gamedevice_list = memberDAO.gamedevice_list(userid);
+    Iterator<GameDeviceVO> gamedevice_iter = gamedevice_list.iterator();
+    while (gamedevice_iter.hasNext() == true) { // 다음 요소 검사
+      GameDeviceVO vo = gamedevice_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<MobileVO> mobile_list = memberDAO.mobile_list(userid);
+    Iterator<MobileVO> mobile_iter = mobile_list.iterator();
+    while (mobile_iter.hasNext() == true) { // 다음 요소 검사
+      MobileVO vo = mobile_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<LivingVO> living_list = memberDAO.living_list(userid);
+    Iterator<LivingVO> living_iter = living_list.iterator();
+    while (living_iter.hasNext() == true) { // 다음 요소 검사
+      LivingVO vo = living_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<SportsVO> sports_list = memberDAO.sports_list(userid);
+    Iterator<SportsVO> sports_iter = sports_list.iterator();
+    while (sports_iter.hasNext() == true) { // 다음 요소 검사
+      SportsVO vo = sports_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }    
+    List<UsedcarVO> usedcar_list = memberDAO.usedcar_list(userid);
+    Iterator<UsedcarVO> usedcar_iter = usedcar_list.iterator();
+    while (usedcar_iter.hasNext() == true) { // 다음 요소 검사
+      UsedcarVO vo = usedcar_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<CarproductVO> carproduct_list = memberDAO.carproduct_list(userid);
+    Iterator<CarproductVO> carproduct_iter = carproduct_list.iterator();
+    while (carproduct_iter.hasNext() == true) { // 다음 요소 검사
+      CarproductVO vo = carproduct_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<MusicVO> music_list = memberDAO.music_list(userid);
+    Iterator<MusicVO> music_iter = music_list.iterator();
+    while (music_iter.hasNext() == true) { // 다음 요소 검사
+      MusicVO vo = music_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    
+    
+    List<ReviewsVO> reviews_list = memberDAO.reviews_list(userid);
+    Iterator<ReviewsVO> reviews_iter = reviews_list.iterator();
+    while (music_iter.hasNext() == true) { // 다음 요소 검사
+      ReviewsVO vo = reviews_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<CheatVO> cheat_list = memberDAO.cheat_list(userid);
+    Iterator<CheatVO> cheat_iter = cheat_list.iterator();
+    while (cheat_iter.hasNext() == true) { // 다음 요소 검사
+      CheatVO vo = cheat_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+   
+   //  LinkedHashMap<String,Object> hashMap = new LinkedHashMap<String, Object>();
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("art_list", art_list);
+    hashMap.put("camera_list", camera_list);
+    hashMap.put("book_list", book_list);
+    hashMap.put("computer_list", computer_list);
+    hashMap.put("cloth_list", cloth_list);
+    hashMap.put("cosmetic_list", cosmetic_list);
+    hashMap.put("product_list", product_list);
+    hashMap.put("game_list", game_list);
+    hashMap.put("gamedevice_list", gamedevice_list);
+    hashMap.put("mobile_list", mobile_list);
+    hashMap.put("living_list", living_list);
+    hashMap.put("sports_list", sports_list);
+    hashMap.put("usedcar_list", usedcar_list);
+    hashMap.put("carproduct_list", carproduct_list);
+    hashMap.put("music_list", music_list);
+    
+    
+    mav.addObject("hashMap", hashMap);
+    
+    mav.addObject("reviews_list", reviews_list);
+    mav.addObject("cheat_list", cheat_list);
+    
+    return mav;
+  }
+  
   @RequestMapping(value = "/member/mylist.do", method = RequestMethod.GET)
   public ModelAndView mylist(HttpSession session) {
     ModelAndView mav = new ModelAndView();
@@ -734,16 +970,143 @@ public class MemberCont {
       vo.setTitle(Tool.textLength(vo.getTitle(), 10));
       vo.setWdate(vo.getWdate().substring(0, 10));
     }
+    List<BookVO> book_list = memberDAO.book_list(userid);
+    Iterator<BookVO> book_iter = book_list.iterator();
+    while (book_iter.hasNext() == true) { // 다음 요소 검사
+      BookVO vo = book_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<ComputerVO> computer_list = memberDAO.computer_list(userid);
+    Iterator<ComputerVO> computer_iter = computer_list.iterator();
+    while (computer_iter.hasNext() == true) { // 다음 요소 검사
+      ComputerVO vo = computer_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<ClothVO> cloth_list = memberDAO.cloth_list(userid);
+    Iterator<ClothVO> cloth_iter = cloth_list.iterator();
+    while (cloth_iter.hasNext() == true) { // 다음 요소 검사
+      ClothVO vo = cloth_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<CosmeticVO> cosmetic_list = memberDAO.cosmetic_list(userid);
+    Iterator<CosmeticVO> cosmetic_iter = cosmetic_list.iterator();
+    while (cosmetic_iter.hasNext() == true) { // 다음 요소 검사
+      CosmeticVO vo = cosmetic_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<ProductVO> product_list = memberDAO.product_list(userid);
+    Iterator<ProductVO> product_iter = product_list.iterator();
+    while (product_iter.hasNext() == true) { // 다음 요소 검사
+      ProductVO vo = product_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<GameVO> game_list = memberDAO.game_list(userid);
+    Iterator<GameVO> game_iter = game_list.iterator();
+    while (game_iter.hasNext() == true) { // 다음 요소 검사
+      GameVO vo = game_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<GameDeviceVO> gamedevice_list = memberDAO.gamedevice_list(userid);
+    Iterator<GameDeviceVO> gamedevice_iter = gamedevice_list.iterator();
+    while (gamedevice_iter.hasNext() == true) { // 다음 요소 검사
+      GameDeviceVO vo = gamedevice_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<MobileVO> mobile_list = memberDAO.mobile_list(userid);
+    Iterator<MobileVO> mobile_iter = mobile_list.iterator();
+    while (mobile_iter.hasNext() == true) { // 다음 요소 검사
+      MobileVO vo = mobile_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<LivingVO> living_list = memberDAO.living_list(userid);
+    Iterator<LivingVO> living_iter = living_list.iterator();
+    while (living_iter.hasNext() == true) { // 다음 요소 검사
+      LivingVO vo = living_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<SportsVO> sports_list = memberDAO.sports_list(userid);
+    Iterator<SportsVO> sports_iter = sports_list.iterator();
+    while (sports_iter.hasNext() == true) { // 다음 요소 검사
+      SportsVO vo = sports_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }    
+    List<UsedcarVO> usedcar_list = memberDAO.usedcar_list(userid);
+    Iterator<UsedcarVO> usedcar_iter = usedcar_list.iterator();
+    while (usedcar_iter.hasNext() == true) { // 다음 요소 검사
+      UsedcarVO vo = usedcar_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<CarproductVO> carproduct_list = memberDAO.carproduct_list(userid);
+    Iterator<CarproductVO> carproduct_iter = carproduct_list.iterator();
+    while (carproduct_iter.hasNext() == true) { // 다음 요소 검사
+      CarproductVO vo = carproduct_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<MusicVO> music_list = memberDAO.music_list(userid);
+    Iterator<MusicVO> music_iter = music_list.iterator();
+    while (music_iter.hasNext() == true) { // 다음 요소 검사
+      MusicVO vo = music_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
     
+    
+    List<ReviewsVO> reviews_list = memberDAO.reviews_list(userid);
+    Iterator<ReviewsVO> reviews_iter = reviews_list.iterator();
+    while (music_iter.hasNext() == true) { // 다음 요소 검사
+      ReviewsVO vo = reviews_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    List<CheatVO> cheat_list = memberDAO.cheat_list(userid);
+    Iterator<CheatVO> cheat_iter = cheat_list.iterator();
+    while (cheat_iter.hasNext() == true) { // 다음 요소 검사
+      CheatVO vo = cheat_iter.next(); // 요소 추출
+      vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+      vo.setWdate(vo.getWdate().substring(0, 10));
+    }
+    
+    //  LinkedHashMap<String,Object> hashMap = new LinkedHashMap<String, Object>();
     HashMap<String, Object> hashMap = new HashMap<String, Object>();
     hashMap.put("art_list", art_list);
     hashMap.put("camera_list", camera_list);
-
+    hashMap.put("book_list", book_list);
+    hashMap.put("computer_list", computer_list);
+    hashMap.put("cloth_list", cloth_list);
+    hashMap.put("cosmetic_list", cosmetic_list);
+    hashMap.put("product_list", product_list);
+    hashMap.put("game_list", game_list);
+    hashMap.put("gamedevice_list", gamedevice_list);
+    hashMap.put("mobile_list", mobile_list);
+    hashMap.put("living_list", living_list);
+    hashMap.put("sports_list", sports_list);
+    hashMap.put("usedcar_list", usedcar_list);
+    hashMap.put("carproduct_list", carproduct_list);
+    hashMap.put("music_list", music_list);
+    
+    
     mav.addObject("hashMap", hashMap);
+    
+    mav.addObject("reviews_list", reviews_list);
+    mav.addObject("cheat_list", cheat_list);
+    
     return mav;
   }
 }
 
+/******************************** 마이페이지 종료 ***********************************/
 
 //javamail lib 이 필요합니다.
 class MyAuthentication extends Authenticator {

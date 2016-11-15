@@ -24,7 +24,7 @@ SELECT nickname
     FROM member
     WHERE userid NOT IN ('chanmi');
 -----------------------------------------------
-
+delete from member
 CREATE TABLE member(
     userid                            VARCHAR2(20)     NOT NULL PRIMARY KEY,   -- 아이디
     mno                               NUMBER(6)        NOT NULL UNIQUE,        -- 회원 번호

@@ -103,7 +103,7 @@ table{
 </tr>
 <tr>
     <td height="40" align="center" valign="bottom">
-        <a href='./list.do?flag=${flag}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}'>목록</a>&nbsp;&nbsp;        
+        <a href='./list_msg.do?flag=${flag}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}'>목록</a>&nbsp;&nbsp;        
         <a href="javascript:window.close();">닫기</a><br><br></td>
 </tr>
 </table>

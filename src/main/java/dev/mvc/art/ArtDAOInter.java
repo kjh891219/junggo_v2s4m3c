@@ -62,4 +62,11 @@ public interface ArtDAOInter {
    * @return
    */
   public int update(ArtVO artVO);
+  
+  /**
+   * 최신글 목록
+   * @return
+   */
+  public List<ArtVO> newlist();
+
 }

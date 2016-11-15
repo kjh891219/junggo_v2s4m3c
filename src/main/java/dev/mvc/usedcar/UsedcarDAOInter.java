@@ -88,6 +88,16 @@ public interface UsedcarDAOInter {
    * @return
    */
   public List<UsedcarVO> newlist();
-
+  
+  /**
+   * 이전글 이동
+   */
+  public int maxu_no();
+  
+  /**
+   * 다음글 이동
+   */
+ public int minu_no();
+ 
 
 }

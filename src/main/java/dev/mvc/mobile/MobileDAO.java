@@ -54,4 +54,9 @@ public class MobileDAO implements MobileDAOInter {
     return mybatis.selectList("mobile.list2", hashMap);
   }
 
+  @Override
+  public List<MobileVO> newlist() {
+    return mybatis.selectList("mobile.newlist");
+  }
+
 }

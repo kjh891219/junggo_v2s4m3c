@@ -249,6 +249,15 @@ public class CarproductCont {
 public ModelAndView read(int p_no, SearchDTO searchDTO) {
   ModelAndView mav = new ModelAndView();
   mav.setViewName("/carproduct/read");
+  
+  if(p_no>carproductDAO.maxp_no()){
+    p_no = carproductDAO.maxp_no();
+  }
+  
+  if(p_no<carproductDAO.minp_no()){
+    p_no = carproductDAO.minp_no();
+  }
+  
   carproductDAO.increaseCnt(p_no);
   mav.addObject("carproductVO", carproductDAO.read(p_no));
   mav.addObject("searchDTO", searchDTO);

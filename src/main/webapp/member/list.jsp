@@ -20,7 +20,7 @@
 <script type="text/javascript">
 
 function delete_form(mno){
-  var sw = window.confirm("정말로 관리자 회원을 삭제할까요?");
+  var sw = window.confirm("정말로 회원을 삭제하시겠습니까?");
   if (sw == false){
     window.alert('회원 삭제를 취소합니다.');
   }else{
@@ -73,21 +73,6 @@ function act_form(mno){
 <div class="container" style="margin: auto;">
 <TABLE class='table table-hover' style='width: 100%;'>
   <caption>관리자만 접근가능합니다.</caption>
-  <%-- <colgroup>
-    <col style='width: 5%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 15%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 10%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 5%;'/>
-    <col style='width: 5%;'/>
-  </colgroup> --%>
   <thead>
   <TR>
     <TH>번호</TH>

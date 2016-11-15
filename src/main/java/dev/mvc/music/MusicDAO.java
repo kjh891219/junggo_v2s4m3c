@@ -74,5 +74,15 @@ public class MusicDAO implements MusicDAOInter{
   public List<MusicVO> newlist() {
     return mybatis.selectList("music.newlist");
   }
+
+  @Override
+  public int maxctno() {
+    return mybatis.selectOne("music.maxctno");
+  }
+
+  @Override
+  public int minctno() {
+   return mybatis.selectOne("music.minctno");
+  }
   
 }

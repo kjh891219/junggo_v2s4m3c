@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -69,7 +70,6 @@ public class MessageCont {
     
     messageDAO.read_ck(hashMap);
   }
-  
   
   /**
    * 페이징 + 검색 전체 목록
@@ -297,6 +297,7 @@ public class MessageCont {
           );
     }
   }
+
   
   
 }

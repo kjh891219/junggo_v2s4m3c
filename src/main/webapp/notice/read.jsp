@@ -53,12 +53,6 @@ window.openModal = function() {
     <jsp:include page="/menu/left.jsp" flush='false' />
     
 <DIV class='content_form'>
-  <div class='content_menu' style='width: 100%;'>
-    <A href='../notice/list.do'>게시판 목록</A> >
-    <A href="javascript:location.reload();">새로고침</A>｜
-    <A href='./create.do?noticeno=${noticeVO.noticeno}'>등록</A>｜
-    <A href='./reply.do?noticeno=${noticeVO.noticeno}'>답변</A>｜
-  </div>
      <FORM name='frm' method='POST' action='./update.do'>
       <input type='hidden' name='noticeno' value='${noticeVO.noticeno}'>         
   <fieldset>
@@ -109,7 +103,7 @@ window.openModal = function() {
 </FORM>
 </DIV>
 </body>
-<iframe src="${pageContext.request.contextPath}/nt_reply/list.do?noticeno=${noticeVO.noticeno}" class='myFrame' width="100%" style="border-style: none;"></iframe>  
+  
 
 <!-- -------------------------------------------- -->
 <%-- <jsp:include page="/menu/bottom.jsp" flush='false' /> --%>

@@ -85,5 +85,11 @@ public interface CosmeticDAOInter {
    */
   public MemberVO test(String userid);
   
-  
+  /**
+   * 도서 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<CosmeticVO> newlist();
+
 }

@@ -21,7 +21,7 @@
        alert('로그인 한 사용자만 사용이 가능합니다.');
        window.parent.openModal();
        <%String cno = request.getParameter("cno");%>
-       <%session.setAttribute("url", "cosmetic/read.do?cno="+cno);%>
+       <%session.setAttribute("url", "cosmetic/read.do?cno="+ cno );%>
        return false;
        <% } else { %>
        return true;
@@ -41,7 +41,8 @@
     
 <DIV class='center-block'>
 <DIV class='title'>댓글 쓰기</DIV>
-<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/cosmetic_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>
+<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/cosmetic_reply/create.do' class='form-inline'
+    onsubmit = 'return create_login()'>
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="cno" id="cno" value='<%=request.getParameter("cno")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>

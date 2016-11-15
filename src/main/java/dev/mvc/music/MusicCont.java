@@ -121,7 +121,7 @@ public class MusicCont {
      // Thumb 파일 생성
      // -------------------------------------------------------------------
      if (Tool.isImage(file1)) {
-       thumb = Tool.preview(upDir, file1, 120, 80);
+       thumb = Tool.preview(upDir, file1, 140, 180);
      } else {
        thumb = "";
      }
@@ -234,6 +234,15 @@ public class MusicCont {
 public ModelAndView read(int ctno, SearchDTO searchDTO) {
   ModelAndView mav = new ModelAndView();
   mav.setViewName("/music/read");
+  
+  if(ctno>musicDAO.maxctno()){
+    ctno = musicDAO.maxctno();
+  }
+  
+  if(ctno<musicDAO.minctno()){
+    ctno = musicDAO.minctno();
+  }
+  
   musicDAO.increaseCnt(ctno);
   mav.addObject("musicVO", musicDAO.read(ctno));
   mav.addObject("searchDTO", searchDTO);

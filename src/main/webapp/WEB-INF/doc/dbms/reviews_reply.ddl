@@ -17,12 +17,12 @@ CREATE TABLE REVIEWS_REPLY(
 alter table REVIEWS_REPLY add(userid varchar2(20));
 alter table REVIEWS_REPLY
 add constraint FK_REVIEWS_REPLY_USERID FOREIGN KEY(userid)
-REFERENCES member(userid);
+REFERENCES member(userid) on delete cascade;
 
 alter table REVIEWS_REPLY add(r_no number(6));
 alter table REVIEWS_REPLY
 add constraint FK_REVIEWS_REPLY FOREIGN KEY(r_no)
-REFERENCES reviews(r_no);
+REFERENCES reviews(r_no) on delete cascade;
 
 insert into REVIEWS_REPLY(rno, nickname, passwd, rcomment, grpno, indent, ansnum, u_no, userid)
 values ((select NVL(MAX(rno),0)+1 as rno from reviews_reply),

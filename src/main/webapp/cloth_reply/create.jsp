@@ -21,7 +21,7 @@
        alert('로그인 한 사용자만 사용이 가능합니다.');
        window.parent.openModal();
        <%String clothno = request.getParameter("clothno");%>
-       <%session.setAttribute("url", "cloth/read.do?clothno="+clothno);%>
+       <%session.setAttribute("url", "cloth/read.do?clothno="+ clothno );%>
        return false;
        <% } else { %>
        return true;
@@ -30,24 +30,28 @@
      }
       </script>
 
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
 
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
-<!-- ----------------------------------------- -->
-
-
+<%--  <jsp:include page="/menu/top.jsp" flush='false' /> --%>
+ <!-- ----------------------------------------- -->
     
 <DIV class='center-block'>
 <DIV class='title'>댓글 쓰기</DIV>
-<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/cloth_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>
+<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/cloth_reply/create.do' class='form-inline' 
+    onsubmit = 'return create_login()' >
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="clothno" id="clothno" value='<%=request.getParameter("clothno")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>
   <div class="col-xs-5">    
         <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" class="form-group"><%=request.getParameter("clothno")%></textarea>
-         <button type="submit" class="btn btn-success btn-lg">등록</button>
+         <button type="submit" class="btn btn-success btn-lg" >등록</button>
   </div>
  
 </FORM>
@@ -56,8 +60,9 @@
 
 
 <!-- -------------------------------------------- -->
-<%-- <jsp:include page="/menu/bottom.jsp" flush='false' /> --%>
-</body>
+<%--  <jsp:include page="/menu/bottom.jsp" flush='false' />
+ --%>
+ </body>
 <!-- -------------------------------------------- -->
 </html> 
 

@@ -5,9 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="notice">
 
 <insert id="create" parameterType="NoticeVO">
-INSERT INTO notice(noticeno, nickname, title, content,file1, file2, size2, userid)  
+INSERT INTO notice(noticeno, nickname, title, content,file1, file2, size2, userid, grpno, indent, ansnum)  
 VALUES((SELECT NVL(MAX(noticeno), 0) + 1 as noticeno FROM notice), #{nickname},#{title}, #{content}, #{file1}, #{file2}, 
-#{size2}, #{userid})
+#{size2}, #{userid},  (SELECT NVL(MAX(grpno), 0) + 1 as grpno FROM notice), 0, 0)
   </insert>
 
 <update id="update" parameterType="NoticeVO">
@@ -16,7 +16,7 @@ VALUES((SELECT NVL(MAX(noticeno), 0) + 1 as noticeno FROM notice), #{nickname},#
  WHERE noticeno=#{noticeno}
 </update>     
    <select id="read" resultType="NoticeVO" parameterType="int">
-  SELECT noticeno, nickname, title, content, wdate, file1, file2, size2, cnt, userid
+  SELECT noticeno, nickname, title, content, wdate, file1, file2, size2, cnt, userid, grpno, indent, ansnum
 FROM notice 
  WHERE noticeno= #{noticeno}
   </select> 
@@ -33,6 +33,9 @@ FROM notice
    where noticeno= #{noticeno}
    
    </update>  
+      
+      
+      
       
  <!--  검색 리스트 수 -->
  <select id = "count" resultType="int" parameterType="HashMap">
@@ -54,11 +57,11 @@ FROM notice
       
   <!-- ********** 검색에 따른 변경 시작 ********** -->
  <select id="list2" resultType="NoticeVO" parameterType="HashMap" >
-    SELECT noticeno, nickname, title, wdate, cnt, userid, r
+    SELECT noticeno, nickname, title, wdate, cnt, userid, grpno, indent, ansnum,r
     FROM(
-       SELECT noticeno, nickname, title, wdate, cnt, userid, rownum as r     
+       SELECT noticeno, nickname, title, wdate, cnt, userid, grpno, indent, ansnum, rownum as r     
            FROM(
-             SELECT noticeno, nickname, title, wdate, cnt, userid
+             SELECT noticeno, nickname, title, wdate, cnt, userid, grpno, indent, ansnum
                  FROM notice
                        <choose>
                         <when test="col == 'title'">
@@ -77,6 +80,50 @@ FROM notice
     WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->
   </select>  
       
-      
+ <!-- 답변 순서 변경 --> 
+   <update id='updateAnsnum' parameterType="NoticeVO">
+    UPDATE notice
+    SET ansnum = ansnum + 1
+    WHERE grpno = #{grpno} AND ansnum > #{ansnum}
+  </update>      
+  
+ <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member 
+    where userid=#{userid}
+  </select> 
+  
+  
+  <!-- ********** 답변에 따른 변경 시작 ********** -->
+ <select id="list3" resultType="NoticeVO" parameterType="HashMap" >
+    SELECT noticeno, nickname, title, wdate, cnt, userid, grpno, indent, ansnum,r
+    FROM(
+       SELECT noticeno, nickname, title, wdate, cnt, userid, grpno, indent, ansnum, rownum as r     
+           FROM(
+             SELECT noticeno, nickname, title, wdate, cnt, userid, grpno, indent, ansnum
+                 FROM notice
+                       <choose>
+                        <when test="col == 'title'">
+                           WHERE title LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'content'">
+                           WHERE content LIKE '%' || #{word} || '%' 
+                        </when>
+                        <when test="col == 'title_content'">
+                           where title LIKE '%' || #{word} || '%'  OR content LIKE '%' || #{word} || '%' 
+                        </when>      
+                      </choose>
+                     ORDER BY grpno DESC, ansnum ASC
+             )
+    )
+    WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->
+  </select>  
+  <!-- 답변 등록 -->
+   <insert id="reply" parameterType="NoticeVO">
+INSERT INTO notice(noticeno, nickname, title, content,file1, file2, size2, userid, grpno, indent, ansnum)   
+VALUES((SELECT NVL(MAX(noticeno), 0) + 1 as noticeno FROM notice), #{nickname},#{title}, #{content}, #{file1}, #{file2}, 
+#{size2}, #{userid}, #{grpno}, #{indent}, #{ansnum})   
+  </insert>       
+    
       
 </mapper>

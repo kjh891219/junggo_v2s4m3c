@@ -41,7 +41,7 @@ function create(rno){
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
    "<DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>"+
-   "<FORM name='frm' id='frm' method='POST' action='${pageContext.request.contextPath}/art_reply/create.do' class='form-inline' onsubmit = 'return create_login()'>" +
+   "<FORM name='frm' id='frm' method='POST' action='${pageContext.request.contextPath}/music_reply/reply.do' class='form-inline' onsubmit = 'return create_login()'>" +
    "<input type='hidden' name='nickname' id='nickname' value='<c:out value="${nickname}"/>'>" +
    "<input type='hidden' name='ctno' id='ctno' value='<c:out value="${ctno}"/>'>" +
    "<input type='hidden' name='userid' id='userid' value='<c:out value="${userid}"/>'>" +

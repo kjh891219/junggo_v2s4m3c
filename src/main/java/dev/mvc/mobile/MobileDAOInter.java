@@ -36,5 +36,14 @@ public List<MobileVO> list();
  
  public List<MobileVO> list2(HashMap<String, Object> hashMap);
  
+ 
+ /**
+  * 모바일 최신글 목록
+  * @param hashmap
+  * @return
+  */
+ public List<MobileVO> newlist();
+
+ 
   
 }

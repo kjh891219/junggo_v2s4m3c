@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import dev.mvc.game.GameVO;
+import dev.mvc.tmember.MemberVO;
 import web.tool.Paging;
 import web.tool.SearchDTO;
 import web.tool.Tool;
@@ -32,31 +34,42 @@ public class NoticeCont {
  private NoticeDAOInter noticeDAO;
 
  @RequestMapping(value = "/notice/create.do", method = RequestMethod.GET)
- public ModelAndView create(HttpSession session, HttpServletResponse response) throws IOException {
+ public ModelAndView create(HttpSession session, HttpServletResponse response) throws IOException{
    System.out.println("--> create() GET called.");
    ModelAndView mav = new ModelAndView();
    mav.setViewName("/notice/create"); // /webapp/member/create.jsp
+  
+   
    
    response.setCharacterEncoding("UTF-8");
    response.setContentType("text/html; charset=UTF-8");
    if (session.getAttribute("userid") == null ){
      PrintWriter writer = response.getWriter();
      writer.println
-     ("<script>alert('관리자만 사용이 가능합니다.');" 
+     ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
       + "location.href = '../member/login.do';"
       + "</script>"); 
      session.setAttribute("url", "notice/list.do");//
-    
-     
-     
-   } else {
-     PrintWriter writer = response.getWriter();
-     writer.println
-     ("<script>" 
-         + "location.href = './create.jsp';"
-         + "</script>");
-     
-   }
+   
+        
+     } else {
+       PrintWriter writer = response.getWriter();
+       writer.println
+       ("<script>" 
+           + "location.href = './create.jsp';"
+           + "</script>");
+       
+     }
+     String userid = session.getAttribute("userid").toString();
+     String pwd = session.getAttribute("pwd").toString();
+     String tel = session.getAttribute("tel").toString();
+     MemberVO memberVO = noticeDAO.test(userid);
+        
+     mav.addObject("memberVO", memberVO);
+     mav.addObject("userid", userid);
+     mav.addObject("pwd", pwd);
+     mav.addObject("tel", tel);
+     System.out.println(memberVO);
    
    
    return mav;
@@ -66,7 +79,7 @@ public class NoticeCont {
  public ModelAndView create(NoticeVO noticeVO, HttpServletRequest request, HttpSession session) {
    System.out.println("--> create() POST called.");
    ModelAndView mav = new ModelAndView();
-   mav.setViewName("/game/message"); // webapp/member/message.jsp
+   mav.setViewName("/notice/message"); // webapp/member/message.jsp
 
    ArrayList<String> msgs = new ArrayList<String>();
    ArrayList<String> links = new ArrayList<String>(); 
@@ -120,7 +133,7 @@ public class NoticeCont {
  
  
 @RequestMapping(value = "/notice/list.do", method = RequestMethod.GET)
-public ModelAndView list2(SearchDTO searchDTO, HttpServletRequest request, HttpSession session) {
+public ModelAndView list2(SearchDTO searchDTO, HttpServletRequest request) {
   ModelAndView mav = new ModelAndView();
   mav.setViewName("/notice/list");// /webapp/game/list.jsp
 
@@ -143,7 +156,7 @@ public ModelAndView list2(SearchDTO searchDTO, HttpServletRequest request, HttpS
   
   
   int totalRecord = 0;
-  List<NoticeVO> list = noticeDAO.list2(hashMap);
+  List<NoticeVO> list = noticeDAO.list3(hashMap);
   Iterator<NoticeVO> iter = list.iterator();
   while(iter.hasNext() == true){  // 다음 요소 검사
     NoticeVO vo = iter.next();  // 요소 추출
@@ -155,7 +168,6 @@ public ModelAndView list2(SearchDTO searchDTO, HttpServletRequest request, HttpS
   }
   mav.addObject("list", list);
   mav.addObject("root", request.getContextPath());
-  
   
   
   totalRecord = noticeDAO.count(hashMap);
@@ -175,12 +187,13 @@ public ModelAndView read(int noticeno, SearchDTO searchDTO, HttpServletRequest r
   ModelAndView mav = new ModelAndView();
   noticeDAO.increaseCnt(noticeno);// 조회수 증가
   mav.setViewName("/notice/read");
+  mav.addObject("noticeVO", noticeDAO.read(noticeno));
   NoticeVO noticeVO = noticeDAO.read(noticeno);
   noticeVO.setSize2Label(Tool.unit(noticeVO.getSize2()));
-
-  mav.addObject("noticeVO", noticeVO);
+  String content = noticeVO.getContent();
+  content = Tool.convertChar(content);
   mav.addObject("searchDTO", searchDTO);
-  mav.addObject("noticeVO", noticeDAO.read(noticeno));
+ 
   
   return mav;
 }
@@ -292,6 +305,123 @@ public ModelAndView delete(NoticeVO noticeVO) {
 
   return mav;
 }
+@RequestMapping(value = "/notice/reply.do", method = RequestMethod.GET)
+public ModelAndView reply(NoticeVO noticeVO, HttpSession session, HttpServletResponse response) throws IOException {
+  System.out.println("--> reply() GET called.");
+  ModelAndView mav = new ModelAndView();
+  mav.setViewName("/notice/reply"); // /webapp/member/create.jsp
+   
+  response.setCharacterEncoding("UTF-8");
+  response.setContentType("text/html; charset=UTF-8");
+  if (session.getAttribute("userid") == null ){
+    PrintWriter writer = response.getWriter();
+    writer.println
+    ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
+     + "location.href = '../member/login.do';"
+     + "</script>"); 
+    session.setAttribute("url", "notice/list.do");//
+  
+       
+    } else {
+      PrintWriter writer = response.getWriter();
+      writer.println
+      ("<script>" 
+          + "location.href = './reply.jsp';"
+          + "</script>");
+      
+    }
+    String userid = session.getAttribute("userid").toString();
+    String pwd = session.getAttribute("pwd").toString();
+    String tel = session.getAttribute("tel").toString();
+    MemberVO memberVO = noticeDAO.test(userid);
+       
+    mav.addObject("memberVO", memberVO);
+    mav.addObject("userid", userid);
+    mav.addObject("pwd", pwd);
+    mav.addObject("tel", tel);
+    System.out.println(memberVO);
+
+return mav;
+}
+
+@RequestMapping(value = "/notice/reply.do", method = RequestMethod.POST)
+public ModelAndView reply(NoticeVO noticeVO, HttpServletRequest request, HttpServletResponse response, HttpSession session)throws IOException {
+  ModelAndView mav = new ModelAndView();
+  response.setCharacterEncoding("UTF-8");
+  response.setContentType("text/html; charset=UTF-8");
+  if (session.getAttribute("userid") == null){
+    PrintWriter writer = response.getWriter();
+    writer.println
+    ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
+     + "location.href = '../member/login.do';"
+     + "</script>"); 
+    session.setAttribute("url", "/notice/list.do?noticeno="+noticeVO.getNoticeno());
+    
+  } 
+  
+     
+  mav.setViewName("redirect:/notice/list.do?noticeno="+noticeVO.getNoticeno());
+  
+  
+  ArrayList<String> msgs = new ArrayList<String>();
+  ArrayList<String> links = new ArrayList<String>();
+  
+  String file1 = "";
+  String file2 = "";
+  long size2 = 0;
+  String upDir = Tool.getRealPath(request, "/notice/storage");
+  MultipartFile file2MF = noticeVO.getFile2MF();
+  
+  
+  size2 = file2MF.getSize();
+  if (file2MF.getSize() > 0) {
+    file2 = Upload.saveFileSpring(file2MF, upDir);
+    noticeVO.setFile2(file2); // 전송된 파일명 저장
+    noticeVO.setSize2(file2MF.getSize());
+    // Thumb 파일 생성
+    // -------------------------------------------------------------------
+    if (Tool.isImage(file2)) {
+      file1 = Tool.preview(upDir, file2, 120, 80);
+    } else {
+      file1 = "";
+    }
+    // -------------------------------------------------------------------
+  }
+  noticeVO.setFile1(file1); // Thumb 이미지
+  noticeVO.setFile2(file2); // 원본 이미지
+  noticeVO.setSize2(size2); // 원본 이미지
+   
+  // ---------- 답변 관련 코드 시작 ---------- 
+  NoticeVO parentVO = noticeDAO.read(noticeVO.getNoticeno()); // 부모글 정보 추출
+  noticeVO.setGrpno(parentVO.getGrpno()); // 그룹 번호
+  noticeVO.setAnsnum(parentVO.getAnsnum()); // 답변 순서
+  
+  noticeDAO.updateAnsnum(noticeVO); // 현재 등록된 답변 뒤로 +1 처리함.
+  
+  noticeVO.setIndent(parentVO.getIndent()+1); // 답변 차수 증가
+  noticeVO.setAnsnum(parentVO.getAnsnum()+1); //부모 바로 아래 등록
+  // ---------- 답변 관련 코드 종료 ---------- 
+  
+  if (noticeDAO.reply(noticeVO) == 1) {
+   
+    msgs.add("글을 등록했습니다.");
+    links
+        .add("<button type='button' onclick=\"location.href='./create.do?'\">공지사항 등록</button>");
+  } else {
+    msgs.add("글 등록에 실패했습니다.");
+    msgs.add("다시 시도해주세요.");
+    links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
+  }
+
+  links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+  links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
+  mav.addObject("msgs", msgs);
+  mav.addObject("links", links);
+
+  return mav;
+} 
+  
+}
 
  
-}
+

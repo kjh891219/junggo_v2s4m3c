@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<link href="/game/css/style.css" rel="Stylesheet" type="text/css">
-<script src="/game/js/event.js?ver=1"></script>
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 <script>
 window.openModal = function() {
   $( '#myModal' ).modal( 'show' );

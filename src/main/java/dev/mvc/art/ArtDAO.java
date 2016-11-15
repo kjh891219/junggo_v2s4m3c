@@ -50,4 +50,9 @@ public class ArtDAO implements ArtDAOInter {
   public int update(ArtVO artVO) {
     return mybatis.update("art.update", artVO);
   }
+
+  @Override
+  public List<ArtVO> newlist() {
+    return mybatis.selectList("art.newlist");
+  }
 }

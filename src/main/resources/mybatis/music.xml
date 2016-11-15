@@ -28,6 +28,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE ctno=#{ctno}
   </select>  
   
+  <!-- 이전글 조회 -->
+  <select id="maxctno" resultType="int">
+     SELECT MAX(ctno)
+     FROM music
+  </select>  
+  
+  <!-- 다음글 조회 -->
+  <select id="minctno" resultType="int">
+    SELECT MIN(ctno)
+    FROM music
+  </select>
+  
     <!-- 테스트  -->
   <select id="test" resultType="MemberVO" parameterType="String">
     select nickname, email

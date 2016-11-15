@@ -11,8 +11,12 @@ CREATE TABLE notice(
     file2                             VARCHAR2(50)         NULL ,
     size2                             NUMBER(9)        DEFAULT 0       NULL ,
     userid                            VARCHAR2(20)     NULL ,
-  FOREIGN KEY (userid) REFERENCES member_test (userid)
+    grpno                            NUMBER(7)        NOT NULL,
+    indent                            NUMBER(2)        DEFAULT 0       NOT NULL,
+    ansnum                          NUMBER(5)        DEFAULT 0       NOT NULL,  
+    FOREIGN KEY (userid) REFERENCES member (userid)
 );
+
 
  noticeno, nickname, title, content, wdate, cnt, userid
 COMMENT ON TABLE notice is '공지사항';

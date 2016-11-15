@@ -68,5 +68,10 @@ public List<ClothVO> list3(HashMap hashmap) {
 public MemberVO test(String userid) {
   return mybatis.selectOne("cloth.test", userid);
 }
+
+@Override
+public List<ClothVO> newlist() {
+  return mybatis.selectList("cloth.newlist");
+}
     
 }

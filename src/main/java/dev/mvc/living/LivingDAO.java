@@ -47,4 +47,9 @@ public class LivingDAO implements LivingDAOInter {
     return mybatis.selectList("living.list2", hashMap);
   }
 
+  @Override
+  public List<LivingVO> newlist() {
+    return mybatis.selectList("living.newlist");
+  }
+
 }

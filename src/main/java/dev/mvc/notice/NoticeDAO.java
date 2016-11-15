@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dev.mvc.tmember.MemberVO;
+
 @Repository("dev.mvc.notice.NoticeDAO")
 public class NoticeDAO implements NoticeDAOInter {
   @Autowired
@@ -47,4 +49,23 @@ public class NoticeDAO implements NoticeDAOInter {
     return mybatis.selectOne("notice.count", hashMap);
   }
 
+  @Override
+  public List<NoticeVO> list3(HashMap<String, Object> hashMap) {
+    return mybatis.selectList("notice.list3", hashMap);
+  }
+
+  @Override
+  public int updateAnsnum(NoticeVO vo) {
+    return mybatis.update("notice.updateAnsnum", vo);
+  }
+
+  @Override
+  public int reply(NoticeVO vo) {
+    return mybatis.insert("notice.reply", vo);
+  }
+
+  @Override
+  public MemberVO test(String userid) {
+    return mybatis.selectOne("notice.test", userid);
+  }
 }

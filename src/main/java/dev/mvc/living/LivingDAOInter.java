@@ -42,4 +42,12 @@ public interface LivingDAOInter {
  
   public List<LivingVO> list2(HashMap<String, Object> hashMap);
   
+  /**
+   * 생활용품 최신글 목록
+   * @param hashmap
+   * @return
+   */
+  public List<LivingVO> newlist();
+
+  
 }

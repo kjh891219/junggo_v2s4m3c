@@ -19,15 +19,14 @@ $(function(){
   $('#panel_frm').hide();
 });
 function create(rno){
-  
-  <% if( session.getAttribute("userid") == null) { %>
-  alert('로그인 한 사용자만 사용이 가능합니다.');
-  window.parent.openModal();
-  <%String pno = request.getParameter("pno");%>
-  <%session.setAttribute("url", "product/read.do?pno="+pno);%>
-  return false;
-  <% } else { %>
-  
+	 <% if( session.getAttribute("userid") == null) { %>
+	    alert('로그인 한 사용자만 사용이 가능합니다.');
+	    window.parent.openModal();
+	    <%String pno = request.getParameter("pno");%>
+	    <%session.setAttribute("url", "cosmetic/read.do?pno="+pno);%>
+	    return false;
+	    <%  } else { %>
+	
   var e = window.event, btn = e.target || e.srcElement; 
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
@@ -47,7 +46,7 @@ function create(rno){
   $('#comment'+rno).html(tag);  
   return true;
   <% } %>
- }  
+  }  
  
 function create_cancel(frm){
   frm.style.display='none';
@@ -95,7 +94,7 @@ function delete_form(rno){
       <tbody>
         <c:forEach var="vo" items="${list }">
           <tr>
-            <td class="td_l" style='border: none;'>
+            <td class="td_l" style='border: none; border-bottom: 1px solid lightgray;'>
               <c:choose>
                 <c:when test="${vo.ansnum == 0 }">
                   <img src='./images/url4.png' style='width: 14px;'>
@@ -117,9 +116,6 @@ function delete_form(rno){
               <button type='button' onclick="delete_form('${vo.rno}');">삭제</button>
               </c:if>
                
-               
-               
-              <hr>
               <DIV id="comment${vo.rno }">
               <!-- 여기에 Tag를 넣어줍니다 -->
               </DIV> 

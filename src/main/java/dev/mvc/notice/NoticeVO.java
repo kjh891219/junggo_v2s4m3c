@@ -4,6 +4,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class NoticeVO {
     
+  
+//---------------------------------------
+  /** 마이페이지 글 번호 **/
+  private int my_no;
+  /** 마이페이지 글 수 **/
+  private int my_cnt;
+  public int getMy_no() {
+    return my_no;
+  }
+  public void setMy_no(int my_no) {
+    this.my_no = my_no;
+  }
+  public int getMy_cnt() {
+    return my_cnt;
+  }
+
+  public void setMy_cnt(int my_cnt) {
+    this.my_cnt = my_cnt;
+  }
+//---------------------------------------
+  
+  
   private int noticeno; 
   private String nickname;
   private String title;
@@ -16,7 +38,30 @@ public class NoticeVO {
   private String userid;
   private MultipartFile file2MF;
   private String size2Label; 
+  private int grpno;
+  private int indent;
+  private int ansnum;
   
+  
+  
+  public int getGrpno() {
+    return grpno;
+  }
+  public void setGrpno(int grpno) {
+    this.grpno = grpno;
+  }
+  public int getIndent() {
+    return indent;
+  }
+  public void setIndent(int indent) {
+    this.indent = indent;
+  }
+  public int getAnsnum() {
+    return ansnum;
+  }
+  public void setAnsnum(int ansnum) {
+    this.ansnum = ansnum;
+  }
   public int getNoticeno() {
     return noticeno;
   }

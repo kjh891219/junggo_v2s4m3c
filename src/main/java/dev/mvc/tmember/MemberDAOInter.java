@@ -4,7 +4,23 @@ import java.util.HashMap;
 import java.util.List;
 
 import dev.mvc.art.ArtVO;
+import dev.mvc.book.BookVO;
 import dev.mvc.camera.CameraVO;
+import dev.mvc.carproduct.CarproductVO;
+import dev.mvc.cheat.CheatVO;
+import dev.mvc.cloth.ClothVO;
+import dev.mvc.computer.ComputerVO;
+import dev.mvc.cosmetic.CosmeticVO;
+import dev.mvc.game.GameVO;
+import dev.mvc.gamedevice.GameDeviceVO;
+import dev.mvc.living.LivingVO;
+import dev.mvc.mobile.MobileVO;
+import dev.mvc.music.MusicVO;
+import dev.mvc.product.ProductVO;
+import dev.mvc.qna.QnAVO;
+import dev.mvc.reviews.ReviewsVO;
+import dev.mvc.sports.SportsVO;
+import dev.mvc.usedcar.UsedcarVO;
 
 
 
@@ -162,9 +178,33 @@ public interface MemberDAOInter {
    * @return
    */
   public List<ArtVO> art_list(String userid);
+
   public List<CameraVO> camera_list(String userid);
+  public List<BookVO> book_list(String userid);
+  public List<ComputerVO> computer_list(String userid);
+ 
+  
+  public List<UsedcarVO> usedcar_list(String userid);
+  public List<CarproductVO> carproduct_list(String userid);
+  public List<MusicVO> music_list(String userid);
   
   
+  public List<ClothVO> cloth_list(String userid);
+  public List<CosmeticVO> cosmetic_list(String userid);
+  public List<ProductVO> product_list(String userid);
+  
+  public List<GameVO> game_list(String userid);
+  public List<GameDeviceVO> gamedevice_list(String userid);
+  public List<MobileVO> mobile_list(String userid);
+  
+  public List<LivingVO> living_list(String userid);
+  public List<SportsVO> sports_list(String userid);
+ 
+  public List<ReviewsVO> reviews_list(String userid);
+  public List<CheatVO> cheat_list(String userid);
+
+/*  public int qna_count(HashMap hashmap);
+  public List<QnAVO> qna_list(HashMap hashmap);*/
   
   
   

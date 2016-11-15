@@ -92,4 +92,15 @@ public interface MusicDAOInter {
    */
   public List<MusicVO> newlist();
   
+  /**
+   * 이전글 이동
+   */
+  public int maxctno();
+  
+  /**
+   * 다음글 이동
+   */
+ public int minctno();
+ 
+  
 }

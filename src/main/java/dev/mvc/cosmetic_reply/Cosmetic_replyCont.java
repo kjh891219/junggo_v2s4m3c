@@ -92,10 +92,6 @@ public class Cosmetic_replyCont {
   public ModelAndView list(HttpServletRequest request, int cno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
     
-    
-    
-    
-    
    // String userid = session.getAttribute("userid").toString();
    // String nickname = session.getAttribute("nickname").toString();
     mav.setViewName("/cosmetic_reply/list");

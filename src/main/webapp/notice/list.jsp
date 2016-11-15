@@ -116,6 +116,7 @@ window.openModal = function() {
     <TD >
       <A href="./update.do?noticeno=${vo.noticeno}"><IMG src='./images/update.png' title='수정'></A>
       <A href="./delete.do?noticeno=${vo.noticeno}"><IMG src='./images/delete.png' title='삭제'></A>
+      <A href='./reply.do?noticeno=${vo.noticeno}'><IMG src='./images/url5.png' title='답변'>답변</A>｜
     </TD>
     
   </TR>
