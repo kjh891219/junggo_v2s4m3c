@@ -209,7 +209,12 @@ public interface MemberDAOInter {
   
   
   
-  
+  /** ÇÁ·ÎÇÊ 
+   * 
+   * @param nickname
+   * @return
+   */
+  public MemberVO readprofile(String nickname2);
   
   
   

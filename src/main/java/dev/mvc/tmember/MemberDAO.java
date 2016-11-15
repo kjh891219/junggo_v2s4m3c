@@ -230,6 +230,11 @@ public  class MemberDAO implements MemberDAOInter{
   public List<CheatVO> cheat_list(String userid) {
     return mybatis.selectList("member.cheat_list", userid);
   }
+
+  @Override
+  public MemberVO readprofile(String nickname2) {
+    return mybatis.selectOne("member.readprofile", nickname2);
+  }
    
    
    

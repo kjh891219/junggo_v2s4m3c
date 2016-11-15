@@ -40,6 +40,8 @@ $(document).ready(function(){
 window.openModal = function() {
   $( '#myModal' ).modal( 'show' );
   }
+  
+  
 </script>
 <script>
      function create_login() {

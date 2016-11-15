@@ -34,7 +34,7 @@ CREATE TABLE living(
     size10                            NUMBER(9)        DEFAULT 0       NULL ,
     cnt                               NUMBER(6)    DEFAULT 0     NOT NULL,
     userid                            VARCHAR2(20)     NULL,
-    FOREIGN KEY (userid) REFERENCES member_test (userid)
+    FOREIGN KEY (userid) REFERENCES member (userid)
 );
 
 1등록 
@@ -108,6 +108,8 @@ COMMENT ON COLUMN mobile reply.userid is '아이디';
 INSERT INTO mobile_reply(rmno, nickname, passwd, content, mno,userid)  
 VALUES((SELECT NVL(MAX(rmno), 0) + 1 as rmno FROM mobile_reply), 'nickname','passwd', 'content', 
 (select mno from mobile where mno= 1), (select userid from member_test where userid='master'));
+
+select * from living
 
 2.조회 
 SELECT rmno, nickname, passwd, content, wdate, cnt, userid

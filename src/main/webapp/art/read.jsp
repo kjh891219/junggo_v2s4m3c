@@ -49,6 +49,18 @@ function send_wish(hprice, nickname, title, thumb){
 }
 
 
+function profile(userid, nickname){
+  var url = '../member/profile.do?nickname='+nickname;
+  var encodedInputString=escape(url);
+  var win = window.open(url, '프로필', 'width=617.5px, height=600px');
+  
+  var x = (screen.width - 500) / 2;
+  var y = (screen.height - 440) / 2;
+  
+  win.moveTo(x, y); // 화면 가운데로 이동
+}
+
+
 function msg_list(userid){
   <% if( session.getAttribute("userid") == null) { %>
   alert('로그인 한 사용자만 이용이 가능합니다');
@@ -312,7 +324,10 @@ $(function(){
              <col style='width: 70%;'/>
             <tr>
                <td>판매자</td>
-               <td>${artVO.nickname}</td>
+               
+               <td>
+               <A href="javascript: profile(' ${artVO.userid}' ,' ${artVO.nickname}') ;" class='list_tag'  title='프로필'>${artVO.nickname}</A>
+               </td>
             </tr>
             <tr>
                <td>이메일</td>
@@ -328,13 +343,13 @@ $(function(){
             </tr>
          </table>
          </div>
+         <div style="text-align: center;">
          <c:if test ="${(artVO.userid ne userid)}">
-       
         <A href="javascript: send_wish( ' ${artVO.hprice}' ,' ${artVO.nickname}' , ' ${artVO.title}' ,' ${artVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
           <IMG src='../images/favorite_love.png' alt="WishList"></A>
         <A href="javascript: msg_list(' ${artVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
        </c:if>
-       
+       </div>
          </div>
          <div class="both"></div>
       </li>

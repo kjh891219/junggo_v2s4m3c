@@ -58,6 +58,51 @@
 window.openModal = function() {
   $( '#myModal' ).modal( 'show' );
   }
+  
+function send_wish(hprice, nickname, title, thumb){
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 이용이 가능합니다');
+  window.openModal();
+  return false;
+  <% } else { %>
+   var url = document.location.href;
+   location.href = '../favorite/create.do?nickname='+nickname+'&title='+title+'&hprice='+hprice+'&url='+url+'&thumb='+thumb; 
+  return true;
+  <% } %> 
+
+}
+
+function profile(userid, nickname){
+  var url = '../member/profile.do?nickname='+nickname;
+  var encodedInputString=escape(url);
+  var win = window.open(url, '프로필', 'width=617.5px, height=600px');
+  
+  var x = (screen.width - 500) / 2;
+  var y = (screen.height - 440) / 2;
+  
+  win.moveTo(x, y); // 화면 가운데로 이동
+}
+
+
+function msg_list(userid){
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 이용이 가능합니다');
+  window.openModal();
+  return false;
+  <% } else { %>
+  
+  $("#detail").css("display","block");
+  var url = '../message/create.do?userid='+userid;
+  var encodedInputString=escape(url);
+  var win = window.open(url, '프로필', 'width=750px, height=800px');
+  
+  var x = (screen.width - 500) / 2;
+  var y = (screen.height - 440) / 2;
+  
+  win.moveTo(x, y); // 화면 가운데로 이동
+  return true;
+  <% } %> 
+ };  
 </script>
 
 
@@ -227,7 +272,7 @@ window.openModal = function() {
         판매자
       </th>
       <td style="padding: 14px 10px 14px 20px;  font: normal 12px '맑은 고딕'; color: #666; text-align: left; vertical-align: top; border-bottom: 1px solid #e5e5e5; letter-spacing: 0">
-        ${mobileVO.nickname }
+        <A href="javascript: profile(' ${mobileVO.userid}' ,' ${mobileVO.nickname}') ;" class='list_tag'  title='프로필'>${mobileVO.nickname}</A>
       </td>
     </tr>
     <tr>
@@ -331,6 +376,13 @@ window.openModal = function() {
     </tr>
     </tbody>
    </table>
+   <div style="text-align: center;">
+      <c:if test ="${(mobileVO.userid ne userid)}">  
+        <A href="javascript: send_wish( ' ${mobileVO.hprice}' ,' ${mobileVO.nickname}' , ' ${mobileVO.title}' ,' ${mobileVO.file1 }' )  ;" class='top_select'  title='위시리스트'>
+          <IMG src='../images/favorite_love.png' alt="WishList"></A>
+        <A href="javascript: msg_list(' ${mobileVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
+    </c:if>
+  </div> 
   </div>
 </div>
 <div style="clear: both;"></div>

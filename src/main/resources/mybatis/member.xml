@@ -379,5 +379,15 @@ MEMBER TABLE
   
   
   <!-- ********************************************** 마이 페이지 끝   ********************************************************  -->
+  
+  
+   <!-- 프로필 -->
+ <select id="readprofile" resultType="MemberVO" parameterType="String">
+    SELECT userid, mno, pwd, name, nickname, email, tel, zipcode, address1, address2, mdate, 
+                          auth, confirm, act, dropout
+    FROM member
+    WHERE nickname=#{nickname} 
+  </select> 
+  
 </mapper>
 

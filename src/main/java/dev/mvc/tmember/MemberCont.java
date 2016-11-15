@@ -1104,6 +1104,20 @@ public class MemberCont {
     
     return mav;
   }
+  
+  /**
+   * 프로필
+   * @param nickname
+   * @return
+   */
+  @RequestMapping(value = "/member/profile.do", method = RequestMethod.GET)
+  public ModelAndView read(String nickname, String userid) {
+    ModelAndView mav = new ModelAndView();
+    String nickname2 = nickname.trim();
+    mav.setViewName("/member/profile"); ///webapp/member/profile.jsp
+    mav.addObject("vo", memberDAO.readprofile(nickname2));
+    return mav;
+  }
 }
 
 /******************************** 마이페이지 종료 ***********************************/

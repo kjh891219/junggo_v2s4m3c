@@ -291,6 +291,7 @@ public class LivingCont {
   @RequestMapping(value = "/living/read.do", method = RequestMethod.GET)
   public ModelAndView read(int lno) {
     ModelAndView mav = new ModelAndView();
+    livingDAO.increaseCnt(lno);
     ArrayList<String> msgs = new ArrayList<String>();
     ArrayList<String> links = new ArrayList<String>();
    
