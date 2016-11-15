@@ -57,7 +57,7 @@
   
   <DIV class='title'><span>글수정</span></DIV>
   <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
-  <DIV class='content' style='width: 90%;'>
+  <DIV class='content' style=''>
   <FORM name='frm' method='POST' action='./update.do'
              enctype="multipart/form-data">
    <input type='hidden' name='u_no' id='u_no' value='${usedcarVO.u_no}'>
@@ -117,10 +117,10 @@
    <div class=""> 
      <label for='deal_way' class='need_e'>거래방식</label>
    <div>
-      <select name='deal_way' id='deal_way'>
+      <select name='deal_way' id='deal_way'class="form-control-lg-10-lg-10-lg-10 full">
          <option value="${usedcarVO.deal_way}" selected="selected">${usedcarVO.deal_way}</option>
-         <option value="field" selected="selected">현장거래</option>
-         <option value="delivery">택배</option>
+         <option value="현장거래" selected="selected">현장거래</option>
+         <option value="택배">택배</option>
       </select>
       </div>
   </div>
@@ -133,9 +133,9 @@
      <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
      <input type='text' name='title' id='title' required="required" value='${usedcarVO.title} ' class="col-xs-9 col-lg-9">
    </div>
-   <div class="row">
-     <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-     <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${usedcarVO.content}</textarea>
+   <div class="">
+     <label for='content' class=' choice_e'>상세설명</label>
+     <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="">${usedcarVO.content}</textarea>
    </div>
    
    <!-- 첫번째 파일 수정 -->

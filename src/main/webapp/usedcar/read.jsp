@@ -246,6 +246,7 @@
           <c:otherwise>
           </c:otherwise>
           </c:choose>
+          <BR><BR><BR><BR>
            <c:choose>
            <c:when test="${usedcarVO.file5.length() > 0}">
            <IMG src='./storage/${usedcarVO.file5}'  style='height:300px; width:430px'>

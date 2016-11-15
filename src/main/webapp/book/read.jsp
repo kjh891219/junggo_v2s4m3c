@@ -40,27 +40,11 @@
        $(".list_wrap ul li div").parent().addClass("float_r");
          
    });
-/* 
-   $(document).ready(function() {   
-   $(".thumb").find('img').each(function(){
-      if($(this).width() > 80)
-         $(this).removeAttr("width").removeAttr("height").css("width","80");
-   }) ;
-   
-   $(".img").find('img').each(function(){
-      if($(this).width() > 400)
-         $(this).removeAttr("width").removeAttr("height").css("width","400");
-   }) ;
-});
- */
 
 $(function(){
    $("iframe.myFrame").load(function(){ //iframe 컨텐츠가 로드 된 후에 호출됩니다.
      $(this).height($(this).contents().find('body')[0].scrollHeight + 120);
-     /*       var frame = $(this).get(0);
-     var doc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
-     $(this).height(doc.body.scrollHeight);
-     $(this).width(doc.body.scrollWidth); */
+   
    });
  });
  
@@ -79,6 +63,11 @@ $(function(){
       background:lightgray;
       /* box-shadow:2px 2px 2px gray;  */
    }
+       button{
+      background-color: transparent;
+      border:1px solid lightgray;
+      padding:2px;
+    }
 </style>
 </head> 
 <!-- ----------------------------------------- -->
@@ -86,18 +75,18 @@ $(function(){
     <jsp:include page="/menu/top.jsp" flush='false' />
     <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
+
+
    <div class="container"> 
 
 <DIV class='content_form'>
-  <div class='content_menu' style='width: 100%;'>
+  <div class='content_menu' style='width: 100%; min-width: 400px;'>
     <A href='../book/list.do'>게시판 목록</A> >
-    <A href='./list.do?bno=${bookVO.bno}'>${bookVO.title }</A>｜
-    <A href="javascript:location.reload();">새로고침</A>｜
+    <A >${bookVO.title }</A>｜
     <A href='./create.do?bno=${bookVO.bno}'>등록</A>｜
     <A href='./update.do?bno=${bookVO.bno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>수정</A>｜
     <A href='./delete.do?bno=${bookVO.bno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>삭제</A>｜
-    <A href='./delete.do?bno= ${bookVO.bno} '>삭제</A>｜
-    <A href="javascript:location.reload();">새로고침</A>｜
+    <A href="javascript:location.reload();">새로고침</A>
   </div>
 
     <FORM name='frm' method='POST' action='./update.do'>
@@ -105,20 +94,25 @@ $(function(){
        
         
         <fieldset>
-        <ul style="margin:50px 0;">
-        <li class="float_l">
-            <label for='title' >제목 : </label>
-            <strong style="font-size: 24px;">${bookVO.title}</strong><br>
+        <ul style="margin:50px 0; ">
+        <li style="display: block;
+             height: 35px; border-bottom:3px solid black; /* border-radius: 50px; */  ">
+        	<div class="float_l" style="padding-left:20px; margin-top:5px;width:50%;">
+	            <label for='title' >제목 : </label>
+	            <strong style="font-size: 18px;">${bookVO.title}</strong><br>
+        	</div>
+        	<div class="float_r" style="margin-top:5px; padding-right:20px; text-align: right;">
+	           <label for='bno'>상품번호 : </label>
+	           <span>${bookVO.bno}</span> ·
+	           <label for='cnt' >조회수 : </label> 
+	           <span>${bookVO.cnt}</span>
+              <label for='wdate' >등록일 : </label> 
+              <span>${bookVO.wdate.substring(0,10)}</span>
+        	</div>
+        	<div class="both"></div>
         </li>
-        <li class="float_r text_r" style="">
-           <label for='bno'>상품번호 : </label>
-           <span>${bookVO.bno}</span> ·
-           <label for='cnt' >조회수 : </label> 
-           <span>${bookVO.cnt}</span>
-        </li>
-        <li class="both"><hr> </li>
      
-        <li class="float_l" style="margin:40px 0; margin-right:15%;">
+        <li class="float_l" style="margin:40px 5%; margin-right:10%; ">
             <div class="photo_gallery">
             <p class="photo_img" style="width:400px; height:400px; vertical-align:middle; display:table-cell; ">
                 <img src="http://i1.daumcdn.net/cfs.tistory/static/images/xBoxReplace_250.png" width="100%" style="margin: auto 0 ;" >
@@ -251,16 +245,18 @@ $(function(){
         </li>
          <li class="float_l" style="width:33%; margin:40px 0;">
          <div style="min-width:350px; width:100%;" >
-         <strong>상품정보</strong>
+          <div class="text_c" style="margin-bottom:10px;">
+            <strong style="font-size: 18px;">상품정보</strong>
+         </div>
          <div style="border-left:4px solid #B0E0E6;  padding-left:20px;">
-            <table style='width: 100%;'> 
+            <table class="table" style='width: 100%;'> 
             <colgroup>
              <col style='width: 30%;'/>
              <col style='width: 70%;'/>
             </colgroup>
               <tr>
-               <td>거래구분</td>
-               <td>${bookVO.deal_code}</td>
+               <td style="border:none;">거래구분</td>
+               <td style="border:none;">${bookVO.deal_code}</td>
               </tr>
               <tr>
                <td>상품구분</td>
@@ -297,15 +293,17 @@ $(function(){
               </table>
          </div>
        
-         <strong style="display:block; margin-top:20px;">판매자정보</strong>
+         <div class="text_c" style="margin-bottom:10px; margin-top:20px;">
+            <strong style="font-size: 18px;">판매자정보</strong>
+         </div>
          <div style="border-left:4px solid #D87093; padding-left:20px;">
-         <table style='width: 100%;'> 
+         <table class="table" style='width: 100%;'> 
             <colgroup>
              <col style='width: 30%;'/>
              <col style='width: 70%;'/>
             <tr>
-               <td>판매자</td>
-               <td>${bookVO.nickname}</td>
+               <td style="border:none;">판매자</td>
+               <td style="border:none;">${bookVO.nickname}</td>
             </tr>
             <tr>
                <td>이메일</td>
@@ -327,7 +325,9 @@ $(function(){
       </li>
      <li style="display:block; width:80%; margin:0 auto;  min-height:300px;">
       <label for='content'></label>
+       <div style="padding-top:30px;">
       <span>${bookVO.content}</span>
+      </div>
     </li>
     <li>
      <hr>

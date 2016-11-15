@@ -25,7 +25,7 @@ for (int i=0; i < cookies.length; i++){
   }else if(cookie.getName().equals("ck_userid_save")){
     ck_userid_save = cookie.getValue();  // Y, N
   }else if (cookie.getName().equals("ck_pwd")){
-    ck_pwd = cookie.getValue();         // test1@mail.com
+    ck_pwd = cookie.getValue();         // test1@mail.com 
   }else if(cookie.getName().equals("ck_pwd_save")){
     ck_pwd_save = cookie.getValue();  // Y, N
   }

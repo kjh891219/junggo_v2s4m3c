@@ -209,7 +209,7 @@ public class ArtCont {
      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
    }
 
-   links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+   links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
    links.add("<button type='button' onclick=\"location.href='./list.do?ano="
            + artVO.getAno() + "'\">목록</button>");
    mav.addObject("msgs", msgs);
@@ -337,7 +337,7 @@ public class ArtCont {
     } else {
       msgs.add("글 삭제에 실패했습니다.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do'>목록</button>");
     }
     

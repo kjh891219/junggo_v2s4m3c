@@ -3,6 +3,9 @@ package dev.mvc.mobile;
 import java.util.HashMap;
 import java.util.List;
 
+import dev.mvc.game.GameVO;
+import dev.mvc.tmember.MemberVO;
+
 public interface MobileDAOInter {
  
   /**
@@ -37,13 +40,9 @@ public List<MobileVO> list();
  public List<MobileVO> list2(HashMap<String, Object> hashMap);
  
  
- /**
-  * 모바일 최신글 목록
-  * @param hashmap
-  * @return
-  */
- public List<MobileVO> newlist();
-
+ public MemberVO test(String userid);
  
+
+ public List<MobileVO> newlist();
   
 }

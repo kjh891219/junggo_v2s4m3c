@@ -14,8 +14,8 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
-<link href="/junggo/css/style.css" rel="Stylesheet" type="text/css">
-<script src="/junggo/js/event.js"></script>
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<script src="../js/event.js"></script>
 <script>
 window.openModal = function() {
   $( '#myModal' ).modal( 'show' );
@@ -36,7 +36,7 @@ window.openModal = function() {
 
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
+<body style="width:80%; margin:0 auto;">
    <jsp:include page="/menu/top.jsp" flush='false' />
    <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->

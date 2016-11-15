@@ -40,7 +40,7 @@ $(document).ready(function() {
    $(".photo_img img").attr("src",$(this).children("a").attr("href"));
    return false; */
    
-   $(".home_detail strong a").click(function(){
+   $(".home_detail a").click(function(){
       window.parent.location.href = $(this).attr('href') ;
       window.close();
       return false;
@@ -109,15 +109,15 @@ $(function(){
             <div class='both'></div>
         </div>    
             <div class="home_detail" style="width:100%; height:100%; position: absolute; top:0; left:0; padding-top:10%; padding-left:10%; display:none;">
+              <a style="display:block; width:100%; height:100%; position:absolute; top:0; left:0;" href="./read.do?u_no=${vo.u_no}"></a>  
                <span>[${vo.deal_code }]</span>
                <span>[${vo.product_code }]</span><br>
-               <strong><a href="./read.do?u_no=${vo.u_no}">${vo.title }</a></strong>
-               <br><span>작성자 : ${vo.userid }</span><br>
-               <span>등록일 : ${vo.wdate.substring(0,10) }</span>
+               <strong>${vo.title }</strong>
+               <br><span>${vo.userid }</span>
+               <br><span>${vo.wdate.substring(0,10) }</span>
                <br><strong style="font-family: dotum,'돋움'; font-size: 25px;"><fmt:formatNumber value="${vo.hprice }" pattern="#,###원"/></strong>
             </div>
             <div class='both'></div>
-         
       </li>
       </c:forEach>
     </ul>

@@ -45,7 +45,7 @@ CREATE TABLE QnA(
       nickname                            VARCHAR2(30)      DEFAULT ''   NOT NULL,
       tel                                 VARCHAR2(14)     DEFAULT ''    NOT NULL,
       email                               VARCHAR2(100)    DEFAULT ''    NOT NULL,
-      passwd                              VARCHAR2(20)      DEFAULT ''  NOT NULL,
+      passwd                              VARCHAR2(100)      DEFAULT ''  NOT NULL,
       cnt                                 NUMBER(7)        DEFAULT 0       NOT NULL,
       replycnt                            NUMBER(7)        DEFAULT 0       NOT NULL,
       grpno                               NUMBER(7)        DEFAULT 0       NOT NULL,

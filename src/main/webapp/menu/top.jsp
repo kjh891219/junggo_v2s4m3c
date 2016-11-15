@@ -28,7 +28,7 @@ for (int i=0; i < cookies.length; i++){
     ck_pwd = cookie.getValue();         // test1@mail.com
   }else if(cookie.getName().equals("ck_pwd_save")){
     ck_pwd_save = cookie.getValue();  // Y, N
-  }
+  } 
 }
 }
 
@@ -66,14 +66,11 @@ for (int i=0; i < cookies.length; i++){
                      <a href="<%=root %>/member/mylist.do" class='menu_style'><span></span>마이 페이지</a>
                </li>
                <li class="message">
-                     <A href='javascript: message();'><img src="${pageContext.request.contextPath}/images/message.png" width="20" style="position:relative; top:-1px; left:-10px;"/></a>
+                     <A href='javascript: message();'><img src="${pageContext.request.contextPath}/images/message.png" width="20" style="position:relative; top:-1px; left:-10px;"/>메세지</a>
                </li>
                <% } %>   
-               <li class="orderDelivery" style="background: url(${pageContext.request.contextPath}/images/truck.png) no-repeat left center; background-size:20px;">
-                     <a href="#" class='menu_style'><span></span>주문/배송</a>
-               </li>
-               <li class="cart" style="background: url(${pageContext.request.contextPath}/images/cart.png) no-repeat left center; background-size:20px;">
-                     <a href="#" class='menu_style'><span></span>장바구니</a>
+               <li class="favorite" style="background: url(${pageContext.request.contextPath}/images/favorite_love.png) no-repeat left center; background-size:20px;">
+                     <a href="${pageContext.request.contextPath}/favorite/list.do?userid=${userid }" class='menu_style'><span></span>위시리스트</a>
                </li>
                <!--
                <li class="cs"><a href="#none" class="on"><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
@@ -81,9 +78,10 @@ for (int i=0; i < cookies.length; i++){
                   <a class='menu_style'  id="downs">커뮤니티<img id="down_img" style="width:20px;"src="${pageContext.request.contextPath}/images/drop_down.png"></a>
                   <div id="down_b" style="display:none; position:absolute; margin-left:17px; width:70px; border:1px solid black;">
                      <dl style="margin:7px 0; background-color:white;">
-                        <dd><a href="#">고객센터</a></dd>
-                        <dd><a href="#">공지사항</a></dd>
-                        <dd><a href="#">Q&A</a></dd>
+                        <dd><a href="<%=root %>/qna/list.do">고객센터</a></dd>
+                        <dd><a href="<%=root %>/notice/list.do">공지사항</a></dd>
+                        <dd><a href="<%=root %>/reviews/list.do">상품후기</a></dd>
+                        <dd><a href="<%=root %>/cheat/list.do">신고센터</a></dd>
                      </dl>
                   </div>
                </li>
@@ -91,7 +89,7 @@ for (int i=0; i < cookies.length; i++){
                 String act = (String) session.getAttribute("act");
                 if ((Tool.checkNull(act)).equals("M")){
                 %>
-                  <li><a class='menu_link' href='<%=root %>/member/list.do' class='menu_style'><span></span>관리자다</a></li>
+                  <li><a class='menu_link' href='<%=root %>/member/list.do' class='menu_style'><span></span>관리자</a></li>
                 <%
                 }else{ }
                 %> 
@@ -101,7 +99,7 @@ for (int i=0; i < cookies.length; i++){
    </DIV>
 
    <div id="logo">
-      <img class="logo" alt="" src="${pageContext.request.contextPath}/images/logo.png" >
+      <a href="${pageContext.request.contextPath}/index.jsp"><img class="logo" alt="" src="${pageContext.request.contextPath}/images/logo.png" ></a>
    </DIV>
    <DIV id="category_b">
    <DIV id="category">
@@ -156,6 +154,7 @@ for (int i=0; i < cookies.length; i++){
           <div class="modal-footer">
             <button type="button" class="btn btn-default"
               data-dismiss="modal">취소</button>
+              <button onclick="location.href='<%=root%>/member/create.do'" type="button" class="btn">회원가입</button>
             <button type="submit" class="btn btn-primary">로그인</button>
           </div>
         </div>

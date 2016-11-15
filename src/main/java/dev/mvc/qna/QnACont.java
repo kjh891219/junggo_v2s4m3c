@@ -72,7 +72,7 @@ public class QnACont {
        int rownum = (qnavo.getRownum());
        qnavo.setRownum(rownum + 1);
        vo.setRownum(qnavo.getRownum());
-       vo.setTitle(Tool.textLength(vo.getTitle(), 10));
+       vo.setTitle(Tool.textLength(vo.getTitle(), 20));
        vo.setQdate(vo.getQdate());
     }
     mav.addObject("list", list);
@@ -119,17 +119,23 @@ public class QnACont {
   }
   
   @RequestMapping(value = "/qna/create.do", method = RequestMethod.GET)
-  public ModelAndView create() {
+  public ModelAndView create(HttpSession session) {
     System.out.println("--> create() GET called.");
     ModelAndView mav = new ModelAndView(); 
     mav.setViewName("/qna/create"); // /webapp/code/create.jsp
     
-    MemberVO memberVO = memberDAO.read_userid("chanmi");
-    System.out.println(memberVO.getEmail());
-    System.out.println(memberVO.getNickname());
-    System.out.println(memberVO.getPwd());
-    mav.addObject("memberVO", memberVO);
+    String userid = session.getAttribute("userid").toString();
+    String tel = session.getAttribute("tel").toString();
+    String email = session.getAttribute("email").toString();
+    String nickname = session.getAttribute("nickname").toString();
+    String pwd = session.getAttribute("pwd").toString();
     
+    
+    mav.addObject("userid", userid);
+    mav.addObject("tel", tel);
+    mav.addObject("email", email);
+    mav.addObject("nickname", nickname);
+    mav.addObject("pwd", pwd);
     return mav;
   }
   
@@ -184,7 +190,7 @@ public class QnACont {
     qnaVO.setSize3(size3); // 원본 이미지
     // -------------------------------------------------------------------
       
-    qnaVO.setUserid("chanmi"); // 회원 연동시 변경
+
   /*    Integer itg = (Integer)(session.getAttribute("mno"));
     qnaVO.setMno(itg.intValue());*/
     
@@ -196,7 +202,7 @@ public class QnACont {
       msgs.add("등록을 실패했습니다.");
       msgs.add("다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     }
  
     links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
@@ -207,20 +213,25 @@ public class QnACont {
     return mav;
   }
      
-   @RequestMapping(value = "/qna/reply.do", 
-           method = RequestMethod.GET)
-   public ModelAndView reply(QnAVO qnavo) {
-   ModelAndView mav = new ModelAndView();
-   mav.setViewName("/qna/reply"); // /webapp/qna/reply.jsp
-   MemberVO memberVO = memberDAO.read_userid("chanmi");
-   System.out.println(memberVO.getEmail());
-   System.out.println(memberVO.getNickname());
-   System.out.println(memberVO.getPwd());
-   mav.addObject("memberVO", memberVO);
-   mav.addObject("qnaVO", qnavo);
-   
-   return mav;
-   }
+  @RequestMapping(value = "/qna/reply.do", method = RequestMethod.GET)
+  public ModelAndView reply(QnAVO qnavo, HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("/qna/reply"); // /webapp/qna/reply.jsp
+
+    String userid = session.getAttribute("userid").toString();
+    String tel = session.getAttribute("tel").toString();
+    String email = session.getAttribute("email").toString();
+    String nickname = session.getAttribute("nickname").toString();
+    String pwd = session.getAttribute("pwd").toString();
+
+    mav.addObject("userid", userid);
+    mav.addObject("tel", tel);
+    mav.addObject("email", email);
+    mav.addObject("nickname", nickname);
+    mav.addObject("pwd", pwd);
+    mav.addObject("qnaVO", qnavo);
+    return mav;
+  }
    
    @RequestMapping(value = "/qna/reply.do", method = RequestMethod.POST)
    public ModelAndView reply(QnAVO qnaVO, HttpServletRequest request) {
@@ -270,7 +281,6 @@ public class QnACont {
    qnaVO.setSize3(size3); // 원본 이미지
    // -------------------------------------------------------------------
    
-   qnaVO.setUserid("chanmi"); // 회원 연동시 변경
    // -------------------------------------------------------------------
    
    // ---------- 답변 관련 코드 시작 ---------- 
@@ -301,7 +311,7 @@ public class QnACont {
    }
    
    links
-   .add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+   .add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
    links
    .add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
    mav.addObject("msgs", msgs);
@@ -371,7 +381,7 @@ public class QnACont {
     } else {
       msgs.add("글 삭제에 실패했습니다.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do\">목록</button>");
     }
     

@@ -5,18 +5,18 @@ DROP table book;
 CREATE TABLE BOOK(
       bno                                 NUMBER(6)                      NOT NULL       PRIMARY KEY,
       title                               VARCHAR2(200)   DEFAULT ''     NOT NULL,
-      deal_code                           VARCHAR2(20)                   NOT NULL,
-      product_code                        VARCHAR2(20)                   NOT NULL,
+      deal_code                           VARCHAR2(20)    DEFAULT ''     NOT NULL,
+      product_code                        VARCHAR2(20)    DEFAULT ''     NOT NULL,
       category                            VARCHAR2(20)                   NOT NULL,
       region                              VARCHAR2(20)    DEFAULT ''     NOT NULL,
       deal_way                            VARCHAR2(20)                   NOT NULL,
       deal_state                          VARCHAR2(20)                   NOT NULL,
-      purc_date                           VARCHAR2(20)    DEFAULT ''     NOT NULL,
-      quantity                            NUMBER(6)       DEFAULT 0      NOT NULL,
+      purc_date                           VARCHAR2(20)    DEFAULT ''     NULL,
+      quantity                            NUMBER(6)       DEFAULT 0      NULL,
       hprice                              NUMBER(15)      DEFAULT 0      NOT NULL,
       btitle                              VARCHAR2(200)                  NOT NULL,
-      publisher                           VARCHAR2(20)                   NOT NULL,
-      bwriter                             VARCHAR2(20)                   NOT NULL, -- 값 ↑
+      publisher                           VARCHAR2(20)    DEFAULT ''     NULL,
+      bwriter                             VARCHAR2(20)    DEFAULT ''     NULL, -- 값 ↑
       content                             VARCHAR2(4000)                 NOT NULL,
       cnt                                 NUMBER(6)      DEFAULT 0       NOT NULL,
       userid                              VARCHAR2(20)                   NOT NULL,
@@ -141,12 +141,12 @@ CREATE TABLE breply(
 );
 
 
-INSERT INTO  breply(rno, rcomment, bno, userid, nickname, passwd, wdate, grpno, indent, ansnum)
+INSERT INTO  breply(rno, rcomment, bno, userid, nickname, wdate, grpno, indent, ansnum)
 values ((SELECT NVL(MAX(rno), 0)+1 as rno FROM breply), '좋은 거래 하세요', 2,
 (select userid from member where userid='chanmi') , '구매인', '1234', sysdate, 1, 1, 1);
 
 
-SELECT * FROM breply where bno=2;
+SELECT * FROM breply; where bno=2;
 
 /** 삭제 */
 DELETE nreply WHERE rno = 1 and passwd = '5678'

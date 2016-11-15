@@ -57,7 +57,7 @@
                 enctype="multipart/form-data">
       <input type='hidden' name='ano' id='ano' value='${artVO.ano}'>
 
-     <DIV class='content_form'>
+     <DIV class='content_form' style="margin-top:30px;">
    <DIV class="">
    <div class="float_l _left">
     <div class="">
@@ -115,7 +115,7 @@
    <div class=""> 
      <label for='deal_way' class='need_e'>거래방식</label>
    <div>
-     <select name='deal_way' id='deal_way'>
+     <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10 full">
       <option value="${artVO.deal_way}" selected="selected">${artVO.deal_way}</option>
         <option value="현장거래" selected="selected">현장거래</option>
         <option value="택배">택배</option>
@@ -131,8 +131,8 @@
      <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
      <input type='text' name='title' id='title' required="required" value='${artVO.title} ' class="col-xs-9 col-lg-9">
    </div>
-   <div class="row">
-     <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+   <div>
+     <label for='content' class='choice_e'>상세설명</label>
      <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${artVO.content}</textarea>
    </div>
    

@@ -7,6 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dev.mvc.game.GameVO;
+import dev.mvc.tmember.MemberVO;
+
 @Repository("dev.mvc.mobile.MobileDAO")
 public class MobileDAO implements MobileDAOInter {
 
@@ -52,6 +55,11 @@ public class MobileDAO implements MobileDAOInter {
   @Override
   public List<MobileVO> list2(HashMap<String, Object> hashMap) {
     return mybatis.selectList("mobile.list2", hashMap);
+  }
+
+  @Override
+  public MemberVO test(String userid) {
+    return mybatis.selectOne("mobile.test", userid);
   }
 
   @Override

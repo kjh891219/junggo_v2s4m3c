@@ -51,7 +51,7 @@ document.onmousedown=function(){return false;}
 <div id="active_bg" class="well" style="max-width:44em;">
       <FORM name='frm' method='POST' action='./delete.do'
                  onsubmit = 'return send();'>
-        <input type='hidden' name='qnano' value='${qnano}'>
+        <input type='hidden' name='p_no' value='${p_no}'>
         
         <div class="delete">   
           <div class="" style='text-align: center; margin: 30px;'>

@@ -237,7 +237,7 @@ public class BookCont {
       msgs.add("등록을 실패했습니다.");
       msgs.add("다시한번 시도해주세요.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     }
  
     links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
@@ -469,7 +469,7 @@ public class BookCont {
     } else {
       msgs.add("글 삭제에 실패했습니다.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do'>목록</button>");
     }
     

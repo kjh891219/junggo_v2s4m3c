@@ -9,7 +9,6 @@ CREATE TABLE REVIEWS_REPLY(
     grpno                            NUMBER(7)                                         NOT NULL,
     indent                            NUMBER(2)            DEFAULT 0              NOT NULL,
     ansnum                          NUMBER(5)            DEFAULT 0              NOT NULL
-    
 );
 
 

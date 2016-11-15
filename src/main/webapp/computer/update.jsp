@@ -15,7 +15,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
-<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
+<script src="../js/event.js?ver=1"></script>
 
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
  
@@ -43,7 +43,7 @@
    <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./update.do' class='form-inline' enctype="multipart/form-data">
  <input type='hidden' name='ctno' id='ctno' value='${computerVO.ctno}'>
-<DIV class='content_form'>
+<DIV class='content_form' style="margin-top:30px;">
      <DIV class="">
      <div class="float_l _left">
       <div class="">
@@ -112,8 +112,8 @@
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
         <input type='text' name='title' id='title' required="required" value='${computerVO.title} ' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+      <div>
+        <label for='content' class='choice_e'>상세설명</label>
         <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${computerVO.content}</textarea>
       </div>
       <hr/>

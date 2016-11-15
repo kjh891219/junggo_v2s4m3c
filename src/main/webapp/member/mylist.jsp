@@ -80,20 +80,18 @@
 <c:if test="${!empty reviews_list}"> 
         <div><b>후기 게시판 (${reviews_list.get(my_cnt).getMy_cnt()})</b></div>
 <table class="table table-hover" style='width: 100%;'>
-  <colgroup>
+<%--   <colgroup>
     <col style='width: 8%;'/>
     <col style='width: 10%;'/>
     <col style='width: 49%;'/>
-    <col style='width: 10%;'/>
     <col style='width: 15%;'/>
     <col style='width: 8%;'/>
-  </colgroup>
+  </colgroup> --%>
     <thead>
     <TR>
     <TH>글번호</TH>
     <TH>카테고리</TH>
     <TH>제목</TH>
-    <TH>판매자</TH>
     <TH>등록일</TH>
     <TH>조회수</TH>  
   </TR>
@@ -104,7 +102,6 @@
     <TD>${vo.r_no}</TD>
     <TD>${vo.t_category }</TD>
     <TD style="color: black;">${vo.title}</TD>
-    <TD>${vo.seller_nick}</TD>
     <TD>${fn:substring(vo.wdate, 0, 10) }</TD>
     <TD>${vo.cnt}</TD>
   </TR>

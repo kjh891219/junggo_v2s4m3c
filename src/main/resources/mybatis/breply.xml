@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <insert id="create"  parameterType="BreplyVO">
    INSERT INTO  breply(rno, rcomment, bno, userid, nickname, wdate, grpno, indent, ansnum)
    VALUES ((SELECT NVL(MAX(rno), 0)+1 as rno FROM breply), #{rcomment}, #{bno},
-      #{userid} , #{nickname}, sysdate, #{grpno}, 0, 0)
+      #{userid} , #{nickname}, sysdate, (select NVL(MAX(grpno),0)+1 as grpno from breply), 0, 0)
 
    </insert>
    

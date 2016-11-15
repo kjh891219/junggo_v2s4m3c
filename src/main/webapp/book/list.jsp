@@ -19,10 +19,23 @@
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script type="text/javascript" src="../js/event.js?ver=1"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
+<script>
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+</script>
 <script type="text/javascript">
-$(function(){
- 
-});
+function create_login() {
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 이용이 가능합니다');
+  window.openModal();
+  <%session.setAttribute("url", "book/list.do");%>
+  return false;
+  <% } else { %>
+  location.href='./create.do';
+  return true;
+  <% } %> 
+}
 </script>
 
 <style type="text/css">
@@ -39,6 +52,15 @@ $(function(){
     padding: 0px;  
     list-style: none;
   }
+    
+  .scrollup_bt{
+     width:60px;
+  }
+   button{
+   background-color: transparent;
+   border:1px solid lightgray;
+   padding:2px;
+ }
 </style>
  
 <script type="text/javascript">
@@ -52,29 +74,11 @@ $(function(){
      
   <form name="frm" method="GET" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>
-     <A href='./create.do?'>글쓰기</A>｜
+     <A href='#' onclick="create_login()">글쓰기</A>｜
       <A href="javascript:location.reload();">새로고침</A>
     </div>
 
-      <select name="col"> 
-        <option value="">선택</option> 
-        <option value="title" ${searchDTO.col == "title" ? "selected=selected" : "" }>제목</option> 
-        <option value="content" ${searchDTO.col == "content" ? "selected=selected" : "" }>내용</option> 
-        <option value="title_content" ${searchDTO.col == "title_content" ? "selected=selected" : "" }>제목+내용</option> 
-        <option value="total" ${searchDTO.col == "" ? "selected=selected" : "" }>전체 목록</option>
-      </select>
-      <c:choose>
-        <c:when test="${searchDTO.col != 'total' }"> <!-- 검색 상태 -->
-          <input type="text" name="word" size="15" value="${searchDTO.word }">
-        </c:when>
-        <c:when test="${searchDTO.col == 'total' }"> <!-- 전체 레코드 -->
-          <input type="text" name="word" size="15" value="">
-        </c:when>
-      </c:choose>
-     
-      <input type="submit" value="검색">
-    
-  </form> 
+
   
   <div class="content_from">
     <ul >
@@ -133,10 +137,36 @@ $(function(){
    
   </div>
  
+  <DIV class='text_r'>
+  <button type='button' onclick="create_login()">등록</button>
+  <button type='button' onclick="location.reload();">새로 고침</button>
+</DIV>
   <DIV class='bottom'>${paging}</DIV>
   
-     <jsp:include page="/menu/bottom.jsp" flush='false' />     
+  	<div class="text_c">
+        <select name="col"> 
+        <option value="">선택</option> 
+        <option value="title" ${searchDTO.col == "title" ? "selected=selected" : "" }>제목</option> 
+        <option value="content" ${searchDTO.col == "content" ? "selected=selected" : "" }>내용</option> 
+        <option value="title_content" ${searchDTO.col == "title_content" ? "selected=selected" : "" }>제목+내용</option> 
+        <option value="total" ${searchDTO.col == "" ? "selected=selected" : "" }>전체 목록</option>
+      </select>
+      <c:choose>
+        <c:when test="${searchDTO.col != 'total' }"> <!-- 검색 상태 -->
+          <input type="text" name="word" size="15" value="${searchDTO.word }">
+        </c:when>
+        <c:when test="${searchDTO.col == 'total' }"> <!-- 전체 레코드 -->
+          <input type="text" name="word" size="15" value="">
+        </c:when>
+      </c:choose>
+     
+      <input type="submit" value="검색">
+    </div>
+  </form> 
+     <jsp:include page="/menu/bottom.jsp" flush='false' />
+          
   </div>
+  
 </body>
  
 </html>

@@ -44,6 +44,14 @@ VALUES((SELECT NVL(MAX(mno), 0) + 1 as mno FROM mobile), #{category}, #{nickname
     WHERE mno = #{mno}
   </delete> 
   
+ 
+   <select id="test" resultType="MemberVO" parameterType="String">
+    select nickname, email
+    from member 
+    where userid=#{userid}
+  </select> 
+    
+   
    
  <!-- 조회수 증가 -->
    <update id ="increaseCnt" parameterType ="int">
@@ -98,14 +106,14 @@ VALUES((SELECT NVL(MAX(mno), 0) + 1 as mno FROM mobile), #{category}, #{nickname
     WHERE <![CDATA[r >= #{startNum} AND r <= #{endNum}]]>   <!-- xml 태그가 아닌 문자로 사용하는게 <![CDATA[   ...   ]]>-->                    
                       
  </select>                 
-                
-    <!-- 최신글리스트 -->
+   <!-- 최신글리스트 -->
    <select id="newlist" resultType="MobileVO">
       SELECT mno, title, deal_code, product_code, region, deal_way, purc_date,
                  hprice, userid, nickname, file1, file2, wdate
       FROM mobile
       WHERE mno >= (SELECT (MAX(mno)-7) FROM mobile)
    </select>
+                
      
       
       

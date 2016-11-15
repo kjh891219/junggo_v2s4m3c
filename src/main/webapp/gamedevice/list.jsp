@@ -51,10 +51,11 @@ window.openModal = function() {
 
 
 
-</head> 
-<div style="margin: 0px; border: 0px solid rgb(255, 255, 255); border-image-source: none; width: 100%; float: left; background-image: none; background-color: transparent; background-position: 0px 0px; background-repeat: repeat;">
+</head>
+<body> 
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush="false"/> 
+<div class="container">
 
 
   <form name="frmSearch" method="get" action="./list.do"> 

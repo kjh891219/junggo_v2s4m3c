@@ -15,12 +15,15 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
+<script type="text/javascript">
 
+
+</script>
 
 
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
+<body style="width:100%;">
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 
@@ -29,9 +32,12 @@
 <DIV class='center-block'>
 <DIV class='title'>댓글 쓰기</DIV>
 <FORM name='frm' method='POST' action='./reply.do' class='form-inline'>
-  <div class="col-xs-5">    
-        <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" class="form-group">댓글입력</textarea>
-         <button type="submit" class="btn btn-success btn-lg">등록</button>
+  <div style="width:100%;">    
+        <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" style="width:100%;"></textarea>
+         <div class="text_r">
+         <h1 class="rereply_num">(<span>250</span>/250)
+         <button type="submit">등록</button></h1>
+         </div> 
   </div>
  
 </FORM>

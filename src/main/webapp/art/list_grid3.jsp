@@ -56,10 +56,11 @@ function create_login() {
 }
 </script>
 </head> 
+<body>
 <!-- ----------------------------------------- -->
- <div class="container">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
+ <div class="container">
 <!-- ----------------------------------------- -->
   <form name="frmSearch" method="get" action="./list.do"> 
     <div class='content_menu' style='width: 100%;'>

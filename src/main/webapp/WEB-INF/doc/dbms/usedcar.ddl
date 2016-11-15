@@ -17,7 +17,7 @@ commit
 CREATE TABLE member(
     userid                            VARCHAR2(20)     NOT NULL PRIMARY KEY,   -- 아이디
     mno                               NUMBER(6)        NOT NULL UNIQUE,        -- 회원 번호
-    pwd                               VARCHAR2(30)     NOT NULL,               -- 비밀번호
+    pwd                               VARCHAR2(100)     NOT NULL,               -- 비밀번호
     name                              VARCHAR2(20)     NOT NULL,               -- 이름
     nickname                          VARCHAR2(20)     NOT NULL UNIQUE,        -- 닉네임
     tel                               VARCHAR2(14)     NOT NULL,               -- 전화번호
@@ -71,7 +71,7 @@ DELETE FROM MEMBER WHERE mno='2'
 CREATE TABLE usedcar(
 		u_no                          		NUMBER(10)		                                 NOT NULL   PRIMARY KEY,
 		nickname                      	VARCHAR2(20)		                               NOT NULL,
-		passwd                        		VARCHAR2(20)		                               NOT NULL,
+		passwd                        		VARCHAR2(100)		                               NOT NULL,
 		category                      		CHAR(20)		                                     NOT NULL,
 		deal_way                      		VARCHAR2(20)		                               NOT NULL,
 		deal_code                     		VARCHAR2(20)		                               NOT NULL,

@@ -12,8 +12,6 @@ public class BreplyVO {
    private String userid;
    /** 회원 별명 */
    private String nickname;
-   /** 회원 비밀번호 */
-   private String passwd;
    /** 등록일 */
    private String wdate;
    /** 그룹 */
@@ -34,7 +32,6 @@ public class BreplyVO {
       this.bno = bno;
       this.userid = userid;
       this.nickname = nickname;
-      this.passwd = passwd;
       this.wdate = wdate;
       this.grpno = grpno;
       this.indent = indent;
@@ -79,14 +76,6 @@ public class BreplyVO {
 
    public void setNickname(String nickname) {
       this.nickname = nickname;
-   }
-
-   public String getPasswd() {
-      return passwd;
-   }
-
-   public void setPasswd(String passwd) {
-      this.passwd = passwd;
    }
 
    public String getWdate() {

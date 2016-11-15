@@ -28,12 +28,13 @@
        <% } %>
        
      }
+
       </script>
 
 
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
+<body style="width:100%; ">
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 
@@ -45,9 +46,12 @@
   <input type="hidden" name="nickname" id="nickname" value='${nickname}'>
   <input type="hidden" name="bno" id="bno" value='<%=request.getParameter("bno")%>'>
   <input type="hidden" name="userid" id="userid" value='${userid }'>
-  <div class="col-xs-5">    
-        <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" class="form-group"><%=request.getParameter("bno")%></textarea>
-         <button type="submit" class="btn btn-success btn-lg">등록</button>
+  <div style="margin:0 auto;">    
+        <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" style="width:100%;"><%=request.getParameter("bno")%></textarea>
+         <div class="text_r">
+         <h1 class="reply_num">(<span>250</span>/250)
+         <button type="submit">등록</button></h1>
+         </div> 
   </div>
  
 </FORM>

@@ -47,7 +47,7 @@
 <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./update.do' enctype="multipart/form-data">
    <input type='hidden' name='gno' id='gno' value='${gameVO.gno}'>
-<DIV class='content_form'>
+<DIV class='content_form' style="margin-top:30px;">
      <DIV class="">
      <div class="float_l _left">
       <div class="">
@@ -119,7 +119,7 @@
       </div>
       
       <div class=" ">
-        <label for='content' class='choice_x'>상세설명</label>
+        <label for='content' class='choice_e'>상세설명</label>
         <div class = "empty">
         </div>
         <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${gameVO.content}</textarea>

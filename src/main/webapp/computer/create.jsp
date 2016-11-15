@@ -44,7 +44,7 @@
  <input type='hidden' name='userid' id='userid' value= '${userid }'/>
  <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
  <input type="hidden" name='deal_status' value="거래중" checked="checked">
-<DIV class='content_form'>
+<DIV class='content_form' style="margin-top:30px;">
      <DIV class="">
      <div class="float_l _left">
       <div class="">
@@ -109,8 +109,8 @@
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
         <input type='text' name='title' id='title' required="required" value='디카팔아요' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+      <div>
+        <label for='content' class='choice_e'>상세설명</label>
         <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">sqld책 싸게 팔아요</textarea>
       </div>
       <hr/>

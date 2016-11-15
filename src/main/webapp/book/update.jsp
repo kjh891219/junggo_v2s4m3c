@@ -13,6 +13,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
+<script type="text/javascript" src="../js/event.js"></script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="Stylesheet" type="text/css">
 
 </head>
@@ -20,6 +22,7 @@
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
    <jsp:include page="/menu/top.jsp" flush='false' />
+   <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
 
   <div class='container'>
@@ -27,7 +30,7 @@
   <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
   <FORM name='frm' method='POST' action='./update.do' enctype="multipart/form-data">
   <input type="hidden" name="bno" id="bno" value="${bookVO.bno}">
-  <DIV class='content_form'>
+  <DIV class='content_form' style="margin-top:30px;">
       <div class='content_menu'>
         <A href='./create.do'>등록</A>｜ 
         <A href='./read.do}'>상세보기</A>｜ 
@@ -101,9 +104,9 @@
             <input type='text' name='title' id='title' 
                value='${bookVO.title }' class="col-xs-9 col-lg-9" required="required">
          </div>    
-         <div class='row'>
-           <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-           <textarea rows='10' name='content' id='content' required="required" class="col-xs-9 col-lg-9">${bookVO.content}</textarea>
+         <div>
+           <label for='content' class='choice_e'>상세설명</label>
+           <textarea class="form-control" name='content' id='content'  rows='10' cols='70'>${bookVO.content}</textarea>
          </div>
          <hr/>
                

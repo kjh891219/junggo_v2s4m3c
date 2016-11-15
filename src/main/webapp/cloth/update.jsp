@@ -35,7 +35,7 @@
 
 
 
-<DIV class=container>
+<DIV class='container'>
 
 <DIV class='title'><span>글수정</span></DIV>
    <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
@@ -47,7 +47,7 @@
       <div class="">
         <label class="select need_e" for='category'>분류</label>
         <div>
-        <select name='category' id="category" class="full">
+        <select name='category' id="category" class="form-control-lg-10-lg-10-lg-10 full">
            <option value="${clothVO.category }" selected="selected">${clothVO.category }</option> 
            <option value="수입명품" >수입명품</option>
            <option value="캐주얼상의">캐주얼상의</option>
@@ -115,9 +115,9 @@
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
         <input type='text' name='title' id='title' required="required" value='${clothVO.title} ' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${clothVO.content}</textarea>
+      <div>
+        <label for='content' class='choice_e'>상세설명</label>
+        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요" >${clothVO.content}</textarea>
       </div>
       <hr/>
       

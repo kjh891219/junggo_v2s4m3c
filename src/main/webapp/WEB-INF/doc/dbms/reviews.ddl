@@ -5,9 +5,8 @@ DROP TABLE reviews
 
 CREATE TABLE reviews(
     r_no                              NUMBER(10)                                     NOT NULL   PRIMARY KEY,
-    seller_nick                       VARCHAR2(20)                                   NOT NULL,
     nickname                        VARCHAR2(20)                                   NOT NULL,
-    passwd                            VARCHAR2(20)                                   NOT NULL,
+    passwd                            VARCHAR2(100)                                   NOT NULL,
     t_category                          CHAR(20)                                         NOT NULL,
     title                                 VARCHAR2(200)                                NOT NULL,
     content                           VARCHAR2(4000)                               NOT NULL,
@@ -24,7 +23,7 @@ CREATE TABLE reviews(
     size5                               NUMBER(9)          DEFAULT 0                      NULL,
     userid                              VARCHAR2(20)                                   NOT NULL,
     wdate                             DATE                 DEFAULT sysdate         NOT NULL,
-    r_cnt                               NUMBER(6)        DEFAULT 0                 NOT NULL,
+    cnt                               NUMBER(6)        DEFAULT 0                 NOT NULL,
     FOREIGN KEY (userid)        REFERENCES member(userid)
 );
 

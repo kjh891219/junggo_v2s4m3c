@@ -1,6 +1,5 @@
 package dev.mvc.mobile;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import dev.mvc.tmember.MemberVO;
 import web.tool.Paging;
 import web.tool.SearchDTO;
 import web.tool.Tool;
@@ -33,11 +32,10 @@ public class MobileCont {
   private MobileDAOInter mobileDAO;
   
   @RequestMapping(value = "/mobile/create.do", method = RequestMethod.GET)
-  public ModelAndView create(HttpSession session, HttpServletResponse response) throws IOException {
+  public ModelAndView create(HttpSession session, HttpServletResponse response) throws Exception {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/mobile/create");
-    
-    
+  
     response.setCharacterEncoding("UTF-8");
     response.setContentType("text/html; charset=UTF-8");
     if (session.getAttribute("userid") == null ){
@@ -47,28 +45,33 @@ public class MobileCont {
        + "location.href = '../member/login.do';"
        + "</script>"); 
       session.setAttribute("url", "mobile/list.do");//
-     
-      
-      
-    } else {
-      PrintWriter writer = response.getWriter();
-      writer.println
-      ("<script>" 
-          + "location.href = './create.jsp';"
-          + "</script>");
-      
-    }
     
-    String userid = session.getAttribute("userid").toString();
-    String pwd = session.getAttribute("pwd").toString();
-    String nickname = session.getAttribute("nickname").toString();
-    String email = session.getAttribute("email").toString();
-    String tel = session.getAttribute("tel").toString();
-    mav.addObject("userid", userid);
-    mav.addObject("pwd", pwd);
-    mav.addObject("nickname", nickname);
-    mav.addObject("email", email);
-    mav.addObject("tel", tel);
+         
+      } else {
+        PrintWriter writer = response.getWriter();
+        writer.println
+        ("<script>" 
+            + "location.href = './create.jsp';"
+            + "</script>");
+        
+      }
+      
+      
+      
+      String userid = session.getAttribute("userid").toString();
+      String pwd = session.getAttribute("pwd").toString();
+      String tel = session.getAttribute("tel").toString();
+      MemberVO memberVO = mobileDAO.test(userid);
+         
+      mav.addObject("memberVO", memberVO);
+      mav.addObject("userid", userid);
+      mav.addObject("pwd", pwd);
+      mav.addObject("tel", tel);
+      System.out.println(memberVO);
+      
+      
+    
+    
     
     
     return mav;
@@ -107,7 +110,10 @@ public class MobileCont {
     MultipartFile file8MF = mobileVO.getFile8MF();
     MultipartFile file10MF = mobileVO.getFile10MF();
     size2 = file2MF.getSize();
-
+    size4 = file4MF.getSize();
+    size6 = file6MF.getSize();
+    size8 = file8MF.getSize();
+    size10 = file10MF.getSize();
     // System.out.println("file2MF.getSize(): " + file2MF.getSize());
     if (file2MF.getSize() > 0) {
       file2 = Upload.saveFileSpring(file2MF, upDir);
@@ -128,8 +134,7 @@ public class MobileCont {
     mobileVO.setFile2(file2); // 원본 이미지
     mobileVO.setSize2(size2); // 원본 이미지
    
-    size4 = file4MF.getSize();
-
+    
     // -------------------------------------------------------------------
     if (file4MF.getSize() > 0) {
       file4 = Upload.saveFileSpring(file4MF, upDir);
@@ -151,8 +156,7 @@ public class MobileCont {
     mobileVO.setSize4(size4); // 원본 이미지
     
     
-    size6 = file6MF.getSize();
-
+    
     // -------------------------------------------------------------------
     if (file6MF.getSize() > 0) {
       file6 = Upload.saveFileSpring(file6MF, upDir);
@@ -175,8 +179,7 @@ public class MobileCont {
     
     
     
-    size8 = file8MF.getSize();
-
+    
     // -------------------------------------------------------------------
     if (file8MF.getSize() > 0) {
       file8 = Upload.saveFileSpring(file8MF, upDir);
@@ -200,7 +203,7 @@ public class MobileCont {
     // -------------------------------------------------------------------
     
     
-    size10 = file10MF.getSize();
+    
     if (file10MF.getSize() > 0) {
       file10 = Upload.saveFileSpring(file10MF, upDir);
       mobileVO.setFile10(file10); // 전송된 파일명 저장
@@ -582,7 +585,6 @@ System.out.println("delete");
     return mav;
   }
   
-  
   /**
    * 최근 목록을 출력합니다.
    * 
@@ -609,6 +611,7 @@ System.out.println("delete");
      
      return mav;
   }
-
+  
+  
   
 }

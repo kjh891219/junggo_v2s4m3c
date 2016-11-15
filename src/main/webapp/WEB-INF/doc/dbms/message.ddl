@@ -4,7 +4,7 @@
 CREATE TABLE member(
 		userid                        		VARCHAR2(20)		 NOT NULL		 PRIMARY KEY,
 		mno                           		NUMBER(6)		 NOT NULL,
-		pwd                           		VARCHAR2(30)		 NOT NULL,
+		pwd                           		VARCHAR2(100)		 NOT NULL,
 		name                          		VARCHAR2(20)		 NOT NULL,
 		nickname                      		VARCHAR2(20)		 NULL ,
 		tel                           		VARCHAR2(14)		 NOT NULL,

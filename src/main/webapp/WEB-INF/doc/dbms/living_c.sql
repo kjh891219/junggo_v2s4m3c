@@ -4,7 +4,7 @@ CREATE TABLE living(
     lno                               NUMBER(6)    NOT NULL    PRIMARY KEY,
     category                          VARCHAR2(20)     NOT NULL,
     nickname                          VARCHAR2(20)     NOT NULL,
-    passwd                            VARCHAR2(20)     NOT NULL,
+    passwd                            VARCHAR2(100)     NOT NULL,
     deal_way                          VARCHAR2(20)     NOT NULL,
     deal_code                         VARCHAR2(20)     NOT NULL,
     product_code                      VARCHAR2(20)     NOT NULL,

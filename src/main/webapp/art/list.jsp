@@ -38,10 +38,11 @@ function create_login() {
 </script>
 
 </head> 
-
- <div class="container">
+<body>
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush='false' />
+
+ <div class="container">
 
 <DIV class='title'>회원 목록</DIV>
   <form name="frmSearch" method="get" action="./list.do"> 

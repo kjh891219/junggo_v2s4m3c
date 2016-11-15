@@ -8,6 +8,8 @@
 drop table camera_reply;
 delete from CAMERA_REPLY
 select * from CAMERA_REPLY
+
+
 drop table ART_REPLY
 CREATE TABLE ART_REPLY(
     rno                              NUMBER(6)    NOT NULL    PRIMARY KEY,

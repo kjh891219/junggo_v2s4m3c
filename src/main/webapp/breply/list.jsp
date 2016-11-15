@@ -15,11 +15,38 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <script type="text/javascript">
+$(document).ready(function (event) {
+   $('textarea').keyup(function () {
+       // 남은 글자 수를 구합니다.
+       var inputLength = $(this).val().length;
+       var remain = 250 - inputLength;
+
+       // 문서 객체에 입력합니다.
+       $(this).next().find('span').html(remain);
+
+       // 문서 객체의 색상을 변경합니다.
+       if (remain >= 0) {
+          $(this).next().find('span').css('color', 'black');
+       } else {
+          if(remain <0) {
+             $(this).next().find('span').text(0);
+          }
+       }
+   });
+   
+   $('textarea').on('keyup', function() {
+
+      if($(this).val().length > 250) {
+          $(this).val($(this).val().substring(0, 250));
+          $(this).focus();  
+      }
+
+  });
+});
 $(function(){
   $('#panel_frm').hide();
 });
 function create(rno){
-  
   <% if( session.getAttribute("userid") == null) { %>
   alert('로그인 한 사용자만 사용이 가능합니다.');
   window.parent.openModal();
@@ -30,6 +57,7 @@ function create(rno){
   
   var e = window.event, btn = e.target || e.srcElement; 
   alert("댓글을 달 글 번호: "+rno);
+  
   var tag = 
    "<DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>"+
    "<FORM name='frm' id='frm' method='POST' action='./reply.do'>" +
@@ -37,14 +65,45 @@ function create(rno){
    "<input type='hidden' name='bno' id='bno' value='<c:out value="${bno}"/>'>" +
    "<input type='hidden' name='userid' id='userid' value='<c:out value="${userid}"/>'>" +
    "<input type='hidden' name='rno' id='rno' value='" + rno + "'>" +
-   "<div class='col-xs-5'>" +
-   "<textarea rows='3' cols='100'  name='rcomment' id='rcomment' placeholder='내용을 입력하세요' class='form-group'>댓글입력</textarea>"+
-   "<button type='submit' id='submit'>등록</button>" +
-   "<button type='button' onclick='create_cancel(this.form)''>닫기</button>" +
+   "<div style='width:100%;'>" +
+   "<textarea rows='3' cols='100'  name='rcomment' id='rcomment' placeholder='내용을 입력하세요' style='width:100%;'>댓글입력</textarea>"+
+   "<div class='text_r'>" + 
+   "<h1 class='num_reply'>(<span>250</span>/250)" + 
+   "<button type='submit' id='submit'>등록</button>" + 
+   "<button type='button' onclick='create_cancel(this.form)'>닫기</button></h1>" + 
+   "</div>" + 
    "</div>"+
    "</FORM>"+
-   "</DIV><hr>"; 
-  $('#comment'+rno).html(tag);  
+   "</DIV>"; 
+  $('#comment'+rno).html(tag);
+  
+  $('textarea').keyup(function () {
+     // 남은 글자 수를 구합니다.
+     var inputLength = $(this).val().length;
+     var remain = 250 - inputLength;
+
+     // 문서 객체에 입력합니다.
+     $(this).next().find('span').html(remain);
+
+     // 문서 객체의 색상을 변경합니다.
+     if (remain >= 0) {
+        $(this).next().find('span').css('color', 'black');
+     } else {
+        if(remain <0) {
+           $(this).next().find('span').text(0);
+        }
+     }
+ });
+ 
+ $('textarea').on('keyup', function() {
+
+    if($(this).val().length > 250) {
+        $(this).val($(this).val().substring(0, 250));
+        $(this).focus();  
+    }
+
+});
+  
   return true;
   <% } %>
  }  
@@ -60,7 +119,7 @@ function delete_form(rno){
     "<input type='hidden' name='bno' id='bno' value='<c:out value="${bno}"/>'>" +
     "<input type='hidden' name='userid' id='userid' value='<c:out value="${userid}"/>'>" +
     "<input type='hidden' name='rno' id='rno' value='" + rno + "'>" +
-    "<div class='col-xs-5'>정말로 삭제 하겠습니까?" +
+    "<div>정말로 삭제 하겠습니까?" +
     "<button type='submit' id='submit'>삭제</button>" +
     "<button type='button' onclick='create_cancel(this.form)''>닫기</button>" +
     "</div>"+
@@ -72,63 +131,59 @@ function delete_form(rno){
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
-<!-- ----------------------------------------- -->
-<!-- <DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>
-              <FORM name='frm' id='frm' method='POST'>
-                <input type="hidden" name="nickname" id="nickname" value='dfdf'>
-                <input type="hidden" name="ctno" id="ctno" value='1'>
-                <input type="hidden" name="userid" id="userid" value='master'>
-                <input type="hidden" name="rno" id="rno" value=''>
-                <div class="col-xs-5">    
-                 <textarea rows="3" cols="100"  name="rcomment" id="rcomment" placeholder="내용을 입력하세요" class="form-group">댓글입력</textarea>
-                 <button type="submit" id='submit'>등록</button>
-                 <button type="button" onclick="create_cancel()">닫기</button>
-                </div>
-               
-              </FORM>
-              </DIV> -->
 <jsp:include page="/breply/create.jsp?bno=${bno}" flush='false'/>
 
-<div class="content" style='width: 90%;'>
-    <table class="table" style='width: 100%; border: none;'>
-      <tbody>
+<div class="content" style='width: 90%; margin:0 auto;'>
+    <div style='width:100%;'>
+          <ul>
         <c:forEach var="vo" items="${list }">
-          <tr>
-            <td class="td_l" style='border: none;'>
-              <hr>
+            <li style="display: block; width:95%; word-break:break-all;">
+              <div>
               <c:choose>
                 <c:when test="${vo.ansnum == 0 }">
-                  <img src='./images/url4.png' style='width: 14px;'>
+                  ☆<!-- <img src='./images/url4.png' style='width: 14px;'> -->
                 </c:when>
                 <c:when test="${vo.ansnum > 0 }">
                   <c:forEach var="indent"  begin="1" end="${vo.indent }" step="1">
                    <img src='./images/white.jpg' style='width: 25px; opacity: 0.0;'>
                   </c:forEach>
-                  <img src='./images/reply3.png'>
+                  ☆<!-- <img src='./images/reply3.png'> -->
                 </c:when>
               </c:choose>
-                     글번호 : ${vo.rno }
-                     글쓴이 : ${vo.nickname }
-                     등록일 : ${fn:substring(vo.wdate, 0, 10) }
-                      ${vo.rcomment}
-              <button type='button' onclick="create('${vo.rno}');">댓글</button>
-               
-               <c:if test="${(vo.userid eq userid)}">
-              <button type='button' onclick="delete_form('${vo.rno}');">삭제</button>
-              </c:if>
+                     ${vo.rno } /
+                     ${vo.nickname } <span style="font-size: 12px;">(${fn:substring(vo.wdate, 0, 10) }) </span>
+                     <div>
+              <c:choose>
+                <c:when test="${vo.ansnum == 0 }">
+                  
+                </c:when>
+                <c:when test="${vo.ansnum > 0 }">
+                  <c:forEach var="indent"  begin="1" end="${vo.indent }" step="1">
+                   <img src='./images/white.jpg' style='width: 25px; opacity: 0.0;'>
+                  </c:forEach>
+                  　
+                </c:when>
+              </c:choose>
+                       ${vo.rcomment}
+                       <button type='button' onclick="create('${vo.rno}');">댓글</button>
+                        
+                        <c:if test="${(vo.userid eq userid)}">
+                       <button type='button' onclick="delete_form('${vo.rno}');">삭제</button>
+                       </c:if>
+                     
+                     </div>
+              
+              </div>
                
                
               
               <DIV id="comment${vo.rno }">
               <!-- 여기에 Tag를 넣어줍니다 -->
               </DIV> 
-            </td>
-          </tr>
+            </li>
         </c:forEach>
-        
-      </tbody>
-    </table>
+          </ul>
+        </div>
     <br><br>
   </div>
 
@@ -136,7 +191,6 @@ function delete_form(rno){
 
 
 <!-- -------------------------------------------- -->
-<%-- <jsp:include page="/menu/bottom.jsp" flush='false' /> --%>
 </body>
 <!-- -------------------------------------------- -->
 </html> 

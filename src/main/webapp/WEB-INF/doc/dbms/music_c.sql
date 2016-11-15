@@ -7,7 +7,7 @@ select * from music
 CREATE TABLE music(
    ctno                               NUMBER(6)                                  NOT NULL,
     nickname                         VARCHAR2(20)                              NOT NULL,
-    passwd                             VARCHAR2(20)                              NOT NULL,
+    passwd                             VARCHAR2(100)                              NOT NULL,
     category                           CHAR(20)                                    NOT NULL,
     deal_way                          VARCHAR2(20)                              NOT NULL,
     deal_code                         VARCHAR2(20)                              NOT NULL,

@@ -110,7 +110,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       SELECT ano, title, deal_code, product_code, region, deal_way, purc_date,
                  hprice, userid, nickname, thumb, file1, wdate
       FROM art
-      WHERE ano >= (SELECT (MAX(ano)-7) FROM art)
+      WHERE ano >= (SELECT (MAX(ano)-7) FROM art ) 
+      ORDER BY ano DESC
    </select>
     
 </mapper>

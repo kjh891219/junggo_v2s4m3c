@@ -11,10 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    INSERT INTO qna(qnano, title, content, qdate, file1, file2, file3, size1, size2, size3, categoryno, userid, nickname,
 					tel, email, passwd, cnt, replycnt, grpno, indent, ansnum)  
     VALUES((SELECT NVL(MAX(qnano), 0) + 1 as qnano FROM qna),#{title}, #{content}, sysdate, #{file1}, #{file2}, #{file3}, 
-    #{size1}, #{size2}, #{size3}, #{categoryno}, (SELECT userid FROM member WHERE userid = #{userid}), 
-    (SELECT nickname FROM member WHERE userid = #{userid}), (SELECT tel FROM member WHERE userid = #{userid}),
-     (SELECT email FROM member WHERE userid = #{userid}), (SELECT pwd FROM member WHERE userid = #{userid}),
-    0, 0, (SELECT NVL(MAX(grpno), 0) + 1 as grpno FROM qna), 0, 0)
+    #{size1}, #{size2}, #{size3} ,#{categoryno}, #{userid},#{nickname}, #{tel}, #{email}, #{passwd}, 0, 0, 
+    (SELECT NVL(MAX(grpno), 0) + 1 as grpno FROM qna), 0, 0)
   </insert>
  
    <!-- 아이디별 목록 출력 -->

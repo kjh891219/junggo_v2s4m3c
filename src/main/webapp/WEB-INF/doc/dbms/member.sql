@@ -4,7 +4,7 @@ DROP TABLE rv_comment;
 DROP TABLE review;
 DROP TABLE message;
 DROP TABLE MEMBER;
-
+DROP TABLE MEMBER CASCADE CONSTRAINTS PURGE;
 -----------------------------------------------
 UPDATE member 
     SET dropout='Y', act='N'
@@ -24,11 +24,11 @@ SELECT nickname
     FROM member
     WHERE userid NOT IN ('chanmi');
 -----------------------------------------------
-delete from member
+
 CREATE TABLE member(
     userid                            VARCHAR2(20)     NOT NULL PRIMARY KEY,   -- 아이디
     mno                               NUMBER(6)        NOT NULL UNIQUE,        -- 회원 번호
-    pwd                               VARCHAR2(30)     NOT NULL,               -- 비밀번호
+    pwd                               VARCHAR2(100)     NOT NULL,               -- 비밀번호
     name                              VARCHAR2(20)     NOT NULL,               -- 이름
     nickname                          VARCHAR2(20)     NOT NULL UNIQUE,        -- 닉네임
     tel                               VARCHAR2(14)     NOT NULL,               -- 전화번호
@@ -40,7 +40,7 @@ CREATE TABLE member(
     auth                              VARCHAR2(20)     DEFAULT 'N'   NOT NULL, -- 인증키
     confirm                           CHAR(1)          DEFAULT 'N'   NOT NULL, -- 인증 여부, 이메일 링크 클릭 여부, Y:클릭, N:클릭안함
     act                               CHAR(1)          NOT NULL,               -- 권한, M: 마스터, Y: 로그인 가능, N: 로그인 불가, H: 인증 대기
-    dropout                          VARCHAR2(1)      DEFAULT 'N'   NOT NULL  -- 탈퇴 신청
+    dropout                          VARCHAR2(1)      DEFAULT 'N'   NOT NULL   -- 탈퇴 신청
 );
 
 COMMENT ON TABLE member is '회원';

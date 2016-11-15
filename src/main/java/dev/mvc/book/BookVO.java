@@ -21,8 +21,7 @@ public class BookVO {
   public void setMy_cnt(int my_cnt) {
     this.my_cnt = my_cnt;
   }
-//--------------------------------------- 
-  
+//---------------------------------------
   
   /** book ¹øÈ£ */
    private  int      bno;

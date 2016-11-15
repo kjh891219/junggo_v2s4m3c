@@ -1,4 +1,4 @@
-
+drop table product_reply
 CREATE TABLE product_reply(
 rno      NUMBER(10) NOT NULL, --댓글번호  
 rcomment     VARCHAR(1000) NOT NULL, -- 글내용
@@ -78,6 +78,8 @@ from (select rno, nickname, rcomment, grpno, indent, ansnum, clothno, userid fro
 
 
 ----------------------------------------------------------------------
+drop table cosmetic_reply;
+
 CREATE TABLE cosmetic_reply(
 rno      NUMBER(10) NOT NULL, --댓글번호  
 rcomment     VARCHAR(1000) NOT NULL, -- 글내용
@@ -116,7 +118,7 @@ from (select rno, nickname, rcomment, grpno, indent, ansnum, cno, userid from co
 
 
 ---------------------------------------------------------------------------------------------
-
+drop table sports_reply;
 CREATE TABLE sports_reply(
 rno      NUMBER(10) NOT NULL, --댓글번호  
 rcomment     VARCHAR(1000) NOT NULL, -- 글내용

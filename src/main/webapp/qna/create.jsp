@@ -14,28 +14,46 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
-<link href="/junggo/css/style.css" rel="Stylesheet" type="text/css">
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
  
 <script type="text/javascript">
 $(function(){
  
 });
+$(document).ready(function() {
+  
+  if($(".left").height() < $(".right").height()){
+     $(".left").height($(".right").height());
+  }
+  
+});
 </script>
-
+  <style type="text/css">
+ 	    button{
+    	background-color: transparent;
+    	border:1px solid lightgray;
+    	padding:2px; 
+    }
+ </style>
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
+<jsp:include page="/menu/top.jsp" flush='false' />
+<jsp:include page="/menu/left.jsp" flush='false' />
+          <jsp:include page="/menu/community_left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
  
+<div class="float_l right " style="width:80%;">
  
-<DIV class=container> 
+<DIV class='container' style="width:90%;"> 
 
 <DIV class='title'>문의사항 등록</DIV>
 <FORM name='frm' method='POST' action='./create.do'
               enctype="multipart/form-data">
+              <input type="hidden" id="passwd" name="passwd" value='${pwd }'/>
               
 <DIV class='content_form'>
-   <DIV>
+   <DIV style="margin-top:20px;">
       <div class='row'>
         <label class='col-xs-2 col-lg-2' for='categoryno'>카테고리</label>
         <select name='categoryno' id='categoryno' class="col-xs-3 col-lg-3">
@@ -77,23 +95,23 @@ $(function(){
       <hr>
       <div class="row">
          <label class='col-xs-2 col-lg-2' for='userid'>작성자</label>
-         <span class="col-xs-3 col-lg-3">${memberVO.userid}</span>
-         <input type='hidden' name='userid' id='userid' value='chanmi' class="col-xs-3 col-lg-3">
+         <span class="col-xs-3 col-lg-3">${userid}</span>
+         <input type='hidden' name='userid' id='userid' value='${userid }' class="col-xs-3 col-lg-3">
       </div>
       <div class='row'>
        <label class='col-xs-2 col-lg-2 ' for='email'>이메일</label> 
-       <span class="col-xs-3 col-lg-3">${memberVO.email}</span> 
-       <input type="hidden" name="email" value="${memberVO.email}"> 
+       <span class="col-xs-3 col-lg-3">${email}</span> 
+       <input type="hidden" name="email" value="${email}"> 
       </div>
       <div class='row'>
        <label class='col-xs-2 col-lg-2 ' for='tel'>등록자 연락처</label> 
-       <span class="col-xs-3 col-lg-3">${memberVO.tel}</span> 
-       <input type="hidden" name="tel" value="${memberVO.tel}"> 
+       <span class="col-xs-3 col-lg-3">${tel}</span> 
+       <input type="hidden" name="tel" value="${tel}"> 
       </div>
       <div class='row'> 
        <label class='col-xs-2 col-lg-2 ' for='nickname'>등록자 별명</label>
-       <span class="col-xs-3 col-lg-3">${memberVO.nickname}</span> 
-       <input type="hidden" name="nickname" value="${memberVO.nickname}"> 
+       <span class="col-xs-3 col-lg-3">${nickname}</span> 
+       <input type="hidden" name="nickname" value="${nickname}"> 
       </div>   
       <!-- 
       <div class="row">  
@@ -102,15 +120,17 @@ $(function(){
       </div>
        -->
       <div class='text_r' >
-        <button type="submit" class="btn btn-success btn-lg">등록</button>
-        <button type="button" onclick="location.href='./list.do'" class="btn btn-danger btn-lg">취소</button>
+        <button type="submit">등록</button>
+        <button type="button" onclick="location.href='./list.do'">취소</button>
       </div>
     </DIV>
   </DIV>    
 </FORM>
 </DIV>
- 
+  </div>
+<div class="both"></div>
 <!-- -------------------------------------------- -->
+     <jsp:include page="/menu/bottom.jsp" flush='false' />  
 </body>
 <!-- -------------------------------------------- -->
 </html> 

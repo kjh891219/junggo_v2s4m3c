@@ -212,7 +212,7 @@ public class CheatCont {
     
     if (cheatDAO.create(cheatVO) == 1) {
       msgs.add("등록되었습니다.");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
     } else {
       msgs.add("등록에 실패했습니다.");
@@ -612,7 +612,7 @@ public class CheatCont {
     } else {
       msgs.add("글 삭제에 실패했습니다.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./index.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do?ctno="+cheatVO.getCtno()+"'\">목록</button>");
     }
     

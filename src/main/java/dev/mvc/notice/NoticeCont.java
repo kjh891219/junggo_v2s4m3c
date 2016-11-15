@@ -114,12 +114,12 @@ public class NoticeCont {
      msgs.add("상품 등록 완료했습니다.");
      msgs.add("등록해주셔서 감사합니다.");
      links.add("<button type='button' onclick=\"location.href='./login.do'\">로그인</button>");
-     links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+     links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
    } else {
      msgs.add("상품 등록에 실패했습니다.");
      msgs.add("죄송하지만 다시한번 시도해주세요.");
      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-     links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+     links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
    }
 
    links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
@@ -257,7 +257,7 @@ public ModelAndView update(NoticeVO noticeVO, HttpServletRequest request) {
     msgs.add("상품 정보 변경에 실패했습니다.");
     msgs.add("죄송하지만 다시한번 시도해주세요.");
     links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-    links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
 
     mav.addObject("msgs", msgs);
@@ -295,7 +295,7 @@ public ModelAndView delete(NoticeVO noticeVO) {
     msgs.add("삭제에 실패했습니다.");
     msgs.add("죄송하지만 다시한번 시도해주세요.");
     links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-    links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
 
     mav.addObject("msgs", msgs);
@@ -413,7 +413,7 @@ public ModelAndView reply(NoticeVO noticeVO, HttpServletRequest request, HttpSer
     links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
   }
 
-  links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+  links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
   links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
   mav.addObject("msgs", msgs);
   mav.addObject("links", links);

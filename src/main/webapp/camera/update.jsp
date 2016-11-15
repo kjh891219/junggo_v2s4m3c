@@ -35,16 +35,16 @@
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 
+  <jsp:include page="/menu/top.jsp" flush='false' />
+  <jsp:include page="/menu/left.jsp" flush="false"/> 
 
 
 <DIV class=container>
-  <jsp:include page="/menu/top.jsp" flush='false' />
-  <jsp:include page="/menu/left.jsp" flush="false"/> 
 <DIV class='title'><span>글수정</span></DIV>
    <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./update.do' class='form-inline' enctype="multipart/form-data">
  <input type='hidden' name='ctno' id='ctno' value='${cameraVO.ctno}'>
-<DIV class='content_form'>
+<DIV class='content_form' style="margin-top:30px;">
      <DIV class="">
      <div class="float_l _left">
       <div class="">
@@ -113,8 +113,8 @@
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
         <input type='text' name='title' id='title' required="required" value='${cameraVO.title} ' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+      <div>
+        <label for='content' class='choice_e'>상세설명</label>
         <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${cameraVO.content}</textarea>
       </div>
       <hr/>

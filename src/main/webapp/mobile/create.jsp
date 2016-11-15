@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -15,7 +17,13 @@
 <script type="text/javascript" src="../js/tool.js"></script>
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script src="../js/event.js"></script>
-
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+<script type="text/JavaScript">
+  window.onload=function(){
+    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+  };
+</script>
+ 
 
 </head> 
 <!-- ----------------------------------------- -->
@@ -23,14 +31,39 @@
    <jsp:include page="/menu/top.jsp" flush='false' />
    <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
-<DIV class='content'>
+
+<DIV class=container>
 <DIV class='title'><span>글등록</span></DIV>
 <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
-<FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
+<FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data">
  <input type='hidden' name='userid' id='userid' value= '${userid }'/>
  <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
-<DIV class='content_form'>
-     <div class='float_l _right' >
+<DIV class='content_form' style="margin-top:30px;">
+     <DIV class="">
+     <div class="float_l _left">
+      <div class=""> 
+      <label class='need_e' for='category'>분류</label>
+      <div>
+        <select name = 'category' id ='category' class="form-control-lg-10-lg-10-lg-10 full" >
+         <option value = "I-PHONE" selected="selected" >아이폰</option>
+         <option value = "GALAXY">GALAXY</option>
+         <option value = "LG">LG</option>
+         <option value = "SKY">SKY</option>
+         <option value = "기타">기타</option>
+        </select>
+          </div>
+      </div>
+        <div class="">  
+         <label for='deal_code ' class="control-label need_e">거래구분</label>
+          <div>
+            <select name='deal_code' id="deal_code" class="control-label full">
+               <option value="팝니다" selected="selected">팝니다</option>
+               <option value="삽니다">삽니다</option>
+            </select>
+          </div>
+        </div>
+        </div>
+       <div class='float_l _right' >
         <div class="">  
           <label for='region' class='need_e'>지역</label>
           <div>
@@ -53,40 +86,7 @@
                <option value="제주">제주</option>
             </select>
           </div>
-    </div> 
-
-      <div class="">  
-         <label for='deal_code ' class="control-label need_e">거래구분</label>
-          <div>
-            <select name='deal_code' id="deal_code" class="control-label full">
-               <option value="팝니다" selected="selected">팝니다</option>
-               <option value="삽니다">삽니다</option>
-            </select>
-          </div>
-        </div>
-        </div>
-       <div class='float_l _right' >
-        <div class="">  
-        <label class='need_e' for='category'>분류</label>
-        <select name = 'category' id = 'category' class="form-control-lg-10-lg-10-lg-10 full" >
-         <option value = "I-PHONE" selected="selected" >아이폰</option>
-         <option value = "GALAXY">GALAXY</option>
-         <option value = "LG">LG</option>
-         <option value = "SKY">SKY</option>
-         <option value = "기타">기타</option>
-        </select>
-          </div>
     </div>  
-           <div class='float_l _right' >
-        <div class="">  
-        <label class='need_e' for='telecome'>통신사</label>
-        <select name = 'telecome' id = 'telecome' class="form-control-lg-10-lg-10-lg-10 full" >
-         <option value = "SKT" selected="selected">SKT</option>
-         <option value = "KT">KT</option>
-         <option value = "LG">LG</option>
-        </select>
-          </div>
-    </div>
        <div class=""> 
          <label for='deal_way' class='need_e'>거래방식</label>
          <div>
@@ -98,14 +98,15 @@
       </div>
         </div>
         <div class='both'></div>
-          <hr/>
+      </DIV>
+      <hr/>
       <div class="row">
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
-        <input type='text' name='title' id='title' required="required" value='디카팔아요' class="col-xs-9 col-lg-9">
+        <input type='text' name='title' id='title' required="required" value='공책7' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">sqld책 싸게 팔아요</textarea>
+      <div>
+        <label for='content' class='choice_e'>상세설명</label>
+        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">터지지 않아요</textarea>
       </div>
       <hr/>
         <div class="row need">   
@@ -138,7 +139,6 @@
          <label for='product_code' class='col-xs-2 col-lg-2 need'>상품구분</label>
          <input type="radio" name='product_code' value="중고품" checked="checked"><span class='radio_text'>중고품</span>
          <input type="radio" name='product_code' value="신상품" ><span class='radio_text'>신상품</span>
-
       </div>
         <div class="row"> 
         <label for='hprice' class='col-xs-2 col-lg-2 need'>희망가격</label>
@@ -152,34 +152,46 @@
         <label for='quantity' class='col-xs-2 col-lg-2 choice'>수량</label>
         <input type='text' name='quantity' id='quantity' value='1' class="col-xs-3 col-lg-3">
       </div>
-
-      <hr/>
-     <div class='inpo'>판매자 정보</div>
+      <div class="">  
+        <label class='need_e' for='telecome'>통신사</label>
+        <div>
+        <select name = 'telecome' id = 'telecome' class="form-control-lg-10-lg-10-lg-10 full" >
+         <option value = "SKT" selected="selected">SKT</option>
+         <option value = "KT">KT</option>
+         <option value = "LG">LG</option>
+        </select>
+          </div>
+        <hr/>
+      <div class='inpo'>판매자 정보</div>
         <div class='line_box' id='ul_box_2'></div>
-          <div class="row">
-            <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
-            <input type='text' name='tel' id='tel'  required="required" value='${tel}' class="col-xs-3 col-lg-3"> 
-          </div>
-          <div class="row">
-            <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
-            <input type='text' name='nickname' id='nickname' value= '${nickname}' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+           <div class="row">
+              <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
+              <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              </div>
+            <div class="row">
+               <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
+              <input type='text' name='tel' id='tel'  required="required" value='${tel}' class="col-xs-3 col-lg-3"> 
             </div>
-          <div class="row">  
-            <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
-            <input type='text' name='email' id='email'  required="required" value='${email}' readonly="readonly" class="col-xs-3 col-lg-3">
-          </div>
+            <div class="row">  
+              <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
+              <input type='text' name='email' id='email'  required="required" value='${memberVO.email }'  class="col-xs-3 col-lg-3">
+            </div>
   
-  
-   <div class='text_r' >
+        <hr/>
+        
+
+      <div class='text_r' >
         <button type="submit" class="btn btn-success btn-lg">등록</button>
         <button type="button" onclick="location.href='./list.jsp'" class="btn btn-danger btn-lg">취소</button>
       </div>
-  </FORM>
-  </DIV> 
-
- 
+   
+      </DIV>
+      </DIV>
+               
+</FORM>
+</DIV>
 <!-- -------------------------------------------- -->
-<jsp:include page="/menu/bottom.jsp" flush='false' />
+ <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 <!-- -------------------------------------------- -->
 </html> 

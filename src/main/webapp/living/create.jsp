@@ -15,6 +15,7 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
+<script type="text/javascript" src="../js/event.js"></script>
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script type="text/javascript">
  
@@ -24,14 +25,15 @@
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
    <jsp:include page="/menu/top.jsp" flush='false' />
+   <jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
-<DIV class=container>
+<DIV class="container">
 <DIV class='title'>상품등록</DIV>
  <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
 <FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data">
 <input type='hidden' name='userid' id='userid' value= '${userid }'/>
  <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
-<DIV class='content_form'>
+<DIV class='content_form' style="margin-top:30px;">
 
      <DIV class="">
      <div class="float_l _left">
@@ -98,9 +100,9 @@
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
         <input type='text' name='title' id='title' required="required" value='디카팔아요' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">sqld책 싸게 팔아요</textarea>
+      <div>
+        <label for='content' class='choice_e'>상세설명</label>
+        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">GTA5</textarea>
       </div>
       <hr/>
         <div class="row need">   

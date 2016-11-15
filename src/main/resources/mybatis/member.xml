@@ -319,7 +319,7 @@ MEMBER TABLE
    
   <!-- 구조가 다른 게시판 -->  
    <select id="reviews_list" resultType="ReviewsVO" parameterType="String">
-    SELECT r_no, seller_nick, t_category, title, wdate, cnt,
+    SELECT r_no, t_category, title, wdate, cnt,
     (select count(r_no) from reviews where userid=#{userid}) as my_cnt    
     FROM reviews
     WHERE userid=#{userid}

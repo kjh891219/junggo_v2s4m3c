@@ -241,7 +241,7 @@ return mav;
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
     }
 
-    links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     links.add("<button type='button' onclick=\"location.href='./list.do?u_no="
             + usedcarVO.getU_no() + "'\">목록</button>");
     mav.addObject("msgs", msgs);
@@ -455,7 +455,7 @@ return mav;
     } else {
       msgs.add("글 삭제에 실패했습니다.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do?u_no="+usedcarVO.getU_no()+"'\">목록</button>");
     }
     

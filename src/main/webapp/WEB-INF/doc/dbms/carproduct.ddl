@@ -9,7 +9,7 @@ select nickname from member
 CREATE TABLE member(
     userid                             VARCHAR2(20)                           NOT NULL     PRIMARY KEY,
     mno                               NUMBER(6)                               NOT NULL     UNIQUE,
-    pwd                                VARCHAR2(30)                          NOT NULL,
+    pwd                                VARCHAR2(100)                          NOT NULL,
     name                              VARCHAR2(20)                           NOT NULL,
     nickname                         VARCHAR2(20)                           NOT NULL     UNIQUE,
     tel                                  VARCHAR2(14)                           NOT NULL,
@@ -52,7 +52,7 @@ COMMENT ON COLUMN member.dropout is 'Å»Åð ½ÅÃ»';
 CREATE TABLE carproduct(
     p_no                               NUMBER(6)                                  NOT NULL,
     nickname                         VARCHAR2(20)                              NOT NULL,
-    passwd                             VARCHAR2(20)                              NOT NULL,
+    passwd                             VARCHAR2(100)                              NOT NULL,
     category                           CHAR(20)                                    NOT NULL,
     deal_way                          VARCHAR2(20)                              NOT NULL,
     deal_code                         VARCHAR2(20)                              NOT NULL,

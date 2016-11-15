@@ -64,7 +64,7 @@
     <div class="">
      <label class="select need_e" for='category'>분류</label>
     <div>
-      <select name='category' id='category' class="full">
+      <select name='category' id='category' class="form-control-lg-10-lg-10-lg-10 full">
       <option value="${carproductVO.category }" selected="selected">${carproductVO.category }</option> 
           <option value="국산 2000cc미만" >국산 2000cc미만</option>
           <option value="국 2000cc 이상" >국산 2000cc 이상</option>
@@ -116,7 +116,7 @@
    <div class=""> 
      <label for='deal_way' class='need_e'>거래방식</label>
    <div>
-     <select name='deal_way' id='deal_way'>
+     <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10 full">
       <option value="${carproductVO.deal_way}" selected="selected">${carproductVO.deal_way}</option>
         <option value="현장거래" selected="selected">현장거래</option>
         <option value="택배">택배</option>
@@ -132,8 +132,8 @@
      <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
      <input type='text' name='title' id='title' required="required" value='${carproductVO.title} ' class="col-xs-9 col-lg-9">
    </div>
-   <div class="row">
-     <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+   <div>
+     <label for='content' class='choice_e'>상세설명</label>
      <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${carproductVO.content}</textarea>
    </div>
    

@@ -129,7 +129,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 최신글리스트 -->
    <select id="newlist" resultType="CosmeticVO">
       SELECT cno, title, deal_code, product_code, region, deal_way,  purc_date,
-                 hprice, userid, nickname, file2, file1, wdate
+                 hprice, userid, nickname, file1, file2, wdate
       FROM cosmetic
       WHERE cno >= (SELECT (MAX(cno)-7) FROM cosmetic)
    </select>

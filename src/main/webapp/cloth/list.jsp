@@ -74,13 +74,13 @@ window.openModal = function() {
 </script>
 </head>
  
-<body leftmargin="0" topmargin="0" >
+<body>
   <jsp:include page="/menu/top.jsp" flush='false' />
   <jsp:include page="/menu/left.jsp" flush='false' />
-<div class="container">
+<div class="container" style="width:90%;">
 
   <form name="frmSearch" method="get" action="./list.do"> 
-    <div class='content_menu' style='width: 100%;'>
+    <div class='' style='width: 100%;'>
       <select name="col"> 
         <option value="">선택</option> 
         <option value="category" ${searchDTO.col == "category" ? "selected=selected" : "" }>카테고리</option>

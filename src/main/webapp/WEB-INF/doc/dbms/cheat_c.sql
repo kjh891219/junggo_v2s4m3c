@@ -18,7 +18,7 @@ CREATE TABLE CHEAT(
     tel                               VARCHAR2(14)     DEFAULT ''    NULL ,
     userid                            VARCHAR2(20)     NOT NULL,
     nickname                          VARCHAR2(20)     DEFAULT ''    NOT NULL,
-    passwd                            VARCHAR2(10)     NOT NULL,
+    passwd                            VARCHAR2(100)     NOT NULL,
     wdate                             DATE     DEFAULT sysdate     NOT NULL,
     file1             VARCHAR(100) NULL,
     file2             VARCHAR(50) NULL,

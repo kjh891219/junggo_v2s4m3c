@@ -21,6 +21,7 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
+<script type="text/javascript" src="../js/event.js"></script>
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
  
 <script type="text/JavaScript">
@@ -33,30 +34,47 @@
 $(function(){
  
 });
+$(document).ready(function() {
+  
+  if($(".left").height() < $(".right").height()){
+     $(".left").height($(".right").height());
+  }
+  
+});
+
 </script>
- 
+ <style type="text/css">
+ 	    button{
+    	background-color: transparent;
+    	border:1px solid lightgray;
+    	padding:2px; 
+    }
+ </style>
 </head> 
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
-<div class="container">
+     <jsp:include page="/menu/top.jsp" flush='false' />
+     <jsp:include page="/menu/left.jsp" flush='false' />
+     <jsp:include page="/menu/community_left.jsp" flush='false' />
+<div class="float_l right " style="width:80%;">
+<div class="container" style="width:90%;">
 <!-- ----------------------------------------- -->
-<div class='content_menu'>
-  <A href='./list2.do?category=${qnaVO.categoryno}'></A>
-</div> 
-<DIV class='content' style='width: 90%;'>
+
+<DIV class='content' >
   <FORM name='frm' method='POST' action='./update.do'
               enctype="multipart/form-data">
     <input type='hidden' name='qnano' id='qnano' value='${qnaVO.qnano}'>
     <input type="hidden" name="categoryno" value="${qnaVO.categoryno}">
+    <DIV class="text_c">문의게시판</DIV>
   
     <ul>
-      <li>
-        <label for='title' >제목</label>
-        <input type='text' name='title' size='70' id='title' value='${qnaVO.title}' required="required">
+      <li class="row">
+        <label for='title' class="col-xs-1 col-lg-1">제목</label>
+        <input type='text' name='title' size='70' id='title' value='${qnaVO.title}' required="required" class="col-xs-10 col-lg-10"  >
       </li>
       <li>
          <label for='content'>내용</label>
-        <textarea name='content' id='content' rows='10' style='width: 100%;'>${qnaVO.content}</textarea>
+        <textarea name='content' id='content' rows='29' style='width: 100%;'>${qnaVO.content}</textarea>
       </li>
       <li>
          
@@ -99,16 +117,19 @@ $(function(){
           </div>
       </li>
  
-      <li class='right'>
+      <li class='text_r right'>
         <button type="submit">수정</button>
-        <button type="button" onclick="location.href='./list.do?'">목록[취소]</button>
+        <button type="button" onclick="history.back()">취소</button>
       </li>         
     </ul>
   </FORM>
 </DIV>
+</div>
+</div>
+<div class="both"></div>
  
 <!-- -------------------------------------------- -->
-</div>
+<jsp:include page="/menu/bottom.jsp" flush='false' />     
 </body>
 <!-- -------------------------------------------- -->
 </html> 

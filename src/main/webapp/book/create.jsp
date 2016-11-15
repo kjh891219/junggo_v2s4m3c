@@ -13,14 +13,46 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
+<script type="text/javascript" src="../js/event.js"></script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <link href="${pageContext.request.contextPath}/css/style.css" rel="Stylesheet" type="text/css">
+<style type="text/css">
+       button{
+      background-color: transparent;
+      border:1px solid lightgray;
+      padding:2px;
+    }
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+   
+   if($('.need').next().valu() == null){
+      $(this).focus();
+      return false;
+   }
+   
+   $('#quantity').cilck(function () {
+      
+      if($('#quantity').attr("value") == null){
+         $(this).focus();
+         return 0;
+      }
+  });
+  
 
+ });
+ 
+ 
+
+</script>
 </head>
  
 <!-- ----------------------------------------- -->
 <body leftmargin="0" topmargin="0">
    <jsp:include page="/menu/top.jsp" flush='false' />
+	<jsp:include page="/menu/left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
+
 
   <div class='container'>
   <DIV class='title'>책 등록</DIV>
@@ -28,7 +60,7 @@
   <FORM name='frm' method='POST' action='./create.do' enctype="multipart/form-data">
    <input type='hidden' name='userid' id='userid' value= '${userid }'/>
    <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
-  <DIV class='content_form'>
+  <DIV class='content_form' style="margin-top:30px;">
       <div class='content_menu'>
         <A href='./create.do'>등록</A>｜ 
         <A href='./read.do}'>상세보기</A>｜ 
@@ -101,9 +133,9 @@
             <input type='text' name='title' id='title' 
                value='서적 팔아요' class="col-xs-9 col-lg-9" required="required">
          </div>    
-         <div class='row'>
-           <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-           <textarea rows='10' name='content' id='content' required="required" class="col-xs-9 col-lg-9">연락주세요~</textarea>
+         <div>
+           <label for='content' class='need_e'>상세설명</label>
+           <textarea class="form-control" name='content' id='content'  rows='10' cols='70'>연락주세요~</textarea>
          </div>
          <hr/>
                
@@ -157,7 +189,7 @@
          </div>
          <div class='row'>
            <label for='btitle'  class='col-xs-2 col-lg-2 need'>책제목</label> 
-           <input type='text' name='btitle' id='btitle' value='이상한 나라의 앨리스' class='col-xs-3 col-lg-3'>
+           <input type='text' name='btitle' id='btitle' value='이상한 나라의 앨리스' class='col-xs-3 col-lg-3' required="required">
          </div>
          <div class='row'>
            <label for='bwriter'  class='col-xs-2 col-lg-2 choice'>저자</label> 
@@ -179,9 +211,9 @@
              value='2014년 10월' class="col-xs-3 col-lg-3">
          </div>
          <div class='row'>
-           <label for='quantity'  class='col-xs-2 col-lg-2 choice'>수량</label> 
+           <label for='quantity'  class='col-xs-2 col-lg-2 need'>수량</label> 
            <input type='number' name='quantity' id='quantity'
-                value='2' class="col-xs-3 col-lg-3">
+                required="required" value='0' class="col-xs-3 col-lg-3">
          </div>
             
       <hr/>

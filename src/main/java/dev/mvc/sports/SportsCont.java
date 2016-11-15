@@ -212,7 +212,7 @@ public class SportsCont {
     
     if (sportsDAO.create(sportsVO) == 1) {
       msgs.add("등록되었습니다.");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
     } else {
       msgs.add("등록에 실패했습니다.");
@@ -345,9 +345,6 @@ public class SportsCont {
       mav.addObject("sportsVO", sportsVO);
       mav.addObject("searchDTO", searchDTO);
       
-      String content = sportsVO.getContent();
-      content = Tool.convertChar(content);
-      sportsVO.setContent(content);
       
       
       //게시판에 대한 정보 파악

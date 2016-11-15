@@ -15,8 +15,8 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
-<link href="/game/css/style.css" rel="Stylesheet" type="text/css">
-<script src="/game/js/event.js"></script>
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<script src="../js/event.js"></script>
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <script type="text/JavaScript">
   window.onload=function(){
@@ -38,7 +38,7 @@
 <FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data">
  <input type='hidden' name='userid' id='userid' value= '${userid }'/>
  <input type='hidden' name='passwd' id='passwd' value= '${pwd }'/>
-<DIV class='content_form'>
+<DIV class='content_form' style="margin-top:30px;">
      <DIV class="">
      <div class="float_l _left">
       <div class="">
@@ -103,8 +103,8 @@
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
         <input type='text' name='title' id='title' required="required" value='GTA' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+      <div>
+        <label for='content' class='choice_e'>상세설명</label>
         <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">GTA5</textarea>
       </div>
       <hr/>
@@ -157,7 +157,7 @@
         <div class='line_box' id='ul_box_2'></div>
            <div class="row">
               <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
-              <input type='text' name='nickname' id='nickname' value= '${memberVO.nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
+              <input type='text' name='nickname' id='nickname' value= '${nickname }' required="required" readonly="readonly" class="col-xs-3 col-lg-3"/>
               </div>
             <div class="row">
                <label for='tel'  class='col-xs-2 col-lg-2 need'>전화번호</label>
@@ -165,7 +165,7 @@
             </div>
             <div class="row">  
               <label for='email' class='col-xs-2 col-lg-2 need'>이메일</label>
-              <input type='text' name='email' id='email'  required="required" value='${memberVO.email }'  class="col-xs-3 col-lg-3">
+              <input type='text' name='email' id='email'  required="required" value='${email }'  class="col-xs-3 col-lg-3">
             </div>
   
         <hr/>

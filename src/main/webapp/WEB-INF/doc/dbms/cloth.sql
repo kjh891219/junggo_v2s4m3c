@@ -4,7 +4,7 @@ CREATE TABLE cloth (
 clothno              NUMBER(6)  NOT NULL, --글번호 
 category        VARCHAR2(20) NOT NULL, --카테고리 
 nickname      VARCHAR2(20) NOT NULL, --닉네임 
-passwd         VARCHAR2(20) NOT NULL, -- 패스워드 
+passwd         VARCHAR2(100) NOT NULL, -- 패스워드 
 deal_way       VARCHAR2(20) NOT NULL, -- 거래방식 (직거래, 택배),
 deal_code      VARCHAR2(20) NOT NULL, -- 거래구분  (삽니다, 팝니다),
 product_code VARCHAR2(20) NOT NULL, -- 상품구분 (중고품, 신상품)  

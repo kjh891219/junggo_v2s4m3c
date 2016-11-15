@@ -68,13 +68,13 @@
               enctype="multipart/form-data">
   <input type='hidden' name='userid' id='userid' value= '${userid }'/>
 
-<DIV class='content_form'>
+<DIV class='content_form' style="margin-top:30px;">
  <DIV class="">
   <div class="float_l _left">
    <div class="">
     <label class="select need_e" for='category'>분류</label>
    <div>
-     <select name='category' id='category'>
+     <select name='category' id='category' class="form-control-lg-10-lg-10-lg-10 full">
           <option value="미술용품" selected="selected">미술용품</option>
            <option value="현대작품">현대작품</option>
            <option value="골동품">골동품</option>
@@ -85,7 +85,7 @@
  <div class=""> 
   <label for='deal_code ' class="control-label need_e">거래구분</label> 
    <div>
-     <select name='deal_code' id='deal_code'>
+     <select name='deal_code' id='deal_code' class="form-control-lg-10-lg-10-lg-10 full">
        <option value="팝니다" selected="selected">팝니다</option>
        <option value="삽니다">삽니다</option>
      </select>
@@ -96,7 +96,7 @@
   <div class="">  
    <label for='region' class='need_e'>지역</label>
      <div>
-      <select name='region' id='region' >
+      <select name='region' id='region' class="form-control-lg-10-lg-10-lg-10 full">
            <option value="서울" selected="selected">서울</option>
            <option value="인천">인천</option>
            <option value="대구">대구</option>
@@ -120,7 +120,7 @@
 <div class=""> 
   <label for='deal_way' class='need_e'>거래방식</label>
  <div>
-   <select name='deal_way' id='deal_way'>
+   <select name='deal_way' id='deal_way' class="form-control-lg-10-lg-10-lg-10 full">
       <option value="현장거래" selected="selected">현장거래</option>
       <option value="택배">택배</option>
     </select>
@@ -136,8 +136,8 @@
    <input type='text' name='title' id='title' required="required" value='' class="col-xs-9 col-lg-9">
 </div>     
  
-<div class="row">
- <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
+<div>
+ <label for='content' class='choice_e'>상세설명</label>
  <textarea class="form-control" name='content' id='content'  rows='10' cols='70'>내용을 입력해주세요</textarea>
 </div><hr/>
 

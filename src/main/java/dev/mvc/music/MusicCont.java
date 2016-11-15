@@ -214,7 +214,7 @@ public class MusicCont {
      links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
    }
 
-   links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+   links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
    links.add("<button type='button' onclick=\"location.href='./list.do?ctno="
            + musicVO.getCtno() + "'\">목록</button>");
    mav.addObject("msgs", msgs);
@@ -283,7 +283,7 @@ public ModelAndView delete(MusicVO musicVO) {
   } else {
     msgs.add("글 삭제에 실패했습니다.");
     links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-    links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+    links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     links.add("<button type='button' onclick=\"location.href='./list.do?ctno="+musicVO.getCtno()+"'\">목록</button>");
   }
   

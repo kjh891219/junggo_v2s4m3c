@@ -212,7 +212,7 @@ public class CosmeticCont {
     
     if (cosmeticDAO.create(cosmeticVO) == 1) {
       msgs.add("등록되었습니다.");
-      links.add("<button type='button' onclick=\"location.href='./home.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do'\">목록</button>");
     } else {
       msgs.add("등록에 실패했습니다.");
@@ -345,9 +345,7 @@ public class CosmeticCont {
       mav.addObject("cosmeticVO", cosmeticVO);
       mav.addObject("searchDTO", searchDTO);
       
-      String content = cosmeticVO.getContent();
-      content = Tool.convertChar(content);
-      cosmeticVO.setContent(content);
+      
       
       
       //게시판에 대한 정보 파악
@@ -612,7 +610,7 @@ public class CosmeticCont {
     } else {
       msgs.add("글 삭제에 실패했습니다.");
       links.add("<button type='button' onclick=\"history.back()\">다시시도</button>");
-      links.add("<button type='button' onclick=\"location.href='./index.do'\">홈페이지</button>");
+      links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
       links.add("<button type='button' onclick=\"location.href='./list.do?cno="+cosmeticVO.getCno()+"'\">목록</button>");
     }
     

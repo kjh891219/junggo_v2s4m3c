@@ -7,7 +7,7 @@ ano               NUMBER(6)                           NOT NULL  PRIMARY KEY, -- 
 category          VARCHAR2(20)                        NOT NULL, -- 카테고리 
 userid            VARCHAR2(20)                        NOT NULL, -- 아이디
 nickname          VARCHAR2(20)                        NOT NULL, -- 닉네임
-passwd            VARCHAR2(10)                        NOT NULL, -- 비밀번호
+passwd            VARCHAR2(100)                        NOT NULL, -- 비밀번호
 deal_way          VARCHAR2(20)                        NOT NULL, -- 거래방식
 deal_code         VARCHAR2(20)                        NOT NULL, -- 거래구분
 product_code      VARCHAR2(20)                        NOT NULL, -- 상품구분

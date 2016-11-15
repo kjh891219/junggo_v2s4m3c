@@ -43,9 +43,10 @@ window.openModal = function() {
 </head>
  
 <body leftmargin="0" topmargin="0">
-<div class="container">
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush="false"/> 
+     
+<div class="container">
      
   <form name="frmSearch" method="get" action="./list.do"> 
       <select name="col"> 

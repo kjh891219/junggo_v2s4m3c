@@ -3,7 +3,6 @@ package dev.mvc.qna;
 import org.springframework.web.multipart.MultipartFile;
 
 public class QnAVO {
-   
 //---------------------------------------
   /** 마이페이지 글 번호 **/
   private int my_no;
@@ -22,7 +21,7 @@ public class QnAVO {
   public void setMy_cnt(int my_cnt) {
     this.my_cnt = my_cnt;
   }
-//---------------------------------------
+//--------------------------------------- 
   
   /** 문의게시판 번호 */
    private  int      qnano;
