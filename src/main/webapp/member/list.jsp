@@ -37,15 +37,24 @@ function act_form(mno){
   
   win.moveTo(x, y); // 화면 이동 
 }
+$(document).ready(function() {
+  
+  if($(".left").height() < $(".right").height()){
+     $(".left").height($(".right").height());
+  }
+  
+});
 </script>
 </head> 
 <!-- ----------------------------------------- -->
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
 <jsp:include page="/menu/left.jsp" flush='false' />
-<jsp:include page="/member/menu/admin_left.jsp" flush='false' />
+<jsp:include page="/menu/admin_left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
-<div class="container">
+<div class="float_l right " style="width:80%; ">
+  <DIV class='container' style="width:90%; min-height:380px;"> 
+  
 <div class='content_menu' style='width: 100%;'>
     <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>목록</A>>
     <A href='./list.do?col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>회원 목록</A>｜
@@ -70,7 +79,7 @@ function act_form(mno){
     <A href="javascript:location.reload();" class='top_select'>새로고침</A>｜
 </div>
 
-<div class="container" style="margin: auto;">
+<div>
 <TABLE class='table table-hover' style='width: 100%;'>
   <caption>관리자만 접근가능합니다.</caption>
   <thead>
@@ -135,6 +144,8 @@ function act_form(mno){
 
 <DIV class='bottom'>${paging}</DIV>
 </DIV>
+</DIV>
+<div class="both"></div>
 <!-- -------------------------------------------- -->
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

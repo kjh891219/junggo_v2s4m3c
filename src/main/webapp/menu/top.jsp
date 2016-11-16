@@ -62,16 +62,16 @@ for (int i=0; i < cookies.length; i++){
                <li class="logout" style="background: url(${pageContext.request.contextPath}/images/logout.png) no-repeat left center; background-size:16px; background-position: 6px;">
                      <a href="<%=root %>/member/logout.do" class='menu_style'>${userid }님 로그아웃</a>
                </li>
-               <li class="mytm" style="background: url(${pageContext.request.contextPath}/images/logout.png) no-repeat left center; background-size:16px; background-position: 6px;">
+               <li class="mytm" style="background: url(${pageContext.request.contextPath}/images/person.png) no-repeat left center; background-size:16px; background-position: 6px;">
                      <a href="<%=root %>/member/mylist.do" class='menu_style'><span></span>마이 페이지</a>
                </li>
                <li class="message">
                      <A href='javascript: message();'><img src="${pageContext.request.contextPath}/images/message.png" width="20" style="position:relative; top:-1px; left:-10px;"/>메세지</a>
                </li>
-               <% } %>   
                <li class="favorite" style="background: url(${pageContext.request.contextPath}/images/favorite_love.png) no-repeat left center; background-size:20px;">
                      <a href="${pageContext.request.contextPath}/favorite/list.do?userid=${userid }" class='menu_style'><span></span>위시리스트</a>
                </li>
+               <% } %>   
                <!--
                <li class="cs"><a href="#none" class="on"><span></span>고객센터</a></li><!-- //활성화 시 class on 추가 -->
                 <li class="cs" style="background: url(${pageContext.request.contextPath}/images/headphones.png) no-repeat left center; background-size:18px;  background-position: 6px;">
