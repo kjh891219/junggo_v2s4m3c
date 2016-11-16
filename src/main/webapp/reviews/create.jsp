@@ -71,7 +71,7 @@
      
 
   <div class='content_menu' style='width: 90%;'>
-    <A href='../reviews/list.do'  class='top_select'>후기 게시판 목록</A> 
+    <A href='../reviews/list.do'  class='top_select text_c'>후기 게시판 목록</A> 
   </div>
   
    <DIV class='title'><span>글등록</span></DIV>
@@ -81,13 +81,13 @@
               enctype="multipart/form-data">
   <input type='hidden' name='userid' id='userid' value= '${userid }'/>
 
-  <DIV class='content_form'>
+  <DIV class='content_form' style="margin-top:30px;">
    <DIV class="">
    <div class="float_l _left">
     <div class="">
      <label class="select need_e" for='t_category'>분류</label>
     <div>
-        <select name='t_category' id='t_category'>
+        <select name='t_category' id='t_category' class="full">
           <option value="중고차" selected="selected">중고차</option>
           <option value="자동차 용품" >자동차 용품</option>
           <option value="의류" >의류</option>
@@ -115,13 +115,13 @@
    <input type='text' name='title' id='title' required="required" value='' class="col-xs-9 col-lg-9">
 </div>  
 
-<div class="row">
- <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
- <textarea class="form-control" name='content' id='content'  rows='10' cols='70'>내용을 입력해주세요</textarea>
+<div>
+ <label for='content' class='choice_e'>상세설명</label>
+ <textarea class="form-control" name='content' id='content'  rows='29' cols='70'>내용을 입력해주세요</textarea>
 </div>
  <div class="row">
      <label for='product_code' class='col-xs-2 col-lg-2 need'>글 비밀번호</label>
-     <input type='text' name='passwd' id='passwd' value= '1234'/>
+     <input type='text' name='passwd' id='passwd' value= '1234' class="col-xs-3 col-lg-3"/>
  </div>
  <div class="row">
     <label for='nickname' class='col-xs-2 col-lg-2 need'>별명</label>
@@ -129,24 +129,24 @@
   </div>
 <hr/>
 
-<div class="row need">
- <label for="file1MF" class="col-xs-2 col-lg-2 control-label">업로드 파일1</label>
+<div class="row">
+ <label for="file1MF" class="col-xs-3 col-lg-3 control-label  need">업로드 파일1</label>
  <input type="file" class="form-control" name='file1MF' id='file1MF' size='40' >
 </div>  
-<div class="row choice" > 
-  <label for="file2MF" class="col-xs-2 col-lg-2 control-label">업로드 파일2</label>  
+<div class="row" > 
+  <label for="file2MF" class="col-xs-3 col-lg-3 control-label choice">업로드 파일2</label>  
   <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
 </div>
-<div class="row choice">  
-   <label for="file3MF" class="col-xs-2 col-lg-2 control-label">업로드 파일3</label>
+<div class="row ">  
+   <label for="file3MF" class="col-xs-3 col-lg-3 control-label choice">업로드 파일3</label>
    <input type="file" class="form-control" name='file3MF' id='file3MF' size='40' >
 </div> 
-<div class="row choice"> 
-   <label for="file4MF" class="col-xs-2 col-lg-2 control-label">업로드 파일4</label>
+<div class="row"> 
+   <label for="file4MF" class="col-xs-3 col-lg-3 control-label choice">업로드 파일4</label>
    <input type="file" class="form-control" name='file4MF' id='file4MF' size='40' >
 </div>
-<div class="row choice">   
- <label for="file5MF" class="col-xs-2 col-lg-2 control-label">업로드 파일5</label>
+<div class="row">   
+ <label for="file5MF" class="col-xs-3 col-lg-3 control-label choice">업로드 파일5</label>
   <input type="file" class="form-control" name='file5MF' id='file5MF' size='40' >
 </div>
 <hr>
@@ -253,6 +253,7 @@
 
 </div>
 </div>
+<div class="both"></div>
      <jsp:include page="/menu/bottom.jsp" flush='false' />     
 
 </body>

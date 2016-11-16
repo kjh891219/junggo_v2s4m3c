@@ -54,7 +54,6 @@ window.openModal = function() {
      <jsp:include page="/menu/top.jsp" flush='false' />
      <jsp:include page="/menu/left.jsp" flush="false"/> 
      <jsp:include page="/menu/community_left.jsp" flush='false' /> 
-<!-- <div class = "container" style="margin: 0px; border: 0px solid rgb(255, 255, 255); border-image-source: none; width: 100%; float: left; background-image: none; background-color: transparent; background-position: 0px 0px; background-repeat: repeat;"> -->
 
 
 <div class="float_l right " style="width:80%;">
@@ -67,7 +66,7 @@ window.openModal = function() {
     <TH class='th'>글쓴이</TH>
     <TH class='th'>조회수</TH>
     <TH class='th'>등록일</TH>
-    <TH class='th'>기타</TH>
+    <TH class='th'><c:if test="${(userid eq 'master')}">기타</c:if></TH>
   </TR>
  
   </thead>
@@ -94,9 +93,9 @@ window.openModal = function() {
     <TD >${vo.cnt}</TD>
     <TD >${vo.wdate.substring(0,10) }</TD>
     <TD >
-      <A href="./update.do?noticeno=${vo.noticeno}"><IMG src='./images/update.png' title='수정'></A>
-      <A href="./delete.do?noticeno=${vo.noticeno}"><IMG src='./images/delete.png' title='삭제'></A>
-      <A href='./reply.do?noticeno=${vo.noticeno}'><IMG src='./images/url5.png' title='답변'>답변</A>｜
+      <c:if test="${(userid eq 'master')}"><A href="./update.do?noticeno=${vo.noticeno}"><IMG src='./images/update.png' title='수정'></A></c:if>
+      <c:if test="${(userid eq 'master')}"><A href="./delete.do?noticeno=${vo.noticeno}"><IMG src='./images/delete.png' title='삭제'></A></c:if>
+      <c:if test="${(userid eq 'master')}"><A href='./reply.do?noticeno=${vo.noticeno}'><IMG src='./images/url5.png' title='답변'>답변</A></c:if>
     </TD>
     
   </TR>
@@ -137,7 +136,6 @@ window.openModal = function() {
 <!-- -------------------------------------------- -->
 <div class='both'></div>
 
-<!-- </div> -->
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 <!-- -------------------------------------------- -->

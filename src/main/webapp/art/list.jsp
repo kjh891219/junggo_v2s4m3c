@@ -29,6 +29,7 @@ function create_login() {
   <% if( session.getAttribute("userid") == null) { %>
   alert('로그인 한 사용자만 이용이 가능합니다');
   window.openModal();
+  <%session.setAttribute("url", "art/list.do");%>
   return false;
   <% } else { %>
   location.href='./create.do';

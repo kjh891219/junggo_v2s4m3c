@@ -380,7 +380,7 @@ window.openModal = function() {
     ${cheatVO.content} 
   </div>
   
-  <div style="text-align: right;">
+  <div style="text-align: right; margin-bottom:30px;">
    <c:if test="${(cheatVO.userid eq userid)}">
   <button type='button' onclick="location.href='./update.do?ctno=${cheatVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
   <button type='button' onclick="location.href='./delete.do?ctno=${cheatVO.ctno}&col=${searchDTO.col}&word=${searchDTO.word}'">삭제</button>

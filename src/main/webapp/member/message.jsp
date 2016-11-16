@@ -40,7 +40,7 @@ $(function(){
 
 <DIV class='message'  style="width:50%;margin:0 auto; border:1px solid lightgray; position: relative;">
 <img alt="" src="../images/notice.png" style="position: absolute; top: -18px; left: -23px;">
-<div style="width:50%; height:200px; margin:0 auto; padding-top:70px;">    
+<div style="width:60%; min-height:200px; margin:0 auto; padding-top:70px; padding-bottom:70px;">    
   <fieldset>
     <ul class="text_c">
       <c:forEach var="msg" items="${msgs}">

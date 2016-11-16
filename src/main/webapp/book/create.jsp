@@ -45,6 +45,16 @@ $(document).ready(function() {
  
 
 </script>
+
+
+<script type="text/JavaScript">
+  window.onload=function(){
+    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+  };
+</script>
+
+
+
 </head>
  
 <!-- ----------------------------------------- -->

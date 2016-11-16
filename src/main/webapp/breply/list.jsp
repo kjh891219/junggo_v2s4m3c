@@ -43,9 +43,14 @@ $(document).ready(function (event) {
 
   });
 });
+
 $(function(){
   $('#panel_frm').hide();
 });
+
+/* rno: 현재의 글 번호 */
+/* bno: 부모 글 번호   */
+ 
 function create(rno){
   <% if( session.getAttribute("userid") == null) { %>
   alert('로그인 한 사용자만 사용이 가능합니다.');
@@ -56,8 +61,8 @@ function create(rno){
   <% } else { %>
   
   var e = window.event, btn = e.target || e.srcElement; 
+
   alert("댓글을 달 글 번호: "+rno);
-  
   var tag = 
    "<DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>"+
    "<FORM name='frm' id='frm' method='POST' action='./reply.do'>" +
@@ -65,45 +70,14 @@ function create(rno){
    "<input type='hidden' name='bno' id='bno' value='<c:out value="${bno}"/>'>" +
    "<input type='hidden' name='userid' id='userid' value='<c:out value="${userid}"/>'>" +
    "<input type='hidden' name='rno' id='rno' value='" + rno + "'>" +
-   "<div style='width:100%;'>" +
-   "<textarea rows='3' cols='100'  name='rcomment' id='rcomment' placeholder='내용을 입력하세요' style='width:100%;'>댓글입력</textarea>"+
-   "<div class='text_r'>" + 
-   "<h1 class='num_reply'>(<span>250</span>/250)" + 
-   "<button type='submit' id='submit'>등록</button>" + 
-   "<button type='button' onclick='create_cancel(this.form)'>닫기</button></h1>" + 
-   "</div>" + 
+   "<div class='col-xs-5'>" +
+   "<textarea rows='3' cols='100'  name='rcomment' id='rcomment' placeholder='내용을 입력하세요' class='form-group'>댓글입력</textarea>"+
+   "<button type='submit' id='submit'>등록</button>" +
+   "<button type='button' onclick='create_cancel()''>닫기</button>" +
    "</div>"+
    "</FORM>"+
    "</DIV>"; 
-  $('#comment'+rno).html(tag);
-  
-  $('textarea').keyup(function () {
-     // 남은 글자 수를 구합니다.
-     var inputLength = $(this).val().length;
-     var remain = 250 - inputLength;
-
-     // 문서 객체에 입력합니다.
-     $(this).next().find('span').html(remain);
-
-     // 문서 객체의 색상을 변경합니다.
-     if (remain >= 0) {
-        $(this).next().find('span').css('color', 'black');
-     } else {
-        if(remain <0) {
-           $(this).next().find('span').text(0);
-        }
-     }
- });
- 
- $('textarea').on('keyup', function() {
-
-    if($(this).val().length > 250) {
-        $(this).val($(this).val().substring(0, 250));
-        $(this).focus();  
-    }
-
-});
-  
+  $('#comment'+rno).html(tag);  
   return true;
   <% } %>
  }  
@@ -119,7 +93,7 @@ function delete_form(rno){
     "<input type='hidden' name='bno' id='bno' value='<c:out value="${bno}"/>'>" +
     "<input type='hidden' name='userid' id='userid' value='<c:out value="${userid}"/>'>" +
     "<input type='hidden' name='rno' id='rno' value='" + rno + "'>" +
-    "<div>정말로 삭제 하겠습니까?" +
+    "<div class='col-xs-5'>정말로 삭제 하겠습니까?" +
     "<button type='submit' id='submit'>삭제</button>" +
     "<button type='button' onclick='create_cancel(this.form)''>닫기</button>" +
     "</div>"+
@@ -141,13 +115,13 @@ function delete_form(rno){
               <div>
               <c:choose>
                 <c:when test="${vo.ansnum == 0 }">
-                  ☆<!-- <img src='./images/url4.png' style='width: 14px;'> -->
+                  -<!-- <img src='./images/url4.png' style='width: 14px;'> -->
                 </c:when>
                 <c:when test="${vo.ansnum > 0 }">
                   <c:forEach var="indent"  begin="1" end="${vo.indent }" step="1">
                    <img src='./images/white.jpg' style='width: 25px; opacity: 0.0;'>
                   </c:forEach>
-                  ☆<!-- <img src='./images/reply3.png'> -->
+                  -<!-- <img src='./images/reply3.png'> -->
                 </c:when>
               </c:choose>
                      ${vo.rno } /

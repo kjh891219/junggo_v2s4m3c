@@ -40,6 +40,7 @@ $(function(){
   function create_login() {
     <% if( session.getAttribute("userid") == null) { %>
     alert('로그인 한 사용자만 이용이 가능합니다');
+    <%session.setAttribute("url", "carproduct/list.do");%>
     window.openModal();
     return false;
     <% } else { %>
@@ -228,7 +229,7 @@ function update(codeno, sort, seqno){
             <li class="color_type">
             <strong class="nickname">닉네임 :</strong> 
             <span class= "nickname"> 
-            <A href="javascript: profile(' ${vo.userid}' ,' ${vo.nickname}') ;" class='list_tag' title='프로필보기'>${vo.nickname}</A>
+            <A href="javascript: profile(' ${vo.userid}' ,' ${vo.nickname}') ;" class='list_tag' title='프로필보기' >${vo.nickname}</A>
             </span>
            </li>
            

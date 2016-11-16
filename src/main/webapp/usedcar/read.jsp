@@ -183,16 +183,23 @@
     <BR><BR>
 
      <div class="icon" style="text-align: center;border-top:1px solid #d6d6c2; border-bottom:1px solid #d6d6c2;">
-     <c:if test="${(usedcarVO.userid eq userid)}">
-      <IMG src="../images/modify.png" onclick="location.href='./update.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='수정'>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <IMG src="../images/delete.png"  onclick="location.href='./delete.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='삭제'>
-     </c:if>
-     <c:if test ="${(usedcarVO.userid ne userid)}">
-    <A href="javascript: send_wish( ' ${usedcarVO.hprice}' ,' ${usedcarVO.nickname}' , ' ${usedcarVO.title}' ,' ${usedcarVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
+       <c:choose>
+       <c:when test="${(act eq 'M')}">
+       <IMG src="../images/modify.png" onclick="location.href='./update.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='수정'>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <IMG src="../images/delete.png"  onclick="location.href='./delete.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='삭제'>
+       </c:when>
+       <c:when test="${(usedcarVO.userid eq userid)}">
+       <IMG src="../images/modify.png" onclick="location.href='./update.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='수정'>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <IMG src="../images/delete.png"  onclick="location.href='./delete.do?u_no=${usedcarVO.u_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='삭제'>
+       </c:when>
+       <c:when test ="${(usedcarVO.userid ne userid)}">
+       <A href="javascript: send_wish( ' ${usedcarVO.hprice}' ,' ${usedcarVO.nickname}' , ' ${usedcarVO.title}' ,' ${usedcarVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
           <IMG src='../images/favorite_love.png' alt="WishList"></A>
-      <A href="javascript: msg_list(' ${usedcarVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
-      </c:if>
+        <A href="javascript: msg_list(' ${usedcarVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
+       </c:when>
+       </c:choose>
       </div>
      </div>
    </div>

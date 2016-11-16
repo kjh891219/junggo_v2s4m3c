@@ -57,16 +57,16 @@
     <jsp:include page="/menu/community_left.jsp" flush='false' />
 
 <!-- ----------------------------------------- -->
-<div class="float_l right " style="width:80%; margin-top:80px;">
+<div class="float_l right " style="width:80%;">
  <div class="container" style="min-height:380px;"> 
      
-  <div class='content_menu' style='width: 90%;'>
+  <div class='content_menu' style='width: 90%; '>
     <A href='../reviews/list.do' class='top_select'>게시판 목록</A> > 
   </div>
   
    <DIV class='title'><span>글수정</span></DIV>
   <div><span class='need_e'>필수항목</span><span class='choice_e'>선택항목</span></div>
-  <DIV class='content' style='width: 90%;'>
+  <DIV class='content' style='width: 90%; margin-top:30px;'>
     <FORM name='frm' method='POST' action='./update.do'
                 enctype="multipart/form-data">
       <input type='hidden' name='r_no' id='r_no' value='${reviewsVO.r_no}'>
@@ -76,7 +76,7 @@
     <div class="">
      <label class="select need_e" for='category'>분류</label>
     <div>
-     <select name='t_category' id='t_category'>
+     <select name='t_category' id='t_category' class="full">
           <option value="${reviewsVO.t_category}" selected="selected">${reviewsVO.t_category}</option>
           <option value="중고차" >중고차</option>
           <option value="자동차 용품" >자동차 용품</option>
@@ -105,9 +105,9 @@
      <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
      <input type='text' name='title' id='title' required="required" value='${reviewsVO.title} ' class="col-xs-9 col-lg-9">
    </div>
-   <div class="row">
-     <label for='content' class='col-xs-2 col-lg-2 choice'>상세설명</label>
-     <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${reviewsVO.content}</textarea>
+   <div>
+     <label for='content' class='choice_e'>상세설명</label>
+     <textarea rows="30" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">${reviewsVO.content}</textarea>
    </div>
     <div class="row">
      <label for='product_code' class='col-xs-2 col-lg-2 need'>글 비밀번호</label>
@@ -120,7 +120,7 @@
    
       <!-- 첫번째 파일 수정 -->
    <div id='file1Panel' class="row">
-    <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일1</label>
+    <label for="content" class='col-xs-3 col-lg-3 need'>업로드 파일1</label>
         <c:set var='file1' value="${fn:toLowerCase(reviewsVO.file1)}" />
           <c:choose>
             <c:when test="${fn:endsWith(file1, '.jpg')}">
@@ -138,13 +138,13 @@
           </c:choose>
      </div>
      <div class="row">   
-       <label for="file1MF" class='col-xs-2 col-lg-2 need'>수정 파일1</label>
+       <label for="file1MF" class='col-xs-3 col-lg-3 need'>수정 파일1</label>
        <input type="file" class="form-control" name='file1MF' id='file1MF' size='40' >
      </div>
     
   <!-- 두번째 파일 수정 -->
    <div id='file2Panel' class="row">
-    <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일2</label>
+    <label for="content" class='col-xs-3 col-lg-3 need'>업로드 파일2</label>
        <c:set var='file2' value="${fn:toLowerCase(reviewsVO.file2)}" />
           <c:choose>
             <c:when test="${fn:endsWith(file2, '.jpg')}">
@@ -162,13 +162,13 @@
           </c:choose>
       </div>
       <div class="row">   
-       <label for="file2MF" class='col-xs-2 col-lg-2 need'>수정 파일1</label>
+       <label for="file2MF" class='col-xs-3 col-lg-3 need'>수정 파일1</label>
        <input type="file" class="form-control" name='file2MF' id='file2MF' size='40' >
       </div>
       
  <!-- 세번째 파일 수정 -->
    <div id='file3Panel' class="row">
-     <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일3</label>
+     <label for="content" class='col-xs-3 col-lg-3 need'>업로드 파일3</label>
      <c:set var='file3' value="${fn:toLowerCase(reviewsVO.file3)}" />
         <c:choose>
           <c:when test="${fn:endsWith(file3, '.jpg')}">
@@ -186,13 +186,13 @@
        </c:choose>
    </div>
    <div class="row">   
-      <label for="file3MF" class='col-xs-2 col-lg-2 need'>수정 파일3</label>
+      <label for="file3MF" class='col-xs-3 col-lg-3 need'>수정 파일3</label>
       <input type="file" class="form-control" name='file3MF' id='file3MF' size='40' >
    </div>
    
   <!-- 네번째 파일 수정 --> 
    <div id='file4Panel' class="row">
-     <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일4</label>
+     <label for="content" class='col-xs-4 col-lg-3 need'>업로드 파일4</label>
         <c:set var='file4' value="${fn:toLowerCase(reviewsVO.file4)}" />
           <c:choose>
             <c:when test="${fn:endsWith(file4, '.jpg')}">
@@ -210,13 +210,13 @@
           </c:choose>
        </div>
        <div class="row">   
-        <label for="file4MF" class='col-xs-2 col-lg-2 need'>수정 파일4</label>
+        <label for="file4MF" class='col-xs-3 col-lg-3 need'>수정 파일4</label>
         <input type="file" class="form-control" name='file4MF' id='file4MF' size='40' >
       </div>
       
   <!-- 다섯번째 파일 수정 -->    
     <div id='file5Panel' class="row">
-      <label for="content" class='col-xs-2 col-lg-2 need'>업로드 파일5</label>
+      <label for="content" class='col-xs-3 col-lg-3 need'>업로드 파일5</label>
          <c:set var='file5' value="${fn:toLowerCase(reviewsVO.file5)}" />
           <c:choose>
             <c:when test="${fn:endsWith(file5, '.jpg')}">
@@ -234,7 +234,7 @@
           </c:choose>
       </div>
        <div class="row">   
-        <label for="file5MF" class='col-xs-2 col-lg-2 need'>수정 파일5</label>
+        <label for="file5MF" class='col-xs-3 col-lg-3 need'>수정 파일5</label>
         <input type="file" class="form-control" name='file5MF' id='file5MF' size='40' >
       </div>
       
@@ -443,6 +443,7 @@
 
 </div>
 </div>
+<div class="both"></div>
      <jsp:include page="/menu/bottom.jsp" flush='false' />     
 
 </body>

@@ -121,7 +121,7 @@ public class MusicCont {
      // Thumb 파일 생성
      // -------------------------------------------------------------------
      if (Tool.isImage(file1)) {
-       thumb = Tool.preview(upDir, file1, 140, 180);
+       thumb = Tool.preview(upDir, file1, 120, 80);
      } else {
        thumb = "";
      }

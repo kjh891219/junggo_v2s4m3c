@@ -3,7 +3,7 @@
 String root = request.getContextPath();
 %>
 
-<div class='float_l left'  style="width:20%; height:100%; padding-top: 40px; background-color:#f5f5f5; ">
+<div class='float_l left'  style="width:20%; height:100%; padding-top: 40px; padding-bottom: 40px; background-color:#f5f5f5; ">
 	<div class="text_l" style="width:80%; margin:0 20%;">
       <img alt="" src="../images/community.png" style="position:relative; left:-20px;">
    <UL style="line-height:40px; margin-top:30px;">

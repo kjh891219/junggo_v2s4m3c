@@ -40,6 +40,15 @@
     });
   });
   
+  
+  $(document).ready(function() {
+    
+    if($(".left").height() < $(".right").height()){
+       $(".left").height($(".right").height());
+    }
+    
+  });
+  
 </script>
 
 <script>
@@ -51,7 +60,11 @@ window.openModal = function() {
 <body leftmargin="0" topmargin="0">
     <jsp:include page="/menu/top.jsp" flush='false' />
     <jsp:include page="/menu/left.jsp" flush='false' />
-    
+    <jsp:include page="/menu/community_left.jsp" flush='false' /> 
+
+
+<div class="float_l right " style="width:80%;">
+<div class="container" style="width:90%;min-height: 380px;">
 <DIV class='content_form'>
      <FORM name='frm' method='POST' action='./update.do'>
       <input type='hidden' name='noticeno' value='${noticeVO.noticeno}'>         
@@ -102,6 +115,11 @@ window.openModal = function() {
 </fieldset>
 </FORM>
 </DIV>
+</DIV>
+</DIV>
+<div class="both"></div>
+
+<jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
   
 

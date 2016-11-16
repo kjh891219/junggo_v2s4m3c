@@ -181,16 +181,23 @@
       </table>
       <BR><BR>
       <div class="icon" style="text-align: center;border-top:1px solid #d6d6c2; border-bottom:1px solid #d6d6c2;">
-       <c:if test="${(carproductVO.userid eq userid)}">
-         <IMG src="../images/modify.png" onclick="location.href='./update.do?p_no=${carproductVO.p_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='수정'>
+             <c:choose>
+       <c:when test="${(act eq 'M')}">
+       <IMG src="../images/modify.png" onclick="location.href='./update.do?p_no=${carproductVO.p_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='수정'>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          <IMG src="../images/delete.png"  onclick="location.href='./delete.do?p_no=${carproductVO.p_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='삭제'>
-       </c:if>
-       <c:if test ="${(carproductVO.userid ne userid)}">
-        <A href="javascript: send_wish( ' ${carproductVO.hprice}' ,' ${carproductVO.nickname}' , ' ${carproductVO.title}' ,' ${carproductVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
+       </c:when>
+       <c:when test="${(carproductVO.userid eq userid)}">
+       <IMG src="../images/modify.png" onclick="location.href='./update.do?p_no=${carproductVO.p_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='수정'>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <IMG src="../images/delete.png"  onclick="location.href='./delete.do?p_no=${carproductVO.p_no}&col=${searchDTO.col}&word=${searchDTO.word}'" title='삭제'>
+       </c:when>
+       <c:when test ="${(carproductVO.userid ne userid)}">
+       <A href="javascript: send_wish( ' ${carproductVO.hprice}' ,' ${carproductVO.nickname}' , ' ${carproductVO.title}' ,' ${carproductVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
           <IMG src='../images/favorite_love.png' alt="WishList"></A>
         <A href="javascript: msg_list(' ${carproductVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
-       </c:if>
+       </c:when>
+       </c:choose>
       </div>
      </div>
    </div>

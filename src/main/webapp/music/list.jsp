@@ -44,6 +44,7 @@ $(function(){
     <% if( session.getAttribute("userid") == null) { %>
     alert('로그인 한 사용자만 이용이 가능합니다');
     window.openModal();
+    <%session.setAttribute("url", "music/list.do");%>
     return false;
     <% } else { %>
     location.href='./create.do';
@@ -197,7 +198,9 @@ function update(codeno, sort, seqno){
     <TD class='td'>${vo.deal_way}</TD>
     <TD class='td'>${vo.hprice}</TD>
     <TD class='td'>
-    <A href="javascript: profile(' ${vo.userid}' ,' ${vo.nickname}') ;" class='list_tag' >${vo.nickname}</A> 
+    <A href="javascript: profile(' ${vo.userid}' ,' ${vo.nickname}') ;" class='list_tag' 
+    style="border-style: ridge; border-top:0px; border-left:0px; border-right:0px; border-color:#ccccb3; padding:1%;"
+    >${vo.nickname}</A> 
     </TD>
     <TD class='td'>${vo.product_code}</TD>
     <TD class='td'>${vo.cnt}</TD>

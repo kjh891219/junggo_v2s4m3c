@@ -20,6 +20,10 @@
 <script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 
 <script type="text/javascript">
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+
   $(function(){
     $('#file2').load(function(){ // 태그 메모리 상주후 작동
       // var width = $('#file2').width();
@@ -81,8 +85,8 @@
     <jsp:include page="/menu/community_left.jsp" flush='false' />
 
 <!-- ----------------------------------------- -->
-<div class="float_l right " style="width:80%; margin-top:80px;">
- <div class="container" style="min-height:380px;"> 
+<div class="float_l right " style="width:80%;">
+ <div class="container" style="min-height:380px; width:90%;"> 
   
   <DIV class='content_form'>
     <FORM name='frm' method="get" action='./update.do'>
@@ -264,8 +268,8 @@
           </li>
   --%>
  <div style="width:100%; text-align: center;">
-  <iframe style="width:70%; clear:both; text-align: center;" src="${pageContext.request.contextPath}/reviews_reply/list.do?r_no=${reviewsVO.r_no}" 
-     scrolling=no name=ce height=900 frameborder=0 style="border-width:0px; border-color:white; border-style:solid;">
+  <iframe style="width:100%; clear:both; text-align: center;" src="${pageContext.request.contextPath}/reviews_reply/list.do?r_no=${reviewsVO.r_no}" 
+    scrolling='no' name='ce' height='900' frameborder='0' style="border-width:0px; border-color:white; border-style:solid;">
   </iframe>
 </div>
  
@@ -277,6 +281,7 @@
 <!-- -------------------------------------------- -->
 </div>
 </div>
+<div class="both"></div>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 <!-- -------------------------------------------- -->

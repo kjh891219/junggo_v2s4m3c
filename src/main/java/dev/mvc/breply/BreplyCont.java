@@ -51,7 +51,7 @@ public class BreplyCont {
       
       response.setCharacterEncoding("UTF-8");
       response.setContentType("text/html; charset=UTF-8");
-      if (session.getAttribute("userid") == null){
+      /* if (session.getAttribute("userid") == null){
          PrintWriter writer = response.getWriter();
          writer.println
          ("<script>alert('로그인 한 사용자만 사용이 가능합니다.');" 
@@ -59,7 +59,7 @@ public class BreplyCont {
           + "</script>"); 
          //session.setAttribute("url", "/camera_reply/list.do?ctno="+camera_replyVO.getCtno());
          session.setAttribute("url", "book/read.do?bno="+breplyVO.getBno());
-       }
+       }*/
       
       breplyDAO.create(breplyVO);
       

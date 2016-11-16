@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="web.tool.*" %>
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -16,18 +17,18 @@
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
 <script>
-     function create_login() {
-       <% if( session.getAttribute("userid") == null) { %>
-       alert('로그인 한 사용자만 사용이 가능합니다.');
-       window.parent.openModal();
-       <%String bno = request.getParameter("bno");%>
-       <%session.setAttribute("url", "book/read.do?bno="+bno);%>
-       return false;
-       <% } else { %>
-       return true;
-       <% } %>
-       
-     }
+function create_login() {
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 사용이 가능합니다.');
+  window.parent.openModal();
+  <%String bno = request.getParameter("bno");%>
+  <%session.setAttribute("url", "book/read.do?bno="+bno);%>
+  return false;
+  <% } else { %>
+  return true;
+  <% } %>
+  
+}
 
       </script>
 

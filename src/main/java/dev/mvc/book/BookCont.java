@@ -128,6 +128,7 @@ public class BookCont {
     
  
     String userid = session.getAttribute("userid").toString();
+    String nickname = session.getAttribute("nickname").toString();
     String pwd = session.getAttribute("pwd").toString();
     String tel = session.getAttribute("tel").toString();
     String email = session.getAttribute("email").toString();
@@ -136,6 +137,7 @@ public class BookCont {
     mav.addObject("pwd", pwd);
     mav.addObject("tel", tel);
     mav.addObject("email", email);
+    mav.addObject("nickname", nickname);
     
     return mav;
   }
@@ -267,9 +269,7 @@ public class BookCont {
     BookVO bookVO = bookDAO.read(bno);
     bookDAO.increaseCnt(bookVO.getBno());
 
-    String content = bookVO.getContent();
-    content = Tool.convertChar(content);
-    bookVO.setContent(content);
+   
     
     mav.addObject("searchDTO",searchDTO);
     

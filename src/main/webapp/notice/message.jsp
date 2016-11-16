@@ -23,11 +23,11 @@ $(function(){
 });
 </script>
 <style>
-  button{
-    background-color: transparent;
-    border:1px solid lightgray;
-    
-  }
+   button{
+      background-color: transparent;
+      border:1px solid lightgray;
+      
+   }
 </style>
 </head> 
 <!-- ----------------------------------------- -->

@@ -19,6 +19,15 @@ $(function(){
   $('#panel_frm').hide();
 });
 function create(rno){
+  
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 사용이 가능합니다.');
+  window.parent.openModal();
+  <%String ctno = request.getParameter("ctno");%>
+  <%session.setAttribute("url", "cheat/read.do?ctno="+ctno);%>
+  return false;
+  <% } else { %>
+  
   var e = window.event, btn = e.target || e.srcElement; 
   alert("댓글을 달 글 번호: "+rno);
   var tag = 
@@ -35,7 +44,9 @@ function create(rno){
    "</div>"+
    "</FORM>"+
    "</DIV>"; 
-  $('#comment'+rno).html(tag);  
+  $('#comment'+rno).html(tag);
+  return true;
+  <% } %>
  }  
  
 function create_cancel(frm){
@@ -60,7 +71,7 @@ function delete_form(rno){
 
 </head> 
 <!-- ----------------------------------------- -->
-<body leftmargin="0" topmargin="0">
+<body style="width:100%">
 <%-- <jsp:include page="/menu/top.jsp" flush='false' /> --%>
 <!-- ----------------------------------------- -->
 <!-- <DIV id='panel_frm' class='content' style='padding: 10px 0px 10px 0px; width: 100%; text-align: center;'>
@@ -108,10 +119,11 @@ function delete_form(rno){
                
                
                
-              <hr>
               <DIV id="comment${vo.rno }">
               <!-- 여기에 Tag를 넣어줍니다 -->
               </DIV> 
+              <div class="both"></div>
+              <hr>
             </td>
           </tr>
         </c:forEach>

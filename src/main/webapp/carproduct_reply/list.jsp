@@ -27,6 +27,8 @@ function create_login () {
   <% if( session.getAttribute("userid") == null) { %>
   alert('로그인 한 사용자만 사용이 가능합니다.22222');
   window.parent.openModal();
+  <%String p_no = request.getParameter("p_no");%>
+  <%session.setAttribute("url", "carproduct/read.do?p_no="+p_no);%>
   return false;
   <% } else { %>
   return true;

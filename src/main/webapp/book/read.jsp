@@ -10,15 +10,16 @@
 <title></title> 
 
 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<link href="${pageContext.request.contextPath}/css/style.css?ver=2" rel="Stylesheet" type="text/css">
-<script type="text/javascript" src="../js/tool.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/event.js?ver=2"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<link href="${pageContext.request.contextPath}/css/style.css?ver=1" rel="Stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/event.js?ver=1"></script>
 <script type="text/javascript">
 
    $(document).ready(function() {
@@ -53,6 +54,60 @@ $(function(){
  
 </script>
 
+<script>
+
+window.openModal = function() {
+  $( '#myModal' ).modal( 'show' );
+  }
+  
+function send_wish(hprice, nickname, title, thumb){
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 이용이 가능합니다');
+  window.openModal();
+  return false;
+  <% } else { %>
+   var url = document.location.href;
+   location.href = '../favorite/create.do?nickname='+nickname+'&title='+title+'&hprice='+hprice+'&url='+url+'&thumb='+thumb; 
+  return true;
+  <% } %> 
+
+}
+
+
+function profile(userid, nickname){
+  var url = '../member/profile.do?nickname='+nickname;
+  var encodedInputString=escape(url);
+  var win = window.open(url, '프로필', 'width=617.5px, height=600px');
+  
+  var x = (screen.width - 500) / 2;
+  var y = (screen.height - 440) / 2;
+  
+  win.moveTo(x, y); // 화면 가운데로 이동
+}
+
+function msg_list(userid){
+  <% if( session.getAttribute("userid") == null) { %>
+  alert('로그인 한 사용자만 이용이 가능합니다');
+  window.openModal();
+  return false;
+  <% } else { %>
+  
+  $("#detail").css("display","block");
+  var url = '../message/create.do?userid='+userid;
+  var encodedInputString=escape(url);
+  var win = window.open(url, '프로필', 'width=750px, height=800px');
+  
+  var x = (screen.width - 500) / 2;
+  var y = (screen.height - 440) / 2;
+  
+  win.moveTo(x, y); // 화면 가운데로 이동
+  return true;
+  <% } %> 
+ }
+  
+  
+</script>
+
 <style type="text/css">
    .gallery{
       width:80px; 
@@ -80,14 +135,14 @@ $(function(){
    <div class="container"> 
 
 <DIV class='content_form'>
-  <div class='content_menu' style='width: 100%; min-width: 400px;'>
+ <%--  <div class='content_menu' style='width: 100%; min-width: 400px;'>
     <A href='../book/list.do'>게시판 목록</A> >
     <A >${bookVO.title }</A>｜
     <A href='./create.do?bno=${bookVO.bno}'>등록</A>｜
     <A href='./update.do?bno=${bookVO.bno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>수정</A>｜
     <A href='./delete.do?bno=${bookVO.bno}&col=${searchDTO.col}&word=${searchDTO.word}&nowPage=${searchDTO.nowPage}' class='top_select'>삭제</A>｜
     <A href="javascript:location.reload();">새로고침</A>
-  </div>
+  </div> --%>
 
     <FORM name='frm' method='POST' action='./update.do'>
       <input type='hidden' name='bno' value='${bookVO.bno}'>         
@@ -303,7 +358,9 @@ $(function(){
              <col style='width: 70%;'/>
             <tr>
                <td style="border:none;">판매자</td>
-               <td style="border:none;">${bookVO.nickname}</td>
+               <td style="border:none;">
+               <A href="javascript: profile(' ${bookVO.userid}' ,' ${bookVO.nickname}') ;" class='list_tag'  title='프로필'>${bookVO.nickname}</A>
+               </td>
             </tr>
             <tr>
                <td>이메일</td>
@@ -315,6 +372,13 @@ $(function(){
             </tr>
          </table>
          </div>
+         <div style="text-align: center;">
+         <c:if test ="${(bookVO.userid ne userid)}">
+        <A href="javascript: send_wish( ' ${bookVO.hprice}' ,' ${bookVO.nickname}' , ' ${bookVO.title}' ,' ${bookVO.thumb }' )  ;" class='top_select'  title='위시리스트'>
+          <IMG src='../images/favorite_love.png' alt="WishList"></A>
+        <A href="javascript: msg_list(' ${bookVO.userid}');" style="margin-left:50px" title='쪽지보내기'><IMG src='../images/Mail.png' alt="msgsend"></A>
+       </c:if>
+       </div>
          </div>
          <div class="both"></div>
       </li>
@@ -334,8 +398,10 @@ $(function(){
     </li>
      <li class='text_r'>
       <button type="button" onclick="location.href='./list.do?bno=${bookVO.bno}&col=${searchDTO.col}&word=${searchDTO.word}'">목록보기</button>
+      <c:if test ="${(bookVO.userid eq userid)}">  
       <button type="button" onclick="location.href='./update.do?bno=${bookVO.bno}&col=${searchDTO.col}&word=${searchDTO.word}'">수정</button>
       <button type="button" onclick="location.href='./delete.do?bno=${bookVO.bno}'">삭제</button>
+      </c:if>
      </li>
                
     </ul>

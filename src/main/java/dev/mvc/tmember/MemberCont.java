@@ -170,7 +170,6 @@ public class MemberCont {
       msgs.add("회원가입이 처리 되었습니다.");
       msgs.add("가입해주셔서 감사합니다.");
       msgs.add("이메일 인증 시 로그인이 가능합니다.");
-      links.add("<button type='button' onclick=\"location.href='../login.do'\">로그인</button>");
       links.add("<button type='button' onclick=\"location.href='../index.jsp'\">홈페이지</button>");
     } else {
       msgs.add("회원 가입에 실패했습니다.");

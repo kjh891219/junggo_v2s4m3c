@@ -44,6 +44,7 @@ function create_login() {
   <% if( session.getAttribute("userid") == null) { %>
   alert('로그인 한 사용자만 이용이 가능합니다');
   window.openModal();
+  <%session.setAttribute("url", "usedcar/list.do");%>
   return false;
   <% } else { %>
   location.href='./create.do';
@@ -219,7 +220,9 @@ function update(codeno, sort, seqno){
             <li class="color_type">
             <strong class="nickname">닉네임 :</strong> 
             <span class= "nickname"> 
-            <A href="javascript: profile(' ${vo.userid}' ,' ${vo.nickname}') ;" class='list_tag' title='프로필보기'>${vo.nickname}</A>
+            <A href="javascript: profile(' ${vo.userid}' ,' ${vo.nickname}') ;" class='list_tag' title='프로필보기'
+            style="border-style: ridge; border-top:0px; border-left:0px; border-right:0px; border-color:#ccccb3; padding:1%;"
+            >${vo.nickname}</A>
             </span>
            </li>
            

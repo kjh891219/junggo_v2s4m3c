@@ -15,13 +15,20 @@
           src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../js/tool.js"></script>
-<link href="/game/css/style.css" rel="Stylesheet" type="text/css">
-<script src="/game/js/event.js"></script>
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<script src="../js/event.js"></script>
 <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
 <script type="text/JavaScript">
   window.onload=function(){
     CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
   };
+  $(document).ready(function() {
+     
+     if($(".left").height() < $(".right").height()){
+        $(".left").height($(".right").height());
+     }
+     
+   });
 </script>
  
 
@@ -30,8 +37,10 @@
 <body leftmargin="0" topmargin="0">
    <jsp:include page="/menu/top.jsp" flush='false' />
    <jsp:include page="/menu/left.jsp" flush='false' />
+   <jsp:include page="/menu/community_left.jsp" flush='false' />
 <!-- ----------------------------------------- -->
-<DIV class=container>
+<div class="float_l right " style="width:80%;">
+ <div class="container" style="width:90%; min-height:380px;"> 
 <DIV class='title'>상품등록</DIV>
  
 <FORM name='frm' method='POST' action='./create.do' class=''  enctype="multipart/form-data">
@@ -43,13 +52,13 @@
         <label for='title' class='col-xs-2 col-lg-2 need'>제목</label>
         <input type='text' name='title' id='title' required="required" value='가을이 없어요' class="col-xs-9 col-lg-9">
       </div>
-      <div class="row">
-        <label for='content' class='col-xs-2 col-lg-2 choice'>내용</label>
-        <textarea rows="10" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">sqld책 싸게 팔아요</textarea>
+      <div>
+        <label for='content' class='choice_e'>내용</label>
+        <textarea rows="29" name="content" id="content" placeholder="내용을 입력하세요"  class="col-xs-9 col-lg-9">sqld책 싸게 팔아요</textarea>
       </div>
       <hr/>
-        <div class="row need">   
-        <label for='file2MF' class='col-xs-2 col-lg-2'>업로드 파일</label>
+        <div class="row ">   
+        <label for='file2MF' class='col-xs-2 col-lg-2 need'>업로드 파일</label>
         <input type="file" name='file2MF' id='file2MF' size='40'>
       </div>
    
@@ -65,13 +74,15 @@
       <hr/>
        <div class='text_r' >
         <button type="submit" class="btn btn-success btn-lg">등록</button>
-        <button type="button" onclick="location.href='./list.jsp'" class="btn btn-danger btn-lg">취소</button>
+        <button type="button" onclick="location.href='./list.do'" class="btn btn-danger btn-lg">취소</button>
       </div>
       </div>
       </DIV>
                
 </FORM>
 </DIV>
+</DIV>
+<div class="both"></div>
 <!-- -------------------------------------------- -->
  <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
